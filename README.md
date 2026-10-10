@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rediseños de despachos (portafolio)
 
-## Getting Started
+Directorio de 65 propuestas de home para despachos de abogados en México (y algunos otros giros), pasadas a código desde los diseños de Pencil (`../redisenos-despachos.pen`). Cada sitio usa su logo, colores e información reales.
 
-First, run the development server:
+## Correr el proyecto
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre http://localhost:3000. En desarrollo el directorio queda abierto.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Privacidad
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- El directorio (`/`) y sus miniaturas son solo para el equipo: están protegidos con HTTP Basic Auth (`src/proxy.ts`). Configura `PORTFOLIO_USER` y `PORTFOLIO_PASSWORD` en el servidor; si faltan, en producción el directorio responde 404.
+- Cada propuesta se comparte por enlace directo (`https://<dominio>/NN-slug`). Las páginas no enlazan entre sí ni al directorio, y el título de la pestaña es solo el nombre del despacho.
+- Todo el sitio lleva `noindex, nofollow` y `robots.txt` bloquea a los buscadores.
 
-## Learn More
+## Despliegue (Dokploy u otro host con Docker)
 
-To learn more about Next.js, take a look at the following resources:
+El repositorio incluye un `Dockerfile` (Next.js `output: "standalone"`, Node 22, puerto 3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. En Dokploy crea una aplicación desde este repositorio de GitHub, rama `main`, tipo de build **Dockerfile**.
+2. Variables de entorno: `PORTFOLIO_USER` y `PORTFOLIO_PASSWORD`.
+3. Puerto del contenedor: `3000`. Asigna el dominio y despliega.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Sin Docker: `npm ci && npm run build` y luego `node .next/standalone/server.js` (copiando antes `public/` y `.next/static/` dentro de `.next/standalone/`).
 
-## Deploy on Vercel
+## Estructura
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `src/app/page.tsx` + `src/app/directory.tsx`: el directorio (búsqueda y filtros).
+- `src/app/(sitios)/NN-slug/page.tsx`: una ruta por despacho (`/01-floreslozano`, `/02-monarcabogados`, ...). Cada página carga sus propias fuentes con `next/font/google`.
+- `src/components/motion/`: primitivos de animación compartidos (Motion + CSS):
+  - `HeroIntro` / `HeroItem`: entrada escalonada del primer pantallazo.
+  - `Reveal`, `Stagger` / `StaggerItem`: aparición al hacer scroll (una sola vez).
+  - `MediaReveal`: barrido con clip-path para fotos; `Parallax`: deriva sutil de imágenes de fondo.
+  - `CountUp`: cifras reales que cuentan al entrar en pantalla (los años no cuentan).
+  - `Marquee`, `Accordion`, `SiteNav` (header con estado al hacer scroll y menú móvil accesible).
+  - Clases en `globals.css`: `press` (feedback al presionar), `link-u` (subrayado), `nudge` (flecha), `img-zoom`.
+  - Todo respeta `prefers-reduced-motion` y los hovers solo aplican con puntero fino.
+- `src/components/demo-form.tsx`: los formularios no envían nada; muestran un aviso de demostración.
+- `src/data/sites.ts`: lista de sitios del directorio.
+- `public/sitios/NN-slug/`: logos (SVG extraídos del diseño o PNG originales) e imágenes de cada despacho.
+- `public/thumbs/`: miniaturas del directorio.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notas
+
+- Los textos, nombres, cifras y datos de contacto vienen de los sitios de cada despacho; ver `../NN-slug/brand.md` y `../INDEX.md` para fuentes y datos a confirmar.
+- Tres sitios (14, 27, 52) no tienen rediseño porque no existe contenido verificable en línea; aparecen en el directorio como "Sitio no disponible".
+- Algunas fotos de ambiente se cargan desde Unsplash (sitios 16, 24 y 66).

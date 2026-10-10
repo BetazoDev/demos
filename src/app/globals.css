@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Motion tokens (Emil Kowalski curves) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --ease-out-strong: var(--ease-out);
+  --ease-in-out-strong: var(--ease-in-out);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #ffffff;
+    color: #171717;
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Press feedback for any pressable element */
+  .press {
+    transition:
+      transform 160ms var(--ease-out),
+      background-color 200ms ease,
+      color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease,
+      opacity 200ms ease;
+  }
+  .press:active {
+    transform: scale(0.97);
+  }
+
+  /* Underline that draws in from the left on hover */
+  .link-u {
+    position: relative;
+  }
+  .link-u::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 250ms var(--ease-out);
+  }
+
+  /* Image that zooms gently inside its frame on hover */
+  .img-zoom {
+    overflow: hidden;
+  }
+  .img-zoom img {
+    transition: transform 700ms var(--ease-out);
+  }
+
+  /* Arrow / icon that nudges on hover of its parent */
+  .nudge svg {
+    transition: transform 220ms var(--ease-out);
+  }
+
+  /* Infinite marquee track (one per page max) */
+  .marquee-track {
+    animation: marquee var(--marquee-duration, 40s) linear infinite;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .link-u:hover::after {
+      transform: scaleX(1);
+      transform-origin: left center;
+    }
+    .img-zoom:hover img {
+      transform: scale(1.04);
+    }
+    .nudge:hover svg {
+      transform: translateX(3px);
+    }
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .img-zoom img,
+  .nudge svg,
+  .link-u::after {
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
 }
