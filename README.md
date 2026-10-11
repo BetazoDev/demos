@@ -42,6 +42,7 @@ Sin Docker: `npm ci && npm run build` y luego `node .next/standalone/server.js` 
   - `Marquee`, `Accordion`, `SiteNav` (header con estado al hacer scroll y menú móvil accesible).
   - Clases en `globals.css`: `press` (feedback al presionar), `link-u` (subrayado), `nudge` (flecha), `img-zoom`.
   - Todo respeta `prefers-reduced-motion` y los hovers solo aplican con puntero fino.
+- `src/app/(sitios)/layout.tsx` + `src/components/demo-badge.tsx`: botón flotante «Sitio demo · Hablemos» en todas las propuestas. Abre un modal (`<dialog>` nativo: hoja inferior en celular, tarjeta en escritorio) que explica que es una demo de Hemeron, ofrece la auditoría gratuita y lleva al WhatsApp de Hemeron (con el nombre y la URL de la propuesta en el mensaje) o a hemeron.com. Toma el nombre de `document.title` y el idioma del `lang` de `#top`, así el bundle no lista a los demás despachos. Se oculta al llegar al pie.
 - `src/components/hemeron-credit.tsx`: leyenda «Desarrollado por hemeron.com» junto al © 2026 del pie de cada propuesta.
 - `src/components/demo-form.tsx`: los formularios no envían nada; muestran un aviso de demostración.
 - `src/data/sites.ts`: lista de sitios del directorio.

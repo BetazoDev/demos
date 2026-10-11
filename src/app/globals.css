@@ -109,6 +109,37 @@
   }
 }
 
+/* Modal de propuesta (components/demo-badge.tsx): hoja inferior en celular, tarjeta centrada desde sm. */
+.demo-dialog {
+  width: 100%;
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  margin: auto auto 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+.demo-dialog::backdrop { background: rgb(10 10 10 / 0.5); backdrop-filter: blur(3px); }
+.demo-dialog[open] { animation: demo-sheet-in 460ms var(--ease-drawer); }
+.demo-dialog[open]::backdrop { animation: demo-fade-in 300ms var(--ease-out); }
+.demo-dialog[data-closing] { animation: demo-sheet-out 240ms var(--ease-out) forwards; }
+.demo-dialog[data-closing]::backdrop { animation: demo-fade-out 240ms var(--ease-out) forwards; }
+@media (min-width: 640px) {
+  .demo-dialog { width: min(460px, calc(100% - 48px)); margin: auto; transform-origin: 30% 100%; }
+  .demo-dialog[open] { animation: demo-pop-in 280ms var(--ease-out); }
+  .demo-dialog[data-closing] { animation: demo-pop-out 170ms var(--ease-out) forwards; }
+}
+html:has(.demo-dialog[open]) { overflow: hidden; }
+@keyframes demo-sheet-in { from { transform: translateY(100%); } }
+@keyframes demo-sheet-out { to { transform: translateY(100%); } }
+@keyframes demo-pop-in { from { opacity: 0; transform: translateY(8px) scale(0.96); } }
+@keyframes demo-pop-out { to { opacity: 0; transform: scale(0.97); } }
+@keyframes demo-fade-in { from { opacity: 0; } }
+@keyframes demo-fade-out { to { opacity: 0; } }
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -121,4 +152,9 @@
   .marquee-track {
     animation: none;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-dialog[open], .demo-dialog[open]::backdrop { animation: demo-fade-in 160ms ease-out; }
+  .demo-dialog[data-closing], .demo-dialog[data-closing]::backdrop { animation: demo-fade-out 120ms ease-out forwards; }
 }

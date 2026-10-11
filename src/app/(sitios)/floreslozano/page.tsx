@@ -58,6 +58,7 @@ export default function FloresLozanoPage() {
   return (
     <div
       id="top"
+      lang="en"
       className={`${display.variable} ${body.variable} ${wordmark.variable} bg-white font-[family-name:var(--fl-body)] text-[#171E4C] selection:bg-[#171E4C] selection:text-white`}
     >
       <SiteNav
