@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Archivo, Gloock } from "next/font/google";
@@ -385,7 +386,7 @@ export default function DmiAbogadosPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/15 pt-6 text-sm text-white/65 sm:flex-row sm:justify-between">
-            <p>DMI Abogados Consultores, S.C. 2025</p>
+            <p>© 2026 DMI Abogados Consultores, S.C.{" "}<HemeronCredit /></p>
             <p>Aviso de Privacidad</p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Ibarra_Real_Nova, Lato } from "next/font/google";
@@ -455,7 +456,7 @@ export default function RoelAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/15 pt-6 text-sm text-[#AEB9CA] lg:flex-row lg:justify-between">
-            <p>Roel Abogados, desde 1925 · Aviso de privacidad</p>
+            <p>© 2026 Roel Abogados, desde 1925 · Aviso de privacidad{" · "}<HemeronCredit /></p>
             <p>
               Intranet · Audiencias · English · Tel.{" "}
               <a href={`tel:${PHONES[0][1]}`} className="link-u">{PHONES[0][0]}</a>

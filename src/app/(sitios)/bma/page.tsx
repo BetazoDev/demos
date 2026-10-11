@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Prata, Rethink_Sans } from "next/font/google";
@@ -438,7 +439,7 @@ export default function BmaPage() {
             </div>
           </div>
           <div className="mt-16 flex flex-col gap-3 border-t border-white/15 pt-6 text-sm text-[#A3A6AA] sm:flex-row sm:justify-between">
-            <p>© Barra Mexicana, Colegio de Abogados, A.C.</p>
+            <p>© 2026 Barra Mexicana, Colegio de Abogados, A.C.{" "}<HemeronCredit /></p>
             <p>Aviso de privacidad</p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Onest, Sora } from "next/font/google";
@@ -399,7 +400,7 @@ export default function L4EPage() {
               </div>
             </div>
           </div>
-          <p className="border-t border-white/12 pt-6 text-[13px] leading-5 text-white/50">© 2026 Legal for Everyone (L4E). Despacho de abogados en la Ciudad de México.</p>
+          <p className="border-t border-white/12 pt-6 text-[13px] leading-5 text-white/50">© 2026 Legal for Everyone (L4E). Despacho de abogados en la Ciudad de México.{" "}<HemeronCredit /></p>
         </div>
       </footer>
     </div>

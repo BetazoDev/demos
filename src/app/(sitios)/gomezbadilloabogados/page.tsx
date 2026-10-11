@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Kumbh_Sans, Libre_Bodoni } from "next/font/google";
@@ -335,7 +336,7 @@ export default function GomezBadilloPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/15 pt-6 text-[13px] text-[#AFB7CB] sm:flex-row sm:justify-between">
-            <p>© 2026 Gómez/Badillo Abogados</p>
+            <p>© 2026 Gómez/Badillo Abogados{" · "}<HemeronCredit /></p>
             <div className="flex gap-6">
               <span>Términos y condiciones</span>
               <span>Aviso de privacidad</span>

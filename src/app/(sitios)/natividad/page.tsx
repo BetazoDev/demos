@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Figtree, Josefin_Sans } from "next/font/google";
@@ -493,7 +494,7 @@ export default function NatividadPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/[0.12] pt-6 text-[15px] md:flex-row md:items-center md:justify-between">
-            <p className="text-[#9E9E9E]">© Natividad Abogados S. C.</p>
+            <p className="text-[#9E9E9E]">© 2026 Natividad Abogados S. C.{" "}<HemeronCredit /></p>
             <p className="text-[#E3E3E3]">Aviso de privacidad</p>
           </div>
         </div>

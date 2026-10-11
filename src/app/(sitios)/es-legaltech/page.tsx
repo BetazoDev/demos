@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -427,7 +428,7 @@ export default function ESLegaltechPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/15 pt-6 text-[13px] leading-5 text-white/60 md:flex-row md:justify-between">
-            <p>Copyright © 2026 GEDB Legaltech SC® Firm</p>
+            <p>Copyright © 2026 GEDB Legaltech SC® Firm{" · "}<HemeronCredit /></p>
             <ul className="flex gap-6">
               <li>
                 <a href={`${SITE}/AvisoPrivacidad`} className="link-u">

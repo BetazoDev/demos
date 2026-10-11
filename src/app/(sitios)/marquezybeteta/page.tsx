@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Fira_Sans, Rufina } from "next/font/google";
@@ -245,7 +246,7 @@ export default function MarquezBetetaPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-[#E3E7EE] pt-6 text-sm text-[#5A6478] lg:flex-row lg:justify-between">
-            <p>Marquez y Beteta Abogados, S.C.</p>
+            <p>© 2026 Marquez y Beteta Abogados, S.C.{" "}<HemeronCredit /></p>
             <p>
               Córdoba 42, despacho 209, Roma Norte, Ciudad de México · <a href={`mailto:${EMAIL}`} className="link-u">{EMAIL}</a>
             </p>

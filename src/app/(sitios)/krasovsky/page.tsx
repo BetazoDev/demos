@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Bodoni_Moda, Schibsted_Grotesk } from "next/font/google";
@@ -479,7 +480,7 @@ export default function KrasovskyPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/15 pt-6 text-sm text-[#AEB6BB] md:flex-row md:justify-between">
-            <p>Krasovsky Abogados 2024. México.</p>
+            <p>© 2026 Krasovsky Abogados. México.{" "}<HemeronCredit /></p>
             <p>
               <span aria-current="page">Español</span>
               <span aria-hidden="true"> · </span>

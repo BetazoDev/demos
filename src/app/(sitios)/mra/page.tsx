@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -336,7 +337,7 @@ export default function MejiaRamosPage() {
           </div>
           <div className="flex flex-col gap-3 border-t border-white/15 pt-6 text-sm text-[#BDBDBD] lg:flex-row lg:justify-between">
             <p>Cozumel No. 32, Col. Roma, Cuauhtémoc, C.P. 06700, Ciudad de México · 55 5256 2938</p>
-            <p>© 2013 Mejía Ramos Abogados, S.C.</p>
+            <p>© 2026 Mejía Ramos Abogados, S.C.{" "}<HemeronCredit /></p>
           </div>
         </div>
       </footer>

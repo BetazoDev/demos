@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Castoro, Libre_Franklin } from "next/font/google";
@@ -383,7 +384,7 @@ export default function JuanSalasCoquetPage() {
             </nav>
           </div>
           <div className="mt-9 flex flex-col gap-3 border-t border-[#FFFFFF24] pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[#C2B0A3]">© 2021 Juan Salas Coquet Abogados</p>
+            <p className="text-[#C2B0A3]">© 2026 Juan Salas Coquet Abogados{" · "}<HemeronCredit /></p>
             <a href={`${SITE}/aviso-de-privacidad/`} className="link-u w-fit font-semibold text-[#F1ECE7]">
               Aviso de Privacidad
             </a>

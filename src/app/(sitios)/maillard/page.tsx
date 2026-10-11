@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Literata, Schibsted_Grotesk } from "next/font/google";
@@ -377,7 +378,7 @@ export default function MaillardPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/12 pt-6 text-sm leading-[1.2] text-[#A9B5C0] sm:flex-row sm:justify-between">
-            <p>© Maillard Abogados Laborales. Todos los derechos reservados.</p>
+            <p>© 2026 Maillard Abogados Laborales. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <p>Aviso de Privacidad</p>
           </div>
         </div>

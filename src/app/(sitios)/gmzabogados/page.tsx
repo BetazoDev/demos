@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Work_Sans, Zilla_Slab } from "next/font/google";
@@ -366,7 +367,7 @@ export default function GomezMendietaPage() {
             </a>
           </div>
           <div className="flex flex-col gap-3 border-t border-black/[0.12] pt-6 text-[15px] leading-[1.2] text-[#5E5E5E] md:flex-row md:items-center md:justify-between">
-            <p>Copyright © 2026 Gómez Mendieta Abogados, S.C. Todos los derechos reservados.</p>
+            <p>Copyright © 2026 Gómez Mendieta Abogados, S.C. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <p>Calle Goethe 99, Miguel Hidalgo, Ciudad de México</p>
           </div>
         </div>

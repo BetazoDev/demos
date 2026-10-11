@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Bodoni_Moda, Karla } from "next/font/google";
@@ -356,7 +357,7 @@ export default function HerediaSanchezPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#14111426] pt-6 text-[13px] sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[#5A535A]">© Heredia Sánchez, Abogados Penalistas</p>
+            <p className="text-[#5A535A]">© 2026 Heredia Sánchez, Abogados Penalistas{" · "}<HemeronCredit /></p>
             <div className="flex gap-7 text-[#6D2D6D]">
               <a href={AVISO} className="link-u">
                 Aviso de privacidad

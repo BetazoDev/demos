@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Epilogue, Libre_Baskerville } from "next/font/google";
@@ -405,7 +406,7 @@ export default function PdeaPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#343E47]/15 pt-6 text-[13px] text-[#343E47]/70 sm:flex-row sm:justify-between">
-            <p>PDeA Abogados</p>
+            <p>© 2026 PDeA Abogados{" · "}<HemeronCredit /></p>
             <div className="flex gap-7">
               <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="link-u">
                 LinkedIn

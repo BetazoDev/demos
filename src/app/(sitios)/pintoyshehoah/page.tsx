@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Gilda_Display, Source_Sans_3 } from "next/font/google";
@@ -368,7 +369,7 @@ export default function PintoShehoahPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/[0.18] pt-6 text-sm text-white/65 sm:flex-row sm:justify-between">
-            <p>© Pinto &amp; Shehoah Abogados. Todos los derechos reservados.</p>
+            <p>© 2026 Pinto &amp; Shehoah Abogados. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <p>Aviso de Privacidad</p>
           </div>
         </div>

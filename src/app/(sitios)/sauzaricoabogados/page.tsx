@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Albert_Sans, EB_Garamond } from "next/font/google";
@@ -472,7 +473,7 @@ export default function SauzaRicoPage() {
             </ul>
           </div>
           <div className="flex flex-col gap-2 text-[13px] text-[#8FA0C8] sm:flex-row sm:justify-between">
-            <p>Copyright © Sauza &amp; Rico Abogados, S.C.</p>
+            <p>Copyright © 2026 Sauza &amp; Rico Abogados, S.C.{" "}<HemeronCredit /></p>
             <a href={SITE} className="link-u w-fit">Avisos de privacidad</a>
           </div>
           <Image src={`${IMG}/wordmark-royal.png`} alt="" width={2400} height={242} sizes="(min-width: 1280px) 1200px, 100vw" className="h-auto w-full" />

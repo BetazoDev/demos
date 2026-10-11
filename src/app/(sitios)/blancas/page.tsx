@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Cinzel, Nunito_Sans } from "next/font/google";
@@ -243,7 +244,7 @@ export default function BlancasPage() {
             </nav>
           </div>
           <div className="flex justify-between gap-6 border-t border-[#DDE3DE] pt-6 text-sm">
-            <p className="text-[#5E6862]">© 2026 Blancas Abogados</p>
+            <p className="text-[#5E6862]">© 2026 Blancas Abogados{" · "}<HemeronCredit /></p>
             <a href="#top" className="link-u text-[#1A5633]">
               Volver arriba
             </a>

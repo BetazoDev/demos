@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Be_Vietnam_Pro, Sorts_Mill_Goudy } from "next/font/google";
@@ -455,7 +456,7 @@ export default function GphAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/[0.12] pt-6 text-[13px] text-white/60 md:flex-row md:justify-between">
-            <p>© GPH Abogados, S.C. Todos los derechos reservados.</p>
+            <p>© 2026 GPH Abogados, S.C. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <p>Darwin 68, col. Anzures, Miguel Hidalgo, C.P. 11590, Ciudad de México</p>
           </div>
         </div>

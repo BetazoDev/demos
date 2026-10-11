@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Golos_Text, Lexend } from "next/font/google";
@@ -319,7 +320,7 @@ export default function LopezLunaPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#FFFFFF1F] pt-6 text-sm sm:flex-row sm:justify-between">
-            <p>López Luna ©</p>
+            <p>López Luna © 2026{" · "}<HemeronCredit /></p>
             <div className="flex gap-7">
               <p>Aviso de privacidad</p>
               <p>Política de uso</p>

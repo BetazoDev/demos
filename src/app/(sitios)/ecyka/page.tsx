@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Funnel_Display, Host_Grotesk } from "next/font/google";
@@ -359,7 +360,7 @@ export default function EcykaPage() {
             </a>
           </div>
           <div className="flex flex-col gap-2 border-t border-[#0C3836]/[0.12] pt-[22px] text-sm text-[#556463] md:flex-row md:justify-between">
-            <p>© 2023 Elías Calles y Karam, S.C.</p>
+            <p>© 2026 Elías Calles y Karam, S.C.{" "}<HemeronCredit /></p>
             <p>Campos Elíseos 169 - 301 A, Polanco, Ciudad de México</p>
           </div>
         </div>

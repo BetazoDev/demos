@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -416,7 +417,7 @@ export default function RVAAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#C5C3C3] pt-6 text-sm leading-[21px] text-[#6B6A6A] md:flex-row md:justify-between">
-            <p>© RVA Abogados. Río Duero 31, Col. Cuauhtémoc, Ciudad de México.</p>
+            <p>© 2026 RVA Abogados. Río Duero 31, Col. Cuauhtémoc, Ciudad de México.{" "}<HemeronCredit /></p>
             <a href={`${SITE}/aviso-de-privacidad`} className="link-u w-fit">
               Aviso de Privacidad
             </a>

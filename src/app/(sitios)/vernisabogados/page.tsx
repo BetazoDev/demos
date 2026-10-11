@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -419,7 +420,7 @@ export default function VernisAbogadosPage() {
             </ul>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/[0.12] pt-6 text-sm text-[#9FB0C0] sm:flex-row sm:justify-between">
-            <p>© Vernis Abogados</p>
+            <p>© 2026 Vernis Abogados{" · "}<HemeronCredit /></p>
             <p className="flex gap-6">
               <span>Condiciones de uso</span>
               <span>Aviso de privacidad</span>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Figtree, Schibsted_Grotesk } from "next/font/google";
@@ -393,7 +394,7 @@ export default function RandPage() {
               </nav>
             </div>
           </div>
-          <p className="border-t border-white/[0.12] pt-[22px] text-sm leading-[22px] text-white/60">RAND® 2024 Todos los derechos reservados</p>
+          <p className="border-t border-white/[0.12] pt-[22px] text-sm leading-[22px] text-white/60">© 2026 RAND®. Todos los derechos reservados.{" "}<HemeronCredit /></p>
         </div>
       </footer>
     </div>

@@ -15,6 +15,8 @@ Abre http://localhost:3000. En desarrollo el directorio queda abierto.
 
 - El directorio (`/`) y sus miniaturas son solo para el equipo. Sin sesión, `/` redirige a `/acceso`, un formulario de usuario y contraseña que deja una cookie firmada válida 30 días (`src/proxy.ts`, `src/lib/directory-auth.ts`). Configura `PORTFOLIO_USER` y `PORTFOLIO_PASSWORD` en el servidor; si faltan, en producción el directorio responde 404. Cambiar la contraseña cierra todas las sesiones.
 - Las miniaturas se sirven sin el optimizador de imágenes (`unoptimized`): su petición interna no lleva la cookie y fallaría.
+- `/contacto` (también privado) sirve la página de contacto por WhatsApp. Trae teléfonos y mensajes y este repositorio es público, así que se guarda **cifrada** en `src/app/contacto/payload.ts` (AES-256-GCM, clave derivada de `PORTFOLIO_PASSWORD`) y `route.ts` la descifra en el servidor tras validar la sesión. Se regenera fuera del repo con `python3 ../contacto/_fuente/build.py`. Si cambias la contraseña, vuelve a generarla.
+- Tras iniciar sesión, `/acceso?next=/contacto` regresa a la página pedida (solo `/` y `/contacto` son destinos válidos).
 - Cada propuesta se comparte por enlace directo (`https://<dominio>/slug`, p. ej. `/floreslozano`). Los enlaces antiguos con número (`/01-floreslozano`) redirigen a la URL sin número. Las páginas no enlazan entre sí ni al directorio, y el título de la pestaña es solo el nombre del despacho.
 - Todo el sitio lleva `noindex, nofollow` y `robots.txt` bloquea a los buscadores.
 
@@ -40,6 +42,7 @@ Sin Docker: `npm ci && npm run build` y luego `node .next/standalone/server.js` 
   - `Marquee`, `Accordion`, `SiteNav` (header con estado al hacer scroll y menú móvil accesible).
   - Clases en `globals.css`: `press` (feedback al presionar), `link-u` (subrayado), `nudge` (flecha), `img-zoom`.
   - Todo respeta `prefers-reduced-motion` y los hovers solo aplican con puntero fino.
+- `src/components/hemeron-credit.tsx`: leyenda «Desarrollado por hemeron.com» junto al © 2026 del pie de cada propuesta.
 - `src/components/demo-form.tsx`: los formularios no envían nada; muestran un aviso de demostración.
 - `src/data/sites.ts`: lista de sitios del directorio.
 - `public/sitios/slug/`: logos (SVG extraídos del diseño o PNG originales) e imágenes de cada despacho.

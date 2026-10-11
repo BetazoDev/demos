@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Bellefair, Lato } from "next/font/google";
@@ -385,7 +386,7 @@ export default function RoblesRoblesPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-5 border-t border-[#E0E0E0] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-[#5A5A5A]">© Robles &amp; Robles Abogados. Especialistas en Juicio de Amparo.</p>
+            <p className="text-sm text-[#5A5A5A]">© 2026 Robles &amp; Robles Abogados. Especialistas en Juicio de Amparo.{" "}<HemeronCredit /></p>
             <ul className="flex items-center gap-[18px]">
               {SOCIAL.map(({ Icon, href, name }) => (
                 <li key={href}>

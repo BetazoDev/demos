@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -424,8 +425,8 @@ export default function AccionJuridicaPage() {
           </div>
           <div className="flex flex-col gap-3 border-t border-[#EEEEEE] pt-6 text-[13px] leading-5 sm:flex-row sm:items-start sm:justify-between sm:gap-10">
             <p className="max-w-[820px] text-[#666666]">
-              © 2014 Acción Jurídica. Todos los derechos reservados. Despacho de abogados, consultoría jurídica y asesoría legal en Ciudad de México y Estado de México.
-            </p>
+              © 2026 Acción Jurídica. Todos los derechos reservados. Despacho de abogados, consultoría jurídica y asesoría legal en Ciudad de México y Estado de México.
+            {" "}<HemeronCredit /></p>
             <a href={`${SITE}/aviso-de-privacidad/`} className="link-u w-fit shrink-0 font-semibold">
               Aviso de Privacidad
             </a>

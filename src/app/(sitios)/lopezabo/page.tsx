@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -396,7 +397,7 @@ export default function LopezAlcantaraPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#14142B1F] pt-6 text-[13px] sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[#55556E]">© López Alcántara &amp; Asociados, abogados, s.c.</p>
+            <p className="text-[#55556E]">© 2026 López Alcántara &amp; Asociados, abogados, s.c.{" "}<HemeronCredit /></p>
             <a href={AVISO} className="link-u w-fit text-[#333399]">Aviso de privacidad</a>
           </div>
         </div>

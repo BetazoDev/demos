@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -327,7 +328,7 @@ export default function FernandezBraniffPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#F8EED933] pt-6 text-[13px] text-[#F8EED9B3] sm:flex-row sm:justify-between">
-            <p>© Fernández Braniff Abogados, S.C.</p>
+            <p>© 2026 Fernández Braniff Abogados, S.C.{" "}<HemeronCredit /></p>
             <p className="flex flex-wrap gap-x-8 gap-y-2">
               <a href="https://www.fbamex.com/#acceso-miembros" className="link-u">Acceso a miembros</a>
               <a href="https://www.fbamex.com/politicas-de-privacidad" className="link-u">Políticas de privacidad</a>

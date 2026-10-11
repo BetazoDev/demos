@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { League_Spartan, Public_Sans } from "next/font/google";
@@ -500,7 +501,7 @@ export default function AlefBeitPage() {
             ))}
           </div>
           <div className="flex flex-col gap-3 border-t border-white/[0.12] pt-7 text-sm text-[#9FB0BC] sm:flex-row sm:justify-between">
-            <p>© 2026 ALEF-BEIT · Todos los derechos reservados.</p>
+            <p>© 2026 ALEF-BEIT · Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <a href={`${SITE}/aviso-de-privacidad/`} className="link-u w-fit">Aviso de privacidad</a>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -471,7 +472,7 @@ export default function SanchezMejiaPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#0B14381F] pt-6 text-[13px] sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[#565B6E]">© Sánchez Mejía Abogados Asociados S.C.</p>
+            <p className="text-[#565B6E]">© 2026 Sánchez Mejía Abogados Asociados S.C.{" "}<HemeronCredit /></p>
             <a href={AVISO} className="link-u w-fit">Aviso de privacidad y políticas de servicio</a>
           </div>
         </div>

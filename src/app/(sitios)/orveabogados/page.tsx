@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Jost, Source_Serif_4 } from "next/font/google";
@@ -292,7 +293,7 @@ export default function OrveAbogadosPage() {
             </div>
           </div>
           <div className={`${SANS} mt-14 flex flex-col gap-3 border-t border-white/15 pt-6 text-sm text-[#B3B2AC] sm:flex-row sm:justify-between`}>
-            <p>© ORVE Abogados</p>
+            <p>© 2026 ORVE Abogados{" · "}<HemeronCredit /></p>
             <div className="flex flex-wrap gap-x-7 gap-y-2">
               <a href={`${SITE}/aviso-de-privacidad.html`} className="link-u">Aviso de privacidad</a>
               <a href={`${SITE}/terminos-y-condiciones.html`} className="link-u">Términos y condiciones</a>

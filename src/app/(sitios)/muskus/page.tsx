@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Commissioner, Familjen_Grotesk } from "next/font/google";
@@ -381,7 +382,7 @@ export default function MuskusPage() {
             </nav>
           </div>
           <div className="mt-12 flex flex-col gap-3 border-t border-[#E3E3E3] pt-6 text-sm text-[#5E5E5E] md:flex-row md:justify-between">
-            <p>© Muskus Abogados. Todos los derechos reservados.</p>
+            <p>© 2026 Muskus Abogados. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <div className="flex flex-wrap gap-x-7 gap-y-2">
               <a href={`${SITE}/aviso-de-privacidad/`} className="link-u">Aviso de privacidad</a>
               <a href={`${SITE}/liberacion-de-responsabilidad/`} className="link-u">Liberación de Responsabilidad</a>

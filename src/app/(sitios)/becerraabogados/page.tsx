@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Gilda_Display, Nunito_Sans } from "next/font/google";
@@ -416,7 +417,7 @@ export default function BecerraAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/20 pt-6 text-sm text-[#F1D5DD] lg:flex-row lg:justify-between">
-            <p>Copyright © 2015 Becerra Orefice, S.C.</p>
+            <p>Copyright © 2026 Becerra Orefice, S.C.{" "}<HemeronCredit /></p>
             <p>Río Tiber 91, Despacho 401, Col. Cuauhtémoc, Ciudad de México · 55 5208 5560</p>
           </div>
         </div>

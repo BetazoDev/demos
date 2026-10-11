@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { login, type LoginState } from "./actions";
 
 const field =
@@ -9,9 +9,13 @@ const field =
 export function LoginForm() {
   const [state, action, pending] = useActionState<LoginState, FormData>(login, null);
   const invalid = Boolean(state?.error);
+  // Página a la que se vuelve tras entrar (?next=/contacto); se lee en el cliente para que /acceso siga siendo estática.
+  const [next, setNext] = useState("");
+  useEffect(() => setNext(new URLSearchParams(window.location.search).get("next") ?? ""), []);
 
   return (
     <form action={action} className="grid gap-4" noValidate>
+      <input type="hidden" name="next" value={next} />
       <label className="grid gap-1.5">
         <span className="text-sm text-black/60">Usuario</span>
         <input name="user" defaultValue={state?.user} autoComplete="username" autoCapitalize="none" spellCheck={false} required aria-invalid={invalid} className={field} />

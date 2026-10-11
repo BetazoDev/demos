@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -409,7 +410,7 @@ export default function EnriquezAbogadosPage() {
                 ))}
               </ul>
             </nav>
-            <p>© EA Enriva</p>
+            <p>© 2026 EA Enriva{" · "}<HemeronCredit /></p>
           </div>
         </div>
       </footer>

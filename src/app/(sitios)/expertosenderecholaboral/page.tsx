@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import type { ReactNode } from "react";
@@ -415,7 +416,7 @@ export default function LopezCuellarPage() {
           </div>
           <div className="flex flex-col gap-6 border-t border-white/[0.14] pt-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-x-7 gap-y-2 text-sm text-[#ABA4AC]">
-              <p>© 2026 Lopez Cuellar Abogados SC</p>
+              <p>© 2026 Lopez Cuellar Abogados SC{" · "}<HemeronCredit /></p>
               <p>Aviso de privacidad</p>
             </div>
             <ul className="flex items-center gap-5">

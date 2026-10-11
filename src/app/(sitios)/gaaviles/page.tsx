@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Be_Vietnam_Pro, Castoro } from "next/font/google";
@@ -360,7 +361,7 @@ export default function GAAvilesPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/[0.12] pt-6 text-[15px] text-white/60 md:flex-row md:justify-between">
-            <p>Todos los derechos reservados G.A &amp; Avilés Abogados</p>
+            <p>© 2026 G.A &amp; Avilés Abogados. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <p>Thiers 154, Anzures, CDMX, México</p>
           </div>
         </div>

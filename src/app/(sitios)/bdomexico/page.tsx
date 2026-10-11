@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Red_Hat_Display, Red_Hat_Text } from "next/font/google";
@@ -466,7 +467,7 @@ export default function BdoMexicoPage() {
             </div>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/15 pt-6 text-[13px] text-white/65 md:flex-row md:justify-between">
-            <p>BDO Copyright © 2026. Consulte Términos y condiciones para obtener más información.</p>
+            <p>BDO Copyright © 2026. Consulte Términos y condiciones para obtener más información.{" "}<HemeronCredit /></p>
             <p>BDO Castillo Miranda es miembro de BDO International</p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Gabarito, JetBrains_Mono, Manrope } from "next/font/google";
@@ -403,7 +404,7 @@ export default function SpaceBarPage() {
 
         <div className="bg-[#121118] text-sm text-white/70">
           <div className="mx-auto flex max-w-[1200px] flex-col gap-2 px-5 pb-24 pt-[22px] sm:flex-row sm:justify-between md:px-8 lg:pb-[22px] xl:px-0">
-            <p>Todos los Derechos Reservados SPACEBAR S. de R.L. de C.V.</p>
+            <p>© 2026 SPACEBAR S. de R.L. de C.V. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <p>Aviso de privacidad</p>
           </div>
         </div>

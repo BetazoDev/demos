@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Alegreya, Alegreya_Sans } from "next/font/google";
@@ -333,7 +334,7 @@ export default function LechugaPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-[#E3DCC8] pt-5 text-[15px] text-[#5E5A52] md:flex-row md:justify-between">
-            <p>© 2026 Lechuga Abogados, S.C.</p>
+            <p>© 2026 Lechuga Abogados, S.C.{" "}<HemeronCredit /></p>
             <p>Aristóteles 77, piso 4, Polanco Chapultepec, Ciudad de México · 55 5638 0011</p>
           </div>
         </div>

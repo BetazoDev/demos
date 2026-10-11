@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -363,7 +364,7 @@ export default function MglAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#1B354B1F] pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[#54595F]">MGL Abogados © Todos los derechos reservados 2017</p>
+            <p className="text-[#54595F]">MGL Abogados © Todos los derechos reservados 2026{" · "}<HemeronCredit /></p>
             <a href={AVISO} className="link-u w-fit font-semibold">Aviso de privacidad</a>
           </div>
         </div>

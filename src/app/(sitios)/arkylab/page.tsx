@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Mulish, Sen } from "next/font/google";
@@ -107,7 +108,7 @@ export default function ArkylabPage() {
         <div className={`${WRAP} flex flex-col gap-14 pb-28 pt-[72px] lg:pb-10`}>
           <Logo className="w-[150px] md:w-[190px]" />
           <div className="border-t border-[#545454] pt-6">
-            <p className="text-sm text-[#A8A8A8]">© 2023 ARKYLAB</p>
+            <p className="text-sm text-[#A8A8A8]">© 2026 ARKYLAB{" · "}<HemeronCredit /></p>
           </div>
         </div>
       </footer>

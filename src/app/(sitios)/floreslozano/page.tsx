@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Hanken_Grotesk, Libre_Caslon_Display, Tinos } from "next/font/google";
@@ -326,7 +327,7 @@ export default function FloresLozanoPage() {
               <li><a href="https://www.floreslozano.com/aviso.html" className="link-u">Aviso de privacidad</a></li>
             </ul>
           </nav>
-          <p className="text-sm">© Flores Lozano Abogados, S.C.</p>
+          <p className="text-sm">© 2026 Flores Lozano Abogados, S.C.{" "}<HemeronCredit lang="en" /></p>
         </div>
       </footer>
     </div>

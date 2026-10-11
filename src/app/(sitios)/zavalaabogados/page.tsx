@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -338,7 +339,7 @@ export default function ZavalaAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-4 border-t border-white/[0.12] pt-6 text-[15px] text-[#D1D5DB]/80 md:flex-row md:justify-between">
-            <p>© Zavala Abogados 2026. Todos los derechos reservados.</p>
+            <p>© Zavala Abogados 2026. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <ul className="flex flex-wrap gap-x-8 gap-y-2">
               <li>
                 <a href={`${SITE}/uploads/zavala_aviso_clientes.pdf`} className="link-u">

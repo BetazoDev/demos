@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -373,7 +374,7 @@ export default function AbogadosFamiliaristasPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#CFE0E4] pt-[22px] text-sm leading-[21px] text-[#4A5A60] md:flex-row md:justify-between">
-            <p>© Abogados Familiaristas. Creemos en ti &amp; en tu familia.</p>
+            <p>© 2026 Abogados Familiaristas. Creemos en ti &amp; en tu familia.{" "}<HemeronCredit /></p>
             <p>¿Quieres recibir un consejo? Síguenos en redes sociales.</p>
           </div>
         </div>

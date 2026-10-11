@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Cardo, Lato } from "next/font/google";
@@ -273,7 +274,7 @@ export default function MiguelLopezSotoPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/15 pt-6 text-sm text-[#BFA9A4] sm:flex-row sm:justify-between">
-            <p>© Miguel López &amp; Soto Abogados, S.C.</p>
+            <p>© 2026 Miguel López &amp; Soto Abogados, S.C.{" "}<HemeronCredit /></p>
             <p>Derecho Mercantil y Civil</p>
           </div>
         </div>

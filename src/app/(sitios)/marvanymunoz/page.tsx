@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Frank_Ruhl_Libre, Hanken_Grotesk, Tinos } from "next/font/google";
@@ -305,7 +306,7 @@ export default function MarvanMunozPage() {
               ))}
             </ul>
           </nav>
-          <p className="text-sm text-[#97A3B3]">© Marván y Muñoz Abogados, S.C.</p>
+          <p className="text-sm text-[#97A3B3]">© 2026 Marván y Muñoz Abogados, S.C.{" "}<HemeronCredit /></p>
         </div>
       </footer>
     </div>

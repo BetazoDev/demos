@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Bricolage_Grotesque, Figtree } from "next/font/google";
@@ -487,7 +488,7 @@ export default function MonarcaPage() {
           </div>
           <div className="flex flex-col gap-6 border-t border-white/14 pt-6 lg:flex-row lg:items-center lg:justify-between">
             <ul className="flex flex-wrap gap-x-7 gap-y-2 text-sm text-[#C9D3E6]">
-              <li>© Monarca Abogados</li>
+              <li>© 2026 Monarca Abogados{" · "}<HemeronCredit /></li>
               <li>
                 <a href={`${SITE}/terminos-y-condiciones-de-uso-del-sitio-web-y-contratacion-de-servicios-profesionales/`} className="link-u">
                   Términos y condiciones de contratación

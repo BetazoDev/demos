@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Figtree, Marcellus } from "next/font/google";
@@ -377,7 +378,7 @@ export default function MichelJimenezPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/12 pt-[26px] text-sm text-[#A9C3C2] sm:flex-row sm:justify-between">
-            <p>© 2026 Michel Jiménez, Abogados. Derechos reservados.</p>
+            <p>© 2026 Michel Jiménez, Abogados. Derechos reservados.{" "}<HemeronCredit /></p>
             <p>Aviso de privacidad</p>
           </div>
         </div>

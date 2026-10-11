@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Barlow, Libre_Bodoni } from "next/font/google";
@@ -554,7 +555,7 @@ export default function GilySolisPage() {
             </div>
           </div>
           <div className="flex flex-col gap-4 border-t border-white/15 pt-6 text-sm text-[#A9B6C9] md:flex-row md:items-center md:justify-between">
-            <p>© 2026. Gil &amp; Solís, Abogados. Todos los derechos reservados.</p>
+            <p>© 2026. Gil &amp; Solís, Abogados. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <ul className="flex gap-7">
               <li>
                 <a href={`${SITE}/aviso-legal`} className="link-u">

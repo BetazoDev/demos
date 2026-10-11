@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Cinzel, Source_Sans_3 } from "next/font/google";
@@ -504,7 +505,7 @@ export default function CuevasRiveraPage() {
             </div>
           </div>
           <div className="flex flex-col gap-4 border-t border-white/[0.12] pt-6 text-[15px] md:flex-row md:items-center md:justify-between">
-            <p className="text-[#A9A294]">© 1998-2023 Cuevas &amp; Rivera Abogados Penalistas, S.C. Todos los derechos reservados.</p>
+            <p className="text-[#A9A294]">© 1998-2026 Cuevas &amp; Rivera Abogados Penalistas, S.C. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <a href={PRIVACY} className="link-u w-fit text-[#E8E2D6]">
               Aviso de privacidad
             </a>

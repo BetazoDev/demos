@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Libre_Franklin, Noto_Serif_Display } from "next/font/google";
@@ -394,7 +395,7 @@ export default function DjmAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/20 pt-6 text-[13px] text-white/85 sm:flex-row sm:justify-between">
-            <p>DJM Abogados. Todos los derechos reservados.</p>
+            <p>© 2026 DJM Abogados. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <Lang />
           </div>
         </div>

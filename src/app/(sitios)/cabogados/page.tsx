@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Epilogue, Golos_Text } from "next/font/google";
@@ -343,7 +344,7 @@ export default function CimetPage() {
             </div>
           </div>
           <div className="flex flex-col gap-4 border-t border-white/12 pt-6 text-[13px] leading-5 text-[#A8A8B8] sm:flex-row sm:justify-between">
-            <p>© 2026 Cimet Abogados. Todos los derechos reservados.</p>
+            <p>© 2026 Cimet Abogados. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <ul className="flex flex-wrap gap-x-7 gap-y-2">
               <li>
                 <a href="#acerca" className="link-u hover:text-white">Acerca de la firma</a>

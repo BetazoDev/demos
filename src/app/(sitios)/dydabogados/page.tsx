@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -290,7 +291,7 @@ export default function DyDAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/[0.12] pt-6 text-sm text-[#A9AEB8] md:flex-row md:justify-between">
-            <p>© Domínguez y Díez 2024</p>
+            <p>© Domínguez y Díez 2026{" · "}<HemeronCredit /></p>
             <p>Av. Presidente Masaryk No. 101, Piso 10, Ciudad de México</p>
           </div>
         </div>

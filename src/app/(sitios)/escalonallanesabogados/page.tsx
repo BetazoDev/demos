@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Image from "next/image";
@@ -329,7 +330,7 @@ export default function EscalonaLlanesPage() {
               </ul>
             </div>
           </div>
-          <p className="border-t border-white/15 pt-6 text-sm leading-[22px] text-white/60">Escalona Llanes Abogados, S.C.</p>
+          <p className="border-t border-white/15 pt-6 text-sm leading-[22px] text-white/60">© 2026 Escalona Llanes Abogados, S.C.{" "}<HemeronCredit /></p>
         </div>
       </footer>
     </div>

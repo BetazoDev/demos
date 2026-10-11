@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Archivo, Source_Serif_4 } from "next/font/google";
@@ -385,7 +386,7 @@ export default function BarronAbogadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/20 pt-[22px] text-sm font-medium text-[#FBE9E7] sm:flex-row sm:justify-between">
-            <p>© Barrón Abogados Lawyer Trust</p>
+            <p>© 2026 Barrón Abogados Lawyer Trust{" · "}<HemeronCredit /></p>
             <p>Abogado de confianza</p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Cabin, Oranienbaum } from "next/font/google";
@@ -347,7 +348,7 @@ export default function CaredAbogadosPage() {
             </div>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/15 pt-6 text-[13px] text-[#AEB6CC] sm:flex-row sm:justify-between">
-            <p>© 2024 CARED ABOGADOS</p>
+            <p>© 2026 CARED ABOGADOS{" · "}<HemeronCredit /></p>
             <p>Aviso de privacidad</p>
           </div>
         </div>

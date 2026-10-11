@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Besley, Geist } from "next/font/google";
@@ -342,7 +343,7 @@ export default function ExpertosLaboralesPage() {
             </a>
           </div>
           <div className="flex flex-col gap-2 border-t border-white/[0.12] pt-[22px] text-[13px] text-white/65 md:flex-row md:justify-between">
-            <p>© Expertos Laborales Abogados. Ciudad de México.</p>
+            <p>© 2026 Expertos Laborales Abogados. Ciudad de México.{" "}<HemeronCredit /></p>
             <a href={AVISO} className="link-u w-fit">Aviso de confidencialidad</a>
           </div>
         </div>

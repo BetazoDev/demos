@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Familjen_Grotesk, Manrope } from "next/font/google";
@@ -375,7 +376,7 @@ export default function PortosPage() {
             </nav>
           </div>
           <div className="mt-10 flex flex-col gap-2 border-t border-[#E9E7DD26] pt-6 text-[15px] text-[#E9E7DD]/65 sm:flex-row sm:justify-between">
-            <p>© Portos Abogados, S.C.</p>
+            <p>© 2026 Portos Abogados, S.C.{" "}<HemeronCredit /></p>
             <p>Pdte. Masaryk 25, Polanco, CDMX, 11570</p>
           </div>
         </div>

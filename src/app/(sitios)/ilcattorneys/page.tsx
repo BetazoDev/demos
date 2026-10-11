@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Libre_Baskerville, Schibsted_Grotesk } from "next/font/google";
@@ -542,7 +543,7 @@ export default function IlcAttorneysPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-white/15 pt-6 text-[13px] text-[#AFC0D2] lg:flex-row lg:justify-between lg:gap-10">
-            <p>Copyright 1989-2025 International Legal Counseling. Legal Legacy Since 1947.</p>
+            <p>Copyright © 1989-2026 International Legal Counseling. Legal Legacy Since 1947.{" "}<HemeronCredit lang="en" /></p>
             <p>Part of the Kingdom Millennium Legal Group™, headquartered in the United States.</p>
           </div>
         </div>

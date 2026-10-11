@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Host_Grotesk, Jost } from "next/font/google";
@@ -496,7 +497,7 @@ export default function VillarAbogadosPage() {
           </div>
           <div className="flex flex-col gap-3 border-t border-white/20 pt-6 text-[13px] text-white/80 lg:flex-row lg:justify-between">
             <p>Aviso de Privacidad · Código de Ética · Política de No Discriminación · Términos y Condiciones</p>
-            <p>Villar &amp; Villar Abogados, S.C. 2026 | Todos los derechos reservados©</p>
+            <p>Villar &amp; Villar Abogados, S.C. 2026 | Todos los derechos reservados©{" · "}<HemeronCredit /></p>
           </div>
         </div>
       </footer>

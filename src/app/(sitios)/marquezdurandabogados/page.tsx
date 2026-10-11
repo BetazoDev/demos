@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Playfair_Display_SC, Source_Sans_3 } from "next/font/google";
@@ -276,7 +277,7 @@ export default function MarquezDurandPage() {
               ))}
             </ul>
           </nav>
-          <p className="text-sm leading-[22px] text-[#222228B3]">© 2023 Marquez Durand Abogados</p>
+          <p className="text-sm leading-[22px] text-[#222228B3]">© 2026 Marquez Durand Abogados{" · "}<HemeronCredit /></p>
         </div>
       </footer>
     </div>

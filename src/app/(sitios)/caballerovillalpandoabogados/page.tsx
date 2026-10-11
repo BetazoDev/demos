@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Marcellus, Mulish } from "next/font/google";
@@ -378,7 +379,7 @@ export default function CaballeroVillalpandoPage() {
             </div>
           </div>
           <div className="flex flex-col gap-3 border-t border-[#FFFFFF1F] pt-6 text-sm lg:flex-row lg:justify-between">
-            <p>© Caballero Villalpando &amp; Asociados, S.C. Todos los derechos reservados.</p>
+            <p>© 2026 Caballero Villalpando &amp; Asociados, S.C. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <p>Oficina WTC, Montecito 38, Nápoles, Ciudad de México</p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Hanken_Grotesk, Young_Serif } from "next/font/google";
@@ -268,7 +269,7 @@ export default function RetanaAbogadosPage() {
               ))}
             </ul>
           </nav>
-          <p className="text-sm leading-[22px] text-[#1A1A1A]/70">© 2024 retanaabogados.com.mx</p>
+          <p className="text-sm leading-[22px] text-[#1A1A1A]/70">© 2026 retanaabogados.com.mx{" · "}<HemeronCredit /></p>
         </div>
       </footer>
     </div>

@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Brygada_1918, Urbanist } from "next/font/google";
@@ -502,7 +503,7 @@ export default function GoytortuaPage() {
               />
             </div>
           </div>
-          <p className="border-t border-white/12 pt-6 text-[13px] leading-[21px]">© 2026 Goytortúa &amp; Asociados. Todos los derechos reservados.</p>
+          <p className="border-t border-white/12 pt-6 text-[13px] leading-[21px]">© 2026 Goytortúa &amp; Asociados. Todos los derechos reservados.{" "}<HemeronCredit /></p>
         </div>
       </footer>
     </div>

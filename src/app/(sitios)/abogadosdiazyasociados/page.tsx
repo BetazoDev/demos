@@ -1,3 +1,4 @@
+import { HemeronCredit } from "@/components/hemeron-credit";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Barlow, Cardo } from "next/font/google";
@@ -465,7 +466,7 @@ export default function DiazAsociadosPage() {
             </nav>
           </div>
           <div className="flex flex-col gap-4 border-t border-white/[0.12] pt-6 text-sm text-white/60 lg:flex-row lg:justify-between">
-            <p>© Copyright Díaz y Asociados 2026. Todos los derechos reservados.</p>
+            <p>© Copyright Díaz y Asociados 2026. Todos los derechos reservados.{" "}<HemeronCredit /></p>
             <ul className="flex flex-wrap gap-x-7 gap-y-2">
               <li>Aviso legal</li>
               <li>Política de privacidad</li>
