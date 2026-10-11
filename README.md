@@ -13,7 +13,8 @@ Abre http://localhost:3000. En desarrollo el directorio queda abierto.
 
 ## Privacidad
 
-- El directorio (`/`) y sus miniaturas son solo para el equipo: están protegidos con HTTP Basic Auth (`src/proxy.ts`). Configura `PORTFOLIO_USER` y `PORTFOLIO_PASSWORD` en el servidor; si faltan, en producción el directorio responde 404.
+- El directorio (`/`) y sus miniaturas son solo para el equipo. Sin sesión, `/` redirige a `/acceso`, un formulario de usuario y contraseña que deja una cookie firmada válida 30 días (`src/proxy.ts`, `src/lib/directory-auth.ts`). Configura `PORTFOLIO_USER` y `PORTFOLIO_PASSWORD` en el servidor; si faltan, en producción el directorio responde 404. Cambiar la contraseña cierra todas las sesiones.
+- Las miniaturas se sirven sin el optimizador de imágenes (`unoptimized`): su petición interna no lleva la cookie y fallaría.
 - Cada propuesta se comparte por enlace directo (`https://<dominio>/NN-slug`). Las páginas no enlazan entre sí ni al directorio, y el título de la pestaña es solo el nombre del despacho.
 - Todo el sitio lleva `noindex, nofollow` y `robots.txt` bloquea a los buscadores.
 

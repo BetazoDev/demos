@@ -115,7 +115,9 @@ function Card({ site, eager }: { site: Site; eager: boolean }) {
   return (
     <Link href={`/${site.slug}`} className="group block focus-visible:outline-offset-8">
       <div className="img-zoom relative aspect-[16/10] overflow-hidden rounded-xl bg-black/5 ring-1 ring-black/5">
+        {/* Sin optimizador: /thumbs es privado y la petición interna de /_next/image no lleva la sesión. */}
         <Image
+          unoptimized
           src={`/thumbs/${site.num}.webp`}
           alt={`Rediseño de la home de ${site.name}`}
           fill

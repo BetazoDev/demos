@@ -1,41 +1,23 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { authConfigured, SESSION_COOKIE, verifySession } from "@/lib/directory-auth";
 
-/**
- * El directorio (/) y sus miniaturas son solo para el equipo: se protegen con HTTP Basic Auth.
- * Credenciales en variables de entorno PORTFOLIO_USER y PORTFOLIO_PASSWORD.
- * Sin esas variables, en producción el directorio responde 404; en desarrollo queda abierto.
- * Las páginas de cada despacho (/NN-slug) siguen siendo públicas por enlace directo.
- */
+// El directorio (/) y sus miniaturas son privados; las propuestas (/NN-slug) se comparten por enlace.
 export function proxy(request: NextRequest) {
-  const { pathname, searchParams } = request.nextUrl;
+  const { pathname } = request.nextUrl;
 
-  // next/image también puede servir las miniaturas: protégelas igual.
-  if (pathname === "/_next/image" && !(searchParams.get("url") ?? "").startsWith("/thumbs/")) {
+  if (!authConfigured()) {
+    if (process.env.NODE_ENV === "production") return new NextResponse("Not found", { status: 404 });
     return NextResponse.next();
   }
 
-  const user = process.env.PORTFOLIO_USER;
-  const pass = process.env.PORTFOLIO_PASSWORD;
+  const signedIn = verifySession(request.cookies.get(SESSION_COOKIE)?.value);
 
-  if (!user || !pass) {
-    if (process.env.NODE_ENV === "production") {
-      return new NextResponse("Not found", { status: 404 });
-    }
-    return NextResponse.next();
+  if (pathname === "/acceso") {
+    return signedIn ? NextResponse.redirect(new URL("/", request.url)) : NextResponse.next();
   }
-
-  const header = request.headers.get("authorization") ?? "";
-  if (header.startsWith("Basic ")) {
-    const [u, ...rest] = atob(header.slice(6)).split(":");
-    if (u === user && rest.join(":") === pass) return NextResponse.next();
-  }
-
-  return new NextResponse("Autenticación requerida", {
-    status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="Directorio", charset="UTF-8"' },
-  });
+  if (signedIn) return NextResponse.next();
+  if (pathname === "/") return NextResponse.redirect(new URL("/acceso", request.url));
+  return new NextResponse("Not found", { status: 404 });
 }
 
-export const config = {
-  matcher: ["/", "/thumbs/:path*", "/_next/image"],
-};
+export const config = { matcher: ["/", "/acceso", "/thumbs/:path*"] };
