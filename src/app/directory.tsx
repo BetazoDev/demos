@@ -29,6 +29,8 @@ export function Directory({ sites }: { sites: Site[] }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterId>("all");
   const reduce = useReducedMotion();
+  // Numeración consecutiva para mostrar; `num` conserva el número original (carpetas, miniaturas, enlaces antiguos).
+  const label = useMemo(() => new Map(sites.map((s, i) => [s.slug, String(i + 1).padStart(2, "0")])), [sites]);
 
   const visible = useMemo(() => {
     const q = normalize(query.trim());
@@ -36,9 +38,9 @@ export function Directory({ sites }: { sites: Site[] }) {
       if (filter === "despacho" && s.kind !== "despacho") return false;
       if (filter === "otros" && s.kind === "despacho") return false;
       if (!q) return true;
-      return normalize(`${s.num} ${s.name} ${s.domain}`).includes(q);
+      return normalize(`${label.get(s.slug)} ${s.name} ${s.domain}`).includes(q);
     });
-  }, [sites, query, filter]);
+  }, [sites, label, query, filter]);
 
   return (
     <section aria-label="Directorio" className="pt-10">
@@ -91,7 +93,7 @@ export function Directory({ sites }: { sites: Site[] }) {
               exit={{ opacity: 0, transform: "scale(0.97)", transition: { duration: 0.15, ease: EASE_OUT } }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.06, ease: EASE_OUT, layout: { type: "spring", duration: 0.45, bounce: 0.1 } }}
             >
-              <Card site={s} eager={i < 3} />
+              <Card site={s} label={label.get(s.slug)!} eager={i < 3} />
             </motion.li>
           ))}
         </AnimatePresence>
@@ -109,7 +111,7 @@ export function Directory({ sites }: { sites: Site[] }) {
   );
 }
 
-function Card({ site, eager }: { site: Site; eager: boolean }) {
+function Card({ site, label, eager }: { site: Site; label: string; eager: boolean }) {
   return (
     <Link href={`/${site.slug}`} className="group block focus-visible:outline-offset-8">
       <div className="img-zoom relative aspect-[16/10] overflow-hidden rounded-xl bg-black/5 ring-1 ring-black/5">
@@ -127,7 +129,7 @@ function Card({ site, eager }: { site: Site; eager: boolean }) {
       <div className="nudge mt-4 flex items-start justify-between gap-4">
         <div className="min-w-0">
           <p className="flex items-center gap-2 text-xs text-black/45">
-            <span className="font-mono tabular-nums">{site.num}</span>
+            <span className="font-mono tabular-nums">{label}</span>
             {site.kind !== "despacho" && <span className="rounded-full bg-black/5 px-2 py-0.5">{KIND_LABEL[site.kind]}</span>}
           </p>
           <h2 className="mt-1 truncate text-lg font-medium tracking-tight">{site.name}</h2>

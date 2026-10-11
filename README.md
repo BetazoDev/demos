@@ -49,5 +49,5 @@ Sin Docker: `npm ci && npm run build` y luego `node .next/standalone/server.js` 
 
 - Los textos, nombres, cifras y datos de contacto vienen de los sitios de cada despacho; ver `../NN-slug/brand.md` y `../INDEX.md` para fuentes y datos a confirmar.
 - Tres sitios revisados (14, 27, 52) no tienen rediseño ni aparecen en el directorio: no existe contenido verificable en línea.
-- El número de cada tarjeta (`num`) solo se usa dentro del directorio y coincide con las carpetas `../NN-slug/` del espacio de trabajo y con `public/thumbs/NN.webp`.
+- Las tarjetas del directorio se numeran de forma consecutiva (01–65). El campo `num` de `src/data/sites.ts` conserva el número original: coincide con las carpetas `../NN-slug/` del espacio de trabajo, con `public/thumbs/NN.webp` y con los enlaces antiguos que redirigen.
 - Algunas fotos de ambiente se cargan desde Unsplash (sitios 16, 24 y 66).
