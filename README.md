@@ -15,7 +15,7 @@ Abre http://localhost:3000. En desarrollo el directorio queda abierto.
 
 - El directorio (`/`) y sus miniaturas son solo para el equipo. Sin sesión, `/` redirige a `/acceso`, un formulario de usuario y contraseña que deja una cookie firmada válida 30 días (`src/proxy.ts`, `src/lib/directory-auth.ts`). Configura `PORTFOLIO_USER` y `PORTFOLIO_PASSWORD` en el servidor; si faltan, en producción el directorio responde 404. Cambiar la contraseña cierra todas las sesiones.
 - Las miniaturas se sirven sin el optimizador de imágenes (`unoptimized`): su petición interna no lleva la cookie y fallaría.
-- Cada propuesta se comparte por enlace directo (`https://<dominio>/NN-slug`). Las páginas no enlazan entre sí ni al directorio, y el título de la pestaña es solo el nombre del despacho.
+- Cada propuesta se comparte por enlace directo (`https://<dominio>/slug`, p. ej. `/floreslozano`). Los enlaces antiguos con número (`/01-floreslozano`) redirigen a la URL sin número. Las páginas no enlazan entre sí ni al directorio, y el título de la pestaña es solo el nombre del despacho.
 - Todo el sitio lleva `noindex, nofollow` y `robots.txt` bloquea a los buscadores.
 
 ## Despliegue (Dokploy u otro host con Docker)
@@ -31,7 +31,7 @@ Sin Docker: `npm ci && npm run build` y luego `node .next/standalone/server.js` 
 ## Estructura
 
 - `src/app/page.tsx` + `src/app/directory.tsx`: el directorio (búsqueda y filtros).
-- `src/app/(sitios)/NN-slug/page.tsx`: una ruta por despacho (`/01-floreslozano`, `/02-monarcabogados`, ...). Cada página carga sus propias fuentes con `next/font/google`.
+- `src/app/(sitios)/slug/page.tsx`: una ruta por despacho (`/floreslozano`, `/monarcabogados`, ...). Cada página carga sus propias fuentes con `next/font/google`.
 - `src/components/motion/`: primitivos de animación compartidos (Motion + CSS):
   - `HeroIntro` / `HeroItem`: entrada escalonada del primer pantallazo.
   - `Reveal`, `Stagger` / `StaggerItem`: aparición al hacer scroll (una sola vez).
@@ -42,11 +42,12 @@ Sin Docker: `npm ci && npm run build` y luego `node .next/standalone/server.js` 
   - Todo respeta `prefers-reduced-motion` y los hovers solo aplican con puntero fino.
 - `src/components/demo-form.tsx`: los formularios no envían nada; muestran un aviso de demostración.
 - `src/data/sites.ts`: lista de sitios del directorio.
-- `public/sitios/NN-slug/`: logos (SVG extraídos del diseño o PNG originales) e imágenes de cada despacho.
+- `public/sitios/slug/`: logos (SVG extraídos del diseño o PNG originales) e imágenes de cada despacho.
 - `public/thumbs/`: miniaturas del directorio.
 
 ## Notas
 
 - Los textos, nombres, cifras y datos de contacto vienen de los sitios de cada despacho; ver `../NN-slug/brand.md` y `../INDEX.md` para fuentes y datos a confirmar.
-- Tres sitios (14, 27, 52) no tienen rediseño porque no existe contenido verificable en línea; aparecen en el directorio como "Sitio no disponible".
+- Tres sitios revisados (14, 27, 52) no tienen rediseño ni aparecen en el directorio: no existe contenido verificable en línea.
+- El número de cada tarjeta (`num`) solo se usa dentro del directorio y coincide con las carpetas `../NN-slug/` del espacio de trabajo y con `public/thumbs/NN.webp`.
 - Algunas fotos de ambiente se cargan desde Unsplash (sitios 16, 24 y 66).

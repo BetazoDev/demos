@@ -11,7 +11,6 @@ const FILTERS = [
   { id: "all", label: "Todos" },
   { id: "despacho", label: "Despachos" },
   { id: "otros", label: "Otros giros" },
-  { id: "unavailable", label: "Sin sitio" },
 ] as const;
 type FilterId = (typeof FILTERS)[number]["id"];
 
@@ -34,9 +33,8 @@ export function Directory({ sites }: { sites: Site[] }) {
   const visible = useMemo(() => {
     const q = normalize(query.trim());
     return sites.filter((s) => {
-      if (filter === "despacho" && (s.kind !== "despacho" || s.status !== "home")) return false;
+      if (filter === "despacho" && s.kind !== "despacho") return false;
       if (filter === "otros" && s.kind === "despacho") return false;
-      if (filter === "unavailable" && s.status !== "unavailable") return false;
       if (!q) return true;
       return normalize(`${s.num} ${s.name} ${s.domain}`).includes(q);
     });
@@ -93,7 +91,7 @@ export function Directory({ sites }: { sites: Site[] }) {
               exit={{ opacity: 0, transform: "scale(0.97)", transition: { duration: 0.15, ease: EASE_OUT } }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.06, ease: EASE_OUT, layout: { type: "spring", duration: 0.45, bounce: 0.1 } }}
             >
-              {s.status === "home" ? <Card site={s} eager={i < 3} /> : <UnavailableCard site={s} />}
+              <Card site={s} eager={i < 3} />
             </motion.li>
           ))}
         </AnimatePresence>
@@ -140,24 +138,5 @@ function Card({ site, eager }: { site: Site; eager: boolean }) {
         </svg>
       </div>
     </Link>
-  );
-}
-
-function UnavailableCard({ site }: { site: Site }) {
-  return (
-    <div>
-      <div className="flex aspect-[16/10] items-center justify-center rounded-xl border border-dashed border-black/20 bg-white px-8 text-center">
-        <p className="text-sm leading-relaxed text-black/55">
-          Sitio no disponible: sin contenido verificable en línea ni en archivos públicos.
-        </p>
-      </div>
-      <div className="mt-4">
-        <p className="font-mono text-xs tabular-nums text-black/45">{site.num}</p>
-        <h2 className="mt-1 truncate text-lg font-medium tracking-tight text-black/60">{site.name}</h2>
-        <a href={site.url} target="_blank" rel="noreferrer" className="link-u text-sm text-black/50">
-          {site.domain}
-        </a>
-      </div>
-    </div>
   );
 }

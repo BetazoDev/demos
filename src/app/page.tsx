@@ -6,7 +6,6 @@ import { Directory } from "./directory";
 export const metadata: Metadata = { title: "Directorio de rediseños" };
 
 export default function Home() {
-  const live = SITES.filter((s) => s.status === "home").length;
   return (
     <main className="min-h-dvh bg-[#F7F7F5] font-sans text-[#141414] selection:bg-[#141414] selection:text-white">
       <div className="mx-auto max-w-[1320px] px-5 pb-28 pt-16 md:px-10 md:pt-24">
@@ -21,12 +20,8 @@ export default function Home() {
           </div>
           <HeroItem className="flex gap-10 md:justify-end">
             <div>
-              <p className="font-mono text-4xl tabular-nums tracking-tight">{live}</p>
-              <p className="mt-1 text-sm text-black/50">sitios rediseñados</p>
-            </div>
-            <div>
               <p className="font-mono text-4xl tabular-nums tracking-tight">{SITES.length}</p>
-              <p className="mt-1 text-sm text-black/50">sitios revisados</p>
+              <p className="mt-1 text-sm text-black/50">sitios rediseñados</p>
             </div>
           </HeroItem>
         </HeroIntro>
