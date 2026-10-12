@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-12T00:00:00Z",
+  "title": "Design System: Didáctica Viajes",
+  "scope": "src/app/(sitios)/didactica/ only; not a project-wide system",
+  "extensions": {
+    "colorMeta": {
+      "didactica-yellow": { "role": "primary", "displayName": "Didáctica Yellow", "canonical": "#FFDE01", "tonalRamp": ["oklch(22% 0.06 100)", "oklch(35% 0.09 100)", "oklch(48% 0.12 100)", "oklch(62% 0.16 100)", "oklch(76% 0.18 100)", "oklch(89% 0.19 100)", "oklch(94% 0.14 100)", "oklch(97% 0.07 100)"] },
+      "yellow-lift": { "role": "primary", "displayName": "Yellow Lift", "canonical": "#FFE94D", "tonalRamp": ["oklch(22% 0.05 100)", "oklch(35% 0.08 100)", "oklch(48% 0.11 100)", "oklch(62% 0.14 100)", "oklch(76% 0.16 100)", "oklch(91% 0.16 100)", "oklch(95% 0.11 100)", "oklch(98% 0.05 100)"] },
+      "didactica-blue": { "role": "secondary", "displayName": "Didáctica Blue", "canonical": "#2E3091", "tonalRamp": ["oklch(18% 0.08 275)", "oklch(27% 0.12 275)", "oklch(36% 0.16 275)", "oklch(46% 0.17 275)", "oklch(58% 0.15 275)", "oklch(70% 0.11 275)", "oklch(84% 0.06 275)", "oklch(95% 0.02 275)"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#1B252F", "tonalRamp": ["oklch(15% 0.015 245)", "oklch(24% 0.02 245)", "oklch(34% 0.02 245)", "oklch(46% 0.02 245)", "oklch(58% 0.02 245)", "oklch(72% 0.015 245)", "oklch(86% 0.01 245)", "oklch(96% 0.005 245)"] },
+      "scrim-navy": { "role": "neutral", "displayName": "Scrim Navy", "canonical": "#0E1250", "tonalRamp": ["oklch(15% 0.08 275)", "oklch(22% 0.11 275)", "oklch(32% 0.13 275)", "oklch(44% 0.13 275)", "oklch(56% 0.12 275)", "oklch(70% 0.09 275)", "oklch(84% 0.05 275)", "oklch(95% 0.02 275)"] },
+      "cool-paper": { "role": "neutral", "displayName": "Cool Paper", "canonical": "#F4F5FA", "tonalRamp": ["oklch(15% 0.01 270)", "oklch(28% 0.01 270)", "oklch(42% 0.01 270)", "oklch(56% 0.01 270)", "oklch(70% 0.01 270)", "oklch(84% 0.01 270)", "oklch(92% 0.008 270)", "oklch(97% 0.006 270)"] },
+      "white": { "role": "neutral", "displayName": "White", "canonical": "#FFFFFF", "tonalRamp": ["oklch(15% 0 0)", "oklch(28% 0 0)", "oklch(42% 0 0)", "oklch(56% 0 0)", "oklch(70% 0 0)", "oklch(84% 0 0)", "oklch(95% 0 0)", "oklch(100% 0 0)"] },
+      "slate-text": { "role": "neutral", "displayName": "Slate Text", "canonical": "#5B5F73", "tonalRamp": ["oklch(15% 0.02 280)", "oklch(26% 0.025 280)", "oklch(37% 0.03 280)", "oklch(48% 0.03 280)", "oklch(60% 0.025 280)", "oklch(72% 0.02 280)", "oklch(85% 0.012 280)", "oklch(95% 0.006 280)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero lema only; white over the photo, two lines max." },
+      "headline": { "displayName": "Headline", "purpose": "Every section h2." },
+      "statement": { "displayName": "Statement", "purpose": "Scroll-filled trajectory sentence; same family scales to the blue pull-quote (clamp(1.5rem,2.6vw,2.25rem)/1.2) and the work-band h3 (clamp(1.875rem,3.2vw,2.75rem)/1.08)." },
+      "counter": { "displayName": "Counter", "purpose": "Proof figures in Didáctica Blue, tabular digits, count-up on view." },
+      "title": { "displayName": "Title", "purpose": "List and definition titles; destination names 22/26px; subsection h3 20px; quote card title 22px." },
+      "body-lg": { "displayName": "Body Large", "purpose": "Section intros and hero subtext (20px md in hero), 46-52ch." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and definitions at 15-17px, 60ch max; Slate Text on light, White 70-88% on dark." },
+      "label": { "displayName": "Label", "purpose": "Form labels and type-of-trip lines; sentence case, never tracked or uppercase." },
+      "control": { "displayName": "Control", "purpose": "Text inside pills; 15px semibold in nav links and chips." }
+    },
+    "alpha": [
+      { "name": "ink-80", "value": "rgba(27,37,47,0.8)", "purpose": "Nav links at rest." },
+      { "name": "ink-60", "value": "rgba(27,37,47,0.6)", "purpose": "Helper caption under the quote button." },
+      { "name": "ink-55", "value": "rgba(27,37,47,0.55)", "purpose": "Select caret." },
+      { "name": "ink-45", "value": "rgba(27,37,47,0.45)", "purpose": "Placeholder; resting 'Cotizar' affordance." },
+      { "name": "ink-12", "value": "rgba(27,37,47,0.12)", "purpose": "Field border." },
+      { "name": "ink-10", "value": "rgba(27,37,47,0.1)", "purpose": "Section and definition-list rules." },
+      { "name": "ink-8", "value": "rgba(27,37,47,0.08)", "purpose": "Nav ring, flag ring, destination row dividers." },
+      { "name": "white-88", "value": "rgba(255,255,255,0.88)", "purpose": "Nav glass fill; hero subtext." },
+      { "name": "white-92", "value": "rgba(255,255,255,0.92)", "purpose": "Quote card glass fill." },
+      { "name": "white-60", "value": "rgba(255,255,255,0.6)", "purpose": "Quote card ring." },
+      { "name": "white-15", "value": "rgba(255,255,255,0.15)", "purpose": "Social circle ring." },
+      { "name": "white-10", "value": "rgba(255,255,255,0.1)", "purpose": "Social circle fill; footer rule." }
+    ],
+    "shadows": [
+      { "name": "nav-float", "value": "0 18px 50px -22px rgba(14,18,80,0.45)", "purpose": "Floating pill nav." },
+      { "name": "card-float", "value": "0 24px 60px -24px rgba(14,18,80,0.45)", "purpose": "Quote composer card." },
+      { "name": "disc-float", "value": "0 14px 30px -16px rgba(14,18,80,0.4)", "purpose": "Circular photos in the scrolling strip." },
+      { "name": "focus-ring", "value": "0 0 0 3px rgba(46,48,145,0.14)", "purpose": "Form field focus, with border #2E3091." }
+    ],
+    "scrims": [
+      { "name": "hero-scrim", "value": "linear-gradient(180deg, #0E1250CC 0%, #0E125080 34%, #0E125000 60%, #0E125047 100%)", "purpose": "Top-heavy scrim under hero copy; keeps the group visible at the bottom." },
+      { "name": "band-scrim", "value": "linear-gradient(180deg, #1B252F00 30%, #1B252FD9 100%)", "purpose": "Bottom scrim under the 'Nuestra gente' copy on the Cruz Roja band." }
+    ],
+    "glass": [
+      { "name": "nav-glass", "value": "background: rgba(255,255,255,0.88); backdrop-filter: blur(24px); box-shadow: 0 0 0 1px rgba(27,37,47,0.08)", "purpose": "Floating nav." },
+      { "name": "card-glass", "value": "background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); box-shadow: 0 0 0 1px rgba(255,255,255,0.6)", "purpose": "Quote card over the hero sky." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Default easing for every transition, reveal and count-up." },
+      { "name": "ease-in-out", "value": "cubic-bezier(0.77, 0, 0.175, 1)", "purpose": "Clip-path wipe in MediaReveal only." },
+      { "name": "hero-intro", "value": "stagger 90ms, delay 150ms (copy) / 450ms (quote card); items translateY 24px -> 0, 0.9s; h1 blur 6px -> 0", "purpose": "First-viewport entrance on load." },
+      { "name": "reveal", "value": "opacity 0 -> 1, translateY 18px -> 0, 0.7s, once, margin -80px", "purpose": "Section blocks on scroll." },
+      { "name": "stagger", "value": "children 40-80ms apart; items translateY 16px -> 0, 0.6s", "purpose": "Counters, chips, lists, photo strip." },
+      { "name": "media-reveal", "value": "clip-path inset(100% 0 0 0) -> inset(0), 1.1s ease-in-out; inner scale 1.08 -> 1, 1.6s ease-out", "purpose": "Gallery tiles and photo bands." },
+      { "name": "parallax", "value": "translateY -50px -> 50px across scroll, inner layer scaled to hide edges", "purpose": "Hero photo drift." },
+      { "name": "count-up", "value": "0 -> value, 1.4s ease-out, tabular digits", "purpose": "Proof counters." },
+      { "name": "statement-fill", "value": "per-word opacity 0.55 -> 1, scroll offset ['start 0.85', 'end 0.45']", "purpose": "Trajectory sentence." },
+      { "name": "press", "value": "transform 160ms ease-out; scale(0.97) on :active; colors 200ms", "purpose": "Every pressable element." },
+      { "name": "arrow-disc-nudge", "value": "translateX 2px, 200ms ease-out on parent hover", "purpose": "Disc inside yellow pills." },
+      { "name": "nudge", "value": "svg translateX 3px, 220ms ease-out on hover", "purpose": "Text-link arrows." },
+      { "name": "img-zoom", "value": "scale 1.04, 700ms ease-out on hover", "purpose": "Photo tiles." },
+      { "name": "link-u", "value": "1px underline scaleX 0 -> 1 from left, 250ms ease-out", "purpose": "Nav and footer links." },
+      { "name": "nav-panel", "value": "opacity + translateY -12px, 260ms; links stagger 40ms", "purpose": "Mobile menu." },
+      { "name": "reduced-motion", "value": "all travel/blur/clip removed; opacity-only or static", "purpose": "prefers-reduced-motion fallback on every effect." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ],
+    "layout": [
+      { "name": "container", "value": "max-width 1200px; padding 0 20px (32px from md)" },
+      { "name": "nav-inner", "value": "max-width 1120px; height 64px; inset 16px top (20px md)" },
+      { "name": "section-y", "value": "96px (128px from md)" },
+      { "name": "hero", "value": "min-height 78svh; lg 100svh capped 1000px; copy top-left; quote card 400px absolute top-right on lg, -48px overlap below lg" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Yellow pill with an ink arrow disc flush to the right edge; the 'Cotiza tu viaje' ask in hero and contact.",
+      "html": "<a href=\"#\" class=\"ds-btn-primary\">Cotiza tu viaje<span class=\"ds-btn-primary__disc\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01Z\" fill=\"currentColor\"/></svg></span></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 6px 0 24px; border-radius: 9999px; background: #FFDE01; color: #1B252F; font-family: Fredoka, system-ui, sans-serif; font-size: 16px; font-weight: 600; text-decoration: none; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms ease; } .ds-btn-primary__disc { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 9999px; background: #1B252F; color: #FFDE01; transition: transform 200ms cubic-bezier(0.23,1,0.32,1); } .ds-btn-primary:hover { background: #FFE94D; } .ds-btn-primary:hover .ds-btn-primary__disc { transform: translateX(2px); } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }"
+    },
+    {
+      "name": "Nav Button",
+      "kind": "button",
+      "refersTo": "button-nav",
+      "description": "Compact yellow pill in the floating nav and mobile panel.",
+      "html": "<a href=\"#\" class=\"ds-btn-nav\">Cotiza tu viaje</a>",
+      "css": ".ds-btn-nav { display: inline-flex; align-items: center; height: 48px; padding: 0 24px; border-radius: 9999px; background: #FFDE01; color: #1B252F; font-family: Fredoka, system-ui, sans-serif; font-size: 15px; font-weight: 600; text-decoration: none; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms ease; } .ds-btn-nav:hover { background: #FFE94D; } .ds-btn-nav:active { transform: scale(0.97); } .ds-btn-nav:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }"
+    },
+    {
+      "name": "Text Link",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Fredoka link with a trailing arrow that nudges right on hover; 'Ver destinos' on the hero, 'Cotizar' on destination rows.",
+      "html": "<a href=\"#\" class=\"ds-link-arrow\">Ver destinos<svg width=\"16\" height=\"16\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01Z\" fill=\"currentColor\"/></svg></a>",
+      "css": ".ds-link-arrow { display: inline-flex; align-items: center; gap: 8px; color: #1B252F; font-family: Fredoka, system-ui, sans-serif; font-size: 16px; font-weight: 500; text-decoration: none; } .ds-link-arrow svg { transition: transform 220ms cubic-bezier(0.23,1,0.32,1); } .ds-link-arrow:hover svg { transform: translateX(3px); } .ds-link-arrow:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }"
+    },
+    {
+      "name": "Destination Chip",
+      "kind": "chip",
+      "refersTo": "chip-destino",
+      "description": "Cool-paper pill naming a national destination; hover turns yellow and the chip preselects the quote composer.",
+      "html": "<a href=\"#\" class=\"ds-chip\">Barrancas del Cobre</a>",
+      "css": ".ds-chip { display: inline-block; padding: 8px 16px; border-radius: 9999px; background: #F4F5FA; color: #1B252F; font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; text-decoration: none; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms ease; } .ds-chip:hover { background: #FFDE01; } .ds-chip:active { transform: scale(0.97); } .ds-chip:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Pill select/input with bold label; blue border and soft blue ring on focus.",
+      "html": "<label class=\"ds-field\">Destino<span class=\"ds-field__wrap\"><select class=\"ds-field__control\"><option>Elige un destino</option><option>Nueva York</option></select><svg class=\"ds-field__caret\" width=\"16\" height=\"16\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z\" fill=\"currentColor\"/></svg></span></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; color: #1B252F; font-family: 'Nunito Sans', system-ui, sans-serif; font-size: 14px; font-weight: 700; } .ds-field__wrap { position: relative; display: block; } .ds-field__control { appearance: none; width: 100%; height: 48px; padding: 0 40px 0 16px; border: 1px solid rgba(27,37,47,0.12); border-radius: 9999px; background: #fff; color: #1B252F; font-family: inherit; font-size: 15px; font-weight: 400; outline: none; transition: border-color 200ms, box-shadow 200ms; } .ds-field__control::placeholder { color: rgba(27,37,47,0.45); } .ds-field__control:focus { border-color: #2E3091; box-shadow: 0 0 0 3px rgba(46,48,145,0.14); } .ds-field__caret { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: rgba(27,37,47,0.55); pointer-events: none; }"
+    },
+    {
+      "name": "Quote Card",
+      "kind": "card",
+      "refersTo": "card-quote",
+      "description": "Glass card floating over the hero sky holding the quote composer.",
+      "html": "<form class=\"ds-quote\"><p class=\"ds-quote__title\">Cotiza tu viaje</p><label class=\"ds-quote__label\">Alumnos<input class=\"ds-quote__input\" placeholder=\"40\"></label><button type=\"button\" class=\"ds-quote__btn\">Cotiza tu viaje por WhatsApp<span class=\"ds-quote__disc\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path d=\"M224.49 136.49l-72 72a12 12 0 0 1-17-17L187 140H40a12 12 0 0 1 0-24h147l-51.49-51.52a12 12 0 0 1 17-17l72 72a12 12 0 0 1-.02 17.01Z\" fill=\"currentColor\"/></svg></span></button><p class=\"ds-quote__hint\">Se abre WhatsApp con tu solicitud lista para enviar.</p></form>",
+      "css": ".ds-quote { display: flex; flex-direction: column; gap: 12px; max-width: 400px; padding: 24px; border-radius: 24px; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); box-shadow: 0 24px 60px -24px rgba(14,18,80,0.45), 0 0 0 1px rgba(255,255,255,0.6); color: #1B252F; font-family: 'Nunito Sans', system-ui, sans-serif; } .ds-quote__title { margin: 0; font-family: Fredoka, system-ui, sans-serif; font-size: 22px; font-weight: 500; line-height: 1.25; } .ds-quote__label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; } .ds-quote__input { height: 48px; padding: 0 16px; border: 1px solid rgba(27,37,47,0.12); border-radius: 9999px; background: #fff; font: inherit; font-size: 15px; font-weight: 400; outline: none; transition: border-color 200ms, box-shadow 200ms; } .ds-quote__input:focus { border-color: #2E3091; box-shadow: 0 0 0 3px rgba(46,48,145,0.14); } .ds-quote__btn { display: inline-flex; align-items: center; justify-content: space-between; margin-top: 4px; height: 56px; padding: 0 8px 0 24px; border: 0; border-radius: 9999px; background: #FFDE01; color: #1B252F; font-family: Fredoka, system-ui, sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 160ms cubic-bezier(0.23,1,0.32,1), background-color 200ms ease; } .ds-quote__disc { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 9999px; background: #1B252F; color: #FFDE01; transition: transform 200ms cubic-bezier(0.23,1,0.32,1); } .ds-quote__btn:hover { background: #FFE94D; } .ds-quote__btn:hover .ds-quote__disc { transform: translateX(2px); } .ds-quote__btn:active { transform: scale(0.97); } .ds-quote__hint { margin: 0; font-size: 12px; line-height: 1.375; color: rgba(27,37,47,0.6); }"
+    },
+    {
+      "name": "Floating Nav",
+      "kind": "nav",
+      "refersTo": "button-nav",
+      "description": "Fixed glass pill with logo, underline-draw links and the yellow button.",
+      "html": "<header class=\"ds-nav\"><span class=\"ds-nav__logo\">Didáctica</span><nav class=\"ds-nav__links\"><a href=\"#\">Destinos</a><a href=\"#\">Nuestros viajes</a><a href=\"#\">¿Cómo trabajamos?</a><a href=\"#\">Contacto</a></nav><a href=\"#\" class=\"ds-nav__cta\">Cotiza tu viaje</a></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; max-width: 1120px; padding: 0 8px 0 20px; border-radius: 9999px; background: rgba(255,255,255,0.88); backdrop-filter: blur(24px); box-shadow: 0 18px 50px -22px rgba(14,18,80,0.45), 0 0 0 1px rgba(27,37,47,0.08); color: #1B252F; font-family: 'Nunito Sans', system-ui, sans-serif; } .ds-nav__logo { font-family: Fredoka, system-ui, sans-serif; font-weight: 600; font-size: 22px; color: #2E3091; } .ds-nav__links { display: flex; gap: 32px; } .ds-nav__links a { position: relative; color: rgba(27,37,47,0.8); font-size: 15px; font-weight: 600; text-decoration: none; transition: color 200ms ease; } .ds-nav__links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right center; transition: transform 250ms cubic-bezier(0.23,1,0.32,1); } .ds-nav__links a:hover { color: #1B252F; } .ds-nav__links a:hover::after { transform: scaleX(1); transform-origin: left center; } .ds-nav__cta { display: inline-flex; align-items: center; height: 48px; padding: 0 24px; border-radius: 9999px; background: #FFDE01; color: #1B252F; font-family: Fredoka, system-ui, sans-serif; font-size: 15px; font-weight: 600; text-decoration: none; transition: background-color 200ms ease, transform 160ms cubic-bezier(0.23,1,0.32,1); } .ds-nav__cta:hover { background: #FFE94D; } .ds-nav__cta:active { transform: scale(0.97); }"
+    },
+    {
+      "name": "Counter",
+      "kind": "custom",
+      "refersTo": "counter",
+      "description": "Proof figure in Didáctica Blue with tabular digits and a slate label.",
+      "html": "<div class=\"ds-counter\"><span class=\"ds-counter__n\">+27</span><span class=\"ds-counter__l\">años de experiencia</span></div>",
+      "css": ".ds-counter { display: flex; flex-direction: column; gap: 6px; font-family: 'Nunito Sans', system-ui, sans-serif; } .ds-counter__n { font-family: Fredoka, system-ui, sans-serif; font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; color: #2E3091; } .ds-counter__l { max-width: 180px; font-size: 15px; line-height: 1.375; color: #5B5F73; }"
+    },
+    {
+      "name": "Blue Pull-Quote Card",
+      "kind": "card",
+      "refersTo": "card-blue",
+      "description": "The one non-photo tile in the gallery grid; Didáctica Blue with a Fredoka statement.",
+      "html": "<div class=\"ds-card-blue\"><p>Normalmente asignamos un coordinador por cada 10 alumnos. Papás tranquilos en casa, casi como si nos acompañaran al viaje.</p></div>",
+      "css": ".ds-card-blue { display: flex; align-items: center; padding: 40px; border-radius: 24px; background: #2E3091; color: #fff; } .ds-card-blue p { margin: 0; font-family: Fredoka, system-ui, sans-serif; font-size: clamp(1.5rem, 2.6vw, 2.25rem); font-weight: 500; line-height: 1.2; }"
+    },
+    {
+      "name": "Objective Badge",
+      "kind": "custom",
+      "refersTo": "badge-objetivo",
+      "description": "Yellow 56px disc with one Fredoka letter beside a title and description on the blue band.",
+      "html": "<div class=\"ds-objetivo\"><span class=\"ds-objetivo__badge\" aria-hidden=\"true\">A</span><span class=\"ds-objetivo__text\"><strong>Aprendizaje</strong><span>Nuevos entornos educativos en un ambiente de motivación extraordinaria.</span></span></div>",
+      "css": ".ds-objetivo { display: flex; align-items: flex-start; gap: 20px; padding: 24px; background: #2E3091; color: #fff; font-family: 'Nunito Sans', system-ui, sans-serif; } .ds-objetivo__badge { display: grid; place-items: center; flex-shrink: 0; width: 56px; height: 56px; border-radius: 9999px; background: #FFDE01; color: #1B252F; font-family: Fredoka, system-ui, sans-serif; font-size: 24px; font-weight: 600; } .ds-objetivo__text { display: flex; flex-direction: column; gap: 4px; } .ds-objetivo__text strong { font-family: Fredoka, system-ui, sans-serif; font-size: 24px; font-weight: 500; line-height: 1.25; } .ds-objetivo__text span { max-width: 48ch; font-size: 15px; line-height: 1.625; color: rgba(255,255,255,0.78); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Trip Already Taken",
+    "overview": "The page is built from Didáctica's own group photographs and treats them as the ground everything else sits on. Type, surfaces and controls are kept quiet and round so the London Eye, the Mexican flag and the neon-scarf groups carry the emotion; the copy and the quote composer state the offer in one beat and get out of the way. Density is low and the rhythm is long: 96 to 128px between sections, one idea per band, generous white and cool-paper gaps.\n\nThe palette is a strict two-tone of blue-tinted ink and Didáctica blue with a single yellow accent reserved for the ask. Fredoka's rounded forms set every headline, counter and control; Nunito Sans carries reading text. Everything that can be pressed is a pill; everything that holds content is a 24px surface. Shadows exist but are tinted with the brand's deep navy and pushed far below the element, so lifted elements read as floating over the photo rather than casting a grey drop.\n\nThe build rejects the polaroid-collage brochure of the current Didáctica site and the generic headline-plus-three-cards landing page. There are no eyebrows, no kickers, no decorative icon grids and no invented photo captions.",
+    "keyCharacteristics": [
+      "Photography as ground: full-bleed hero and work band, unequal 12-column gallery, circular photo strip.",
+      "One accent (yellow) used only on calls to action, the objective badges and hover states.",
+      "Fredoka 500/600 for everything that is not body copy; Nunito Sans 400/700 for body and labels.",
+      "Pill controls, 24px surfaces, 1px alpha hairlines; no bordered cards.",
+      "Navy-tinted, long-throw shadows on floating elements only (nav, quote card, photo circles).",
+      "Scroll-linked and entrance motion on one shared ease-out curve; every effect has a reduced-motion fallback."
+    ],
+    "rules": [
+      { "name": "The One Yellow Rule", "body": "Yellow appears only where the visitor can act or where the brand marks its three objectives. It never fills a surface, a heading or a decorative shape.", "section": "colors" },
+      { "name": "The Navy Shadow Rule", "body": "Every shadow and scrim derives from Scrim Navy, never from black or grey.", "section": "colors" },
+      { "name": "The Fredoka Everywhere Above Body Rule", "body": "Any text larger than body copy, and any text inside a control, is Fredoka. Nunito Sans never sets a heading.", "section": "typography" },
+      { "name": "The No Kicker Rule", "body": "Sections open with the headline itself; there are no eyebrows, overlines or uppercase tracking anywhere on the surface.", "section": "typography" },
+      { "name": "The Float-Only Rule", "body": "Shadows belong to elements that sit over a photo or over the page; content in flow (lists, chips, image tiles, blue card) is flat.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do put yellow only on actions, hover fills and the A/D/S badges; keep its share of any screen small.",
+      "Do set every heading, counter and control label in Fredoka (600 for h1/h2/counters/buttons, 500 for statements and titles).",
+      "Do use pills for anything pressable and 24px for anything that frames content.",
+      "Do tint every shadow and scrim with Scrim Navy (rgba(14,18,80,…)) and keep shadows on floating elements only.",
+      "Do separate list rows with 1px Ink 8 to 10% hairlines and generous row padding instead of cards.",
+      "Do keep reading text in Slate Text on light surfaces and White 70 to 88% on blue or ink bands, 46 to 60ch wide.",
+      "Do keep the hero copy top-left over the sky so the group photo stays unobstructed."
+    ],
+    "donts": [
+      "Don't add eyebrows, kickers, overlines or uppercase letter-spaced labels.",
+      "Don't fill a surface, heading or decorative shape with yellow, and don't introduce a second accent (red is not used on this surface).",
+      "Don't use grey or black shadows, 2px borders or bordered cards.",
+      "Don't caption the circular photo strip or the gallery with destination names; the photos are not matched to places.",
+      "Don't set headings in Nunito Sans or body copy in Fredoka.",
+      "Don't use square corners on any control or content frame."
+    ]
+  }
+}
