@@ -254,7 +254,15 @@ function Card({ c, status, onStatus, text, edited, onEdit, onReset, onSent, onCo
 
           <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {c.waDisplay && <Fact label="WhatsApp"><span className="font-mono text-[13.5px] tabular-nums">{c.waDisplay}</span>{c.waSource && <span className="text-xs text-black/45">{c.waSource}</span>}</Fact>}
-            {c.phoneAlt && <Fact label="Tel. en la base"><a href={`tel:+52${c.phoneAlt.replace(/\s/g, "")}`} className="link-u font-mono text-[13.5px] tabular-nums">{c.phoneAlt}</a></Fact>}
+            {c.phoneAlt && (
+              <Fact label="Tel. en Google Maps">
+                <a href={`tel:+52${c.phoneAlt.replace(/\s/g, "")}`} className="link-u font-mono text-[13.5px] tabular-nums">{c.phoneAlt}</a>
+                {/* Por si el número principal no tiene WhatsApp: abre el chat con el primer mensaje. */}
+                <a href={`https://wa.me/52${c.phoneAlt.replace(/\s/g, "")}?text=${encodeURIComponent(text(1))}`} target="_blank" rel="noopener" className="link-u text-xs text-black/55">
+                  Probar en WhatsApp
+                </a>
+              </Fact>
+            )}
             {c.email && <Fact label="Correo"><a href={`mailto:${c.email}`} className="link-u">{c.email}</a></Fact>}
             {c.web && (
               <Fact label="Web actual">
