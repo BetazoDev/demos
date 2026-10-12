@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { EASE_OUT } from "@/components/motion";
 import { HemeronLogo } from "./hemeron-logo";
 
@@ -49,18 +49,39 @@ const COPY = {
 export function DemoBadge() {
   const reduce = useReducedMotion();
   const dialog = useRef<HTMLDialogElement>(null);
-  const [lang, setLang] = useState<"es" | "en">("es");
-  const [name, setName] = useState("");
-  const [url, setUrl] = useState("");
+  // Idioma, nombre y URL salen de la propia página (el bundle no conoce a los demás despachos);
+  // en el servidor se usan los valores por defecto y en el cliente se leen del DOM.
+  const page = JSON.parse(
+    useSyncExternalStore(
+      () => () => {},
+      () => JSON.stringify({ lang: document.getElementById("top")?.getAttribute("lang") === "en" ? "en" : "es", name: document.title.split(" | ")[0].trim(), url: window.location.origin + window.location.pathname }),
+      () => JSON.stringify({ lang: "es", name: "", url: "" }),
+    ),
+  ) as { lang: "es" | "en"; name: string; url: string };
+  const { lang, name, url } = page;
   const [atEnd, setAtEnd] = useState(false);
-  const appeared = useRef(false);
+  const [appeared, setAppeared] = useState(false);
   const t = COPY[lang];
 
-  // Idioma, nombre y URL salen de la propia página: el bundle no conoce a los demás despachos.
+  // Se aparta cuando un elemento marcado con data-badge-avoid (p. ej. un formulario) ocupa la franja inferior de la ventana.
+  const [avoid, setAvoid] = useState(false);
   useEffect(() => {
-    setLang(document.getElementById("top")?.getAttribute("lang") === "en" ? "en" : "es");
-    setName(document.title.split(" | ")[0].trim());
-    setUrl(window.location.origin + window.location.pathname);
+    const targets = document.querySelectorAll("[data-badge-avoid]");
+    if (!targets.length) return;
+    let observer: IntersectionObserver | undefined;
+    const observe = () => {
+      observer?.disconnect();
+      observer = new IntersectionObserver((entries) => setAvoid(entries.some((e) => e.isIntersecting)), {
+        rootMargin: `-${Math.max(0, window.innerHeight - 96)}px 0px 0px 0px`,
+      });
+      targets.forEach((t) => observer!.observe(t));
+    };
+    observe();
+    window.addEventListener("resize", observe);
+    return () => {
+      window.removeEventListener("resize", observe);
+      observer?.disconnect();
+    };
   }, []);
 
   // Al llegar al pie se oculta para no tapar el crédito de Hemeron.
@@ -71,7 +92,7 @@ export function DemoBadge() {
       setAtEnd(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 140);
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(check); };
-    check();
+    frame = requestAnimationFrame(check);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
@@ -99,11 +120,11 @@ export function DemoBadge() {
         aria-haspopup="dialog"
         onClick={() => dialog.current?.showModal()}
         initial={{ opacity: 0, transform: reduce ? "translateY(0px)" : "translateY(14px)" }}
-        animate={atEnd
+        animate={atEnd || avoid
           ? { opacity: 0, transform: reduce ? "translateY(0px)" : "translateY(10px)", transition: { duration: 0.2, ease: EASE_OUT } }
-          : { opacity: 1, transform: "translateY(0px)", transition: { duration: 0.5, ease: EASE_OUT, delay: appeared.current ? 0 : 1.2 } }}
-        onAnimationComplete={() => { appeared.current = true; }}
-        style={{ pointerEvents: atEnd ? "none" : "auto" }}
+          : { opacity: 1, transform: "translateY(0px)", transition: { duration: 0.5, ease: EASE_OUT, delay: appeared ? 0 : 1.2 } }}
+        onAnimationComplete={() => setAppeared(true)}
+        style={{ pointerEvents: atEnd || avoid ? "none" : "auto" }}
         className="press fixed bottom-4 left-4 z-40 inline-flex h-11 items-center gap-2.5 rounded-full bg-[#0E0E0E] pl-3.5 pr-4 font-[family-name:var(--font-geist-sans)] text-[13.5px] font-medium tracking-[-0.005em] text-white shadow-[0_10px_30px_-8px_rgba(0,0,0,0.45)] ring-1 ring-white/12 hover:bg-[#1c1c1c] sm:bottom-6 sm:left-6"
       >
         <span aria-hidden="true" className="size-2 rounded-full bg-[#3DDC84] shadow-[0_0_0_3px_rgba(61,220,132,0.18)]" />
