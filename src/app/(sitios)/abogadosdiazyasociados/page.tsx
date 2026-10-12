@@ -99,7 +99,6 @@ const OFFICES = [
   { c: "Medellín, Colombia", a: "Dann Financiera, Cra. 43A #7 50A, Oficina 1605, El Poblado", p: "+57 311 522 9980", tel: "+573115229980" },
   { c: "España", a: "Madrid, Alicante, Valencia y Marbella" },
   { c: "Londres, Reino Unido", a: "53 Davies St, London W1K 5JH", p: "+44 7429 569661", tel: "+447429569661" },
-  { c: "Lima, Perú", a: "Atención 100% online para todo Perú" },
 ];
 
 const SOCIAL = [
@@ -408,7 +407,7 @@ export default function DiazAsociadosPage() {
                 </div>
                 <div className="grid gap-[18px] sm:grid-cols-2 sm:gap-3.5">
                   <SelectField label="Área legal" name="area" options={["Derecho de Extranjería"]} />
-                  <SelectField label="Oficina" name="oficina" options={["México", "Buenos Aires", "Bogotá", "Medellín", "España", "Londres", "Lima"]} />
+                  <SelectField label="Oficina" name="oficina" options={["México", "Buenos Aires", "Bogotá", "Medellín", "España", "Londres"]} />
                 </div>
                 <Field label="Asunto" name="asunto" />
                 <label className="flex flex-col gap-[7px]">
@@ -430,7 +429,7 @@ export default function DiazAsociadosPage() {
             <div className="flex flex-col items-start gap-5 md:col-span-2 lg:col-span-1">
               <Logo white />
               <p className="text-[15px] leading-6 text-white/70">
-                Despacho de abogados experto en derecho de extranjería, con oficinas en Argentina, España, México, Colombia, Perú y Reino Unido.
+                Despacho de abogados experto en derecho de extranjería, con oficinas en Argentina, España, México, Colombia y Reino Unido.
               </p>
               <div className="flex gap-3">
                 {SOCIAL.map(({ label, href, Icon }) => (
