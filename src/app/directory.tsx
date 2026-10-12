@@ -21,6 +21,7 @@ const KIND_LABEL: Record<Site["kind"], string> = {
   legaltech: "Legaltech",
   vacante: "Vacante",
   arquitectura: "Arquitectura",
+  viajes: "Viajes escolares",
 };
 
 const normalize = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();

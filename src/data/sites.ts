@@ -1,5 +1,5 @@
 // Generado desde /INDEX.md y /sites.tsv. Directorio de rediseños.
-export type Site = { num: string; slug: string; name: string; url: string; domain: string; kind: "despacho" | "auditoría" | "colegio" | "legaltech" | "vacante" | "arquitectura" };
+export type Site = { num: string; slug: string; name: string; url: string; domain: string; kind: "despacho" | "auditoría" | "colegio" | "legaltech" | "vacante" | "arquitectura" | "viajes" };
 
 export const SITES: Site[] = [
  {
@@ -521,5 +521,13 @@ export const SITES: Site[] = [
   "url": "https://arkylab.com/",
   "domain": "arkylab.com",
   "kind": "arquitectura"
+ },
+ {
+  "num": "69",
+  "slug": "didactica",
+  "name": "Didáctica Viajes",
+  "url": "https://didactica.com.mx/",
+  "domain": "didactica.com.mx",
+  "kind": "viajes"
  }
 ];
