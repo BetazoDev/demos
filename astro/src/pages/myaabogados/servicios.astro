@@ -1,0 +1,132 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import Tokens from "@/sites/myaabogados/Tokens.astro";
+import { site } from "@/sites/myaabogados/site";
+import { areas } from "@/sites/myaabogados/data";
+
+const base = "/myaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const provider = { "@id": new URL(`${base}#organizacion`, Astro.site).href };
+const schema = areas.map((a) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: a.title,
+  description: [a.lead, ...(a.groups ?? []).map((g) => `${g.title}: ${g.items.join(", ")}.`), a.items ? `${a.items.join("; ")}.` : null].filter(Boolean).join(" "),
+  provider,
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios | M&A Abogados: establecimientos mercantiles, obras y construcción, uso de suelo en CDMX"
+  description="Regularización y apertura de establecimientos mercantiles, obras y construcción, desarrollo urbano y uso de suelo, protección civil, litigio administrativo, civil y corporativo en la Ciudad de México."
+  nav={{ variant: "bar", tone: "light", logoHeight: 48 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={schema}
+>
+  <Tokens />
+  <PageHero title="Servicios" lede="Especialistas en derecho administrativo y gestión gubernamental: establecimientos mercantiles y de la construcción." />
+
+  <Section size="sm" class="pt-6 sm:pt-10">
+    <div class="wrap">
+      <div class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {
+          areas.map((a, i) => (
+            <details id={a.key} class="acc group scroll-mt-28" open={i === 0}>
+              <summary class="flex items-center justify-between gap-6 py-7 sm:py-9">
+                <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.7rem,3.6vw,3.1rem)] leading-[1.05] tracking-[-0.01em]">{a.title}</h2>
+                <span class="acc-plus grid size-11 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+                </span>
+              </summary>
+              <div class="acc-body">
+                <div>
+                  <div class:list={["grid gap-10 pb-12 lg:gap-16", a.image ? "lg:grid-cols-[0.9fr_1.1fr]" : "lg:grid-cols-[0.6fr_1.4fr]"]}>
+                    <div>
+                      {a.lead && <p class="max-w-[42ch] text-lg leading-relaxed text-(--c-muted)">{a.lead}</p>}
+                      {a.image && (
+                        <div class:list={["overflow-hidden rounded-(--c-radius-img,1.25rem)", a.lead && "mt-8"]}>
+                          <Pic src={a.image} alt={a.alt ?? ""} class="aspect-[4/3] w-full object-cover" />
+                        </div>
+                      )}
+                    </div>
+                    <div class="grid content-start gap-9">
+                      {a.groups?.map((g) => (
+                        <div>
+                          <h3 class="mb-4 text-[clamp(1.25rem,2vw,1.6rem)] leading-tight tracking-[-0.01em]">{g.title}</h3>
+                          <ul class="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                            {g.items.map((it, n) => (
+                              <li class="check-li flex gap-3 text-[17px] leading-snug" style={`--i:${n}`}>
+                                <span class="tick mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-(--c-brand) text-(--c-on-brand)"><Icon name="check" weight="bold" class="size-3" /></span>
+                                <span>{it}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                      {a.items && (
+                        <ul class="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                          {a.items.map((it, n) => (
+                            <li class="check-li flex gap-3 text-[17px] leading-snug" style={`--i:${n}`}>
+                              <span class="tick mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-(--c-brand) text-(--c-on-brand)"><Icon name="check" weight="bold" class="size-3" /></span>
+                              <span>{it}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          ))
+        }
+        <div id="asesoria-juridica" class="py-7 sm:py-9">
+          <h2 class="text-[clamp(1.7rem,3.6vw,3.1rem)] leading-[1.05] tracking-[-0.01em]">Asesoría jurídica</h2>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <p data-reveal class="max-w-[40ch] text-[clamp(1.5rem,2.7vw,2.3rem)] leading-[1.3] tracking-[-0.01em]">La responsabilidad que corresponde ante la confianza y oportunidad que nos depositan nuestros clientes nos obliga a asumir un compromiso de puntualidad, orden, formalidad y eficacia en todo lo que implica esta materia, de tal forma que únicamente dependemos de ustedes para los datos y la documentación necesarios, ya que nuestro enfoque principal es resolver favorablemente.</p>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>
+
+<style is:global>
+  /* Lista de verificación: al abrir un servicio las casillas aparecen en cascada */
+  details.acc .check-li { opacity: 0; translate: 0 10px; }
+  details.acc .check-li .tick { scale: 0.6; }
+  details.acc[open] .check-li { animation: check-in 0.55s cubic-bezier(0.23, 1, 0.32, 1) both; animation-delay: calc(var(--i, 0) * 55ms + 160ms); }
+  details.acc[open] .check-li .tick { animation: tick-in 0.45s cubic-bezier(0.23, 1, 0.32, 1) both; animation-delay: calc(var(--i, 0) * 55ms + 240ms); }
+  @keyframes check-in { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+  @keyframes tick-in { from { scale: 0.6; } to { scale: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    details.acc .check-li, details.acc .check-li .tick { opacity: 1 !important; translate: 0 0 !important; scale: 1 !important; animation: none !important; }
+  }
+</style>
+
+<script>
+  // Los enlaces #servicio de la página de inicio abren el servicio correspondiente.
+  const openFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      requestAnimationFrame(() => el.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+  };
+  document.addEventListener("astro:page-load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+</script>

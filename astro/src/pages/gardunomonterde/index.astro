@@ -1,0 +1,75 @@
+---
+import Layout from "@/sites/gardunomonterde/Layout.astro";
+import Hero from "@/sites/gardunomonterde/Hero.astro";
+import Expand from "@/sites/gardunomonterde/Expand.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/gardunomonterde/site";
+import { areas, partners, photos } from "@/sites/gardunomonterde/data";
+
+const base = "/gardunomonterde";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+---
+
+<Layout title="Abogados penalistas en la Ciudad de México | Garduño Monterde Asociados" footer={{ variant: "dark", blurb: "Representación técnica y asesoría legal integral." }}>
+  <Hero title="Abogados penalistas en la Ciudad de México" lede="Representación técnica, adecuada, acorde a las necesidades y exigencias actuales." image={photos.hero} imageAlt="Escalinatas y columnas de un edificio de tribunales" position="50% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Estrategias legales de litigación idóneas a casos particulares, comprometidos con la excelencia de nuestros servicios legales." /></div>
+  </Section>
+
+  <Section tone="brand" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.05]">Áreas de especialidad</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <Section size="none" class="py-4 sm:py-5">
+    <Expand image={photos.columnata} alt="Columnas jónicas de un edificio de tribunales al anochecer" position="40% 50%" />
+  </Section>
+
+  <Section id="socios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-14 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.05]">Socios fundadores</h2>
+      <div class="grid gap-14 md:grid-cols-2 lg:gap-24">
+        {
+          partners.map((p, i) => (
+            <article data-reveal data-delay={i * 120}>
+              <h3 class="text-[clamp(1.7rem,2.8vw,2.4rem)] leading-tight">{p.name}</h3>
+              <p class="mt-1.5 text-(--c-muted)">{p.role}</p>
+              <p class="mt-5 max-w-[46ch] text-lg leading-relaxed">{p.summary}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div data-reveal class="mt-12"><Button href={`${base}/nosotros`} variant="outline">Ver su trayectoria</Button></div>
+      <div data-reveal class="mt-20 flex flex-col gap-4 border-t border-(--c-line) pt-10 sm:flex-row sm:items-baseline sm:gap-10">
+        <p class="font-(family-name:--f-display) text-[clamp(4rem,9vw,7.5rem)] font-medium leading-none tracking-[-0.03em]"><span data-count="20 años" class="tabular-nums">20 años</span></p>
+        <p class="max-w-[34ch] text-[15px] text-(--c-muted)">de experiencia profesional en materia de procuración de justicia (Roberto Carlos Garduño Mejía)</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.05]">Contacto</h2>
+        <ContactBlock site={site} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

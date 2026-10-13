@@ -1,0 +1,38 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Pic from "@/kit/Pic.astro";
+import Skin from "@/sites/lexonabogados/Skin.astro";
+import { site } from "@/sites/lexonabogados/site";
+import { areas, photos } from "@/sites/lexonabogados/data";
+
+const base = "/lexonabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Lexon Abogados, Río Rhin 22, colonia Cuauhtémoc, CDMX"
+  description="Lexon Abogados en Río Rhin 22, interior 302 (Edificio Mallorca), colonia Cuauhtémoc, Ciudad de México. WhatsApp 56 4366 4823."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  footer={{ variant: "light", blurb: "Abogados para la nueva realidad jurídica" }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Skin />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en el Edificio Mallorca, colonia Cuauhtémoc." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Section size="sm" class="pt-0">
+    <div class="wrap">
+      <div data-reveal="clip" class="aspect-[21/9] overflow-hidden bg-(--c-surface)"><Pic src={photos.documentos} alt="Carpetas de expedientes atadas con listón azul y una pluma sobre un escritorio" position="50% 55%" class="size-full object-cover" /></div>
+    </div>
+  </Section>
+</SiteLayout>

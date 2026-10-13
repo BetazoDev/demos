@@ -1,0 +1,46 @@
+---
+import "@/sites/lexlababogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "@/kit/Nav.astro";
+import Footer from "@/sites/lexlababogados/Footer.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import { site, navSite } from "@/sites/lexlababogados/site";
+import { services, about } from "@/sites/lexlababogados/data";
+
+const base = "/lexlababogados";
+const rows = services.filter((s) => s.lead).map((s) => ({ key: s.key, title: s.title, text: s.text.split(/(?<=\.)\s/)[0], href: `${base}/servicios/${s.key}` }));
+const doc = services.find((s) => s.key === "documentacion-legal")!;
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios laborales para empresas | LexLab Abogados"
+  description="Auditoría legal, consultoría legal laboral, documentación, seguro contra demandas, desvinculación de empleados e inspecciones de la STPS para empresas en la Ciudad de México."
+  nav={false}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <Footer slot="footer" site={site} variant="dark" blurb="Blindaje Legal Laboral." />
+  <Nav slot="nav" site={navSite} variant="pill" tone="light" logoHeight={40} />
+  <PageHero title="Servicios" lede={`${about[1]}`} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div data-reveal class="flex items-center gap-4">
+        <Icon name={doc.icon} weight="bold" class="size-8 text-(--c-accent)" />
+        <h2 class="text-[clamp(1.8rem,3.4vw,2.8rem)] font-bold leading-[1.02]">{doc.title}</h2>
+      </div>
+      <p data-reveal data-delay="100" class="max-w-[56ch] text-lg text-(--c-muted)">{doc.text}</p>
+    </div>
+  </Section>
+
+  <CtaBand title="Blindaje Legal Laboral." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

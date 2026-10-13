@@ -1,0 +1,15 @@
+---
+// Tira infinita (máximo una por página). Se pausa al pasar el cursor; sin animación si se pide reducir movimiento.
+interface Props { items: string[]; class?: string; speed?: number }
+const { items, class: cls = "", speed = 50 } = Astro.props;
+---
+
+<div class:list={["overflow-hidden", cls]} aria-hidden="true">
+  <div class="marquee" style={`--marquee-s:${speed}s`}>
+    {[0, 1].map(() => (
+      <ul class="flex shrink-0 items-center">
+        {items.map((it) => <li class="whitespace-nowrap px-8 text-[clamp(1.5rem,3vw,2.6rem)] font-medium tracking-[-0.02em]">{it}</li>)}
+      </ul>
+    ))}
+  </div>
+</div>

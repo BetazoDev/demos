@@ -1,0 +1,32 @@
+---
+import "@/sites/cardenassoriano/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Composer from "@/sites/cardenassoriano/Composer.astro";
+import { site } from "@/sites/cardenassoriano/site";
+import { serviceNames, photos } from "@/sites/cardenassoriano/data";
+
+const base = "/cardenassoriano";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Cárdenas Soriano Abogados"
+  description="Torcuato Tasso 237, Polanco, Ciudad de México. WhatsApp 56 1898 1616 y contacto@cardenas-soriano.com. Lunes a viernes, de 9:00 a 18:00."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Empecemos por una llamada." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={serviceNames} />
+      </div>
+    </div>
+  </Section>
+  <ImageBand image={photos.libreta} alt="Libreta abierta y pluma sobre una mesa de madera" position="50% 50%" height="clamp(14rem,32vw,24rem)" />
+</SiteLayout>

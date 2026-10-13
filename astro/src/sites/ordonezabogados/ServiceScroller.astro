@@ -1,0 +1,86 @@
+---
+// Carrusel horizontal de servicios: desplazamiento nativo con imán, botones anterior/siguiente y una línea de progreso (transform).
+import Icon from "@/kit/Icon.astro";
+interface Item { key: string; title: string; icon: string; lead: string; href: string }
+interface Props { items: Item[]; label?: string }
+const { items, label = "Servicios" } = Astro.props;
+---
+
+<div data-scroller>
+  <div class="wrap mb-8 flex items-center justify-between gap-6">
+    <slot />
+    <div class="flex shrink-0 gap-2">
+      <button type="button" data-scroll-prev aria-label="Servicio anterior" class="press grid size-12 place-items-center rounded-full border border-current/30 hover:border-current/70 disabled:opacity-35"><Icon name="arrow-left" weight="bold" class="size-5" /></button>
+      <button type="button" data-scroll-next aria-label="Servicio siguiente" class="press grid size-12 place-items-center rounded-full border border-current/30 hover:border-current/70 disabled:opacity-35"><Icon name="arrow-right" weight="bold" class="size-5" /></button>
+    </div>
+  </div>
+  <ul data-scroll-track role="list" aria-label={label} class="scroller flex snap-x snap-mandatory gap-4 overflow-x-auto pb-8 pr-6">
+    {items.map((s) => (
+      <li class="snap-start shrink-0">
+        <a href={s.href} class="svc-panel group flex h-full min-h-[23rem] w-[min(82vw,22.5rem)] flex-col justify-between gap-12 rounded-(--c-radius) border border-white/10 bg-white/[0.06] p-7">
+          <span class="grid size-12 place-items-center rounded-full bg-(--c-accent) text-(--c-on-accent)"><Icon name={s.icon} class="size-6" /></span>
+          <div>
+            <h3 class="text-[1.65rem] font-semibold leading-[1.08] tracking-[-0.02em]">{s.title}</h3>
+            <p class="mt-4 text-[15px] leading-relaxed opacity-75">{s.lead}</p>
+            <span class="mt-6 inline-flex items-center gap-2 text-[15px] font-medium"><span class="link-u">Ver detalle</span><Icon name="arrow-right" weight="bold" class="size-4 transition-transform duration-300 group-hover:translate-x-1" /></span>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <div class="wrap"><div class="h-px bg-current/20"><div data-scroll-bar class="h-full origin-left bg-(--c-accent)" style="transform:scaleX(0.2)"></div></div></div>
+</div>
+
+<style>
+  .scroller { padding-left: calc((100vw - min(100vw - 2.5rem, 76rem)) / 2); scrollbar-width: none; scroll-padding-left: calc((100vw - min(100vw - 2.5rem, 76rem)) / 2); }
+  .scroller::-webkit-scrollbar { display: none; }
+  @media (min-width: 768px) {
+    .scroller { padding-left: calc((100vw - min(100vw - 5rem, 76rem)) / 2); scroll-padding-left: calc((100vw - min(100vw - 5rem, 76rem)) / 2); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .svc-panel { transition: background-color 300ms var(--ease-out), border-color 300ms var(--ease-out); }
+    .svc-panel:hover { background-color: rgb(255 255 255 / 0.11); border-color: rgb(255 255 255 / 0.22); }
+  }
+</style>
+
+<script>
+  let off: Array<() => void> = [];
+  let live = false;
+  function init() {
+    if (live) return;
+    live = true;
+    const root = document.querySelector<HTMLElement>("[data-scroller]");
+    if (!root) return;
+    const track = root.querySelector<HTMLElement>("[data-scroll-track]")!;
+    const bar = root.querySelector<HTMLElement>("[data-scroll-bar]")!;
+    const prev = root.querySelector<HTMLButtonElement>("[data-scroll-prev]")!;
+    const next = root.querySelector<HTMLButtonElement>("[data-scroll-next]")!;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const step = () => (track.querySelector("li")?.getBoundingClientRect().width ?? 320) + 16;
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      const p = max > 0 ? track.scrollLeft / max : 1;
+      const visible = track.clientWidth / track.scrollWidth;
+      bar.style.transform = `scaleX(${(visible + (1 - visible) * p).toFixed(4)})`;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max - 2;
+    };
+    const go = (dir: number) => track.scrollBy({ left: dir * step(), behavior: reduce ? "auto" : "smooth" });
+    const onPrev = () => go(-1);
+    const onNext = () => go(1);
+    prev.addEventListener("click", onPrev);
+    next.addEventListener("click", onNext);
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+    off.push(() => {
+      prev.removeEventListener("click", onPrev);
+      next.removeEventListener("click", onNext);
+      track.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    });
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => { off.forEach((f) => f()); off = []; live = false; });
+  init();
+</script>

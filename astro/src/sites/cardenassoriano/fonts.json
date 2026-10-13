@@ -1,0 +1,4 @@
+[
+  { "name": "Wix Madefor Display", "cssVariable": "--f-cardenassoriano-display", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Host Grotesk", "cssVariable": "--f-cardenassoriano-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

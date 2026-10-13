@@ -1,0 +1,98 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/sites/abogadoherver/ContactBlock.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/abogadoherver/Hero.astro";
+import Nav from "@/sites/abogadoherver/Nav.astro";
+import Footer from "@/sites/abogadoherver/Footer.astro";
+import Composer from "@/sites/abogadoherver/Composer.astro";
+import { site } from "@/sites/abogadoherver/site";
+import { areas, team, descripcion, confianza, equipoFrase, resenas, asesoria } from "@/sites/abogadoherver/data";
+import sala from "@/sites/abogadoherver/assets/oficina-sala-juntas-hd.jpg";
+import "@/sites/abogadoherver/theme.css";
+
+const base = "/abogadoherver";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+---
+
+<SiteLayout
+  site={site}
+  title="Abogados civil, familiar y penal en Narvarte, CDMX | Herver Abogados de México"
+  description="Especialistas en Derecho Civil, Familiar y Penal en la colonia Narvarte Poniente, Ciudad de México. Asesoría legal, litigio y defensa de tus derechos. Calificación 5.0 en Google."
+>
+  <Nav slot="nav" site={site} variant="bar" tone="light" logoHeight={38} />
+  <Hero title="Más que abogados, somos aliados estratégicos" lede={descripcion} image={sala} imageAlt="Sala de juntas con una mesa larga de cubierta oscura, sillas y una pantalla en la pared" position="50% 55%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="solid" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement class="!max-w-[32ch] font-(family-name:--f-display) font-normal" text={confianza} /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.1rem,4.6vw,4rem)] font-normal leading-[1.02] tracking-[-0.01em]">Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <Section id="equipo">
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(2.1rem,4.6vw,4rem)] font-normal leading-[1.02] tracking-[-0.01em]">Nuestro equipo</h2>
+      <p data-reveal data-delay="60" class="mt-5 max-w-[48ch] text-lg text-(--c-muted)">{equipoFrase}</p>
+      <ul data-stagger data-gap="90" class="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 lg:gap-x-6">
+        {team.map((p) => (
+          <li>
+            <div class="img-zoom aspect-[4/5] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)">
+              <Pic src={p.photo} alt={p.name} position={p.position} class="size-full object-cover" />
+            </div>
+            <h3 class="mt-4 text-xl font-normal tracking-[0.01em]">{p.name}</h3>
+            <p class="mt-1 text-[15px] text-(--c-accent)">{p.role}</p>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal class="mt-12"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <p data-reveal class="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+        <span data-count={site.google!.rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(4rem,9vw,7.5rem)] font-light leading-none tracking-[-0.03em] tabular-nums">{site.google!.rating.toFixed(1)}</span>
+        <span class="text-lg text-(--c-muted)">en Google, {site.google!.reviews} reseñas</span>
+      </p>
+      <ul data-stagger data-gap="80" class="mt-14 gap-x-16 md:columns-2">
+        {resenas.map((r) => (
+          <li class="mb-12 break-inside-avoid border-t border-(--c-accent)/60 pt-6">
+            <blockquote class="text-lg leading-relaxed">“{r.text}”</blockquote>
+            <p class="mt-4 text-sm text-(--c-muted)">{r.author}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.1rem,4.6vw,4rem)] font-normal leading-[1.02] tracking-[-0.01em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu caso" text={asesoria} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Más que abogados, somos aliados estratégicos en la protección de tus derechos." />
+</SiteLayout>

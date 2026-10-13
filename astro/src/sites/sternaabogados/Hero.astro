@@ -1,0 +1,25 @@
+---
+// Héroe propio: titular a la izquierda y, a la derecha, un arco con una calle de Madrid al anochecer (imagen de ambiente generada,
+// no es su oficina). Dos postigos cubren el arco y se abren al cargar la página.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string }
+const { title, lede, image, imageAlt = "" } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-14 pt-32 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16 lg:pb-16 lg:pt-28">
+    <div>
+      <h1 data-hero="blur" class="max-w-[17ch] text-[clamp(2.5rem,5vw,4.7rem)] font-medium leading-[1.02]">{title}</h1>
+      <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="mt-10 flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+    <div class="arch relative isolate mx-auto aspect-[3/4] w-full max-w-[24rem] overflow-hidden lg:ml-auto lg:aspect-auto lg:h-[min(76svh,50rem)] lg:max-w-[28rem]">
+      <div class="absolute inset-0 -z-10" data-parallax="40">
+        <Pic src={image} alt={imageAlt} priority position="50% 40%" class="size-full object-cover" />
+      </div>
+      <span class="shutter shutter-l" aria-hidden="true"></span>
+      <span class="shutter shutter-r" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>

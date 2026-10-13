@@ -1,0 +1,30 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Nav from "@/sites/asesorestrategia/Nav.astro";
+import Footer from "@/sites/asesorestrategia/Footer.astro";
+import { site } from "@/sites/asesorestrategia/site";
+import { areas } from "@/sites/asesorestrategia/data";
+
+const base = "/asesorestrategia";
+---
+
+<SiteLayout site={site} title="Contacto | Strategia Asesores, Monterrey 381, Roma Sur, CDMX" description="Agende una sesión inicial o visítenos en Monterrey 381, Despacho 2, Roma Sur, Ciudad de México. WhatsApp 81 4812 3053." nav={false} footer={false} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="Contacto" lede="Si valora la discreción y la estrategia, está en el lugar correcto. Agende una sesión inicial o visítenos en nuestras oficinas." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} />
+        <p class="mt-10 max-w-[46ch] text-[15px] text-(--c-muted)">La consulta inicial tiene costo, monto que es acreditable a los honorarios en caso de que usted decida contratar el servicio.</p>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Firma legal y consultoría patrimonial" />
+</SiteLayout>

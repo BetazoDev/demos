@@ -1,0 +1,62 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/ordonezabogados/site";
+import { servicios, prevencion, objetivo } from "@/sites/ordonezabogados/data";
+import "@/sites/ordonezabogados/theme.css";
+
+const base = "/ordonezabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const waArea = (t: string) => `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro}: ${t.toLowerCase()}.`)}`;
+const orgId = new URL(`${base}#organizacion`, Astro.site).href;
+const schema = servicios.map((s) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: s.title,
+  description: [s.text, ...(s.items ?? [])].join(" "),
+  provider: { "@id": orgId },
+  audience: { "@type": "BusinessAudience", name: "Empresas" },
+  areaServed: [{ "@type": "City", name: "Ciudad de México" }, { "@type": "City", name: "Pachuca de Soto" }],
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios de derecho laboral para empresas | Ordoñez Abogados"
+  description="Representación en conflictos laborales, juicios colectivos y conciliación, comisiones laborales, huelgas, amparo y auditorías legales para empresas en CDMX y Pachuca."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 44 }}
+  footer={{ variant: "light" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={schema}
+>
+  <PageHero tone="dark" title="Servicios" lede={prevencion} />
+
+  <Section size="sm" class="pt-14 sm:pt-20">
+    <div class="wrap">
+      <ul data-stagger data-gap="70" class="grid gap-4 lg:grid-cols-2">
+        {servicios.map((s) => (
+          <li id={s.key} class="scroll-mt-28">
+            <article class="flex h-full flex-col rounded-(--c-radius-card) bg-(--c-surface) p-7 sm:p-10">
+              <span class="grid size-12 place-items-center rounded-full bg-(--c-brand) text-(--c-on-brand)"><Icon name={s.icon} class="size-6" /></span>
+              <h2 class="mt-8 text-[clamp(1.6rem,2.6vw,2.2rem)] font-semibold leading-[1.08] tracking-[-0.02em]">{s.title}</h2>
+              <p class="mt-4 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">{s.text}</p>
+              {s.items && (
+                <ul class="mt-5 grid gap-2.5">
+                  {s.items.map((i) => (
+                    <li class="flex gap-3 text-[17px] leading-relaxed"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{i}</span></li>
+                  ))}
+                </ul>
+              )}
+              <p class="mt-auto pt-8"><a href={waArea(s.title)} target="_blank" rel="noopener" class="link-u font-medium">Escribir por WhatsApp</a></p>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu empresa" text={objetivo} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

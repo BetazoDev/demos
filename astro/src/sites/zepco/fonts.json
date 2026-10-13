@@ -1,0 +1,4 @@
+[
+  { "name": "Baskervville", "cssVariable": "--f-zepco-display", "weights": [400, 500], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Geist", "cssVariable": "--f-zepco-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

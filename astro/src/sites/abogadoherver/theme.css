@@ -1,0 +1,7 @@
+/* Sistema de radios del sitio: 6px en imágenes, tarjetas y campos; botones con el mismo radio. */
+[data-site="abogadoherver"] {
+  --c-radius-img: 6px;
+  --c-radius-card: 6px;
+  --c-radius-field: 6px;
+  --c-radius-nav: 6px;
+}

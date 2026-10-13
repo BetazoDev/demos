@@ -1,0 +1,33 @@
+---
+// Envoltorio de SiteLayout: nav de barra con el emblema y el nombre, pie con el logo completo, ajustes de la sans display.
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number };
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string };
+}
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout site={site} nav={false} footer={false} {...rest}>
+  <Nav slot="nav" site={site} variant="bar" tone="dark" logoHeight={50} {...nav} />
+  <slot />
+  <Footer slot="footer" site={site} variant="dark" {...footer} />
+</SiteLayout>
+
+<style is:global>
+  [data-site="mongeasociados"] :is(h1, h2) { font-weight: 700; letter-spacing: -0.035em; }
+  [data-site="mongeasociados"] h3 { font-weight: 600; }
+  [data-site="mongeasociados"] [data-statement] { font-weight: 600; letter-spacing: -0.03em; }
+  [data-site="mongeasociados"] main :is(.opacity-60, .opacity-65) { opacity: 0.8; }
+  [data-site="mongeasociados"] main a.break-all { word-break: normal; overflow-wrap: anywhere; font-size: clamp(0.85rem, 3.7vw, 1.0625rem); }
+  /* El botón de la nav conserva el verde ácido también sobre el campo oscuro */
+  html[data-site="mongeasociados"] [data-nav][data-tone="dark"]:not(.is-scrolled) .nav-cta { background: var(--c-brand); color: var(--c-on-brand); }
+  html[data-site="mongeasociados"] [data-nav][data-tone="dark"]:not(.is-scrolled) .nav-cta .arr { background: var(--c-on-brand); color: var(--c-brand); }
+</style>

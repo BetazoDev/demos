@@ -1,0 +1,22 @@
+---
+// Sección con tono: paper (fondo), surface (alterno), dark, brand. Espaciado vertical propio del kit.
+interface Props {
+  tone?: "paper" | "surface" | "dark" | "brand";
+  id?: string;
+  size?: "md" | "sm" | "none";
+  class?: string;
+  [attr: string]: unknown;
+}
+const { tone = "paper", id, size = "md", class: cls = "", ...rest } = Astro.props;
+const tones = {
+  paper: "bg-(--c-bg) text-(--c-ink)",
+  surface: "bg-(--c-surface) text-(--c-ink)",
+  dark: "bg-(--c-dark) text-(--c-on-dark)",
+  brand: "bg-(--c-brand) text-(--c-on-brand)",
+};
+const pad = { md: "section-y", sm: "section-y-sm", none: "" };
+---
+
+<section id={id} class:list={[tones[tone], pad[size], cls]} data-tone={tone} {...rest}>
+  <slot />
+</section>

@@ -1,0 +1,78 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/abogadoherver/Nav.astro";
+import Footer from "@/sites/abogadoherver/Footer.astro";
+import { site } from "@/sites/abogadoherver/site";
+import { areas, team } from "@/sites/abogadoherver/data";
+import "@/sites/abogadoherver/theme.css";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/abogadoherver";
+const others = areas.filter((a) => a.key !== area.key);
+const person = team.find((t) => t.id === area.lawyer)!;
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} en materia de ${area.short.toLowerCase()}.`)}`;
+const orgId = new URL(`${base}#organizacion`, Astro.site).href;
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: area.title,
+  description: area.items.join("; "),
+  provider: { "@id": orgId },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}];
+---
+
+<SiteLayout
+  site={site}
+  title={`${area.title} en la CDMX | Herver Abogados de México`}
+  description={`${area.lead} Asesoría y litigio en la colonia Narvarte, Ciudad de México.`}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}
+  schema={schema}
+>
+  <Nav slot="nav" site={site} variant="bar" tone="light" logoHeight={38} />
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} />
+
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap grid gap-14 lg:grid-cols-[1.3fr_0.7fr] lg:gap-20">
+      <div>
+        <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-normal leading-tight">{area.itemsTitle}</h2>
+        <ul data-stagger data-gap="45" class="grid gap-x-10 gap-y-4 sm:grid-cols-2">
+          {area.items.map((i) => (
+            <li class="flex gap-3 border-b border-(--c-line) pb-4 text-lg">
+              <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+              <span>{i}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <aside data-reveal data-delay="100" class="lg:justify-self-end">
+        <h2 class="mb-6 text-[clamp(1.6rem,3vw,2.4rem)] font-normal leading-tight">En el equipo</h2>
+        <div class="w-[min(100%,16rem)]">
+          <div class="aspect-[4/5] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)"><Pic src={person.photo} alt={person.name} position={person.position} class="size-full object-cover" /></div>
+          <p class="mt-4 text-xl font-semibold">{person.name}</p>
+          <p class="mt-1 text-[15px] text-(--c-accent)">{person.role}</p>
+        </div>
+      </aside>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-normal leading-tight">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-(--c-radius) border border-(--c-line) px-5 py-2.5 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Más que abogados, somos aliados estratégicos en la protección de tus derechos." />
+</SiteLayout>

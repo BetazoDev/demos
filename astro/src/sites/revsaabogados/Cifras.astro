@@ -1,0 +1,19 @@
+---
+// Cifras de REVSA (las que publica en sus preguntas frecuentes): números enormes en oro que cuentan al entrar.
+interface Props { stats: { value: string; label: string }[]; class?: string }
+const { stats, class: cls = "" } = Astro.props;
+---
+
+<dl data-stagger data-gap="110" class:list={["grid gap-12 md:grid-cols-3 md:gap-10", cls]}>
+  {
+    stats.map((s) => (
+      <div>
+        <dt class="sr-only">{s.label}</dt>
+        <dd>
+          <span data-count={s.value} class="block font-(family-name:--f-display) text-[clamp(4.5rem,11vw,9.5rem)] leading-[0.9] tracking-[-0.05em] tabular-nums text-(--c-brand)">{s.value}</span>
+          <span class="mt-5 block max-w-[22ch] text-lg text-(--c-on-dark)/75">{s.label}</span>
+        </dd>
+      </div>
+    ))
+  }
+</dl>

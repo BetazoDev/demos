@@ -1,0 +1,21 @@
+---
+import Layout from "@/sites/valenciarangel/Layout.astro";
+import Indice from "@/sites/valenciarangel/Indice.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/valenciarangel/site";
+import { areas, litigios } from "@/sites/valenciarangel/data";
+
+const base = "/valenciarangel";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+---
+
+<Layout title="Servicios jurídicos: propiedad intelectual, mercantil, corporativo y migratorio | Valencia Rangel" description="Asesoría y consultoría, propiedad intelectual e industrial, mercantil, corporativo, amparo, civil, familiar, administrativo, laboral y servicios migratorios en Polanco, Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Soluciones integrales a través de estrategias jurídicas eficientes y viables." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><Indice items={rows} extra={litigios} /></div>
+  </Section>
+  <CtaBand title="¿Necesitas asesoría legal?" text="Solucionamos tus problemas legales de manera eficaz, con la mejor estrategia de defensa." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

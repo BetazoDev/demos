@@ -1,0 +1,17 @@
+---
+// Cifras que Enley publica (cuentan al entrar en pantalla): cuadrícula de 2 x 2 con números grandes.
+interface Props { stats: { value: string; label: string }[]; class?: string }
+const { stats, class: cls = "" } = Astro.props;
+---
+
+<dl data-stagger data-gap="90" class:list={["grid grid-cols-1 gap-x-16 gap-y-14 sm:grid-cols-2", cls]}>
+  {stats.map((s) => (
+    <div class="border-t border-(--c-line) pt-8">
+      <dt class="sr-only">{s.label}</dt>
+      <dd>
+        <span data-count={s.value} class="block font-(family-name:--f-display) text-[clamp(3.4rem,8vw,7rem)] font-semibold leading-none tracking-[-0.045em] tabular-nums">{s.value}</span>
+        <span class="mt-4 block max-w-[30ch] text-lg text-(--c-muted)">{s.label}</span>
+      </dd>
+    </div>
+  ))}
+</dl>

@@ -1,0 +1,4 @@
+[
+  { "name": "Noto Serif Display", "cssVariable": "--f-fidemabogados-display", "weights": [400, 500, 600], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Manrope", "cssVariable": "--f-fidemabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

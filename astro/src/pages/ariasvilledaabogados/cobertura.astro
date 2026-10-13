@@ -1,0 +1,40 @@
+---
+import "@/sites/ariasvilledaabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/ariasvilledaabogados/site";
+import { cobertura } from "@/sites/ariasvilledaabogados/data";
+
+const base = "/ariasvilledaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+---
+
+<SiteLayout
+  site={site}
+  title="Cobertura nacional | Arias & Villeda Abogados"
+  description="Alianza con profesionistas del Derecho a nivel República Mexicana: zonas norte, metropolitana, bajío, centro y sur."
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "Cobertura", href: `${base}/cobertura` }]}
+>
+  <PageHero title="Cobertura" lede="Hemos formado una alianza con diversos profesionistas del Derecho a nivel República Mexicana." />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap">
+      <p data-reveal class="max-w-[62ch] text-lg leading-relaxed text-(--c-muted) sm:text-xl">{cobertura.intro}</p>
+      <ul data-stagger data-gap="90" class="av-zones mt-16 grid lg:grid-cols-5">
+        {
+          cobertura.zonas.map((z) => (
+            <li class="py-8 lg:px-6 lg:first:pl-0 lg:last:pr-0">
+              <h2 class="text-[clamp(1.4rem,2vw,1.8rem)] leading-tight tracking-[-0.015em]">{z.zona}</h2>
+              <ul class="mt-5 grid gap-2 text-lg">
+                {z.entidades.map((e) => <li>{e}</li>)}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

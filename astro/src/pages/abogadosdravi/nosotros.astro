@@ -1,0 +1,58 @@
+---
+import Layout from "@/sites/abogadosdravi/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Statement from "@/kit/Statement.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/abogadosdravi/site";
+import { firma, photos } from "@/sites/abogadosdravi/data";
+
+const base = "/abogadosdravi";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.7rem,3.2vw,2.8rem)] font-normal leading-tight tracking-[-0.025em]";
+---
+
+<Layout
+  site={site}
+  title="Quiénes somos | Abogados DRAVI, despacho jurídico en la CDMX"
+  description="Equipo de abogados con visión contemporánea. Contrato de prestación de servicios con desglose de gastos y honorarios claros. Atención previa cita en Paseo de la Reforma, CDMX."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Quiénes somos", href: `${base}/nosotros` }]}
+>
+  <PageHero title="Quiénes somos" lede={firma.quienes[0]} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <p data-reveal class="text-[clamp(1.2rem,1.9vw,1.5rem)] leading-snug">{firma.quienes[1]}</p>
+      <div data-reveal data-delay="100" class="grid gap-6 text-lg leading-relaxed text-(--c-muted)">
+        <p>{firma.quienes[2]}</p>
+        <p>{firma.quienes[3]}</p>
+      </div>
+    </div>
+  </Section>
+
+  <ImageBand image={photos.libreta} alt="Libreta abierta con pluma fuente y lentes sobre un escritorio de madera, junto a una balanza de latón" position="50% 60%" />
+
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class={h2}>Ética profesional</h2>
+      <div data-reveal data-delay="100" class="grid gap-8">
+        <p class="max-w-[60ch] text-lg leading-relaxed text-(--c-muted)">{firma.etica}</p>
+        <Statement text="La ley es tu aliada, y nosotros somos el instrumento." class="!max-w-[22ch] !font-normal" />
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class:list={["lg:sticky lg:top-28 lg:self-start", h2]}>Nuestra finalidad</h2>
+      <div data-reveal data-delay="100" class="grid gap-6 text-lg leading-relaxed text-(--c-muted)">
+        <p class="text-[clamp(1.2rem,1.9vw,1.5rem)] leading-snug text-(--c-ink)">{firma.finalidadPregunta}</p>
+        {firma.valor.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

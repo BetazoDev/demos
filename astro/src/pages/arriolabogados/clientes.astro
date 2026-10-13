@@ -1,0 +1,28 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+import { logos } from "@/sites/arriolabogados/logos";
+
+const base = "/arriolabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Clientes | Arriola Abogados, abogados en Polanco, CDMX" description="Empresas y marcas que han confiado en Arriola Abogados, despacho en Polanco, Ciudad de México, para propiedad intelectual, asuntos corporativos y fiscales." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "Clientes", href: `${base}/clientes` }]}>
+  <PageHero title="Clientes" lede="Logotipos de los clientes que el despacho publica en su sitio." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <ul data-reveal class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        {logos.map((l) => (
+          <li class="grid aspect-[5/3] place-items-center rounded-(--c-radius-card) bg-(--c-surface) p-5">
+            <img src={l.src} width={l.width} height={l.height} alt="" loading="lazy" decoding="async" class="client-logo max-h-[3.4rem] w-auto max-w-[78%] object-contain" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

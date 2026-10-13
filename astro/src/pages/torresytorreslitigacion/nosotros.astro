@@ -1,0 +1,83 @@
+---
+import Layout from "@/sites/torresytorreslitigacion/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import logoStacked from "@/sites/torresytorreslitigacion/assets/logo-stacked.png";
+import { site } from "@/sites/torresytorreslitigacion/site";
+import { team, firma, metodo } from "@/sites/torresytorreslitigacion/data";
+
+const base = "/torresytorreslitigacion";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.7rem,3.2vw,2.8rem)] leading-tight tracking-[-0.02em]";
+const principios = [
+  { t: "Misión", d: firma.mision },
+  { t: "Visión", d: firma.vision },
+  { t: "Valores", d: firma.valores },
+  { t: "Compromiso", d: firma.compromiso },
+];
+---
+
+<Layout
+  site={site}
+  title="La firma | Grupo Roberto Torres & Torres, despacho penalista en CDMX"
+  description="Despacho especializado en litigación penal, derecho penal financiero, amparo y prevención de riesgos. Atención directa, análisis técnico y absoluta confidencialidad."
+  nav={{ variant: "bar", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <PageHero title="La firma" lede="Grupo Roberto Torres & Torres es un despacho especializado en litigación penal, derecho penal financiero, amparo y prevención de riesgos." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-24">
+      <div data-reveal class="grid gap-6 text-lg leading-relaxed text-(--c-muted)">
+        <p class="text-[clamp(1.2rem,1.9vw,1.5rem)] leading-snug text-(--c-ink)">{firma.intro}</p>
+        <p>{firma.intro2}</p>
+      </div>
+      <div data-reveal="clip" class="grid aspect-[4/3] place-items-center rounded-md bg-(--c-dark) p-10">
+        <Pic src={logoStacked} alt="Roberto, Grupo Torres & Torres, litigación estratégica" class="h-auto max-h-full w-auto max-w-[78%] !object-contain" fill={false} />
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-14 md:grid-cols-2 md:gap-x-20 md:gap-y-16">
+      {principios.map((p) => (
+        <div data-reveal>
+          <h2 class={h2}>{p.t}</h2>
+          <p class="mt-5 text-lg leading-relaxed text-(--c-muted)">{p.d}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-6", h2]}>El equipo</h2>
+      <p data-reveal class="mb-14 max-w-[52ch] text-lg text-(--c-muted)">{firma.equipoLead}</p>
+      <ul class="grid gap-16 sm:gap-24">
+        {team.map((p, i) => (
+          <li class:list={["grid items-center gap-8 md:gap-16", i % 2 === 0 ? "md:grid-cols-[0.7fr_1.3fr]" : "md:grid-cols-[1.3fr_0.7fr]"]}>
+            <div data-reveal="clip" class:list={["mx-auto w-full max-w-[20rem] p-2", i % 2 === 1 && "md:order-2"]}><div class="tt-medal"><Pic src={p.photo} alt={p.name} class="size-full object-cover" /></div></div>
+            <div data-reveal>
+              <h3 class="text-[clamp(1.6rem,2.8vw,2.4rem)] leading-tight tracking-[-0.015em]">{p.name}</h3>
+              <p class="mt-2 text-(--c-muted)">{p.role}</p>
+              <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{p.bio}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class={h2}>Método de trabajo</h2>
+      <ol data-stagger data-gap="90" class="grid gap-3 text-[clamp(1.5rem,2.8vw,2.4rem)] leading-tight tracking-[-0.015em] sm:grid-cols-3 sm:gap-8">
+        {metodo.map((m) => <li class="border-t border-(--c-accent) pt-5">{m}</li>)}
+      </ol>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

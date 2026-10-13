@@ -1,0 +1,23 @@
+---
+// Héroe de G&G: campo azul de su logo con el titular grande y, a la derecha, su logo claro como única imagen
+// (no tiene fotos). El logo entra con barrido; las letras del titular suben con desenfoque (kit).
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; logo: Img; logoAlt?: string }
+const { title, lede, logo, logoAlt = "" } = Astro.props;
+---
+
+<section class="gg-hero relative isolate overflow-hidden bg-(--c-brand) text-white">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-16 pt-32 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 lg:pb-14">
+    <div>
+      <h1 data-hero="blur" class="max-w-[13ch] text-[clamp(2.7rem,6.6vw,6.2rem)] font-bold leading-[0.98] tracking-[-0.035em]">{title}</h1>
+      <p data-hero style="--i:1" class="mt-8 max-w-[38ch] text-lg text-white/85 sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div data-hero-media style="--d:300ms" class="mx-auto w-full max-w-[19rem] rounded-(--c-radius-img) bg-white/[0.06] p-7 ring-1 ring-white/15 lg:ml-auto lg:max-w-[24rem] lg:p-9">
+      <Pic src={logo} alt={logoAlt} priority fill={false} class="h-auto w-full" />
+    </div>
+  </div>
+</section>

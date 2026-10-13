@@ -1,0 +1,60 @@
+---
+import Layout from "@/sites/irra/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/irra/site";
+import { nosotros, principios, mision, misionCierre, equipoTexto, equipo } from "@/sites/irra/data";
+
+const base = "/irra";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.8rem,3.4vw,3rem)] font-bold leading-[1.06] tracking-[-0.03em]";
+---
+
+<Layout site={site} title="La firma | Irra Ibarra, más de 40 años brindando asesoría legal de excelencia" description="Irra Ibarra es una firma líder en el asesoramiento legal en México. Conozca a la firma, su misión basada en la excelencia y el espíritu de servicio, y a su equipo." breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede={nosotros[0]} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <div class="grid max-w-[64rem] gap-8 text-lg">
+        {nosotros.slice(1).map((p, i) => <p data-reveal data-delay={i * 60} class={i === 0 ? "text-[clamp(1.3rem,2vw,1.7rem)] leading-snug" : "text-(--c-muted)"}>{p}</p>)}
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="brand">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-4 ${h2}`}>Misión y visión</h2>
+      <p data-reveal class="mb-14 max-w-[40ch] text-lg opacity-85">{mision}</p>
+      <div class="grid gap-12 lg:grid-cols-2 lg:gap-24">
+        {principios.map((p, i) => (
+          <div data-reveal data-delay={i * 100}>
+            <h3 class="text-[clamp(1.6rem,2.6vw,2.2rem)] font-bold leading-tight tracking-[-0.025em]">{p.title}</h3>
+            <p class="mt-4 max-w-[48ch] text-lg opacity-85">{p.text}</p>
+          </div>
+        ))}
+      </div>
+      <p data-reveal class="mt-14 max-w-[60ch] text-lg opacity-85">{misionCierre}</p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-10 ${h2}`}>Nuestro equipo</h2>
+      <div class="grid max-w-[64rem] gap-6 text-lg text-(--c-muted)">
+        {equipoTexto.map((p, i) => <p data-reveal data-delay={i * 80}>{p}</p>)}
+      </div>
+      <ul data-stagger data-gap="90" class="mt-16 grid gap-12 lg:grid-cols-3 lg:gap-10">
+        {equipo.map((p) => (
+          <li>
+            <h3 class="text-[clamp(1.4rem,2.1vw,1.8rem)] font-bold leading-tight tracking-[-0.02em]">{p.name}</h3>
+            <p class="mt-1.5 text-(--c-accent)">{p.role}</p>
+            <p class="mt-4 text-(--c-muted)">{p.bio}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Soluciones jurídicas prácticas para los complejos retos de los negocios actuales" href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</Layout>

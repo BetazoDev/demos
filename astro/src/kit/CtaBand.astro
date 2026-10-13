@@ -1,0 +1,26 @@
+---
+// Cierre de página: una frase y un solo botón (misma etiqueta que el resto del sitio).
+import Button from "./Button.astro";
+interface Props {
+  title: string;
+  text?: string;
+  href: string;
+  label: string;
+  tone?: "dark" | "brand" | "surface";
+  external?: boolean;
+}
+const { title, text, href, label, tone = "brand", external = false } = Astro.props;
+const tones = { dark: "bg-(--c-dark) text-(--c-on-dark)", brand: "bg-(--c-brand) text-(--c-on-brand)", surface: "bg-(--c-surface) text-(--c-ink)" };
+---
+
+<section class:list={["section-y overflow-hidden", tones[tone]]}>
+  <div class="wrap grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+    <div data-reveal>
+      <h2 class="max-w-[20ch] text-[clamp(2.2rem,5.2vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.035em]">{title}</h2>
+      {text && <p class="mt-5 max-w-[48ch] text-lg opacity-80">{text}</p>}
+    </div>
+    <div data-reveal data-delay="120">
+      <Button href={href} variant={tone === "surface" ? "solid" : "light"} size="lg" external={external}>{label}</Button>
+    </div>
+  </div>
+</section>

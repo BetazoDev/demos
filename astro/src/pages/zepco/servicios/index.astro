@@ -1,0 +1,25 @@
+---
+import Layout from "@/sites/zepco/Layout.astro";
+import Lista from "@/sites/zepco/Lista.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/zepco/site";
+import { areas, tambien, texto } from "@/sites/zepco/data";
+
+const base = "/zepco";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const org = new URL(`/${site.slug}#organizacion`, Astro.site).href;
+const schema = areas.map((a) => ({ "@context": "https://schema.org", "@type": "Service", name: a.title, description: a.text, provider: { "@id": org }, areaServed: { "@type": "City", name: "Ciudad de México" } }));
+---
+
+<Layout footer={{ variant: "light" }} title="Servicios jurídicos: derecho inmobiliario, propiedad intelectual y litigio | Zepeda & Torres" description="Derecho inmobiliario, propiedad intelectual, litigio civil, mercantil, familiar y corporativo, estructuración corporativa y protección patrimonial en la Ciudad de México." schema={schema} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios jurídicos" lede="Consultoría legal y litigio para empresas, particulares e inversionistas, con presencia en todo el país y corresponsales internacionales." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Lista items={areas} />
+      <p data-reveal class="mt-8 text-[15px] text-(--c-muted)">{tambien}</p>
+    </div>
+  </Section>
+  <CtaBand title="Ponte en contacto" text="Llena el formulario y nos pondremos en contacto a la brevedad." href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</Layout>

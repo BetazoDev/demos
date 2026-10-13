@@ -1,0 +1,25 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import Nav from "@/sites/asesorestrategia/Nav.astro";
+import Footer from "@/sites/asesorestrategia/Footer.astro";
+import { site } from "@/sites/asesorestrategia/site";
+import { privacidad } from "@/sites/asesorestrategia/privacidad";
+
+const base = "/asesorestrategia";
+---
+
+<SiteLayout site={site} title="Aviso de privacidad | Strategia Asesores" description="Aviso de privacidad de Strategia Asesores conforme a la LFPDPPP." nav={false} footer={false} breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        {privacidad.map((b) => b.h ? <h2>{b.h}</h2> : b.h3 ? <h3>{b.h3}</h3> : b.ul ? <ul>{b.ul.map((x) => <li>{x}</li>)}</ul> : <p>{b.p}</p>)}
+      </Prose>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Firma legal y consultoría patrimonial" />
+</SiteLayout>

@@ -1,0 +1,14 @@
+---
+// Envuelve el layout del kit y carga la hoja de estilos propia del sitio (sistema de radios recto, detalles).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import "./site.css";
+const props = Astro.props;
+---
+
+<SiteLayout {...props}>
+  <slot />
+</SiteLayout>
+
+<script>
+  import "./motion";
+</script>

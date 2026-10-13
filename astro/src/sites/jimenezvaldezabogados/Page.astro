@@ -1,0 +1,13 @@
+---
+// Envoltura de SiteLayout: radios del sitio (12px) para campos, imágenes y tarjetas.
+import SiteLayout from "@/kit/SiteLayout.astro";
+---
+
+<SiteLayout {...Astro.props}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  :root { --c-radius-field: 12px; --c-radius-img: 12px; --c-radius-card: 12px; }
+  @media (max-width: 480px) { .break-all { font-size: 15px; } }
+</style>

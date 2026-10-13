@@ -1,0 +1,54 @@
+/* Megoi: ajustes de sitio, todo acotado a [data-site="megoiabogados"]. */
+[data-site="megoiabogados"] {
+  --c-radius-img: 6px;
+  --c-radius-card: 6px;
+  --c-radius-field: 6px;
+  --c-radius-nav: 8px;
+}
+/* Texto secundario del kit con contraste AA */
+[data-site="megoiabogados"] .opacity-55,
+[data-site="megoiabogados"] .opacity-60,
+[data-site="megoiabogados"] .opacity-65 {
+  opacity: 0.8;
+}
+[data-site="megoiabogados"] .mgo-body {
+  font-family: var(--f-body);
+}
+
+/* Firma de movimiento: las áreas se apilan como tarjetas pegajosas; la que queda debajo se reduce al taparla (solo transform) */
+[data-site="megoiabogados"] .mgo-stack > li {
+  position: sticky;
+  top: calc(5.25rem + var(--i, 0) * 3.1rem);
+  transform-origin: 50% 0;
+  will-change: transform;
+  margin-bottom: 1.25rem;
+}
+@media (min-width: 1024px) {
+  [data-site="megoiabogados"] .mgo-stack > li {
+    top: calc(6rem + var(--i, 0) * 3.5rem);
+    margin-bottom: 2rem;
+  }
+}
+[data-site="megoiabogados"] .mgo-card {
+  box-shadow: 0 -14px 34px -16px rgb(16 26 48 / 0.55), inset 0 1px 0 rgb(255 255 255 / 0.14);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-site="megoiabogados"] .mgo-card:hover .mgo-go {
+    background: var(--c-accent);
+    color: var(--c-on-accent);
+    border-color: transparent;
+  }
+}
+[data-site="megoiabogados"] .mgo-go {
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+/* Banda con lema: velo azul para legibilidad */
+[data-site="megoiabogados"] .mgo-veil {
+  background: linear-gradient(to top, color-mix(in oklab, var(--c-dark) 88%, transparent), color-mix(in oklab, var(--c-dark) 38%, transparent) 70%, color-mix(in oklab, var(--c-dark) 22%, transparent));
+}
+
+/* Nav: vidrio casi opaco; sobre el panel azul el vidrio translúcido se ve turbio */
+[data-site="megoiabogados"] [data-nav][data-variant="pill"][data-tone="light"] .nav-inner {
+  background: color-mix(in oklab, var(--c-bg) 94%, transparent);
+}

@@ -1,0 +1,103 @@
+import type { Area } from "./areas";
+
+export const areasB: Area[] = [
+  {
+    key: "mercantil",
+    slug: "derecho-mercantil",
+    title: "Derecho Mercantil",
+    kind: "Litigio y consultoría",
+    lead: "Cuidamos los intereses de empresas, socios y comerciantes en los conflictos que ponen en riesgo su operación.",
+    asuntos: [
+      { t: "Incumplimiento de contratos mercantiles", d: "Compraventa, distribución, suministro, prestación de servicios y crédito comercial." },
+      { t: "Títulos de crédito" },
+      { t: "Conflictos societarios" },
+      { t: "Seguros y fianzas" },
+      { t: "Fideicomisos" },
+      { t: "Cobranza estratégica" },
+      { t: "Mediación y arbitraje mercantil" },
+    ],
+    audienceTitle: "De personas físicas a poderes del Estado.",
+    audienceIntro: "Trabajamos con quienes hacen negocios y necesitan que sus acuerdos se cumplan:",
+    audience: ["Empresas", "Socios y accionistas", "Comerciantes", "Aseguradoras y afianzadoras", "Fiduciarios y fideicomisarios", "Acreedores comerciales", "Emprendedores y PyMEs", "Autoridades", "Instituciones"],
+    why: [
+      { t: "Entendemos el negocio, no solo el juicio", d: "Medimos cada estrategia por su impacto en tu operación y flujo, no solo por su mérito procesal: a veces ganar rápido y cobrar vale más que ganar perfecto." },
+      { t: "Mediación con fuerza de sentencia", d: "Nuestra certificación como facilitadores permite cerrar conflictos comerciales mediante convenios con calidad de cosa juzgada, preservando relaciones de negocio valiosas." },
+      { t: "Dominio del nuevo sistema procesal", d: "Redactamos parte de las reglas que hoy rigen la oralidad y la justicia digital: esa ventaja técnica se nota en cada audiencia." },
+    ],
+    practice: [
+      "Asesoramos y representamos a nuestros clientes en asuntos relacionados con contratos mercantiles, constitución y vida interna de sociedades, títulos de crédito, fideicomisos, seguros y fianzas, cumplimiento e incumplimiento de obligaciones comerciales, cobranza judicial y extrajudicial, y conflictos entre socios y accionistas. Intervenimos tanto en la prevención (diseño de contratos y estructuras) como en el litigio cuando el conflicto es inevitable.",
+      "El juicio oral mercantil y las herramientas de justicia digital han transformado la manera de litigar los negocios en México. Nuestra participación en la redacción del CNPCF y de la LGMASC nos da un dominio profundo de la oralidad, la prueba y los mecanismos alternativos: sabemos cuándo un arbitraje, una mediación certificada o una negociación estructurada protege mejor tu operación que años de tribunal, y cuando hay que litigar, lo hacemos con precisión técnica.",
+    ],
+    faq: {
+      q: "Tengo un pagaré sin pagar, ¿qué tan rápido puedo cobrar?",
+      a: "El juicio ejecutivo mercantil permite solicitar embargo de bienes del deudor desde el inicio, lo que acelera significativamente la recuperación. Los tiempos dependen de la localización de bienes y de la resistencia procesal del deudor; en la llamada inicial evaluamos la solvencia y el escenario realista de cobro.",
+    },
+    cta: "Cuéntanos tu conflicto comercial o societario y te proponemos la ruta que mejor proteja tu operación y tu flujo.",
+  },
+  {
+    key: "familiar",
+    slug: "derecho-familiar",
+    title: "Derecho Familiar",
+    kind: "Litigio y consultoría",
+    lead: "Acompañamos decisiones familiares sensibles con técnica, contención y una estrategia enfocada en soluciones adecuadas.",
+    asuntos: [
+      { t: "Divorcio", d: "Divorcio judicial, administrativo y notarial, con o sin controversia sobre bienes, alimentos y custodia." },
+      { t: "Pensión alimenticia" },
+      { t: "Guarda y custodia, visitas y convivencias" },
+      { t: "Patria potestad" },
+      { t: "Compensación conyugal" },
+      { t: "Sucesiones" },
+      { t: "Mediación familiar" },
+    ],
+    audienceTitle: "Para cada persona de la familia.",
+    audienceIntro: "Acompañamos a personas que atraviesan momentos decisivos de su vida familiar:",
+    audience: ["Cónyuges y concubinos", "Madres y padres de familia", "Herederos y legatarios", "Personas en situación de violencia familiar", "Familias en reorganización"],
+    why: [
+      { t: "Técnica al servicio de lo humano", d: "Detrás de cada expediente familiar hay personas que necesitan certeza. Litigamos con firmeza cuando hay que proteger, y desescalamos cuando el acuerdo cuida mejor a la familia." },
+      { t: "Redactamos el código que rige tu juicio", d: "El CNPCF definió nuevas reglas para los juicios familiares orales; las conocemos desde su redacción y las usamos a favor de tu caso." },
+      { t: "Acuerdos con fuerza de sentencia", d: "Nuestra certificación como facilitadores permite convertir acuerdos familiares en convenios exigibles judicialmente, con rapidez y confidencialidad." },
+    ],
+    practice: [
+      "Asesoramos y representamos a nuestros clientes en divorcios, pensión alimenticia, guarda y custodia, régimen de convivencia, patria potestad, compensación conyugal, violencia familiar, sucesiones testamentarias e intestamentarias y cualquier procedimiento de carácter familiar. Cada caso inicia con una conversación honesta sobre lo que la ley permite, lo que conviene a la familia y lo que más protege el interés superior de la niñez.",
+      "La justicia familiar mexicana se transforma con el Código Nacional de Procedimientos Civiles y Familiares, que privilegia la oralidad, la inmediatez del juez y las soluciones colaborativas. Participamos en su redacción, y además contamos con certificación como facilitadores: cuando las partes pueden construir un acuerdo (de convivencias, alimentos o liquidación patrimonial), lo formalizamos con la misma fuerza que una sentencia, evitando a la familia el desgaste de un juicio prolongado.",
+    ],
+    faq: {
+      q: "¿Cuánto tarda un divorcio?",
+      a: "Si hay acuerdo entre las partes, puede resolverse en semanas mediante convenio. Si existe controversia sobre bienes, alimentos o custodia, el proceso toma más tiempo según la complejidad y la carga del juzgado. Suele convenir separar el divorcio, que procede sin expresar causa, de las controversias accesorias, para que recuperes certeza cuanto antes.",
+    },
+    cta: "Platícanos tu situación con total confidencialidad y te explicamos tus opciones con claridad y sin alarmismos.",
+  },
+  {
+    key: "asesoria-legislativa",
+    slug: "asesoria-legislativa",
+    title: "Asesoría legislativa y reglamentaria",
+    kind: "Litigio y consultoría",
+    lead: "Diseñamos normas claras, aplicables y defendibles para congresos, gobiernos e instituciones públicas.",
+    asuntos: [
+      { t: "Iniciativas y reformas legales", d: "Diseño y redacción de proyectos de ley y reformas con técnica legislativa rigurosa." },
+      { t: "Reglamentos y lineamientos" },
+      { t: "Estudios de constitucionalidad" },
+      { t: "Armonización normativa" },
+      { t: "Exposiciones de motivos y dictámenes" },
+      { t: "Normativa interna institucional" },
+      { t: "Acompañamiento en el proceso legislativo" },
+    ],
+    audienceTitle: "De personas físicas a poderes del Estado.",
+    audienceIntro: "Asesoramos a quienes tienen la responsabilidad de crear o actualizar normas:",
+    audience: ["Congresos y legisladores", "Gobiernos federal, estatales y municipales", "Poderes judiciales", "Organismos autónomos", "Empresas y cámaras", "Organizaciones de la sociedad civil"],
+    why: [
+      { t: "Experiencia redactora comprobada", d: "Integramos los grupos redactores del CNPCF y de la LGMASC, las normas que transformaron la justicia civil, familiar y alternativa de México." },
+      { t: "Normas que resisten el litigio", d: "Sabemos exactamente por qué se impugna una norma; redactamos normas capaces de resistir un análisis constitucional y legal." },
+      { t: "Visión de implementación", d: "Una norma no termina al publicarse: anticipamos su operación, transitorios, capacitación y desarrollo reglamentario para que funcione en la realidad." },
+    ],
+    practice: [
+      "Asesoramos en la redacción de iniciativas legislativas, reformas legales, reglamentos, lineamientos, acuerdos, proyectos normativos y documentos técnicos en materia constitucional, electoral, civil, familiar, mercantil y administrativa. Nuestro método parte del problema público que la norma busca resolver: diagnosticamos el marco vigente, identificamos riesgos de inconstitucionalidad y antinomias, y construimos textos claros, coherentes y técnicamente sólidos.",
+      "Nuestro socio fundador integró los grupos redactores del Código Nacional de Procedimientos Civiles y Familiares y de la Ley General de Mecanismos Alternativos de Solución de Controversias: sabemos lo que implica escribir normas de alcance nacional, armonizarlas con el sistema jurídico y acompañar su proceso de aprobación e implementación. Esa experiencia la ponemos al servicio de proyectos normativos federales, estatales y municipales, así como de normativa interna de organismos y empresas.",
+    ],
+    faq: {
+      q: "¿Qué incluye un proyecto de asesoría legislativa?",
+      a: "Típicamente: diagnóstico del marco vigente, análisis comparado, diseño de la arquitectura normativa, redacción del articulado y transitorios, exposición de motivos y acompañamiento técnico durante la discusión. El alcance se ajusta a cada proyecto y calendario legislativo.",
+    },
+    cta: "Cuéntanos qué norma necesitas crear, reformar o armonizar y te proponemos una ruta técnica con entregables claros.",
+  },
+];

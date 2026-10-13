@@ -1,0 +1,37 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import ContactBlock from "@/sites/abogadoherver/ContactBlock.astro";
+import Composer from "@/sites/abogadoherver/Composer.astro";
+import Nav from "@/sites/abogadoherver/Nav.astro";
+import Footer from "@/sites/abogadoherver/Footer.astro";
+import { site } from "@/sites/abogadoherver/site";
+import { areas } from "@/sites/abogadoherver/data";
+import "@/sites/abogadoherver/theme.css";
+
+const base = "/abogadoherver";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Herver Abogados, La Morena 804, Narvarte Poniente, CDMX"
+  description="La Morena 804, int. 301, colonia Narvarte Poniente, Ciudad de México. WhatsApp y teléfono 55 4194 7336."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Nav slot="nav" site={site} variant="bar" tone="light" logoHeight={38} />
+  <PageHero title="Contacto" lede="Escríbenos por WhatsApp o visítanos en la colonia Narvarte Poniente." />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-10"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Más que abogados, somos aliados estratégicos en la protección de tus derechos." />
+</SiteLayout>

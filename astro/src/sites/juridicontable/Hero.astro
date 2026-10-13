@@ -1,0 +1,24 @@
+---
+// Héroe propio: escritorio a sangre con velo burdeos desde abajo y desde la izquierda; titular largo en serif (3 líneas).
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="70">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_96%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_70%,transparent)_38%,color-mix(in_oklab,var(--c-dark)_10%,transparent)_100%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklab,#783348_55%,transparent),transparent_65%)]"></div>
+  </div>
+  <div class="wrap pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="max-w-[22ch] text-[clamp(2.4rem,5.6vw,5.4rem)] leading-[1.03] tracking-[-0.02em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-6 max-w-[52ch] text-lg opacity-90 sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

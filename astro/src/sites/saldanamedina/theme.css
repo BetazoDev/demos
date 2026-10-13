@@ -1,0 +1,34 @@
+/* Sistema de formas de 6px y firma de movimiento de Saldaña Medina. Todo bajo [data-site] para no filtrarse a otros sitios. */
+[data-site="saldanamedina"] {
+  --c-radius-nav: 6px;
+  --c-radius-img: 6px;
+  --c-radius-card: 6px;
+  --c-radius-field: 6px;
+}
+
+/* Placa del monograma: marco desplazado y un brillo metálico que cruza una sola vez */
+[data-site="saldanamedina"] .plaque {
+  outline: 1px solid color-mix(in oklab, var(--c-on-dark) 20%, transparent);
+  outline-offset: 12px;
+  border-radius: 6px;
+}
+[data-site="saldanamedina"] .plaque-in {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+}
+[data-site="saldanamedina"] .plaque-in::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.28) 50%, transparent 62%);
+  transform: translateX(-120%);
+  animation: plaque-sheen 1.9s var(--ease-out) 1.1s 1 both;
+  pointer-events: none;
+}
+@keyframes plaque-sheen {
+  to { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-site="saldanamedina"] .plaque-in::after { animation: none; display: none; }
+}

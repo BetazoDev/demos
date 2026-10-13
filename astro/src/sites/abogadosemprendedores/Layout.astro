@@ -1,0 +1,13 @@
+---
+// Envuelve el layout del kit: todo recto (0px) como los vértices del isotipo, incluida la nav flotante.
+import SiteLayout from "@/kit/SiteLayout.astro";
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout {...rest} nav={nav ?? { variant: "pill", tone: "light", logoHeight: 54 }} footer={footer ?? { variant: "dark", blurb: "Despacho de abogados especializado en atender las necesidades de los emprendedores." }}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="abogadosemprendedores"] { --c-radius-nav: 0px; --c-radius-img: 0px; --c-radius-card: 0px; --c-radius-field: 0px; }
+</style>

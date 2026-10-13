@@ -1,0 +1,106 @@
+---
+import Layout from "@/sites/victorhugonunoaguillonconsul/Layout.astro";
+import Hero from "@/sites/victorhugonunoaguillonconsul/Hero.astro";
+import Expand from "@/sites/victorhugonunoaguillonconsul/Expand.astro";
+import Composer from "@/sites/victorhugonunoaguillonconsul/Composer.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Accordion from "@/kit/Accordion.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import mark from "@/sites/victorhugonunoaguillonconsul/assets/mark-light.png";
+import { site } from "@/sites/victorhugonunoaguillonconsul/site";
+import { servicios, paquetes, paquetesNota, resenas, areasComposer, photos, SHOW_PRICES } from "@/sites/victorhugonunoaguillonconsul/data";
+
+const base = "/victorhugonunoaguillonconsul";
+const cb = { ...site, phones: [] };
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const waPaquetes = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre los paquetes mensuales.`)}`;
+---
+
+<Layout site={site} title="Abogado y consultoría jurídica en Granada, Polanco | Victor Hugo Nuño Aguillon" description="Asesoría jurídica clara y estratégica para personas y negocios: contratos, marcas e IMPI, abogado externo y paquetes mensuales para emprendedores y empresas en Granada, Polanco, Ciudad de México.">
+  <Hero title="Asesoría jurídica clara y estratégica" lede="Para personas y negocios que quieren crecer con seguridad." mark={mark}>
+    <Fragment slot="actions">
+      <Button href={wa} variant="solid" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href="#servicios" variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement class="max-w-[22ch] sm:max-w-[26ch]" text="Tu negocio necesita estrategia legal, no solo soluciones." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <div data-reveal class="lg:sticky lg:top-32 lg:self-start">
+        <h2 class="text-[clamp(2.2rem,4.6vw,4rem)] font-medium leading-none tracking-[-0.04em]">Servicios</h2>
+        <p class="mt-6 max-w-[30ch] text-lg text-(--c-muted)">Prevenir, proteger, asesorar, solucionar.</p>
+      </div>
+      <div data-reveal data-delay="100"><Accordion items={servicios} /></div>
+    </div>
+  </Section>
+
+  <div class="bg-(--c-bg) py-4 sm:py-8">
+    <Expand image={photos.marmol} alt="Mármol azul marino con vetas doradas">
+      <p data-reveal class="max-w-[24ch] text-[clamp(1.7rem,3.8vw,3.4rem)] font-medium leading-[1.08] tracking-[-0.03em]">Una marca, si marca la diferencia y es tu patrimonio.</p>
+    </Expand>
+  </div>
+
+  <Section id="paquetes">
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(2.2rem,4.6vw,4rem)] font-medium leading-none tracking-[-0.04em]">Paquetes mensuales</h2>
+      <ul data-stagger data-gap="120" class="mt-12 grid gap-4">
+        {paquetes.map((p, i) => (
+          <li class="plan relative grid gap-6 overflow-hidden rounded-(--c-radius) bg-(--c-surface) p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16" style={`--w:${6 + i * 6}px`}>
+            <div>
+              <h3 class="text-[clamp(1.6rem,2.6vw,2.3rem)] font-medium leading-tight tracking-[-0.03em]">{p.name}</h3>
+              <p class="mt-2 max-w-[30ch] text-lg text-(--c-muted)">{p.para}</p>
+              {SHOW_PRICES && <p class="mt-6 text-[clamp(1.6rem,2.4vw,2.2rem)] font-medium text-(--c-accent)">{p.price}</p>}
+            </div>
+            <ul class="grid gap-x-8 gap-y-3 text-lg sm:grid-cols-2">
+              {p.items.map((it) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{it}</span></li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      <p data-reveal class="mt-6 max-w-[56ch] text-(--c-muted)">{paquetesNota}</p>
+      <div data-reveal class="mt-8"><Button href={waPaquetes} variant="solid" size="lg" external>Escribir por WhatsApp</Button></div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <div data-reveal>
+        <p class="flex items-baseline gap-4">
+          <span data-count="5.0" class="font-(family-name:--f-display) text-[clamp(4.5rem,9vw,8rem)] font-medium leading-none tracking-[-0.05em] tabular-nums">5.0</span>
+        </p>
+        <p class="mt-3 text-lg text-(--c-muted)">en Google, {site.google!.reviews} reseñas</p>
+      </div>
+      <ul data-stagger data-gap="100" class="grid gap-x-12 gap-y-10 sm:grid-cols-2">
+        {resenas.map((r, i) => (
+          <li class:list={[i < 2 && "sm:col-span-2"]}>
+            <blockquote class:list={["leading-snug", i < 2 ? "text-[clamp(1.4rem,2.4vw,2.1rem)]" : "text-xl"]}>“{r.text}”</blockquote>
+            <p class="mt-3 text-[15px] text-(--c-muted)">{r.author}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.2rem,4.6vw,4rem)] font-medium leading-none tracking-[-0.04em]">Contacto</h2>
+        <ContactBlock site={cb} showCta={false} />
+        <p class="mt-8 max-w-[44ch] text-(--c-muted)">Atención presencial en Granada, Polanco y CDMX. Modalidad presencial y en línea.</p>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.25rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areasComposer} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Protege tu negocio, previene riesgos" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

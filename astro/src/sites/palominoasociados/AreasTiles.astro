@@ -1,0 +1,33 @@
+---
+// Mosaico de dos columnas para el índice de servicios: ícono, título y los asuntos de cada materia.
+import Icon from "@/kit/Icon.astro";
+import type { Area } from "./data";
+interface Props { areas: Area[]; base: string }
+const { areas, base } = Astro.props;
+---
+
+<ul data-stagger data-gap="60" class="grid gap-px border border-(--c-line) bg-(--c-line) md:grid-cols-2">
+  {
+    areas.map((a) => (
+      <li class="bg-(--c-bg)">
+        <a href={`${base}/servicios/${a.key}`} class="tile group flex h-full flex-col gap-12 p-7 transition-colors duration-300 sm:p-9">
+          <div class="flex items-start justify-between gap-6">
+            <Icon name={a.icon} class="size-8 text-(--c-accent) transition-colors duration-300" />
+            <Icon name="arrow-up-right" weight="bold" class="size-5 opacity-40 transition-[opacity,transform] duration-300 ease-(--ease-out) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+          </div>
+          <div>
+            <h3 transition:name={`area-${a.key}`} class="max-w-[22ch] text-[clamp(1.5rem,2.4vw,2.1rem)] font-medium leading-[1.1] tracking-[-0.02em]">{a.title}</h3>
+            <p class="mt-4 line-clamp-3 max-w-[48ch] text-[15px] text-(--c-muted) transition-colors duration-300">{a.items.join(", ")}.</p>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  @media (hover: hover) {
+    .tile:hover { background: var(--c-brand); color: var(--c-on-brand); }
+    .tile:hover :global(svg:first-child), .tile:hover p { color: color-mix(in oklab, var(--c-on-brand) 80%, transparent); }
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import "@/sites/ulvyn/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Accordion from "@/kit/Accordion.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site, waLink } from "@/sites/ulvyn/site";
+import { areas, faqs } from "@/sites/ulvyn/data";
+
+const base = "/ulvyn";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) };
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios: IA, ética automatizada, robótica y litigios tecnológicos | ULVYN"
+  description="Consultoría preventiva y litigio estratégico en inteligencia artificial, ética automatizada, robótica avanzada y litigios tecnológicos, en toda la República Mexicana."
+  nav={{ variant: "bar", tone: "light", logoHeight: 38 }}
+  footer={{ variant: "dark", blurb: "Human-AI Interaction Law" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={[faqSchema]}
+>
+  <PageHero title="Servicios" lede="Consultoría preventiva y litigio estratégico en cuatro áreas, en toda la República Mexicana." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.8rem,3.2vw,2.8rem)] font-semibold leading-tight tracking-[-0.035em]">Preguntas frecuentes</h2>
+      <Accordion items={faqs} />
+    </div>
+  </Section>
+  <CtaBand title="Agende la consultoría" href={waLink()} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

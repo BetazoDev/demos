@@ -1,0 +1,31 @@
+---
+// Áreas en dos columnas, sin líneas entre filas: título, primera idea del texto y flecha. El título morfa a su página.
+import Icon from "@/kit/Icon.astro";
+import type { Area } from "./data";
+interface Props { areas: Area[]; base: string }
+const { areas, base } = Astro.props;
+---
+
+<ul data-stagger data-gap="60" class="grid gap-x-8 gap-y-2 md:grid-cols-2">
+  {
+    areas.map((a) => (
+      <li>
+        <a href={`${base}/servicios/${a.key}`} data-area={a.title} class="area-link group grid grid-cols-[1fr_auto] items-start gap-x-6 rounded-(--c-radius) px-5 py-6 transition-colors duration-200 sm:px-6">
+          <div>
+            <h3 transition:name={`area-${a.key}`} class="text-[clamp(1.6rem,2.8vw,2.4rem)] leading-[1.1]">{a.title}</h3>
+            <p class="mt-3 line-clamp-3 max-w-[46ch] text-[16px] leading-relaxed text-(--c-muted)">{a.lead}</p>
+          </div>
+          <span class="arr mt-1 grid size-11 place-items-center rounded-full border border-current/25 transition-[background-color,color,border-color] duration-300 group-hover:border-transparent group-hover:bg-(--c-brand) group-hover:text-(--c-on-brand)">
+            <Icon name="arrow-up-right" weight="bold" class="size-5" />
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  @media (hover: hover) {
+    .area-link:hover { background: var(--c-surface); }
+  }
+</style>

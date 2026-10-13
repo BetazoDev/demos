@@ -1,0 +1,35 @@
+---
+// Las 12 materias como retícula de baldosas separadas por una línea de 1px (sin tarjetas con sombra ni filas con filete).
+// Al pasar el cursor la baldosa se vuelve azul marino. El título morfa a su página (transition:name area-<key>).
+import Icon from "@/kit/Icon.astro";
+interface Item { key: string; short: string; text: string; icon: string; href: string }
+interface Props { items: Item[]; class?: string }
+const { items, class: cls = "" } = Astro.props;
+---
+
+<ul data-stagger data-gap="55" class:list={["grid gap-px border border-(--c-line) bg-(--c-line) sm:grid-cols-2 lg:grid-cols-4", cls]}>
+  {
+    items.map((a) => (
+      <li class="bg-(--c-bg)">
+        <a href={a.href} data-area={a.short} class="tile group relative flex h-full min-h-[16rem] flex-col justify-between gap-8 p-6 sm:p-7">
+          <Icon name={a.icon} class="size-9 text-(--c-accent) transition-colors duration-300" />
+          <div>
+            <h3 transition:name={`area-${a.key}`} class="font-(family-name:--f-display) text-[1.4rem] font-bold leading-[1.15] tracking-[-0.01em]">{a.short}</h3>
+            <p class="tile-text mt-3 line-clamp-3 text-[15px] leading-relaxed text-(--c-muted) transition-colors duration-300">{a.text}</p>
+          </div>
+          <Icon name="arrow-up-right" weight="bold" class="tile-arr absolute right-6 top-6 size-5 opacity-0 transition-[opacity,translate] duration-300 sm:right-7 sm:top-7" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  @media (hover: hover) and (pointer: fine) {
+    .tile { transition: background-color 300ms var(--ease-out), color 300ms var(--ease-out); }
+    .tile:hover { background: var(--c-dark); color: var(--c-on-dark); }
+    .tile:hover :global(svg:first-child) { color: #fbb601; }
+    .tile:hover .tile-text { color: color-mix(in oklab, var(--c-on-dark) 72%, transparent); }
+    .tile:hover .tile-arr { opacity: 1; translate: 3px -3px; }
+  }
+</style>

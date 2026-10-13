@@ -1,0 +1,43 @@
+---
+// Botón rectilíneo de VINLEX: etiqueta y un rombo con flecha (eco de los rombos de su identidad). Sin esquinas redondeadas.
+interface Props {
+  href: string;
+  variant?: "solid" | "teal" | "outline" | "light";
+  size?: "sm" | "md" | "lg";
+  arrow?: boolean;
+  external?: boolean;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { href, variant = "solid", size = "md", arrow = true, external = false, class: cls = "", ...rest } = Astro.props;
+const base = "press nudge group inline-flex items-center gap-3 whitespace-nowrap text-[15px] font-semibold";
+const sizes = { sm: "h-11 pl-5 pr-2", md: "h-12 pl-6 pr-2.5", lg: "h-14 pl-7 pr-3 text-base" };
+const dia = { sm: "size-8", md: "size-9", lg: "size-10" };
+const variants = {
+  solid: "bg-(--c-brand) text-(--c-on-brand) hover:brightness-125",
+  teal: "bg-(--c-accent) text-(--c-on-accent) hover:brightness-105",
+  outline: "border border-current/35 hover:border-current/80",
+  light: "bg-white text-(--c-dark) hover:brightness-95",
+};
+const dias = {
+  solid: "bg-(--c-accent) text-(--c-on-accent)",
+  teal: "bg-(--c-brand) text-(--c-on-brand)",
+  outline: "bg-(--c-accent) text-(--c-on-accent)",
+  light: "bg-(--c-accent) text-(--c-on-accent)",
+};
+---
+
+<a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener" : undefined} class:list={[base, sizes[size], variants[variant], !arrow && "pr-6", cls]} {...rest}>
+  <span><slot /></span>
+  {
+    arrow && (
+      <span class:list={["vx-dia grid shrink-0 place-items-center", dia[size], dias[variant]]}>
+        <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </span>
+    )
+  }
+</a>
+
+<style is:global>
+  .vx-dia { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+</style>

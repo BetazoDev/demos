@@ -1,0 +1,4 @@
+[
+  { "name": "Bricolage Grotesque", "cssVariable": "--f-abogadosemprendedores-display", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Manrope", "cssVariable": "--f-abogadosemprendedores-body", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

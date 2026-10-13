@@ -1,0 +1,23 @@
+---
+// Tarjetas de áreas con foto de fondo y titular encima (para despachos con imagen por área). El título morfa a su página.
+import type { Img } from "./types";
+import Pic from "./Pic.astro";
+interface Area { key: string; title: string; text?: string | null; href: string; image: Img }
+interface Props { areas: Area[]; transitionPrefix?: string; class?: string }
+const { areas, transitionPrefix = "area", class: cls = "" } = Astro.props;
+---
+
+<ul data-stagger data-gap="80" class:list={["grid gap-4 sm:grid-cols-2 lg:grid-cols-3", cls]}>
+  {
+    areas.map((a, i) => (
+      <li class:list={[i === 0 && areas.length % 3 === 1 && "lg:col-span-2"]}>
+        <a href={a.href} class="img-zoom group relative isolate flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-(--c-radius-img,1.25rem) bg-(--c-dark) p-6 text-white">
+          <div class="absolute inset-0 -z-10"><Pic src={a.image} alt="" class="size-full object-cover" /></div>
+          <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(0_0_0/0.78),rgb(0_0_0/0.15)_65%)]"></div>
+          <h3 transition:name={`${transitionPrefix}-${a.key}`} class="text-[clamp(1.5rem,2.4vw,2.1rem)] font-medium leading-[1.05] tracking-[-0.02em]">{a.title}</h3>
+          {a.text && <p class="mt-2 line-clamp-2 max-w-[40ch] text-[15px] opacity-85">{a.text}</p>}
+        </a>
+      </li>
+    ))
+  }
+</ul>

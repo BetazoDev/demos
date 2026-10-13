@@ -1,0 +1,120 @@
+---
+import Layout from "@/sites/lopezvaldezabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import Stats from "@/kit/Stats.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/lopezvaldezabogados/site";
+import { fundador as f, firma, photos, stats } from "@/sites/lopezvaldezabogados/data";
+
+const base = "/lopezvaldezabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const h2 = "text-[clamp(1.8rem,3.4vw,2.9rem)] leading-[1.06]";
+const h3 = "text-[clamp(1.35rem,2.2vw,1.8rem)] leading-tight";
+const dash = "mt-[0.72em] h-px w-5 shrink-0 bg-(--c-accent)";
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: f.name,
+    jobTitle: f.role,
+    worksFor: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href },
+  },
+];
+---
+
+<Layout title="La firma | López Valdez Abogados, firma boutique de derecho penal" description="Firma boutique de derecho penal fundada en 2005 por el Mtro. Luis Marco Antonio López Valdez. Atención personalizada, honestidad, lealtad y humanismo." schema={schema} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede="Firma boutique de derecho penal y proceso penal acusatorio, fundada en 2005." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <p data-reveal class="max-w-[38ch] text-[clamp(1.45rem,2.7vw,2.3rem)] leading-[1.22]" style="font-family:var(--f-display)">{firma.historia}</p>
+      <Stats stats={stats} class="mt-16 max-w-[34rem]" />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-14 md:grid-cols-2 md:gap-20">
+      <div data-reveal>
+        <h2 class={h2}>Nuestra práctica</h2>
+        <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-(--c-muted)">{firma.practica}</p>
+      </div>
+      <div data-reveal data-delay="100">
+        <h2 class={h2}>Misión</h2>
+        <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-(--c-muted)">{firma.mision}</p>
+      </div>
+    </div>
+    <div class="wrap mt-16 sm:mt-24">
+      <div data-reveal>
+        <h2 class={h2}>Atención personalizada</h2>
+        <p class="mt-6 max-w-[64ch] text-lg leading-relaxed text-(--c-muted)">{firma.atencion}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid items-start gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-24">
+      <div class="lg:sticky lg:top-28">
+        <div data-reveal="clip" class="aspect-[4/5] max-w-[30rem] overflow-hidden rounded-(--c-radius-img,0px) lg:max-w-none">
+          <Pic src={f.photo} alt={`${f.name}, ${f.role.toLowerCase()}`} position="50% 30%" class="size-full object-cover" />
+        </div>
+        <h2 data-reveal class="mt-8 text-[clamp(1.7rem,3vw,2.5rem)] leading-[1.08]">{f.name}</h2>
+        <p data-reveal data-delay="60" class="mt-2 text-lg text-(--c-accent)">{f.role}</p>
+      </div>
+
+      <div class="grid gap-16">
+        <p data-reveal class="max-w-[52ch] text-xl leading-relaxed">{f.intro}</p>
+
+        <div data-reveal>
+          <h3 class={h3}>Formación</h3>
+          <ul class="mt-6 grid gap-4">
+            {f.formacion.map((t) => <li class="flex gap-4 text-[17px] leading-relaxed text-(--c-muted)"><span aria-hidden="true" class={dash}></span><span>{t}</span></li>)}
+          </ul>
+        </div>
+
+        <div>
+          <h3 data-reveal class={h3}>Trayectoria</h3>
+          <ol class="relative mt-8 grid gap-9 border-l border-(--c-line) pl-8 sm:pl-10">
+            {
+              f.trayectoria.map((t) => (
+                <li data-reveal class="relative">
+                  <span aria-hidden="true" class="absolute -left-8 top-[0.95rem] h-px w-5 bg-(--c-accent) sm:-left-10 sm:w-7"></span>
+                  <p class="text-[clamp(1.5rem,2.4vw,2rem)] leading-none text-(--c-accent)" style="font-family:var(--f-display)">{t.year}</p>
+                  <p class="mt-3 max-w-[56ch] text-[17px] leading-relaxed text-(--c-muted)">{t.text}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+
+        <div data-reveal>
+          <h3 class={h3}>Docencia y capacitación</h3>
+          <ul class="mt-6 grid gap-4">
+            {f.docencia.map((t) => <li class="flex gap-4 text-[17px] leading-relaxed text-(--c-muted)"><span aria-hidden="true" class={dash}></span><span>{t}</span></li>)}
+          </ul>
+        </div>
+
+        <div data-reveal>
+          <h3 class={h3}>Publicaciones</h3>
+          <ul class="mt-6 grid gap-5">
+            {f.libros.map((b) => <li><p class="text-xl leading-snug" style="font-family:var(--f-display)">{b.title}</p><p class="mt-1 text-[15px] text-(--c-muted)">{b.note}</p></li>)}
+          </ul>
+          <p class="mt-8 max-w-[56ch] text-[17px] leading-relaxed text-(--c-muted)">{f.articulos}</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <ul data-stagger data-gap="90" class="grid items-end gap-4 sm:grid-cols-3">
+        <li class="overflow-hidden"><Pic src={photos.sala} alt="Sala de juntas del despacho con biblioteca y ventanal" class="aspect-[4/3] size-full object-cover" /></li>
+        <li class="overflow-hidden"><Pic src={photos.justicia} alt="Estatua de la Justicia junto al logotipo del despacho en la pared" class="aspect-square size-full object-cover" /></li>
+        <li class="overflow-hidden"><Pic src={photos.escritorio} alt="Escritorio de madera y sillón de piel en la oficina" class="aspect-[4/3] size-full object-cover" /></li>
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

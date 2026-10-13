@@ -1,0 +1,27 @@
+---
+import Layout from "@/sites/divorcioexpres/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/divorcioexpres/site";
+import { areas } from "@/sites/divorcioexpres/data";
+
+const base = "/divorcioexpres";
+---
+
+<Layout
+  title="Contacto | Divorcio Exprés, Abogados de lo Familiar"
+  description="Calle Dolores 16, Despacho 304, Centro Histórico, Ciudad de México, junto a los Juzgados Familiares. WhatsApp 55 1289 8590. Lunes a viernes de 9:00 a 18:00 h."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Le atendemos de forma personal en nuestras oficinas de la Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

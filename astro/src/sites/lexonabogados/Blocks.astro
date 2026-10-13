@@ -1,0 +1,62 @@
+---
+// Bloques de contenido de las páginas de servicio de Lexon: texto, listas, pasos y beneficios.
+// Cada bloque: título a la izquierda (fijo al hacer scroll) y contenido a la derecha.
+import Icon from "@/kit/Icon.astro";
+import type { Block } from "./types";
+interface Props { blocks: Block[] }
+const { blocks } = Astro.props;
+---
+
+<div class="grid gap-0">
+  {
+    blocks.map((b) => (
+      <section class="grid gap-6 border-t border-(--c-line) py-12 first:border-t-0 first:pt-2 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16 lg:py-16">
+        <div>
+          {"title" in b && b.title && <h2 data-reveal class="text-[clamp(1.4rem,2.2vw,2rem)] leading-[1.15] tracking-[-0.02em] lg:sticky lg:top-28">{b.title}</h2>}
+        </div>
+        <div data-reveal data-delay="80" class="min-w-0">
+          {b.t === "text" && b.p.map((p, i) => <p class:list={["max-w-[62ch] text-lg leading-relaxed text-(--c-muted)", i > 0 && "mt-5"]}>{p}</p>)}
+          {
+            b.t === "list" && (
+              <>
+                {b.intro && <p class="mb-6 max-w-[62ch] text-lg leading-relaxed text-(--c-muted)">{b.intro}</p>}
+                <ul class="grid gap-3.5">
+                  {b.items.map((i) => (
+                    <li class="flex gap-4 text-lg leading-snug">
+                      <Icon name="check" weight="bold" class="mt-[0.4em] size-4 shrink-0 text-(--c-accent)" />
+                      <span>{i}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )
+          }
+          {
+            b.t === "steps" && (
+              <ol class="grid gap-0">
+                {b.items.map((i, n) => (
+                  <li class="grid grid-cols-[2.75rem_1fr] gap-5 border-b border-(--c-line) py-5 text-lg leading-snug first:pt-0 last:border-b-0">
+                    <span class="font-(family-name:--f-display) text-[1.5rem] font-medium leading-none text-(--c-accent)">{n + 1}</span>
+                    <span>{i}</span>
+                  </li>
+                ))}
+              </ol>
+            )
+          }
+          {
+            b.t === "benefits" && (
+              <ul class="grid gap-x-10 gap-y-7 sm:grid-cols-2">
+                {b.items.map((i) => (
+                  <li class="border-t border-(--lx-bronze) pt-4">
+                    <p class="text-lg font-medium leading-snug">{i.h}</p>
+                    {i.d && <p class="mt-2 text-[16px] leading-relaxed text-(--c-muted)">{i.d}</p>}
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+      </section>
+    ))
+  }
+</div>

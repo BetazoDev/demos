@@ -1,0 +1,24 @@
+---
+// Héroe propio: foto a sangre (sala de juntas generada, imagen de ambiente), titular enorme abajo a la izquierda
+// y, a la derecha, el subtexto con los botones.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 50%" } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="70">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_94%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_62%,transparent)_40%,color-mix(in_oklab,var(--c-dark)_20%,transparent)_100%)]"></div>
+  </div>
+  <div class="wrap grid items-end gap-10 pb-14 pt-40 sm:pb-20 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
+    <h1 data-hero="blur" class="text-[clamp(3rem,8.6vw,8.2rem)] font-bold leading-[0.92]">{title}</h1>
+    <div data-hero style="--i:1" class="max-w-[40ch] pb-2">
+      <p class="text-lg opacity-90 sm:text-xl">{lede}</p>
+      <div class="mt-8 flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+  </div>
+</section>

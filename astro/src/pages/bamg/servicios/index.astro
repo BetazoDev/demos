@@ -1,0 +1,42 @@
+---
+import "@/sites/bamg/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Urgent from "@/sites/bamg/Urgent.astro";
+import { site } from "@/sites/bamg/site";
+import { groups, leaving } from "@/sites/bamg/data";
+
+const base = "/bamg";
+const rows = groups.map((g) => ({ key: g.key, title: g.title, text: g.summary, href: `${base}/servicios/${g.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios migratorios | BAM-G Abogados Migratorios, Ciudad de México"
+  description="Visas mexicanas, trámites migratorios individuales, trámites empresariales y fiscales, litigio migratorio y migración internacional desde México."
+  nav={{ variant: "pill", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Nuestros servicios migratorios" lede="Te acompañamos desde la asesoría inicial hasta la obtención de tu visa o residencia en México." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+
+  <Section tone="surface" size="sm" id={leaving.key}>
+    <div class="wrap grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.8rem,3.4vw,2.8rem)] font-medium leading-[1.05]">{leaving.title}</h2>
+      <div data-reveal data-delay="100">
+        <h3 class="text-xl font-medium">{leaving.t}</h3>
+        <p class="mt-3 max-w-[56ch] text-lg text-(--c-muted)">{leaving.d}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Urgent />
+  <CtaBand title="Todas tus opciones migratorias" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

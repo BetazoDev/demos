@@ -1,0 +1,24 @@
+---
+// Héroe propio: titular a la izquierda y, a la derecha, una columna con el capitel (imagen de ambiente generada, no es su oficina)
+// que se levanta en tres franjas verticales. Un degradado funde la foto con el fondo.
+import type { ImageMetadata } from "astro";
+interface Props { title: string; lede: string; image: ImageMetadata; imageAlt?: string }
+const { title, lede, image, imageAlt = "" } = Astro.props;
+---
+
+<section class="relative isolate grid min-h-[100svh] overflow-hidden bg-(--c-bg) text-(--c-ink) lg:grid-cols-[1.05fr_0.95fr]">
+  <div class="relative z-10 flex flex-col justify-center px-5 pb-14 pt-36 sm:px-10 lg:pb-16 lg:pl-[max(2.5rem,calc((100vw-76rem)/2))] lg:pr-12">
+    <h1 data-hero="blur" class="max-w-[13ch] text-[clamp(2.9rem,6.4vw,6.2rem)] leading-[0.98]">{title}</h1>
+    <p data-hero style="--i:1" class="mt-8 max-w-[44ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+    <div data-hero style="--i:2" class="mt-10 flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+  </div>
+  <div class="relative min-h-[62svh] overflow-hidden lg:min-h-0" role="img" aria-label={imageAlt}>
+    {[0, 1, 2].map((k) => (
+      <div class="col-strip" style={`--k:${k};left:${k * 33.3333}%;width:33.4%`}>
+        <span style={`left:-${k * 100}%;width:300%;background-image:url(${image.src})`}></span>
+      </div>
+    ))}
+    <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,var(--c-bg)_0%,color-mix(in_oklab,var(--c-bg)_30%,transparent)_28%,transparent_55%)] max-lg:hidden"></div>
+    <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,var(--c-bg)_0%,transparent_30%)] lg:hidden"></div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/zepco/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/zepco/site";
+import { areas, texto } from "@/sites/zepco/data";
+
+const base = "/zepco";
+---
+
+<Layout title="Contacto | Zepeda & Torres Abogados, Bahía de la Concepción 14, Verónica Anzures" description="Calle Bahía de la Concepción 14, cuarto piso, colonia Verónica Anzures, Ciudad de México. Teléfono 55 5260 6244 ext. 0 y correo zepedaabogados@zepco.com.mx." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede={texto.contacto} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,4px) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...areas.map((a) => a.title), "Otros"]} />
+      </div>
+    </div>
+  </Section>
+</Layout>

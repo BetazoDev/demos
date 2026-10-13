@@ -1,0 +1,64 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Hero from "@/sites/ecalegalabogadosasociados/Hero.astro";
+import Quotes from "@/sites/ecalegalabogadosasociados/Quotes.astro";
+import { site } from "@/sites/ecalegalabogadosasociados/site";
+import { areas, photos, quotes } from "@/sites/ecalegalabogadosasociados/data";
+
+const base = "/ecalegalabogadosasociados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.04] tracking-[-0.03em]";
+---
+
+<SiteLayout site={site} title="ECA Legal Abogados & Asociados | Abogados en Buenavista, CDMX" nav={{ variant: "bar", tone: "light", logoHeight: 64 }} footer={{ variant: "dark", blurb: "Una injusticia a uno solo es una amenaza para todos." }}>
+  <Hero title="Una injusticia a uno solo es una amenaza para todos" lede="Especialistas en Derecho Civil, Familiar, Mercantil, Administrativo, Laboral y Amparo." image={photos.puertas} imageAlt="Puertas de madera de una sala de audiencias entreabiertas, con luz cálida sobre el piso de mármol" position="50% 45%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/contacto`} variant="outline" size="lg">Contacto</Button>
+    </Fragment>
+  </Hero>
+
+  <Section id="especialidades">
+    <div class="wrap grid items-start gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-(--c-surface) lg:sticky lg:top-28"><Pic src={photos.sala} alt="Sala de audiencias del Poder Judicial de la Ciudad de México" class="size-full object-cover" position="50% 40%" /></div>
+      <div>
+        <h2 data-reveal class={h2}>Especialistas en</h2>
+        <ul data-stagger data-gap="90" class="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+          {areas.map((a) => (
+            <li>
+              <span class="mb-5 block h-0.5 w-10 bg-(--c-brand)"></span>
+              <p class="font-(family-name:--f-display) text-[clamp(1.6rem,2.6vw,2.3rem)] font-medium leading-[1.1] tracking-[-0.02em]">{a.title}</p>
+              {a.note && <p class="mt-3 max-w-[30ch] text-[16px] text-(--c-muted)">{a.note}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <ImageBand image={photos.ciudad} alt="Horizonte de la Ciudad de México al atardecer visto desde una terraza" position="50% 55%" />
+
+  <Section tone="surface" id="opiniones">
+    <div class="wrap">
+      <Quotes rating={site.google!.rating} count={site.google!.reviews} quotes={quotes} />
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

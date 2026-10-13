@@ -1,0 +1,39 @@
+---
+// Planos translúcidos a 45 grados que se superponen (eco del fondo de rombos del sitio actual del despacho).
+// Cada capa se mueve a distinta velocidad con el scroll (data-parallax). Decorativo.
+//  bleed: composición grande que sale por los bordes de la sección (héroe de inicio)
+//  fit  : composición compacta que cabe entera en su caja (cabeceras interiores)
+interface Props { class?: string; variant?: "bleed" | "fit" }
+const { class: cls = "", variant = "bleed" } = Astro.props;
+const sets = {
+  bleed: [
+    { x: 40, y: 2, s: 40, c: "#0E2837", o: 0.96, v: 34 },
+    { x: 14, y: 34, s: 38, c: "#5BA096", o: 0.88, v: -22 },
+    { x: 58, y: 34, s: 34, c: "#2A5266", o: 0.82, v: 52 },
+    { x: 33, y: 58, s: 28, c: "#9CC3BC", o: 0.72, v: -40 },
+    { x: 70, y: 4, s: 20, c: "#5BA096", o: 0.55, v: 70 },
+  ],
+  fit: [
+    { x: 31, y: 11, s: 30, c: "#0E2837", o: 0.95, v: 14 },
+    { x: 12, y: 27, s: 28, c: "#5BA096", o: 0.88, v: -10 },
+    { x: 49, y: 36, s: 26, c: "#2A5266", o: 0.82, v: 22 },
+  ],
+};
+const layers = sets[variant];
+---
+
+<div aria-hidden="true" class:list={["pointer-events-none absolute", cls]}>
+  {
+    layers.map((l) => (
+      <div class="absolute inset-0" data-parallax={l.v}>
+        <span class="vx-layer absolute block" style={`left:${l.x}%;top:${l.y}%;width:${l.s}%;aspect-ratio:1;background:${l.c};opacity:${l.o}`}></span>
+      </div>
+    ))
+  }
+</div>
+
+<style is:global>
+  .vx-layer { transform: rotate(45deg); animation: vx-in 1.4s var(--ease-out) both; }
+  @keyframes vx-in { from { opacity: 0; transform: rotate(45deg) scale(0.86); } }
+  @media (prefers-reduced-motion: reduce) { .vx-layer { animation: none; } }
+</style>

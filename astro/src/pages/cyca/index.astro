@@ -1,0 +1,97 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Stats from "@/kit/Stats.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/cyca/Hero.astro";
+import Skin from "@/sites/cyca/Skin.astro";
+import Closing from "@/sites/cyca/Closing.astro";
+import { site } from "@/sites/cyca/site";
+import { areas, principles, partners, stats } from "@/sites/cyca/data";
+import hero from "@/sites/cyca/assets/hero-pluma.jpg";
+import fachada from "@/sites/cyca/assets/fachada-rombos.jpg";
+
+const base = "/cyca";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="CYCA Abogados | Abogados fiscales, corporativos y financieros en la colonia Álamos, CDMX"
+  nav={{ variant: "pill", tone: "dark" }}
+  footer={{ variant: "dark", blurb: "Un trato directo y especializado." }}
+>
+  <Skin />
+  <Hero title="Servicios legales integrales" lede="Firma fundada en 2011 de asesoría, consultoría, defensa y planeación, con un trato directo y especializado." image={hero} imageAlt="Pluma fuente de plumín dorado sobre un papel, con rombos translúcidos" position="62% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <Statement text="Abogados con trayectoria académica y profesional reconocida en México y en el extranjero." />
+      <p data-reveal class="mt-16 max-w-[40ch] text-lg text-(--c-muted)">Un trato directo y especializado, con base en cuatro principios.</p>
+      <ul data-stagger data-gap="90" class="mt-8 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        {principles.map((p) => (
+          <li class="border-t-2 border-(--c-brand) pt-5 text-[clamp(1.4rem,2.2vw,1.9rem)] font-medium leading-tight tracking-[-0.02em] [font-family:var(--f-display)]">{p}</li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.2rem,4.8vw,4rem)] font-medium leading-[1] tracking-[-0.035em]">Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={fachada} alt="" position="50% 60%" height="clamp(18rem,46vw,32rem)" />
+
+  <Section>
+    <div class="wrap">
+      <Stats stats={stats} />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.2rem,4.8vw,4rem)] font-medium leading-[1] tracking-[-0.035em]">Socios</h2>
+      <ul data-stagger data-gap="80" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {partners.map((p) => (
+          <li>
+            <a href={`${base}/nosotros#${p.key}`} class="group grid items-baseline gap-2 py-7 sm:grid-cols-[1.1fr_1fr_auto] sm:gap-10">
+              <h3 class="text-[clamp(1.5rem,3vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.025em] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-2">{p.name}</h3>
+              <p class="text-(--c-muted)">{p.role}</p>
+              <Icon name="arrow-up-right" weight="bold" class="hidden size-5 text-(--c-accent) sm:block" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal class="mt-10"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.2rem,4.8vw,4rem)] font-medium leading-[1] tracking-[-0.035em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <Closing title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" external />
+</SiteLayout>

@@ -1,0 +1,84 @@
+---
+import SiteLayout from "@/sites/jimenezvaldezabogados/Page.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/jimenezvaldezabogados/Hero.astro";
+import Rule from "@/sites/jimenezvaldezabogados/Rule.astro";
+import { site } from "@/sites/jimenezvaldezabogados/site";
+import { areas, valores, comunicado } from "@/sites/jimenezvaldezabogados/data";
+import hero from "@/sites/jimenezvaldezabogados/assets/pasillo-juzgado.jpg";
+import ventana from "@/sites/jimenezvaldezabogados/assets/ventana-haz-plata.jpg";
+
+const base = "/jimenezvaldezabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Jiménez, Valdez & Abogados | Abogados penalistas en Verónica Anzures, Ciudad de México" nav={{ variant: "pill", tone: "dark", logoHeight: 38 }} footer={{ variant: "dark", blurb: "Abogados Penalistas" }}>
+  <Hero title="Abogados expertos en materia penal y constitucional" lede="Litigio estratégico para proteger y garantizar los Derechos Humanos." image={hero} imageAlt="Pasillo de piedra de un juzgado, con arcos y un haz de luz plateada sobre el suelo" position="50% 60%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/contacto`} variant="outline" size="lg">Contacto</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text={valores} /></div>
+  </Section>
+
+  <Section tone="surface" id="areas">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.02em] sm:mb-16">Áreas de trabajo</h2>
+      <div data-stagger data-gap="120" class="grid gap-5 md:grid-cols-2">
+        {areas.map((a) => (
+          <article class="flex flex-col justify-between gap-12 rounded-(--c-radius-card) border border-(--c-line) bg-(--c-bg) p-8 sm:p-10">
+            <div>
+              <h3 class="text-[clamp(1.7rem,3vw,2.5rem)] font-normal leading-tight tracking-[-0.015em]">{a.title}</h3>
+              <p class="mt-4 max-w-[34ch] text-lg text-(--c-muted)">{a.lead}</p>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-(--c-muted)">{a.temasTitle}</p>
+              <ul class="mt-4 grid gap-2.5 text-[17px]">
+                {a.temas.map((t) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{t}</span></li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <ImageBand image={ventana} alt="Ventana estrecha en un muro de piedra que proyecta un haz de luz plateada sobre la pared" position="50% 50%" height="clamp(14rem,34vw,26rem)" />
+
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.7rem,3vw,2.6rem)] font-normal leading-tight tracking-[-0.015em]">Comunicado oficial</h2>
+      <div data-reveal data-delay="100" class="max-w-[58ch]">
+        <p class="text-sm text-(--c-muted)">{comunicado.fecha}</p>
+        <p class="mt-4 text-xl leading-relaxed">{comunicado.texto}</p>
+        <p class="mt-5 text-lg leading-relaxed text-(--c-muted)">{comunicado.aviso}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] font-normal leading-[1.04] tracking-[-0.02em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+        <a href={site.social.instagram!} target="_blank" rel="noopener" class="mt-8 flex gap-4 text-[17px]"><Icon name="instagram-logo" class="mt-1 size-5 shrink-0 opacity-55" /><span class="link-u">Instagram @jv__abogados</span></a>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <section class="bg-(--c-bg) py-14 text-(--c-ink) sm:py-20"><div class="wrap"><Rule /></div></section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</SiteLayout>

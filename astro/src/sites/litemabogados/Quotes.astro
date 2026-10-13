@@ -1,0 +1,27 @@
+---
+// Calificación de Google y reseñas reales: una cita grande y las demás en dos columnas. Autor y fecha tal como aparecen.
+interface Props { rating: number; count: number; quotes: { text: string; author: string; when?: string }[] }
+const { rating, count, quotes } = Astro.props;
+const [first, ...rest] = quotes;
+---
+
+<div class="grid gap-14 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+  <div data-reveal>
+    <p data-count={rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(5rem,12vw,9.5rem)] font-semibold leading-[0.85] tracking-[-0.05em] tabular-nums">{rating.toFixed(1)}</p>
+    <p class="mt-5 text-lg text-(--c-muted)">en Google, {count} reseñas</p>
+  </div>
+  <div>
+    <figure data-reveal>
+      <blockquote class="font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.2rem)] font-medium leading-[1.2] tracking-[-0.02em]">“{first.text}”</blockquote>
+      <figcaption class="mt-5 text-[15px] text-(--c-muted)">{first.author}{first.when ? `, ${first.when}` : ""}</figcaption>
+    </figure>
+    <ul data-stagger data-gap="100" class="mt-12 grid gap-10 border-t border-(--c-line) pt-10 md:grid-cols-2">
+      {rest.map((q) => (
+        <li>
+          <blockquote class="text-[17px] leading-relaxed">“{q.text}”</blockquote>
+          <p class="mt-4 text-[15px] text-(--c-muted)">{q.author}{q.when ? `, ${q.when}` : ""}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

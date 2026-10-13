@@ -1,0 +1,7 @@
+/* Sistema de radios del sitio: todo recto (0px). El kit lee estas variables en imágenes, tarjetas, campos y la nav. */
+[data-site="juridicontable"] {
+  --c-radius-img: 0px;
+  --c-radius-card: 0px;
+  --c-radius-field: 0px;
+  --c-radius-nav: 0px;
+}

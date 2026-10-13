@@ -1,0 +1,30 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/bravoabogados/Nav.astro";
+import Footer from "@/sites/bravoabogados/Footer.astro";
+import { site } from "@/sites/bravoabogados/site";
+import { areas, otras, photos } from "@/sites/bravoabogados/data";
+
+const base = "/bravoabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.summary, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+---
+
+<SiteLayout site={site} bodyClass="[--c-radius-img:0px] [--c-radius-card:0px] [--c-radius-field:0px]" title="Servicios | Bravo Abogados, derecho administrativo, civil y mercantil" description="Derecho administrativo y amparo, civil y mercantil, y arbitraje internacional para empresas concesionarias de obras y servicios públicos. Bufete en la Ciudad de México." nav={false} footer={false} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="Servicios" lede="Servicios jurídicos para las empresas concesionarias de obras y servicios públicos, y para empresas y personas afectadas por los actos de las autoridades." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <AreasIndex areas={rows} />
+      <p data-reveal class="mt-8 text-[15px] text-(--c-muted)">También: {otras.join(", ").toLowerCase()}.</p>
+    </div>
+  </Section>
+  <ImageBand image={photos.torres} alt="Torres de transmisión eléctrica entre colinas con niebla" position="50% 40%" />
+  <CtaBand title="Cuéntenos su asunto" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Bufete Bravo Abogados. Soporte funcional, S.C." />
+</SiteLayout>

@@ -1,0 +1,83 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/ordonezabogados/Hero.astro";
+import ServiceScroller from "@/sites/ordonezabogados/ServiceScroller.astro";
+import ContactBlock from "@/sites/ordonezabogados/ContactBlock.astro";
+import Composer from "@/sites/ordonezabogados/Composer.astro";
+import { site } from "@/sites/ordonezabogados/site";
+import { servicios, lema, compromiso, prevencion, trayectoria, objetivo, resenas } from "@/sites/ordonezabogados/data";
+import hero from "@/sites/ordonezabogados/assets/hero-sala.jpg";
+import torres from "@/sites/ordonezabogados/assets/torres.jpg";
+import "@/sites/ordonezabogados/theme.css";
+
+const base = "/ordonezabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const items = servicios.map((s) => ({ key: s.key, title: s.title, icon: s.icon, lead: s.lead, href: `${base}/servicios#${s.key}` }));
+---
+
+<SiteLayout
+  site={site}
+  title="Abogados laboralistas para empresas en CDMX y Pachuca | Ordoñez Abogados"
+  description="Firma de derecho laboral patronal en Roma Norte, Ciudad de México, y en Pachuca: conflictos laborales, juicios colectivos, huelgas, amparo y auditorías legales para tu empresa."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 44 }}
+  footer={{ variant: "light" }}
+>
+  <Hero title={lema} lede={compromiso} image={hero} imageAlt="Sala de juntas con mesa de madera y sillones de piel frente a ventanales con el horizonte de la Ciudad de México al anochecer" position="38% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <Statement class="font-(family-name:--f-display) !font-semibold" text={prevencion} />
+      <p data-reveal class="mt-10 max-w-[52ch] text-lg text-(--c-muted)">{trayectoria}</p>
+    </div>
+  </Section>
+
+  <Section tone="dark" size="none" class="overflow-hidden pb-4 pt-20 sm:pt-28" id="servicios">
+    <ServiceScroller items={items}>
+      <h2 data-reveal class="text-[clamp(2.1rem,4.6vw,4rem)] font-bold leading-[1] tracking-[-0.03em]">Servicios</h2>
+    </ServiceScroller>
+    <div class="h-16 sm:h-24"></div>
+  </Section>
+
+  <ImageBand image={torres} alt="Torres de oficinas de cristal y acero en Paseo de la Reforma, vistas desde la calle en la hora azul" position="50% 45%" />
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <p data-reveal class="flex flex-wrap items-baseline gap-x-5 gap-y-1 lg:block">
+        <span data-count={site.google!.rating.toFixed(1)} class="block font-(family-name:--f-display) text-[clamp(4rem,9vw,7.5rem)] font-bold leading-none tracking-[-0.05em] tabular-nums">{site.google!.rating.toFixed(1)}</span>
+        <span class="text-lg text-(--c-muted)">en Google, {site.google!.reviews} reseñas</span>
+      </p>
+      <ul data-stagger data-gap="110" class="grid content-center gap-9">
+        {resenas.map((r) => (
+          <li>
+            <blockquote class="font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.2rem)] font-medium leading-[1.15] tracking-[-0.02em]">“{r.text}”</blockquote>
+            <p class="mt-2 text-sm text-(--c-muted)">{r.author}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.1rem,4.6vw,4rem)] font-bold leading-[1] tracking-[-0.03em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={servicios.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu empresa" text={objetivo} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

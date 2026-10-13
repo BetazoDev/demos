@@ -1,0 +1,24 @@
+---
+import Layout from "@/sites/suarezabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Button from "@/kit/Button.astro";
+import { site } from "@/sites/suarezabogados/site";
+import { areasComposer } from "@/sites/suarezabogados/data";
+
+const base = "/suarezabogados";
+---
+
+<Layout site={site} title="Contacto | Suárez Abogados, Av. Insurgentes Centro 19, San Rafael" description="Escríbenos por WhatsApp al 56 5487 0886. Oficina en Av. Insurgentes Centro 19, 5.º piso, colonia San Rafael, Ciudad de México. Lunes a viernes de 9:00 a 18:00." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero tone="dark" title="Contacto" lede="Escríbenos por WhatsApp o visítanos en Av. Insurgentes Centro 19, 5.º piso, colonia San Rafael." />
+  <Section size="sm" class="pt-12">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[12px] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areasComposer} />
+      </div>
+    </div>
+  </Section>
+</Layout>

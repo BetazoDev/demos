@@ -1,0 +1,17 @@
+---
+// Variante de kit/CtaBand: bloque de plata (marca) con botón oscuro, para que el botón se distinga del fondo.
+import Button from "@/kit/Button.astro";
+interface Props { title: string; href: string; label: string; external?: boolean }
+const { title, href, label, external = false } = Astro.props;
+---
+
+<section class="section-y overflow-hidden bg-(--c-brand) text-(--c-on-brand)">
+  <div class="wrap grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+    <div data-reveal>
+      <h2 class="max-w-[20ch] text-[clamp(2.2rem,5.2vw,4.6rem)] font-light leading-[1.02] tracking-[-0.035em]">{title}</h2>
+    </div>
+    <div data-reveal data-delay="120">
+      <Button href={href} variant="light" size="lg" external={external} class="!bg-(--c-dark) !text-(--c-on-dark) [&_.arr]:!bg-(--c-on-dark) [&_.arr]:!text-(--c-dark)">{label}</Button>
+    </div>
+  </div>
+</section>

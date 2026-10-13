@@ -1,0 +1,4 @@
+[
+  { "name": "Literata", "cssVariable": "--f-garciaescamillaabogados-display", "weights": [400, 500, 600], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Hanken Grotesk", "cssVariable": "--f-garciaescamillaabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

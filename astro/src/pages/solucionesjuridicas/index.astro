@@ -1,0 +1,84 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/solucionesjuridicas/Nav.astro";
+import Hero from "@/sites/solucionesjuridicas/Hero.astro";
+import { site } from "@/sites/solucionesjuridicas/site";
+import { areas, photos, reviews, waLink } from "@/sites/solucionesjuridicas/data";
+
+const base = "/solucionesjuridicas";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<SiteLayout site={site} title="Soluciones Jurídicas | Despacho de abogados en Ciudad de México" description="Despacho de abogados en la Roma Sur, Ciudad de México. Asuntos familiares, civiles, mercantiles, penales, corporativos y fiscales. Asesoría legal gratuita." footer={{ variant: "dark", blurb: "Despacho de abogados en Ciudad de México. Asesoría legal gratuita." }}>
+  <Nav slot="nav" site={site} variant="bar" tone="dark" logoHeight={46} />
+  <Hero title="Despacho de abogados en Ciudad de México" lede="Asesoría legal gratuita, con costos ajustados a la capacidad económica de cada cliente.">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-20">
+      <Statement text="En ningún caso la falta de recursos económicos es motivo para dejar de brindar nuestros servicios." class="!max-w-[26ch] !text-[clamp(1.9rem,3.8vw,3.5rem)]" />
+      <div data-reveal data-delay="120" class="self-end text-lg text-(--c-muted)">
+        <p>Brindamos asesoría legal personal a cualquier persona física o moral que la solicite, ajustando el costo de los servicios legales a su capacidad económica.</p>
+        <p class="mt-5">Nuestro objetivo es brindarle certeza jurídica y honestidad en las consultas y servicios en los que intervenimos.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.035em]">Servicios</h2>
+      <AreasIndex areas={rows} />
+      <p data-reveal class="mt-8 max-w-[56ch] text-(--c-muted)">También atendemos asuntos laborales y de amparo.</p>
+    </div>
+  </Section>
+
+  <div data-reveal="clip" class="overflow-hidden bg-(--c-dark)">
+    <div class="aspect-[2048/480] min-h-[13rem] w-full"><Pic src={photos.herreria} alt="Arco de herrería y letrero de la oficina de Soluciones Jurídicas en la calle Ario 5" position="62% 50%" class="size-full object-cover" /></div>
+  </div>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal class="lg:sticky lg:top-32 lg:self-start">
+        <p class="flex items-baseline gap-4">
+          <span data-count={site.google!.rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(4.5rem,10vw,8rem)] font-bold leading-none tracking-[-0.05em] tabular-nums">{site.google!.rating.toFixed(1)}</span>
+        </p>
+        <p class="mt-3 text-lg text-(--c-muted)">en Google, {site.google!.reviews} reseñas</p>
+      </div>
+      <ul data-stagger data-gap="120" class="grid gap-10">
+        {reviews.map((r) => (
+          <li>
+            <blockquote class="text-[clamp(1.2rem,1.9vw,1.55rem)] leading-snug tracking-[-0.01em]">“{r.text}”</blockquote>
+            <p class="mt-4 text-[15px] text-(--c-muted)">{r.author}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] font-bold leading-[1.02] tracking-[-0.035em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[0.75rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

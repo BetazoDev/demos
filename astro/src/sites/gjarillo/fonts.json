@@ -1,0 +1,4 @@
+[
+  { "name": "Castoro", "cssVariable": "--f-gjarillo-display", "weights": [400], "styles": ["normal", "italic"], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Figtree", "cssVariable": "--f-gjarillo-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

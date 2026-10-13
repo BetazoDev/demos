@@ -1,0 +1,33 @@
+---
+import "@/sites/herreraabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Footer from "@/sites/herreraabogados/Footer.astro";
+import { site } from "@/sites/herreraabogados/site";
+import { areas } from "@/sites/herreraabogados/data";
+
+const base = "/herreraabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Herrera Abogados, Colonia Centro, Ciudad de México"
+  description="Calle López 1, despacho 101, Colonia Centro, Ciudad de México. WhatsApp 55 5510 4622 y correo contact@herrera-abogados.com.mx."
+  nav={{ variant: "bar", tone: "dark", logoHeight: 36 }}
+  footer={false}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o por correo y le responderemos." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" />
+</SiteLayout>

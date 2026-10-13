@@ -1,0 +1,25 @@
+---
+// Héroe propio: tarjeta de foto inscrita en la página clara (esquinas del sistema), titular grande abajo a la izquierda.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="bg-(--c-bg) px-2.5 pt-2.5 sm:px-4 sm:pt-4">
+  <div class="relative isolate flex min-h-[calc(100svh-1.25rem)] flex-col justify-end overflow-hidden rounded-(--c-radius) bg-(--c-dark) text-(--c-on-dark) sm:min-h-[calc(100svh-2rem)]">
+    <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+      <div class="size-full" data-parallax="70">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </div>
+      <div class="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_92%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_55%,transparent)_40%,color-mix(in_oklab,var(--c-dark)_10%,transparent)_100%)]"></div>
+    </div>
+    <div class="px-5 pb-10 pt-40 sm:px-12 sm:pb-14 lg:px-16">
+      <h1 data-hero="blur" class="max-w-[17ch] text-[clamp(2.7rem,6.8vw,6.4rem)] font-bold leading-[0.96] tracking-[-0.035em]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-6 max-w-[40ch] text-lg opacity-90 sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</section>

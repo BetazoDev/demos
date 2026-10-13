@@ -1,0 +1,48 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/juridicontable/Nav.astro";
+import Footer from "@/sites/juridicontable/Footer.astro";
+import { site } from "@/sites/juridicontable/site";
+import { filosofia, mision, vision } from "@/sites/juridicontable/data";
+import fachada from "@/sites/juridicontable/assets/fachada.jpg";
+
+const base = "/juridicontable";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="Nosotros | Firma de abogados y contadores en Ciudad de México"
+  description="Firma de abogados y contadores con conocimiento y experiencia para defender los derechos de sus clientes ante las autoridades administrativas y los tribunales federales y locales."
+  breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="light" />
+  <PageHero title="Nosotros" lede="Una firma de abogados y contadores." image={fachada} imageAlt="Fachada de ladrillo y piedra con balcones de hierro forjado" />
+
+  <Section>
+    <div class="wrap">
+      <p data-reveal class="max-w-[40ch] font-(family-name:--f-display) text-[clamp(1.5rem,2.8vw,2.3rem)] leading-[1.28] tracking-[-0.005em]">{filosofia}</p>
+    </div>
+  </Section>
+
+  <section class="grid lg:grid-cols-2">
+    <div class="px-6 py-16 text-(--c-on-dark) sm:px-12 sm:py-24 lg:px-16" style="background:#783348">
+      <div class="mx-auto max-w-[34rem] lg:ml-auto lg:mr-0" data-reveal>
+        <h2 class="text-[clamp(2rem,3.6vw,3rem)] leading-[1.05]">Misión</h2>
+        <p class="mt-6 text-lg leading-relaxed opacity-90">{mision}</p>
+      </div>
+    </div>
+    <div class="px-6 py-16 text-(--c-on-dark) sm:px-12 sm:py-24 lg:px-16" style="background:#582838">
+      <div class="mx-auto max-w-[34rem] lg:ml-0 lg:mr-auto" data-reveal data-delay="100">
+        <h2 class="text-[clamp(2rem,3.6vw,3rem)] leading-[1.05]">Visión</h2>
+        <p class="mt-6 text-lg leading-relaxed opacity-90">{vision}</p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" />
+</SiteLayout>

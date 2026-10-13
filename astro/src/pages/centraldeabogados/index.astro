@@ -1,0 +1,82 @@
+---
+import Layout from "@/sites/centraldeabogados/Layout.astro";
+import Hero from "@/sites/centraldeabogados/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Marquee from "@/kit/Marquee.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/centraldeabogados/site";
+import { areas, juicios, seriedad, materias, photos } from "@/sites/centraldeabogados/data";
+
+const base = "/centraldeabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-semibold leading-[1.05] tracking-[-0.025em]";
+---
+
+<Layout
+  site={site}
+  title="Abogados en Ciudad de México | Cobranza judicial, divorcios y herencias | Central de Abogados"
+  description="Asistencia y representación legal en Ciudad de México: cobro de pagarés, divorcios, herencias, usucapión, conciliación laboral, carpetas de investigación y gestoría."
+  nav={{ variant: "pill", tone: "light" }}
+  footer={{ variant: "dark" }}
+>
+  <Hero title="Defendemos lo que te importa" lede="Protección de personas y negocios. Asistencia y representación legal en la Ciudad de México." image={photos.fachada} imageAlt="Fachada colonial de piedra con balcón de herrería y puerta de madera, en el Centro Histórico, al atardecer" position="50% 45%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <h2 data-reveal class={h2}>Te representamos en juicios para</h2>
+        <div data-reveal data-delay="120" class="mt-8"><Button href={`${base}/servicios`} variant="outline">Todos los servicios</Button></div>
+      </div>
+      <ul data-focus class="grid gap-7">
+        {juicios.map((j) => <li class="font-(family-name:--f-display) text-[clamp(1.6rem,3vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.02em]">{j}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <ImageBand image={photos.interior} alt="Despacho con escritorio de madera tallada, lámpara de latón y libreros con tomos encuadernados" position="50% 55%">
+    <p class="font-(family-name:--f-display) text-[clamp(1.8rem,3.4vw,3rem)] font-semibold leading-tight tracking-[-0.02em]">Servicio personalizado</p>
+  </ImageBand>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class={h2}>Seriedad y profesionalismo</h2>
+      <ul data-stagger data-gap="80" class="grid gap-9 sm:grid-cols-2">
+        {seriedad.map((s) => (
+          <li>
+            <Icon name={s.icon} weight="regular" class="size-10 text-(--c-accent)" />
+            <h3 class="mt-4 max-w-[18ch] font-(family-name:--f-display) text-[clamp(1.35rem,2.1vw,1.8rem)] font-semibold leading-tight">{s.title}</h3>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <section class="overflow-hidden bg-(--c-bg) py-10 text-(--c-ink)">
+    <h2 class="sr-only">Materias</h2>
+    <Marquee items={materias} speed={36} class="font-(family-name:--f-display)" />
+  </section>
+
+  <Section id="contacto" tone="surface">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-lg border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Comunícate con nosotros" text="Servicio personalizado." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

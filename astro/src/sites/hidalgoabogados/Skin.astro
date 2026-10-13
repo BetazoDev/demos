@@ -1,0 +1,21 @@
+---
+// Piel de Hidalgo Abogados: radio de 6px en todo el sitio (incluida la nav) y cifras doradas sobre el campo azul.
+---
+
+<style is:global>
+  [data-site="hidalgoabogados"] {
+    --c-radius-nav: 8px;
+    --c-radius-img: 6px;
+    --c-radius-card: 6px;
+    --c-radius-field: 6px;
+  }
+  [data-site="hidalgoabogados"] :is(.nav-link, [data-nav-toggle]) {
+    border-radius: 5px;
+  }
+  [data-site="hidalgoabogados"] .arr {
+    border-radius: 4px;
+  }
+  [data-site="hidalgoabogados"] .acc-plus {
+    border-radius: 4px;
+  }
+</style>

@@ -1,0 +1,13 @@
+---
+// Envoltura de SiteLayout: fija los radios de campos, imágenes y tarjetas en 0px (un solo sistema de formas).
+import SiteLayout from "@/kit/SiteLayout.astro";
+---
+
+<SiteLayout {...Astro.props}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  :root { --c-radius-field: 0px; --c-radius-img: 0px; --c-radius-card: 0px; }
+  @media (max-width: 480px) { .break-all { font-size: 15px; } }
+</style>

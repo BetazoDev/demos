@@ -1,0 +1,23 @@
+---
+// Dos cifras reales (año de constitución y años de experiencia del fundador). El año no cuenta; "+20" sí.
+interface Props { class?: string }
+const { class: cls = "" } = Astro.props;
+const items = [
+  { value: "2001", label: "Año de constitución legal de la sociedad" },
+  { value: "+20", label: "Años de experiencia del fundador en materia del trabajo" },
+];
+---
+
+<dl data-stagger data-gap="120" class:list={["grid gap-x-16 gap-y-12 sm:grid-cols-2", cls]}>
+  {
+    items.map((s) => (
+      <div class="border-t border-(--c-ink)/20 pt-6">
+        <dt class="sr-only">{s.label}</dt>
+        <dd>
+          <span data-count={s.value} class="block font-(family-name:--f-display) text-[clamp(4.2rem,10vw,9rem)] font-medium leading-[0.9] tracking-[-0.05em] tabular-nums">{s.value}</span>
+          <span class="mt-5 block max-w-[26ch] text-base text-(--c-muted)">{s.label}</span>
+        </dd>
+      </div>
+    ))
+  }
+</dl>

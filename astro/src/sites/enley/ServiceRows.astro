@@ -1,0 +1,24 @@
+---
+// Los trámites como filas grandes con su precio (copia de kit/AreasIndex con una columna de precio). El título morfa a su página.
+import Icon from "@/kit/Icon.astro";
+interface Row { key: string; title: string; text: string; price: string; href: string }
+interface Props { rows: Row[] }
+const { rows } = Astro.props;
+---
+
+<ul data-stagger data-gap="70" class="divide-y divide-current/12 border-y border-current/12">
+  {rows.map((r) => (
+    <li>
+      <a href={r.href} data-area={r.title} class="area-row group relative grid items-center gap-x-10 gap-y-3 py-7 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_17rem] md:py-9">
+        <h3 transition:name={`area-${r.key}`} class="text-[clamp(1.7rem,3.4vw,2.9rem)] font-medium leading-[1.05] tracking-[-0.03em] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-2">{r.title}</h3>
+        <p class="max-w-[44ch] text-[15px] leading-relaxed opacity-70 sm:text-base">{r.text}</p>
+        <span class="flex items-center gap-4 md:justify-end">
+          <span class="rounded-full border border-current/25 px-4 py-1.5 text-[15px] font-medium tabular-nums">{r.price}</span>
+          <span class="arr hidden size-12 place-items-center rounded-full border border-current/25 transition-[background-color,color,border-color] duration-300 group-hover:border-transparent group-hover:bg-(--c-accent) group-hover:text-(--c-on-accent) md:grid">
+            <Icon name="arrow-up-right" weight="bold" class="size-5" />
+          </span>
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>

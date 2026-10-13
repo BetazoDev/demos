@@ -1,0 +1,72 @@
+---
+import "@/sites/herreraabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Footer from "@/sites/herreraabogados/Footer.astro";
+import { site } from "@/sites/herreraabogados/site";
+import { areas } from "@/sites/herreraabogados/data";
+
+const base = "/herreraabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const names = areas.filter((a) => ["transacciones", "energia", "inmuebles", "regulatorio", "acciones-colectivas", "criptomonedas"].includes(a.key));
+const tele = areas.find((a) => a.key === "telecomunicaciones")!;
+const tech = areas.find((a) => a.key === "nuevas-tecnologias")!;
+const pro = areas.find((a) => a.key === "pro-bono")!;
+const h2 = "hh-light text-[clamp(1.9rem,3.6vw,3.2rem)] leading-[1.05] tracking-[-0.03em]";
+const schema = areas.map((a) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: a.title,
+  ...(a.text ? { description: a.text } : {}),
+  provider: { "@id": `https://demos.diabolicalservices.tech/${site.slug}#organizacion` },
+  areaServed: [{ "@type": "Country", name: "México" }],
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Práctica | Herrera Abogados, energía, inmuebles, regulatorio, telecomunicaciones y tecnología"
+  description="Transacciones comerciales, energía, inmuebles, administrativo y regulatorio, acciones de clase y colectivas, criptomonedas, telecomunicaciones y nuevas tecnologías."
+  nav={{ variant: "bar", tone: "dark", logoHeight: 36 }}
+  footer={false}
+  breadcrumbs={[{ name: "Práctica", href: `${base}/practica` }]}
+  schema={schema}
+>
+  <PageHero title="Práctica" lede="Asesoría y representación en negocios dentro y fuera de México." />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap grid gap-0">
+      <div class="grid gap-8 border-t border-(--c-line) py-14 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24 lg:py-20">
+        <h2 data-reveal class={h2}>Áreas</h2>
+        <ul data-stagger data-gap="60" class="hh-list grid gap-x-12 gap-y-1 sm:grid-cols-2">
+          {names.map((a) => <li id={a.key} class="scroll-mt-28 py-3 text-[clamp(1.5rem,2.6vw,2.3rem)] leading-tight tracking-[-0.02em]" style="font-family:var(--f-display);font-weight:300">{a.title}</li>)}
+        </ul>
+      </div>
+
+      <div id={tele.key} class="grid scroll-mt-24 gap-8 border-t border-(--c-line) py-14 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24 lg:py-20">
+        <h2 data-reveal class={h2}>{tele.title}</h2>
+        <div>
+          <p data-reveal class="max-w-[56ch] text-xl leading-relaxed text-(--c-muted)">{tele.text}</p>
+          <ul data-stagger data-gap="50" class="mt-9 flex flex-wrap gap-3">
+            {tele.topics!.map((t) => <li class="rounded-full border border-(--c-line) px-5 py-3 text-base">{t}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <div id={tech.key} class="grid scroll-mt-24 gap-8 border-t border-(--c-line) py-14 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24 lg:py-20">
+        <h2 data-reveal class={h2}>{tech.title}</h2>
+        <ul data-stagger data-gap="50" class="flex flex-wrap content-start gap-3">
+          {tech.topics!.map((t) => <li class="rounded-full border border-(--c-line) px-5 py-3 text-base">{t}</li>)}
+        </ul>
+      </div>
+
+      <div id={pro.key} class="grid scroll-mt-24 gap-8 border-y border-(--c-line) py-14 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24 lg:py-20">
+        <h2 data-reveal class={h2}>{pro.title}</h2>
+        <p data-reveal data-delay="80" class="max-w-[56ch] text-xl leading-relaxed text-(--c-muted)">{pro.text}</p>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" />
+</SiteLayout>

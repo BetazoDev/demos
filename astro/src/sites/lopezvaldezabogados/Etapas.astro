@@ -1,0 +1,81 @@
+---
+// Firma de movimiento: las etapas del procedimiento penal como una ruta. Un filete vertical (el del logo) se dibuja con el scroll
+// y cada etapa se enciende al llegar a ella. Solo transform y opacity.
+interface Item { key: string; title: string; text?: string | null; href: string }
+interface Props { items: Item[]; class?: string }
+const { items, class: cls = "" } = Astro.props;
+---
+
+<div data-etapas class:list={["etapas relative", cls]}>
+  <span class="etapas-rail" aria-hidden="true"><i class="etapas-fill"></i></span>
+  <ol>
+    {
+      items.map((a) => (
+        <li class="etapa" data-etapa>
+          <a href={a.href} data-area={a.title} class="group relative grid items-start gap-3 py-8 pl-8 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_auto] sm:gap-10 sm:py-11 sm:pl-14">
+            <span class="etapa-tick" aria-hidden="true"><i></i></span>
+            <h3 transition:name={`area-${a.key}`} class="etapa-title text-[clamp(1.55rem,3.2vw,2.7rem)] leading-[1.08] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-1.5">{a.title}</h3>
+            {a.text && <p class="etapa-text line-clamp-4 max-w-[46ch] text-[15px] leading-relaxed text-(--c-muted) sm:pt-2 sm:text-base">{a.text}</p>}
+            <span class="arr hidden size-12 place-items-center self-center rounded-full border border-current/25 transition-[background-color,color,border-color] duration-300 group-hover:border-transparent group-hover:bg-(--c-accent) group-hover:text-(--c-on-accent) sm:grid">
+              <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .etapas-rail { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--c-line); }
+  .etapas-fill { position: absolute; inset: 0; background: #856746; transform-origin: top; transform: scaleY(var(--p, 0)); will-change: transform; }
+  .etapa-tick { position: absolute; left: 0; top: calc(2rem + 0.58em); font-size: clamp(1.55rem, 3.2vw, 2.7rem); width: 1.4rem; height: 1px; background: var(--c-line); overflow: hidden; }
+  .etapa-tick i { position: absolute; inset: 0; background: var(--c-accent); transform-origin: left; transform: scaleX(0); transition: transform 600ms var(--ease-out); }
+  .etapa .etapa-title, .etapa .etapa-text { opacity: 0.42; transition: opacity 600ms var(--ease-out), transform 500ms var(--ease-out); }
+  .etapa.is-on .etapa-title { opacity: 1; }
+  .etapa.is-on .etapa-text { opacity: 1; }
+  .etapa.is-on .etapa-tick i { transform: scaleX(1); }
+  @media (min-width: 640px) { .etapa-tick { top: calc(2.75rem + 0.58em); } }
+  @media (max-width: 639px) { .etapa-tick { width: 1rem; } }
+  @media (prefers-reduced-motion: reduce) {
+    .etapas-fill { transform: scaleY(1); }
+    .etapa .etapa-title, .etapa .etapa-text { opacity: 1; transition: none; }
+    .etapa-tick i { transform: scaleX(1); transition: none; }
+  }
+</style>
+
+<script>
+  let off: (() => void) | undefined;
+  function init() {
+    off?.();
+    const root = document.querySelector<HTMLElement>("[data-etapas]");
+    if (!root) return;
+    const fill = root.querySelector<HTMLElement>(".etapas-fill");
+    const steps = Array.from(root.querySelectorAll<HTMLElement>("[data-etapa]"));
+    if (!fill || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      steps.forEach((s) => s.classList.add("is-on"));
+      return;
+    }
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      const r = root.getBoundingClientRect();
+      const mark = vh * 0.62;
+      const p = Math.min(1, Math.max(0, (mark - r.top) / r.height));
+      fill.style.setProperty("--p", p.toFixed(4));
+      steps.forEach((s) => s.classList.toggle("is-on", s.getBoundingClientRect().top + 48 < mark));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+    off = () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => { off?.(); off = undefined; });
+</script>

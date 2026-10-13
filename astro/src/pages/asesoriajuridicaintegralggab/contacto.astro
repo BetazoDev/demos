@@ -1,0 +1,27 @@
+---
+import SiteLayout from "@/sites/asesoriajuridicaintegralggab/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Icon from "@/kit/Icon.astro";
+import Composer from "@/sites/asesoriajuridicaintegralggab/Composer.astro";
+import { site } from "@/sites/asesoriajuridicaintegralggab/site";
+import { servicios } from "@/sites/asesoriajuridicaintegralggab/data";
+
+const base = "/asesoriajuridicaintegralggab";
+---
+
+<SiteLayout site={site} title="Contacto | G&G Asesoría Jurídica Integral, WhatsApp 55 2171 9820" description="Contacta a G&G Asesoría Jurídica Integral por WhatsApp o llamada al 55 2171 9820. Consultoría, litigio y controversias legales en la Ciudad de México y el Estado de México." nav={{ variant: "pill", tone: "light", logoHeight: 52 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Problemas legales ¡Contáctanos! Por WhatsApp o llamada: 55 2171 9820." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} />
+        <a href={site.social.facebook!} target="_blank" rel="noopener" class="mt-8 flex gap-4 text-[17px]"><Icon name="facebook-logo" class="mt-1 size-5 shrink-0 opacity-55" /><span class="link-u">Facebook G&amp;GJURIDICO15</span></a>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={servicios} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

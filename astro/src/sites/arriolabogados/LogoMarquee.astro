@@ -1,0 +1,18 @@
+---
+// Tira de logos de clientes (máximo una marquesina por página). Copia de kit/Marquee con imágenes en gris.
+interface Logo { src: string; width: number; height: number }
+interface Props { logos: Logo[]; speed?: number; class?: string }
+const { logos, speed = 90, class: cls = "" } = Astro.props;
+---
+
+<div class:list={["overflow-hidden", cls]} aria-hidden="true">
+  <div class="marquee" style={`--marquee-s:${speed}s`}>
+    {[0, 1].map(() => (
+      <ul class="flex shrink-0 items-center">
+        {logos.map((l) => (
+          <li class="px-7 sm:px-10"><img src={l.src} width={l.width} height={l.height} alt="" loading="lazy" decoding="async" class="client-logo h-10 w-auto max-w-none sm:h-12" /></li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>

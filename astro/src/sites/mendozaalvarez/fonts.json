@@ -1,0 +1,4 @@
+[
+  { "name": "Archivo", "cssVariable": "--f-mendozaalvarez-display", "weights": [500, 600, 700, 800], "fallbacks": ["Arial", "sans-serif"] },
+  { "name": "Urbanist", "cssVariable": "--f-mendozaalvarez-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

@@ -1,0 +1,28 @@
+---
+import "@/sites/cardenassoriano/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/cardenassoriano/site";
+
+const base = "/cardenassoriano";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | Cárdenas Soriano Abogados"
+  description="Aviso de privacidad integral de Cárdenas Soriano Abogados conforme a la LFPDPPP."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Aviso de privacidad integral (LFPDPPP): responsable Cárdenas Soriano Abogados, Torcuato Tasso 237, Polanco; derechos ARCO a contacto@cardenas-soriano.com; última actualización 27 de agosto de 2026.</p>
+        <p>El texto completo del aviso está publicado en <a href="https://cardenas-soriano.com/aviso-de-privacidad" target="_blank" rel="noopener">cardenas-soriano.com/aviso-de-privacidad</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

@@ -1,0 +1,4 @@
+[
+  { "name": "Alegreya", "cssVariable": "--f-horusabogados-display", "weights": [400, 500, 700], "styles": ["normal", "italic"], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Figtree", "cssVariable": "--f-horusabogados-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

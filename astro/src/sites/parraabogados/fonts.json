@@ -1,0 +1,4 @@
+[
+  { "name": "Libre Caslon Display", "cssVariable": "--f-parraabogados-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Host Grotesk", "cssVariable": "--f-parraabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

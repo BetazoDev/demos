@@ -1,0 +1,68 @@
+---
+import "@/sites/palominoasociados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site, waLink } from "@/sites/palominoasociados/site";
+import { areas, serviceSchema } from "@/sites/palominoasociados/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/palominoasociados";
+const related = area.related.map((k) => areas.find((a) => a.key === k)!);
+const wa = waLink(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`);
+const description = `${area.title} en la Ciudad de México: ${area.items.join(", ").toLowerCase()}.`;
+---
+
+<SiteLayout
+  site={site}
+  title={`${area.title} | Palomino & Asociados`}
+  description={description.length > 170 ? description.slice(0, 167).replace(/[ ,]+\S*$/, "") + "..." : description}
+  nav={{ variant: "pill", tone: "dark", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}
+  schema={[serviceSchema(area, Astro.site)]}
+>
+  <PageHero title={area.title} lede={area.lede} transitionName={`area-${area.key}`} tone="brand" />
+
+  <Section size="sm" class="pt-16 sm:pt-24">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <div data-reveal class="lg:sticky lg:top-28 lg:self-start">
+        <Icon name={area.icon} class="size-12 text-(--c-accent)" />
+        <h2 class="mt-6 text-[clamp(1.6rem,2.8vw,2.3rem)] leading-tight tracking-[-0.02em]">Qué incluye</h2>
+      </div>
+      <ul data-stagger data-gap="60" class="grid gap-x-10 gap-y-0 sm:grid-cols-2">
+        {area.items.map((i) => (
+          <li class="flex gap-4 border-t border-(--c-line) py-6 text-[clamp(1.1rem,1.6vw,1.35rem)] leading-snug">
+            <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+            <span>{i}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <div data-reveal>
+        <h2 class="text-[clamp(1.6rem,2.8vw,2.3rem)] leading-tight tracking-[-0.02em]">Servicios relacionados</h2>
+        <a href={`${base}/servicios`} class="link-u mt-6 inline-flex! items-center gap-2 whitespace-nowrap font-medium text-(--c-accent)">Todos los servicios <Icon name="arrow-up-right" weight="bold" class="size-4" /></a>
+      </div>
+      <ul data-stagger data-gap="70" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {related.map((o) => (
+          <li>
+            <a href={`${base}/servicios/${o.key}`} class="group flex items-center justify-between gap-6 py-6">
+              <span class="text-[clamp(1.3rem,2.2vw,1.8rem)] font-medium tracking-[-0.01em] transition-transform duration-300 ease-(--ease-out) group-hover:translate-x-1.5">{o.title}</span>
+              <Icon name="arrow-up-right" weight="bold" class="size-5 shrink-0 text-(--c-accent)" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Agendemos su cita" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

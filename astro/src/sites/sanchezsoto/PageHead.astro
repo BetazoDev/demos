@@ -1,0 +1,16 @@
+---
+// Cabecera de páginas interiores con la misma entrada de palabras que el héroe.
+interface Props { title: string; lede?: string; transitionName?: string }
+const { title, lede, transitionName } = Astro.props;
+const words = title.split(" ");
+---
+
+<section class="bg-(--c-bg) pb-12 pt-36 sm:pb-16 sm:pt-44">
+  <div class="wrap">
+    <h1 aria-label={title} transition:name={transitionName} class="max-w-[17ch] text-[clamp(2.4rem,6vw,5.2rem)] font-light leading-[1.03] tracking-[-0.035em]">
+      {words.map((w, i) => <Fragment><span class="ss-w" aria-hidden="true"><span style={`--i:${i}`}>{w}</span></span>{" "}</Fragment>)}
+    </h1>
+    {lede && <p data-hero style="--i:4" class="mt-6 max-w-[52ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+    <slot />
+  </div>
+</section>

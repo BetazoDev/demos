@@ -1,0 +1,46 @@
+---
+import Layout from "@/sites/sanchezsoto/Layout.astro";
+import PageHead from "@/sites/sanchezsoto/PageHead.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/sites/sanchezsoto/CtaBand.astro";
+import { site } from "@/sites/sanchezsoto/site";
+import { firma, director } from "@/sites/sanchezsoto/data";
+
+const base = "/sanchezsoto";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.8rem,3.4vw,3rem)] font-light leading-tight tracking-[-0.03em]";
+---
+
+<Layout
+  site={site}
+  title="Conócenos | Sánchez Soto Abogados, firma fiscal y de amparo en CDMX"
+  description="Firma especializada en representación, litigio y consultoría en derecho administrativo, fiscal, constitucional y juicio de amparo. Dirigida por Gustavo Sánchez Soto."
+  nav={{ variant: "bar", tone: "light", logoHeight: 46 }}
+  breadcrumbs={[{ name: "Conócenos", href: `${base}/nosotros` }]}
+>
+  <PageHead title="Conócenos" lede={firma.intro} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] max-w-[32rem] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)"><Pic src={director.photo} alt="Gustavo Sánchez Soto, director de la firma" class="size-full object-cover" position="45% 20%" /></div>
+      <div data-reveal data-delay="100" class="lg:pt-10">
+        <h2 class={h2}>{director.name}</h2>
+        <p class="mt-3 text-lg text-(--c-muted)">{director.role}</p>
+        <p class="mt-8 max-w-[52ch] text-xl leading-snug">{director.bio}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class={h2}>La firma</h2>
+      <div data-reveal data-delay="100" class="grid gap-6 text-lg leading-relaxed text-(--c-muted)">
+        <p class="text-[clamp(1.25rem,2vw,1.6rem)] leading-snug text-(--c-ink)">{firma.divisas}</p>
+        <p>{firma.cartas}</p>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Protege tus derechos y asegura tu tranquilidad" text="Contáctanos para recibir una asesoría legal personalizada y resolver tu caso con expertos." href={wa} label="Escribir por WhatsApp" external />
+</Layout>

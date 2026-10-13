@@ -1,0 +1,26 @@
+---
+import Layout from "@/sites/centraldeabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreaList from "@/sites/centraldeabogados/AreaList.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/centraldeabogados/site";
+import { areas } from "@/sites/centraldeabogados/data";
+
+const base = "/centraldeabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout
+  site={site}
+  title="Servicios legales en Ciudad de México | Central de Abogados"
+  description="Cobro de pagarés, cobro de seguros, divorcios y alimentos, usucapión, herencias, escrituras, conciliación laboral, carpetas de investigación, gestoría y corresponsalía."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios" lede="Asesoría jurídica, representación en juicios, segunda opinión y corresponsalía a despachos, empresas y personas físicas foráneas." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreaList areas={areas} site={site} /></div>
+  </Section>
+  <CtaBand title="Cuéntanos tu caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

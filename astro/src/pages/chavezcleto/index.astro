@@ -1,0 +1,106 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Split from "@/kit/Split.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Icon from "@/kit/Icon.astro";
+import Pic from "@/kit/Pic.astro";
+import Hero from "@/sites/chavezcleto/Hero.astro";
+import Composer from "@/sites/chavezcleto/Composer.astro";
+import Footer from "@/sites/chavezcleto/Footer.astro";
+import Opiniones from "@/sites/chavezcleto/Opiniones.astro";
+import Skin from "@/sites/chavezcleto/Skin.astro";
+import { site } from "@/sites/chavezcleto/site";
+import { areas, photos, reviews, pillars } from "@/sites/chavezcleto/data";
+
+const base = "/chavezcleto";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="Chávez Cleto & Asociados | Despacho jurídico en la colonia Tabacalera, CDMX"
+  nav={{ variant: "pill", tone: "dark", logoHeight: 54 }}
+  footer={false}
+>
+  <Skin />
+  <Hero lines={["Estrategia jurídica.", "Defensa firme.", "Resultados que importan."]} lede="Soluciones legales estratégicas para personas y empresas en Ciudad de México, Estado de México e interior de la República." image={photos.sala} imageAlt="Sala de espera del despacho con la placa dorada del búho, una banca de madera y la bandera de México" position="14% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="solid" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section class="relative overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-y-14 right-[4%] hidden w-[22%] lg:block">
+      <div data-parallax="30" class="size-full"><Pic src={photos.mark} alt="" class="size-full object-contain object-right opacity-[0.09]" /></div>
+    </div>
+    <div class="wrap relative">
+      <p data-statement class="max-w-[19ch] font-(family-name:--f-display) text-[clamp(2.4rem,6vw,5.6rem)] font-medium leading-[1.02] tracking-[-0.02em]">Tu problema jurídico merece una defensa a la altura.</p>
+      <p data-reveal class="mt-10 max-w-[54ch] text-lg text-(--c-muted) sm:text-xl">Detrás de cada asunto legal hay mucho en juego: tu patrimonio, tu familia, tu libertad, tu trabajo o el futuro de tu empresa.</p>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div class="lg:sticky lg:top-32 lg:self-start">
+        <h2 data-reveal transition:name="servicios-title" class="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1] tracking-[-0.02em]">Servicios</h2>
+        <p data-reveal data-delay="80" class="mt-6 max-w-[34ch] text-lg text-(--c-muted)">Asesoría, representación y defensa jurídica en las principales áreas del Derecho.</p>
+        <div data-reveal data-delay="140" class="mt-9"><Button href={`${base}/servicios`} variant="outline">Ver todos los servicios</Button></div>
+      </div>
+      <ul data-stagger data-gap="70" class="grid gap-1">
+        {
+          areas.map((a) => (
+            <li>
+              <a href={`${base}/servicios#${a.key}`} class="cc-area-link group flex items-center justify-between gap-6 py-4">
+                <span class="cc-t font-(family-name:--f-display) text-[clamp(1.9rem,3.4vw,3.1rem)] font-medium leading-[1.05] tracking-[-0.015em] text-(--c-muted)">{a.title}</span>
+                <span class="cc-ar grid size-11 shrink-0 place-items-center border border-current/25 text-(--c-muted)"><Icon name="arrow-up-right" weight="bold" class="size-4" /></span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <ImageBand image={photos.escritorio} alt="Escritorio del despacho frente a un librero con libros de consulta" position="50% 62%" height="clamp(18rem,46vw,32rem)" />
+
+  <Section>
+    <div class="wrap">
+      <Split image={photos.sillon} alt="Oficina del despacho con un sillón negro, cojines dorados y un escritorio junto a la ventana" ratio="4/5" position="62% 60%">
+        <h2 class="max-w-[22ch] text-[clamp(1.9rem,3.6vw,3.2rem)] leading-[1.08] tracking-[-0.015em]">Analizamos tu situación, diseñamos una estrategia jurídica y defendemos tus intereses.</h2>
+        <p class="mt-7 max-w-[48ch] text-lg text-(--c-muted)">Cada caso merece ser escuchado y atendido de manera personalizada. Nuestro compromiso es acompañarte durante todo el proceso, explicarte con claridad tus opciones y actuar con la determinación que tu asunto exige.</p>
+        <ul class="mt-9 grid gap-3">
+          {pillars.map((p) => <li class="flex items-center gap-3 text-lg"><Icon name="check-circle" weight="fill" class="size-5 text-(--c-accent)" />{p}</li>)}
+        </ul>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap"><Opiniones rating={site.google!.rating} count={site.google!.reviews} quotes={reviews} /></div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.4rem,5vw,4.4rem)] leading-[1] tracking-[-0.02em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[6px] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <section class="section-y overflow-hidden bg-(--c-brand) text-(--c-on-brand)">
+    <div class="wrap grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+      <h2 data-reveal class="max-w-[22ch] text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.05] tracking-[-0.02em]">Cuando necesitas un abogado, necesitas a alguien que esté de tu lado.</h2>
+      <div data-reveal data-delay="120"><Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button></div>
+    </div>
+  </section>
+
+  <Footer slot="footer" site={site} variant="dark" blurb="Estrategia jurídica. Defensa firme. Resultados que importan." />
+</SiteLayout>

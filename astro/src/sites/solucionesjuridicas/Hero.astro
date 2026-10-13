@@ -1,0 +1,20 @@
+---
+// Héroe propio: campo azul de marca, titular enorme y el monograma SJ como marca de agua (versión blanca del vector del despacho).
+// Variante de kit/Hero.astro (layout "type").
+import mark from "./assets/mark-white.svg";
+interface Props { title: string; lede?: string }
+const { title, lede } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-brand) text-(--c-on-brand)">
+  <img src={mark.src} alt="" aria-hidden="true" data-parallax="36" class="pointer-events-none absolute -right-[4%] top-[6%] -z-10 h-[88%] w-auto max-w-none opacity-[0.11] select-none" />
+  <div class="wrap flex min-h-[100svh] flex-col justify-end gap-14 pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="max-w-[17ch] text-[clamp(2.9rem,8.4vw,8.4rem)] font-bold leading-[0.94] tracking-[-0.045em]">{title}</h1>
+    <div>
+      {lede && <p data-hero style="--i:1" class="max-w-[40ch] text-lg sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-8 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+import { areas } from "@/sites/arriolabogados/data";
+
+const base = "/arriolabogados";
+---
+
+<SiteLayout site={site} title="Contacto | Arriola Abogados, Av. Homero 229, Polanco, Ciudad de México" description="Oficina en Av. Homero 229, int. 5, Polanco V Sección, Ciudad de México. WhatsApp 55 3522 7769 y teléfono 55 4370 3482. Lunes a viernes de 9:00 a 19:00." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en nuestra oficina de Polanco." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

@@ -1,0 +1,57 @@
+---
+import Layout from "@/sites/archundiamorelos/Layout.astro";
+import Hero from "@/sites/archundiamorelos/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/archundiamorelos/site";
+import { materias, photos, waLink } from "@/sites/archundiamorelos/data";
+
+const base = "/archundiamorelos";
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<Layout site={site} title="Jesús Archundia Morelos Abogados | Abogado en la colonia del Valle Norte, CDMX" description="Asesoría, consultoría, orientación y representación jurídica y legal. Derecho penal, civil, mercantil, administrativo fiscal, constitucional y amparo. Calle Medellín, Col. del Valle Norte, Ciudad de México." nav={{ variant: "pill", tone: "light", logoHeight: 44 }} footer={{ variant: "dark" }}>
+  <Hero title="Jesús Archundia Morelos Abogados" lede="Asesoría, consultoría, orientación y representación jurídica y legal." image={photos.hero} imageAlt="Muro coral con la sombra de una ventana y una hoja de palma">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="brand">
+    <div class="wrap"><Statement text={materias.join(", ").replace(/Derecho /g, "").replace(/^penal/, "Derecho penal") + "."} class="!max-w-[22ch] !text-[clamp(2.2rem,5.2vw,4.8rem)] !tracking-[-0.04em]" /></div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      <div data-reveal="clip" class="aspect-[4/3] overflow-hidden"><Pic src={photos.calle} alt="Calle arbolada con edificios de departamentos en una colonia de la Ciudad de México" position="35% 50%" class="size-full object-cover" /></div>
+      <div data-reveal data-delay="100">
+        <h2 class="max-w-[14ch] text-[clamp(2rem,4vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.035em]">Despacho en la colonia del Valle Norte</h2>
+        <p class="mt-7 max-w-[40ch] text-lg text-(--c-muted)">{site.addresses[0].text}</p>
+        <p class="mt-3 text-lg text-(--c-muted)">{site.hours}</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <Button href={site.mapsUrl!} variant="outline" external>Ver en el mapa</Button>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4vw,3.4rem)] font-bold leading-[1.02] tracking-[-0.035em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={materias} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</Layout>

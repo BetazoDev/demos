@@ -1,0 +1,21 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import AreaCards from "@/sites/arriolabogados/AreaCards.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+import { areas } from "@/sites/arriolabogados/data";
+
+const base = "/arriolabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Servicios | Arriola Abogados, propiedad intelectual, corporativo y fiscal en CDMX" description="Propiedad intelectual y registro de marcas, asesoría corporativa, derecho civil y mercantil, defensa fiscal y asesoría a startups y emprendedores en Polanco, Ciudad de México." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Propiedad intelectual, corporativo, civil y mercantil, y fiscal, con asesoría a startups y emprendedores." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreaCards areas={areas} base={base} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

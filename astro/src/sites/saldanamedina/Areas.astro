@@ -1,0 +1,32 @@
+---
+// Copia de kit/AreasIndex: la flecha se queda en la 3.ª columna aunque la fila no tenga texto. Lista de áreas como filas grandes y enlazables (hasta ~7). El título lleva transition:name para morfar a su página.
+import Icon from "@/kit/Icon.astro";
+interface Area {
+  key: string;
+  title: string;
+  text?: string | null;
+  href: string;
+}
+interface Props {
+  areas: Area[];
+  /** Prefijo del nombre de transición; la página de destino debe usar el mismo (area-<key>) */
+  transitionPrefix?: string;
+}
+const { areas, transitionPrefix = "area" } = Astro.props;
+---
+
+<ul data-stagger data-gap="70" class="divide-y divide-current/12 border-y border-current/12">
+  {
+    areas.map((a) => (
+      <li>
+        <a href={a.href} data-area={a.title} class="area-row group relative grid items-center gap-3 py-7 sm:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_auto] sm:gap-10 sm:py-9">
+          <h3 transition:name={`${transitionPrefix}-${a.key}`} class="area-title text-[clamp(1.6rem,3.4vw,2.9rem)] font-normal leading-[1.05] tracking-[-0.025em] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-2">{a.title}</h3>
+          {a.text && <p class="line-clamp-3 max-w-[46ch] text-[15px] leading-relaxed opacity-70 sm:text-base">{a.text}</p>}
+          <span class="arr hidden size-12 sm:col-start-3 place-items-center rounded-full border border-current/25 transition-[background-color,color,border-color,transform] duration-300 group-hover:border-transparent group-hover:bg-(--c-accent) group-hover:text-(--c-on-accent) sm:grid">
+            <Icon name="arrow-up-right" weight="bold" class="size-5" />
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

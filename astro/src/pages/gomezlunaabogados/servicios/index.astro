@@ -1,0 +1,32 @@
+---
+import Layout from "@/sites/gomezlunaabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/gomezlunaabogados/site";
+import { areas, texto } from "@/sites/gomezlunaabogados/data";
+
+const base = "/gomezlunaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const org = new URL(`/${site.slug}#organizacion`, Astro.site).href;
+const schema = areas.slice(0, 4).map((a) => ({ "@context": "https://schema.org", "@type": "Service", name: a.title, provider: { "@id": org }, areaServed: { "@type": "City", name: "Ciudad de México" } }));
+---
+
+<Layout title="Servicios: asesoría civil, penal, notarial y registral, y mercantil | Gómez Luna Abogados" description="Asesoría integral en materia civil, penal, notarial y registral, y mercantil, con trato profesional y confidencialidad. Gómez Luna Abogados SC en Anzures, Ciudad de México." schema={schema} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede={texto.lede} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <ul data-stagger data-gap="80" class="divide-y divide-current/15 border-y border-current/15">
+        {
+          areas.map((a) => (
+            <li id={a.key} class="scroll-mt-28 py-9 sm:py-12">
+              <h2 transition:name={`area-${a.key}`} class="max-w-[24ch] text-[clamp(1.7rem,3.6vw,3rem)] leading-[1.08]">{a.title}</h2>
+            </li>
+          ))
+        }
+      </ul>
+      <p data-reveal class="mt-12 max-w-[60ch] text-lg leading-relaxed text-(--c-muted)">{texto.acerca[2]}</p>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" text={texto.especializacion} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

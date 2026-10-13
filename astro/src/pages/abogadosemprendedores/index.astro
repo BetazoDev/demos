@@ -1,0 +1,100 @@
+---
+import Layout from "@/sites/abogadosemprendedores/Layout.astro";
+import Hero from "@/sites/abogadosemprendedores/Hero.astro";
+import Ruta from "@/sites/abogadosemprendedores/Ruta.astro";
+import Testimonios from "@/sites/abogadosemprendedores/Testimonios.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/abogadosemprendedores/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/abogadosemprendedores/site";
+import { areas, planes, testimonios, equipo, photos } from "@/sites/abogadosemprendedores/data";
+
+const base = "/abogadosemprendedores";
+const steps = areas.slice(0, 4).map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const waPoliza = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre la póliza empresarial para emprendedores.`)}`;
+const titular = equipo[0];
+---
+
+<Layout site={site} title="Abogados para emprendedores y pymes en la Ciudad de México | Abogados para Emprendedores MX" description="Abogados para emprendedores, startups y pequeños empresarios en la Ciudad de México: constitución de empresa, registro de marca, contratos y asesoría legal continua paso a paso.">
+  <Hero lede="No dejaremos que se vuelva pesadilla. Te apoyamos paso a paso en la constitución de tu negocio o empresa." image={photos.heroAbogada} imageAlt="La abogada titular sentada con una tableta en su despacho" position="90% 30%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="solid" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section id="ruta">
+    <div class="wrap">
+      <h2 data-reveal class="mb-14 text-[clamp(2.2rem,4.8vw,4.2rem)] font-semibold leading-none tracking-[-0.04em]">Paso a paso</h2>
+      <Ruta steps={steps} />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap"><Statement class="max-w-[30ch] text-[clamp(1.7rem,3.8vw,3.4rem)] sm:max-w-[34ch]" text="Es importante contar con un buen abogado no sólo en el momento de poner en marcha un proyecto empresarial, sino en toda la vida de tu empresa." /></div>
+  </Section>
+
+  <Section tone="brand">
+    <div class="wrap">
+      <h2 data-reveal class="max-w-[16ch] text-[clamp(2.2rem,4.8vw,4.2rem)] font-semibold leading-none tracking-[-0.04em]">Póliza empresarial para emprendedores</h2>
+      <p data-reveal data-delay="80" class="mt-6 max-w-[48ch] text-lg">Planes de asesoría legal continua para tu emprendimiento.</p>
+      <ul data-stagger data-gap="120" class="mt-14 grid items-end gap-4 lg:grid-cols-3">
+        {planes.map((p, i) => (
+          <li class:list={["flex flex-col justify-between bg-(--c-bg) p-7 text-(--c-ink) sm:p-9", i === 0 && "lg:min-h-[19rem]", i === 1 && "lg:min-h-[25rem]", i === 2 && "lg:min-h-[31rem]"]}>
+            <p class="text-lg font-semibold">{p.name}</p>
+            <div>
+              <p class="font-(family-name:--f-display) text-[clamp(2.6rem,4.4vw,4rem)] font-semibold leading-none tracking-[-0.04em]">{p.big}</p>
+              <p class="mt-4 max-w-[30ch] text-(--c-muted)">{p.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal class="mt-10 flex flex-wrap gap-3">
+        <Button href={waPoliza} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+        <Button href={`${base}/servicios/poliza-empresarial`} variant="outline" size="lg">Conocer la póliza</Button>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.2rem,4.8vw,4.2rem)] font-semibold leading-none tracking-[-0.04em]">Testimonios</h2>
+      <Testimonios items={testimonios} />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-square overflow-hidden bg-(--c-bg) [clip-path:polygon(0_0,84%_0,100%_16%,100%_100%,0_100%)]">
+        <Pic src={titular.photo} alt="María Elena Cortés Zárate, abogada titular, con los brazos cruzados" position="50% 30%" />
+      </div>
+      <div data-reveal data-delay="100">
+        <p data-count="+28" class="font-(family-name:--f-display) text-[clamp(4rem,9vw,8rem)] font-semibold leading-none tracking-[-0.05em] tabular-nums">+28</p>
+        <p class="mt-2 text-lg text-(--c-muted)">años de experiencia de la abogada titular</p>
+        <blockquote class="mt-8 max-w-[52ch] text-[clamp(1.15rem,1.7vw,1.4rem)] leading-snug">“{titular.quote}”</blockquote>
+        <p class="mt-6 font-medium">{titular.name}</p>
+        <p class="text-(--c-muted)">{titular.role}</p>
+        <div class="mt-8"><Button href={`${base}/nosotros`} variant="outline">Conocer al despacho</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.2rem,4.8vw,4.2rem)] font-semibold leading-none tracking-[-0.04em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntanos tu proyecto" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

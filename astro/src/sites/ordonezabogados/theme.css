@@ -1,0 +1,6 @@
+/* Radios del sitio: 12px en imágenes, tarjetas y campos (el sistema de botones es la pastilla del kit con 12px). */
+[data-site="ordonezabogados"] {
+  --c-radius-img: 12px;
+  --c-radius-card: 12px;
+  --c-radius-field: 12px;
+}

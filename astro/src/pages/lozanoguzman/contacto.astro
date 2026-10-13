@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/lozanoguzman/Layout.astro";
+import PageHero from "@/sites/lozanoguzman/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/lozanoguzman/site";
+import { areas } from "@/sites/lozanoguzman/areas";
+
+const base = "/lozanoguzman";
+---
+
+<Layout site={site} title="Contacto | Lozano Guzmán Abogados, Centro de la CDMX y Ecatepec" description="Sucursales en Fray Pedro de Gante 8, Centro, Ciudad de México, y en Llano de Morelos I, Ecatepec de Morelos. WhatsApp 55 4089 2337." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en cualquiera de nuestras dos sucursales." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.short)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

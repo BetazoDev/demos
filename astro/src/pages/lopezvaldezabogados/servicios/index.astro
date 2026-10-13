@@ -1,0 +1,29 @@
+---
+import Layout from "@/sites/lopezvaldezabogados/Layout.astro";
+import Etapas from "@/sites/lopezvaldezabogados/Etapas.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/lopezvaldezabogados/site";
+import { areas, amparo, firma } from "@/sites/lopezvaldezabogados/data";
+
+const base = "/lopezvaldezabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+---
+
+<Layout title="Servicios de defensa penal y litigio estratégico | López Valdez Abogados" description="Asesoría, consultoría y litigio en la etapa de investigación, la etapa intermedia, el juicio y la justicia restaurativa. Abogados penalistas en la Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Servicios legales de excelencia en todas las etapas del procedimiento penal." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Etapas items={rows} />
+      <p data-reveal class="mt-10 pl-8 text-[15px] text-(--c-muted) sm:pl-14">También: {amparo.toLowerCase()}.</p>
+    </div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap">
+      <p data-reveal class="max-w-[40ch] text-[clamp(1.5rem,2.8vw,2.4rem)] leading-[1.2]" style="font-family:var(--f-display)">{firma.capital}</p>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

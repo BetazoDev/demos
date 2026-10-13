@@ -1,0 +1,22 @@
+/* Ajustes propios de LexLab sobre el kit. El radio sale del logo: esquinas redondeadas arriba a la derecha y abajo a la izquierda. */
+html[data-site="lexlababogados"] {
+  --c-radius-nav: 0 26px 0 26px;
+  --c-radius-img: 0 40px 0 40px;
+  --c-radius-card: 0 30px 0 30px;
+  --c-radius-field: 0 14px 0 14px;
+  --c-radius-chip: 0 12px 0 12px;
+}
+html[data-site="lexlababogados"] .arr { border-radius: var(--c-radius-chip); }
+html[data-site="lexlababogados"] h1,
+html[data-site="lexlababogados"] h2,
+html[data-site="lexlababogados"] h3,
+html[data-site="lexlababogados"] [data-statement],
+html[data-site="lexlababogados"] [data-count] { letter-spacing: -0.03em; }
+/* El botón de la nav conserva el naranja de marca en todos los estados. */
+html[data-site="lexlababogados"] [data-nav][data-tone] .nav-cta { background: var(--c-brand); color: var(--c-on-brand); }
+html[data-site="lexlababogados"] [data-nav][data-tone] .nav-cta .arr { background: var(--c-on-brand); color: var(--c-brand); }
+
+/* Servicios: tarjetas que se apilan con sticky; las que quedan debajo se reducen un poco (solo transform). */
+.stack-card { position: sticky; top: calc(5.5rem + var(--k) * 1.1rem); }
+.stack-card > .stack-inner { transform-origin: 50% 0; will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .stack-card > .stack-inner { transform: none !important; } }

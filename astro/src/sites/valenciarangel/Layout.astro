@@ -1,0 +1,28 @@
+---
+// Envoltorio de SiteLayout: nav de cápsula, pie oscuro y ajustes de la tipografía display (Forum solo tiene un peso).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number };
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string };
+}
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout site={site} nav={{ variant: "pill", tone: "dark", logoHeight: 30, ...nav }} footer={{ variant: "dark", blurb: "Soluciones integrales a través de estrategias jurídicas eficientes y viables.", ...footer }} {...rest}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="valenciarangel"] { --c-radius-card: 1.5rem; --c-radius-field: 0.9rem; }
+  [data-site="valenciarangel"] :is(h1, h2, h3) { font-weight: 400; letter-spacing: -0.012em; }
+  [data-site="valenciarangel"] [data-statement] { font-family: var(--f-display); font-weight: 400; letter-spacing: -0.015em; }
+  /* El logo horizontal es muy ancho (9.5:1): se reduce en la nav móvil y se ajusta al ancho en el pie. */
+  @media (max-width: 639px) { [data-site="valenciarangel"] [data-nav] .nav-inner > a img { height: 23px !important; } }
+  [data-site="valenciarangel"] footer a[aria-label] img { max-width: 100% !important; height: auto !important; }
+  [data-site="valenciarangel"] main :is(.opacity-60, .opacity-65, .opacity-70) { opacity: 0.82; }
+</style>

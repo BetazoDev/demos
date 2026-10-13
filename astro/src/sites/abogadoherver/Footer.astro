@@ -1,0 +1,71 @@
+---
+// Pie: logo, contacto, navegación y crédito de Hemeron. variant="dark" usa --c-dark; "light" usa --c-surface.
+import type { SiteConfig } from "@/kit/types";
+import Logo from "@/kit/Logo.astro";
+import logoFull from "./assets/logo-light.svg";
+import "./theme.css";
+import Icon from "@/kit/Icon.astro";
+
+interface Props {
+  site: SiteConfig;
+  variant?: "dark" | "light" | "brand";
+  /** Frase propia del despacho bajo el logo (lema real). Opcional. */
+  blurb?: string;
+}
+const { site, variant = "dark", blurb } = Astro.props;
+const base = `/${site.slug}`;
+const tones = {
+  dark: "bg-(--c-dark) text-(--c-on-dark)",
+  light: "bg-(--c-surface) text-(--c-ink)",
+  brand: "bg-(--c-brand) text-(--c-on-brand)",
+};
+const logo = logoFull;
+const en = site.lang === "en";
+const socials = Object.entries(site.social).filter(([, v]) => v) as [string, string][];
+const socialIcon: Record<string, string> = { facebook: "facebook-logo", instagram: "instagram-logo", linkedin: "linkedin-logo", x: "x-logo", youtube: "youtube-logo", tiktok: "tiktok-logo" };
+const waTel = site.whatsapp.number ? `+${site.whatsapp.number}` : null;
+const wa = site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}` : null;
+---
+
+<footer class:list={["relative", tones[variant]]}>
+  <div class="wrap section-y-sm grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr]">
+    <div>
+      <a href={base} aria-label={site.name}><Logo src={logo} alt={site.logo.alt ?? site.name} height={112} eager={false} /></a>
+      {blurb && <p class="mt-5 max-w-sm text-[15px] opacity-70">{blurb}</p>}
+      {
+        socials.length > 0 && (
+          <ul class="mt-6 flex gap-2">
+            {socials.map(([k, href]) => (
+              <li>
+                <a href={href} target="_blank" rel="noopener" aria-label={k} class="press grid size-10 place-items-center rounded-full border border-current/25 hover:border-current/70">
+                  <Icon name={socialIcon[k] ?? "link"} class="size-[18px]" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+    <nav aria-label={en ? "Site" : "Sitio"}>
+      <ul class="grid gap-2.5 text-[15px]">
+        {site.nav.links.map((l) => <li><a href={l.href} class="link-u opacity-80 hover:opacity-100">{l.label}</a></li>)}
+        {site.privacyHref && <li><a href={site.privacyHref} class="link-u opacity-80 hover:opacity-100">{en ? "Privacy notice" : "Aviso de privacidad"}</a></li>}
+      </ul>
+    </nav>
+    <address class="grid gap-3 text-[15px] not-italic opacity-90">
+      {site.addresses.slice(0, 2).map((a) => <p class="flex gap-3"><Icon name="map-pin" class="mt-1 size-[18px] shrink-0 opacity-60" /><span>{a.text}</span></p>)}
+      {site.phones.filter((p) => p.tel !== waTel).slice(0, 2).map((p) => <a href={`tel:${p.tel}`} class="flex gap-3 hover:opacity-70"><Icon name="phone" class="mt-1 size-[18px] shrink-0 opacity-60" /><span>{p.display}</span></a>)}
+      {wa && <a href={wa} target="_blank" rel="noopener" class="flex gap-3 hover:opacity-70"><Icon name="whatsapp-logo" class="mt-1 size-[18px] shrink-0 opacity-60" /><span>WhatsApp {site.whatsapp.display ?? ""}</span></a>}
+      {site.emails.slice(0, 1).map((m) => <a href={`mailto:${m}`} class="flex gap-3 break-all hover:opacity-70"><Icon name="envelope-simple" class="mt-1 size-[18px] shrink-0 opacity-60" /><span>{m}</span></a>)}
+    </address>
+  </div>
+  <div class="border-t border-current/15">
+    <div class="wrap flex flex-col gap-2 py-5 text-sm opacity-70 sm:flex-row sm:items-center sm:justify-between">
+      <p>© 2026 {site.name}</p>
+      <p class="whitespace-nowrap">
+        {en ? "Developed by" : "Desarrollado por"}
+        <a href="https://hemeron.com" target="_blank" rel="noopener" class="underline decoration-current/40 underline-offset-[3px] transition-opacity hover:opacity-70">hemeron.com</a>
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,61 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Split from "@/kit/Split.astro";
+import Button from "@/kit/Button.astro";
+import Pic from "@/kit/Pic.astro";
+import Reviews from "@/kit/Reviews.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+import { mision, vision, photos, quotes } from "@/sites/arriolabogados/data";
+
+const base = "/arriolabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.8rem,3.2vw,2.8rem)] font-medium leading-[1.05] tracking-[-0.025em]";
+---
+
+<SiteLayout site={site} title="La firma | Arriola Abogados, abogados en Polanco, Ciudad de México" description="Arriola Abogados: misión y visión del despacho, trabajo anticipado y estrategias para reducir riesgos. Oficina en Polanco, Ciudad de México." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede="Un equipo interdisciplinario con oficina en Polanco, Ciudad de México." image={photos.sala} imageAlt="Tres abogados de Arriola Abogados de pie en una sala con estantería de madera" />
+
+  <Section>
+    <div class="wrap grid gap-14 md:grid-cols-2 md:gap-20">
+      <div data-reveal>
+        <h2 class={h2}>Misión</h2>
+        <p class="mt-6 max-w-[44ch] text-xl leading-relaxed text-(--c-muted)">{mision}</p>
+      </div>
+      <div data-reveal data-delay="120">
+        <h2 class={h2}>Visión</h2>
+        <p class="mt-6 max-w-[44ch] text-xl leading-relaxed text-(--c-muted)">{vision.lead}</p>
+        <p class="mt-5 max-w-[44ch] text-xl leading-relaxed text-(--c-muted)">{vision.text}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <Split image={photos.retrato} alt="Abogado de Arriola Abogados sentado con la mano en el mentón" position="50% 30%" ratio="4/5">
+        <h2 class={h2}>Startups y emprendedores</h2>
+        <p class="mt-6 max-w-[46ch] text-lg text-(--c-muted)">Con un equipo interdisciplinario ofrecemos asesoría a startups y emprendedores en todos los aspectos necesarios tales como contratos de propuestas, de servicios, de protección de datos personales, de desarrollo tecnológico, de propiedad intelectual y asesoría en I+D+i.</p>
+        <p class="mt-4 max-w-[46ch] text-lg text-(--c-muted)">Igualmente apoyamos en rondas de financiación para la captación de capital semilla y capital de crecimiento y expansión.</p>
+        <div class="mt-9"><Button href={`${base}/servicios/startups`} variant="outline">Ver el servicio</Button></div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-4 sm:grid-cols-[1.4fr_1fr]">
+      <div data-reveal="clip" class="overflow-hidden rounded-(--c-radius-img)"><Pic src={photos.angel} alt="Tres abogados de Arriola Abogados junto al ventanal con el Ángel de la Independencia" class="aspect-[4/3] size-full object-cover" /></div>
+      <div data-reveal="clip" data-delay="140" class="overflow-hidden rounded-(--c-radius-img)"><Pic src={photos.sofa} alt="Tres abogados de Arriola Abogados, dos sentados en un sofá y uno de pie" position="50% 40%" class="size-full object-cover" /></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <Reviews rating={site.google!.rating} count={site.google!.reviews} quotes={quotes} />
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

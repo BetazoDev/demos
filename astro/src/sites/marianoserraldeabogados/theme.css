@@ -1,0 +1,19 @@
+/* Ajustes propios de Mariano Serralde & Asociados sobre el kit. Todo recto: radio 0. */
+html[data-site="marianoserraldeabogados"] {
+  --c-radius-img: 0px;
+  --c-radius-card: 0px;
+  --c-radius-field: 0px;
+}
+html[data-site="marianoserraldeabogados"] .arr { border-radius: 0; }
+html[data-site="marianoserraldeabogados"] :focus-visible { outline-color: var(--c-accent); }
+html[data-site="marianoserraldeabogados"] :is(h1, h2, h3, [data-statement], [data-count]) { letter-spacing: -0.005em; font-weight: 400; }
+/* El botón de la nav conserva el gris claro de marca en todos los estados. */
+html[data-site="marianoserraldeabogados"] [data-nav][data-tone] .nav-cta { background: var(--c-brand); color: var(--c-on-brand); }
+html[data-site="marianoserraldeabogados"] [data-nav][data-tone] .nav-cta .arr { background: var(--c-on-brand); color: var(--c-brand); }
+
+/* Héroe: la foto del capitel se levanta en tres columnas, una tras otra (eco de las tres columnas del logo). */
+.col-strip { position: absolute; top: 0; bottom: 0; overflow: hidden; animation: col-up 1.4s var(--ease-in-out) both; animation-delay: calc(150ms + var(--k) * 170ms); }
+.col-strip > span { position: absolute; top: 0; bottom: 0; background-size: cover; background-position: 50% 30%; }
+@keyframes col-up { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { .col-strip { animation: none; clip-path: none; } }
+html[data-site="marianoserraldeabogados"] [data-statement] { font-family: var(--f-display); font-size: clamp(2.1rem, 4.8vw, 4.4rem); line-height: 1.08; max-width: 26ch; }

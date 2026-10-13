@@ -1,0 +1,38 @@
+---
+import Layout from "@/sites/abogadosdravi/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/abogadosdravi/site";
+import { areas, poliza } from "@/sites/abogadosdravi/data";
+
+const base = "/abogadosdravi";
+const otras = ["Santa Fe, C.P. 01219", "Insurgentes Sur, C.P. 01020", "Condesa, Av. Tamaulipas, C.P. 06100", "Tecamachalco, Fuente de Pirámides, C.P. 53950"];
+---
+
+<Layout
+  site={site}
+  title="Contacto | Abogados DRAVI, Av. Paseo de la Reforma 42, Centro, CDMX"
+  description="Oficina principal en Av. Paseo de la Reforma 42, Piso 1, Oficina A, Centro, CDMX (atención previa cita). Teléfonos 55 9865 5511 y WhatsApp 55 3996 3612."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Nuestro equipo de abogados profesionales está dispuesto a atenderte con honestidad, seguridad, seriedad y privacidad." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...areas.map((a) => a.title), poliza.title]} />
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-normal leading-tight tracking-[-0.02em]">Otras oficinas de atención</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-10 gap-y-3 text-lg sm:grid-cols-2">
+        {otras.map((o) => <li>{o}</li>)}
+      </ul>
+    </div>
+  </Section>
+</Layout>

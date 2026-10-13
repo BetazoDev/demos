@@ -1,0 +1,39 @@
+---
+// Botón rectilíneo de Duprat Lira: etiqueta + celda cuadrada con flecha (sin esquinas redondeadas). Una sola forma en todo el sitio.
+interface Props {
+  href: string;
+  variant?: "solid" | "gold" | "outline" | "light";
+  size?: "sm" | "md" | "lg";
+  arrow?: boolean;
+  external?: boolean;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { href, variant = "solid", size = "md", arrow = true, external = false, class: cls = "", ...rest } = Astro.props;
+const base = "press nudge group inline-flex items-stretch whitespace-nowrap text-[15px] font-medium tracking-[0.005em]";
+const sizes = { sm: "h-11", md: "h-12", lg: "h-14 text-base" };
+const cell = { sm: "w-11", md: "w-12", lg: "w-14" };
+const variants = {
+  solid: "bg-(--c-brand) text-(--c-on-brand) hover:brightness-125",
+  gold: "bg-(--c-accent) text-(--c-on-accent) hover:brightness-105",
+  outline: "border border-current/35 hover:border-current/80",
+  light: "bg-white text-(--c-dark) hover:brightness-95",
+};
+const cells = {
+  solid: "bg-(--c-accent) text-(--c-on-accent)",
+  gold: "bg-(--c-brand) text-(--c-on-brand)",
+  outline: "border-l border-current/35",
+  light: "bg-(--c-accent) text-(--c-on-accent)",
+};
+---
+
+<a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener" : undefined} class:list={[base, sizes[size], variants[variant], cls]} {...rest}>
+  <span class:list={["grid place-items-center", arrow ? "pl-6 pr-5 sm:pl-7" : "px-7"]}><slot /></span>
+  {
+    arrow && (
+      <span class:list={["grid shrink-0 place-items-center", cell[size], cells[variant]]}>
+        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </span>
+    )
+  }
+</a>

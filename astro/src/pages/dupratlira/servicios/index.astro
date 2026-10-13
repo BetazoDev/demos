@@ -1,0 +1,48 @@
+---
+import DuLayout from "@/sites/dupratlira/DuLayout.astro";
+import DuPageHero from "@/sites/dupratlira/DuPageHero.astro";
+import DuCta from "@/sites/dupratlira/DuCta.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import { site, WA } from "@/sites/dupratlira/site";
+import { areas } from "@/sites/dupratlira/data";
+
+const base = "/dupratlira";
+const wa = `https://wa.me/${WA}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<DuLayout title="Servicios legales en la Ciudad de México | Duprat Lira Abogados" description="Derecho laboral para patrones y trabajadores, mercantil, civil, corporativo, fiscal, administrativo, seguridad social, familiar y negligencia médica en la Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <DuPageHero title="Servicios" lede="Soluciones jurídicas para empresas y particulares, con especialistas en cada rama del derecho." />
+  <Section>
+    <div class="wrap">
+      <ul data-stagger data-gap="70" class="grid border-l border-t border-(--c-line) md:grid-cols-2">
+        {
+          areas.map((a, i) => (
+            <li class:list={["border-b border-r border-(--c-line)", i === areas.length - 1 && areas.length % 2 === 1 && "md:col-span-2"]}>
+              <a href={`${base}/servicios/${a.key}`} class="du-card group relative flex h-full min-h-[16rem] flex-col justify-between gap-10 p-7 sm:p-10">
+                <div>
+                  <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.8rem,2.8vw,2.5rem)] leading-[1.1]">{a.title}</h2>
+                  <p class="du-card-text mt-4 max-w-[48ch] text-[17px] text-(--c-muted)">{a.lead}</p>
+                </div>
+                <span class="du-card-arr grid size-12 place-items-center self-end border border-current/30">
+                  <Icon name="arrow-up-right" weight="bold" class="size-5" />
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+  <DuCta title="Primera consulta sin costo" href={wa} label="Escribir por WhatsApp" />
+</DuLayout>
+
+<style is:global>
+  .du-card { transition: background-color 280ms ease, color 280ms ease; }
+  .du-card .du-card-arr { transition: background-color 280ms ease, color 280ms ease, border-color 280ms ease, transform 360ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .du-card:hover { background: var(--c-dark); color: var(--c-on-dark); }
+    .du-card:hover .du-card-text { color: color-mix(in oklab, var(--c-on-dark) 80%, transparent); }
+    .du-card:hover .du-card-arr { background: var(--c-accent); color: var(--c-on-accent); border-color: transparent; transform: translate(2px, -2px); }
+  }
+</style>

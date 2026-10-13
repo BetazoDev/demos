@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import "@/sites/enley/theme.css";
+import { site } from "@/sites/enley/site";
+
+const base = "/enley";
+---
+
+<SiteLayout site={site} title="Aviso de privacidad | Enley" description="Aviso de privacidad de Enley México, S.A. de C.V." nav={{ variant: "pill", tone: "dark" }} breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <PageHero title="Aviso de privacidad" lede="Enley México, S.A. de C.V." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Enley México, S.A. de C.V. (la «Empresa») actúa como Encargado del tratamiento, con domicilio en Av. Ejército Nacional 533, Interior 601, Polanco IV Sección, Miguel Hidalgo, C.P. 11520, Ciudad de México.</p>
+        <p>Para el ejercicio de los derechos ARCO, escribe a <a href="mailto:contacto@enley.mx">contacto@enley.mx</a>.</p>
+        <p>Los documentos completos están publicados por Enley: <a href="https://www.enley.mx/politica-de-privacidad" target="_blank" rel="noopener">política de privacidad</a>, <a href="https://www.enley.mx/terminos-y-condiciones" target="_blank" rel="noopener">términos y condiciones</a> y <a href="https://www.enley.mx/politica-de-cookies" target="_blank" rel="noopener">política de cookies</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

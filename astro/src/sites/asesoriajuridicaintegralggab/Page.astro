@@ -1,0 +1,15 @@
+---
+// Envoltura de SiteLayout: radios del sitio (16px) y anillo de foco azul (el burdeos no se ve sobre el campo azul).
+import SiteLayout from "@/kit/SiteLayout.astro";
+---
+
+<SiteLayout {...Astro.props}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  :root { --c-radius-field: 12px; --c-radius-img: 16px; --c-radius-card: 16px; }
+  :focus-visible { outline-color: var(--c-brand); }
+  [data-tone="dark"] :focus-visible, .gg-hero :focus-visible { outline-color: #FBF9F6; }
+  @media (max-width: 480px) { .break-all { font-size: 15px; } }
+</style>

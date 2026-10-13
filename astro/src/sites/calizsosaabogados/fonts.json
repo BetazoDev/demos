@@ -1,0 +1,4 @@
+[
+  { "name": "Petrona", "cssVariable": "--f-calizsosaabogados-display", "weights": [400, 500, 600], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Nunito Sans", "cssVariable": "--f-calizsosaabogados-body", "weights": [300, 400, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

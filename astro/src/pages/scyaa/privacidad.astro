@@ -1,0 +1,22 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import raw from "@/sites/scyaa/privacy.txt?raw";
+import { site } from "@/sites/scyaa/site";
+
+const base = "/scyaa";
+const blocks = raw.trim().split(/\n\n+/).map((b) => (b.startsWith("## ") ? { h: b.slice(3) } : { p: b }));
+---
+
+<SiteLayout site={site} title="Aviso de privacidad | Salcedo Caballero y Abogados Asociados" description="Aviso de privacidad de Salcedo Caballero y Abogados Asociados, S.C." nav={{ variant: "pill", tone: "light", logoHeight: 30 }} breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]} footer={{ variant: "light", blurb: "Legal & Business Advisor" }}>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        {blocks.map((b) => ("h" in b ? <h2>{b.h}</h2> : <p>{b.p}</p>))}
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

@@ -1,0 +1,56 @@
+---
+import Layout from "@/sites/lopezvaldezabogados/Layout.astro";
+import Ruta from "@/sites/lopezvaldezabogados/Ruta.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/lopezvaldezabogados/site";
+import { areas } from "@/sites/lopezvaldezabogados/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/lopezvaldezabogados";
+const ruta = areas.map((a) => ({ key: a.key, short: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre la ${area.title.toLowerCase()}.`)}`;
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: area.title,
+    description: area.lead,
+    provider: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href },
+    areaServed: { "@type": "City", name: "Ciudad de México" },
+    serviceType: "Defensa penal",
+  },
+];
+---
+
+<Layout title={`${area.title} | Abogados penalistas en CDMX | López Valdez Abogados`} description={area.lead} schema={schema} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}>
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} />
+  {
+    area.items && (
+      <Section size="sm" class="pt-4">
+        <div class="wrap grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <h2 data-reveal class="text-[clamp(1.5rem,2.8vw,2.3rem)] leading-tight">{area.itemsTitle}</h2>
+          <ul data-stagger data-gap="60" class="grid gap-x-10 gap-y-6">
+            {area.items.map((i) => (
+              <li class="flex gap-4 text-lg leading-snug">
+                <span aria-hidden="true" class="mt-[0.7em] h-px w-5 shrink-0 bg-(--c-accent)"></span>
+                <span>{i}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    )
+  }
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.5rem,2.8vw,2.3rem)] leading-tight">Etapas del procedimiento penal</h2>
+      <Ruta items={ruta} current={area.key} />
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

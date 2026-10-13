@@ -1,0 +1,24 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/enley/Composer.astro";
+import "@/sites/enley/theme.css";
+import { site } from "@/sites/enley/site";
+import { services } from "@/sites/enley/services";
+
+const base = "/enley";
+---
+
+<SiteLayout site={site} title="Contacto | Enley, Av. Ejército Nacional 533, Polanco, Ciudad de México" description="Escribe a Enley por WhatsApp al 56 4040 4641 o visita la oficina de Polanco, en Av. Ejército Nacional 533, Ciudad de México. Primera consulta gratuita." nav={{ variant: "pill", tone: "dark" }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Consulta gratis con un abogado. Te ayudamos a resolver cualquier duda." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={services.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

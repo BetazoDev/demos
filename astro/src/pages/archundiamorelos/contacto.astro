@@ -1,0 +1,27 @@
+---
+import Layout from "@/sites/archundiamorelos/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Pic from "@/kit/Pic.astro";
+import { site } from "@/sites/archundiamorelos/site";
+import { materias, photos } from "@/sites/archundiamorelos/data";
+
+const base = "/archundiamorelos";
+---
+
+<Layout site={site} title="Contacto | Jesús Archundia Morelos Abogados, colonia del Valle Norte, CDMX" description="Calle Medellín, Col. del Valle Norte, Ciudad de México. Atención de lunes a viernes de 10:00 a 17:00 h. WhatsApp y llamadas al 55 3518 2101." nav={{ variant: "pill", tone: "light", logoHeight: 44 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]} footer={{ variant: "dark" }}>
+  <PageHero title="Contacto" lede="Escriba por WhatsApp, llame o envíe un correo. Atención de lunes a viernes de 10:00 a 17:00 h." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={materias} />
+      </div>
+    </div>
+  </Section>
+  <div data-reveal="clip" class="overflow-hidden bg-(--c-dark)">
+    <div class="aspect-[2000/700] min-h-[13rem] w-full"><Pic src={photos.calle} alt="Calle arbolada con edificios de departamentos en una colonia de la Ciudad de México" position="50% 55%" class="size-full object-cover" /></div>
+  </div>
+</Layout>

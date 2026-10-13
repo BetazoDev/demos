@@ -1,0 +1,82 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Section from "@/kit/Section.astro";
+import GNav from "@/sites/guevarayguevara/GNav.astro";
+import GFooter from "@/sites/guevarayguevara/GFooter.astro";
+import GPageHero from "@/sites/guevarayguevara/GPageHero.astro";
+import GCta from "@/sites/guevarayguevara/GCta.astro";
+import { site } from "@/sites/guevarayguevara/site";
+import { people, clients, objectives, photos } from "@/sites/guevarayguevara/data";
+
+const base = "/guevarayguevara";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02] tracking-[-0.03em]";
+const dt = "text-sm font-medium text-(--c-muted)";
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | Guevara & Guevara Abogados, bufete jurídico en la Narvarte, CDMX"
+  description="Semblanzas de José Luis Guevara Rojas y José Luis Guevara Colín, fundadores del bufete, principales clientes y objetivos del despacho. Narvarte, Ciudad de México."
+  nav={false}
+  footer={false}
+  breadcrumbs={[{ name: "La firma", href: `${base}/la-firma` }]}
+>
+  <GNav slot="nav" site={site} />
+
+  <GPageHero title="La firma" lede="Bufete jurídico con presencia a nivel nacional, con un trato personal y profesional." image={photos.lamparaColumnas} imageAlt="Lámpara de latón sobre un estante con libros jurídicos" position="50% 30%" />
+
+  {
+    people.map((p, i) => (
+      <Section tone={i === 0 ? "paper" : "surface"} size="sm" id={p.key} class={i === 0 ? "pt-10 sm:pt-16" : ""}>
+        <article class="wrap grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+          <header class="self-start lg:sticky lg:top-28">
+            <h2 data-reveal class="text-[clamp(2.1rem,4vw,3.4rem)] leading-[1.05] tracking-[-0.025em]">{p.name}</h2>
+            <p data-reveal data-delay="80" class="mt-3 text-lg text-(--c-muted)">{p.role}</p>
+            <p data-reveal data-delay="140" class="mt-1 text-[15px] text-(--c-muted)">Cédula profesional {p.cedula}</p>
+          </header>
+          <dl data-reveal data-delay="100" class="grid gap-10">
+            <div>
+              <dt class={dt}>Formación</dt>
+              <dd class="mt-2 max-w-[48ch] text-lg leading-relaxed">{p.school}</dd>
+            </div>
+            <div>
+              <dt class={dt}>Especialidad</dt>
+              <dd class="mt-2 max-w-[48ch] text-lg leading-relaxed">{p.focus}</dd>
+            </div>
+            <div>
+              <dt class={dt}>Trayectoria</dt>
+              <dd class="mt-3">
+                <ul class="grid max-w-[56ch] gap-4 text-[17px] leading-snug">
+                  {p.path.map((it) => <li class="border-l-2 border-(--c-brand) pl-4">{it}</li>)}
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </article>
+      </Section>
+    ))
+  }
+
+  <Section tone="brand">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <h2 data-reveal class={`self-start ${h2}`}>Objetivos</h2>
+      <ul data-stagger data-gap="110" class="divide-y divide-white/20 border-y border-white/20">
+        {objectives.map((o) => <li class="py-7 font-(family-name:--f-display) text-[clamp(1.4rem,2.5vw,2.1rem)] leading-[1.25] tracking-[-0.015em] sm:py-9">{o}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Principales clientes</h2>
+      <ul data-stagger data-gap="90" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {clients.map((c, i) => <li class:list={["py-6 font-(family-name:--f-display) text-[clamp(1.6rem,3.4vw,2.9rem)] leading-tight tracking-[-0.02em] sm:py-8", i === clients.length - 1 && "text-(--c-muted)"]}>{c}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <GCta title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="surface" />
+
+  <GFooter slot="footer" site={site} />
+</SiteLayout>

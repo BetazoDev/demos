@@ -1,0 +1,25 @@
+---
+// Héroe propio de Irra Ibarra: titular tipográfico enorme sobre la foto de arquitectura en blanco y negro de su sitio,
+// teñida con el azul de la marca (la cubierta azul de su hero actual) y con parallax suave.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 40%" } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="70"><Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" /></div>
+    <div class="absolute inset-0" style="background:#0e4d8f;mix-blend-mode:multiply"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,var(--c-dark)_4%,color-mix(in_oklab,var(--c-dark)_62%,transparent)_42%,color-mix(in_oklab,var(--c-dark)_18%,transparent)_100%)]"></div>
+  </div>
+  <div class="wrap pb-12 pt-40 sm:pb-16">
+    <h1 data-hero="blur" class="max-w-[15ch] text-[clamp(2.9rem,8.1vw,8.6rem)] font-bold leading-[0.94] tracking-[-0.045em]">{title}</h1>
+    <div class="mt-10 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+      {lede && <p data-hero style="--i:1" class="max-w-[42ch] text-lg opacity-90 sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</section>

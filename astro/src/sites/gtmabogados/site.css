@@ -1,0 +1,52 @@
+/* GTM SC Abogados: ajustes de sitio. Todo va acotado a [data-site="gtmabogados"] para no afectar a otros sitios. */
+[data-site="gtmabogados"] {
+  --c-radius-img: 0px;
+  --c-radius-card: 0px;
+  --c-radius-field: 0px;
+  --c-radius-nav: 0px;
+}
+/* El logo trae fondo blanco opaco: con multiply se funde con el papel o la superficie. */
+[data-site="gtmabogados"] [data-nav] .nav-inner img,
+[data-site="gtmabogados"] .gtm-multiply {
+  mix-blend-mode: multiply;
+}
+/* Texto secundario del kit con contraste AA sobre papel y superficie. */
+[data-site="gtmabogados"] .opacity-55,
+[data-site="gtmabogados"] .opacity-60,
+[data-site="gtmabogados"] .opacity-65 {
+  opacity: 0.76;
+}
+
+/* Héroe propio: texto a la izquierda, panel de foto a sangre a la derecha */
+[data-site="gtmabogados"] .gtm-hero-copy {
+  max-width: min(44rem, 100%);
+}
+@media (min-width: 1024px) {
+  [data-site="gtmabogados"] .gtm-hero-copy {
+    max-width: min(44rem, calc(60vw - (100vw - min(100vw - 5rem, 76rem)) / 2 - 2.5rem));
+  }
+}
+
+/* Firma de movimiento: la banda de foto se amplía al hacer scroll (solo transform) */
+[data-site="gtmabogados"] .gtm-grow {
+  overflow: clip;
+}
+[data-site="gtmabogados"] .gtm-grow-frame {
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Filas de servicios: la flecha avanza al pasar el cursor */
+@media (hover: hover) and (pointer: fine) {
+  [data-site="gtmabogados"] .gtm-row:hover .gtm-row-arrow {
+    transform: translate(3px, -3px);
+  }
+}
+[data-site="gtmabogados"] .gtm-row-arrow {
+  transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Nav: vidrio casi opaco para que el logo (fondo blanco) se funda y la foto no ensucie el color */
+[data-site="gtmabogados"] [data-nav][data-variant="pill"][data-tone="light"] .nav-inner {
+  background: color-mix(in oklab, var(--c-bg) 93%, transparent);
+}

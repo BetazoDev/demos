@@ -1,0 +1,26 @@
+---
+// Héroe propio de R1OS: campo de seda carmesí a sangre con el titular en tres líneas. Sin más elementos que titular, subtexto y botones.
+import Pic from "@/kit/Pic.astro";
+import type { ImageMetadata } from "astro";
+interface Props { lines: string[]; lede: string; image: ImageMetadata }
+const { lines, lede, image } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-brand) text-white">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="60">
+      <Pic src={image} alt="" priority position="75% 50%" class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[color-mix(in_oklab,var(--c-accent)_55%,transparent)] mix-blend-overlay"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,rgb(20_4_8/0.42),transparent_55%)]"></div>
+  </div>
+  <div class="wrap pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="text-[clamp(2.45rem,7.3vw,7rem)] font-semibold leading-[0.97] tracking-[-0.045em]">
+      {lines.map((l, i) => <span class:list={["sm:block", i === lines.length - 1 && "text-white/70"]}>{l} </span>)}
+    </h1>
+    <p data-hero style="--i:1" class="mt-7 max-w-[44ch] text-lg text-white/85 sm:text-xl">{lede}</p>
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

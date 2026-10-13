@@ -1,0 +1,26 @@
+---
+// Envuelve SiteLayout con la nav y el pie propios y un sistema de radios único: todo recto (0px).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import type { SiteConfig } from "@/kit/types";
+interface Props {
+  site: SiteConfig;
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  navTone?: "light" | "dark";
+}
+const { navTone = "light", ...props } = Astro.props;
+---
+
+<SiteLayout {...props} nav={false} footer={false}>
+  <Nav slot="nav" site={props.site} variant="pill" tone={navTone} />
+  <slot />
+  <Footer slot="footer" site={props.site} variant="dark" blurb="Justicia. Equidad. Verdad." />
+</SiteLayout>
+
+<style is:global>
+  :root { --c-radius-nav: 0px; --c-radius-img: 0px; --c-radius-card: 0px; --c-radius-field: 0px; }
+</style>

@@ -1,0 +1,17 @@
+---
+// Frase real del despacho con dos subrayados en el acento de la marca que se dibujan al entrar en pantalla (scaleX, escalonados).
+interface Props { class?: string }
+const { class: cls = "" } = Astro.props;
+---
+
+<p data-reveal class:list={["promesa max-w-[24ch] text-[clamp(2rem,4.5vw,4.1rem)] leading-[1.14] tracking-[-0.015em] sm:max-w-[28ch]", cls]} style="font-family:var(--f-display)">
+  Priorizamos la <mark class="m1">resolución amigable</mark>, pero estamos listos para representarlo <mark class="m2">con determinación</mark> en el tribunal cuando sea necesario.
+</p>
+
+<style>
+  .promesa mark { position: relative; background: none; color: inherit; white-space: nowrap; }
+  .promesa mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0.02em; height: 0.09em; background: var(--c-accent); transform: scaleX(0); transform-origin: left; transition: transform 900ms var(--ease-in-out); }
+  .promesa.is-in .m1::after { transform: scaleX(1); transition-delay: 500ms; }
+  .promesa.is-in .m2::after { transform: scaleX(1); transition-delay: 1300ms; }
+  @media (prefers-reduced-motion: reduce) { .promesa mark::after { transform: scaleX(1); transition: none; } }
+</style>

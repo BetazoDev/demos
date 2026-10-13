@@ -1,0 +1,73 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import Skin from "@/sites/cyca/Skin.astro";
+import Closing from "@/sites/cyca/Closing.astro";
+import { site } from "@/sites/cyca/site";
+import { areas, additional } from "@/sites/cyca/data";
+
+const base = "/cyca";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const provider = { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href };
+const schema = areas.map((a) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: a.title,
+  description: a.lead,
+  provider,
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios | CYCA Abogados, asesoría corporativa, fiscal, administrativa y financiera"
+  description="Asesoría, consultoría, defensa y planeación en materia corporativa, fiscal, administrativa y financiera para personas físicas, sociedades y entidades en la Ciudad de México."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={schema}
+>
+  <Skin />
+  <PageHero title="Servicios" lede="Asesoría, consultoría, defensa y planeación en materia corporativa, fiscal, administrativa y financiera." />
+
+  {
+    areas.map((a) => (
+      <Section size="sm" id={a.key} class="scroll-mt-24 border-t border-(--c-line)">
+        <div class="wrap grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+          <div data-reveal>
+            <h2 transition:name={`area-${a.key}`} class="text-[clamp(2.2rem,4.8vw,4rem)] font-medium leading-[1] tracking-[-0.035em]">{a.title}</h2>
+            <p class="mt-6 max-w-[48ch] text-lg text-(--c-muted)">{a.lead}</p>
+          </div>
+          <div data-stagger data-gap="70" class="grid content-start gap-x-10 gap-y-9 sm:grid-cols-2">
+            {a.groups.map((g) => (
+              <div>
+                <h3 class="text-xl font-medium tracking-[-0.01em]">{g.title}</h3>
+                <ul class="mt-3 grid gap-2 text-[17px] text-(--c-muted)">
+                  {g.items.map((i) => (
+                    <li class="flex gap-3">
+                      <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+                      <span>{i}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+    ))
+  }
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight tracking-[-0.02em]">En todas las áreas</h2>
+      <ul data-stagger data-gap="60" class="mt-6 flex flex-wrap gap-3">
+        {additional.map((i) => <li class="border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[17px]">{i}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Closing title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" external />
+</SiteLayout>

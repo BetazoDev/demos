@@ -1,0 +1,38 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/calderonorozco/site";
+import { team, photos } from "@/sites/calderonorozco/data";
+
+const base = "/calderonorozco";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="La firma | Calderón · Orozco Abogados" description="Firma de abogados penalistas con 18 años de práctica profesional y litigio en toda la república. Conozca a sus fundadores y abogados." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede="Una firma de abogados especializados en derecho penal, con 18 años de práctica profesional." image={photos.libros} imageAlt="Libros antiguos, peluca de juez y mazo" />
+  <Section>
+    <div class="wrap"><Statement text="En nuestra Firma Legal encontrarás una defensa honesta y eficaz." /></div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-14 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02] tracking-[-0.03em]">Fundadores y abogados</h2>
+      <ul class="grid gap-16 sm:gap-24">
+        {team.map((p, i) => (
+          <li class:list={["grid items-start gap-8 md:gap-16", i % 2 === 0 ? "md:grid-cols-[0.8fr_1.2fr]" : "md:grid-cols-[1.2fr_0.8fr]"]}>
+            <div data-reveal="clip" class:list={["aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-(--c-bg)", i % 2 === 1 && "md:order-2"]}><Pic src={p.photo} alt={p.name} class="size-full object-cover" /></div>
+            <div data-reveal class="md:py-8">
+              <h3 class="text-[clamp(1.7rem,3vw,2.6rem)] leading-tight tracking-[-0.02em]">{p.name}</h3>
+              {p.role && <p class="mt-2 text-(--c-muted)">{p.role}</p>}
+              <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{p.bio}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,91 @@
+---
+import Layout from "@/sites/rinconabogados/Layout.astro";
+import Hero from "@/sites/rinconabogados/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Pic from "@/kit/Pic.astro";
+import Team from "@/kit/Team.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/rinconabogados/site";
+import { areas, team, photos, proceso } from "@/sites/rinconabogados/data";
+
+const base = "/rinconabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-light leading-[1.04] tracking-[-0.03em]";
+---
+
+<Layout
+  site={site}
+  title="Rincón Mayorga Abogados | Litigio, amparo y asesoría corporativa en CDMX y Guadalajara"
+  description="Firma de abogados en Ciudad de México y Guadalajara: litigio, arbitraje, amparo, asesoría corporativa y compliance. Consulta inicial sin costo."
+  nav={{ variant: "bar", tone: "light", logoHeight: 38 }}
+  footer={{ variant: "dark" }}
+>
+  <Hero image={photos.hero} alt="Oficina de área abierta con paredes de vidrio y vista a la ciudad" position="50% 55%" lede="Representación estratégica y soluciones jurídicas innovadoras en litigio, arbitraje, amparo y asesoría corporativa.">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Impulsamos negocios, fortalecemos decisiones, defendemos derechos." class="!max-w-[22ch] !font-light font-(family-name:--f-display)" /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12", h2]}>Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <div class="rm-grow bg-(--c-bg) py-[clamp(3rem,6vw,6rem)]" data-grow>
+    <figure class="mx-3 aspect-[4/3] max-h-[46rem] overflow-hidden sm:aspect-[16/8]">
+      <Pic src={photos.recepcion} alt="Recepción de la oficina de Ciudad de México con el letrero de Rincón Mayorga sobre mármol negro" class="size-full object-cover" position="50% 60%" />
+    </figure>
+  </div>
+
+  <Section class="!pt-0">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <h2 data-reveal class={h2}>Paso a paso hacia la excelencia jurídica</h2>
+        <p data-reveal data-delay="100" class="mt-6 max-w-[34ch] text-lg text-(--c-muted)">Ofrecemos esquemas transparentes: tarifa fija, por etapas o bajo resultados, según la naturaleza del caso.</p>
+      </div>
+      <ol data-stagger data-gap="90">
+        {proceso.map((p) => (
+          <li class="rm-step">
+            <h3 class="text-[clamp(1.6rem,3vw,2.5rem)] font-light leading-[1.1] tracking-[-0.02em]">{p.title}</h3>
+            <p class="text-lg text-(--c-muted)">{p.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12", h2]}>Equipo</h2>
+      <Team people={team.slice(0, 4).map((p) => ({ name: p.name, role: p.role, photo: p.photo }))} />
+      <div data-reveal class="mt-12"><Button href={`${base}/nosotros#equipo`} variant="outline">Conocer a todo el equipo</Button></div>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

@@ -1,0 +1,40 @@
+---
+// Piel de Lexon: esquinas rectas en todo, Lexend con interletrado cerrado, bronce de marca como segundo tono
+// (el bronce de la marca #AA875E solo en relleno y líneas; para texto sobre claro se usa el bronce oscuro del acento).
+---
+
+<style is:global>
+  [data-site="lexonabogados"] {
+    --c-radius-nav: 0px;
+    --c-radius-img: 0px;
+    --c-radius-card: 0px;
+    --c-radius-field: 0px;
+    --lx-bronze: #aa875e;
+    --lx-bronze-light: #cbb28a;
+  }
+  [data-site="lexonabogados"] :is(.arr, .nav-link, [data-nav-toggle], .acc-plus) { border-radius: 0; }
+  [data-site="lexonabogados"] footer ul a { border-radius: 0; }
+  [data-site="lexonabogados"] :is(h1, h2, h3) { font-weight: 500; letter-spacing: -0.015em; }
+
+  /* Pastillas de especialidad: el relleno azul sube desde abajo al pasar el cursor */
+  [data-site="lexonabogados"] .lx-tile { position: relative; isolation: isolate; overflow: hidden; }
+  [data-site="lexonabogados"] .lx-tile::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; background: var(--c-brand);
+    transform: scaleY(0); transform-origin: 50% 100%; transition: transform 420ms var(--ease-out);
+  }
+  [data-site="lexonabogados"] .lx-tile .lx-ic { color: var(--lx-bronze); transition: color 300ms ease; }
+  [data-site="lexonabogados"] .lx-tile .lx-go { transition: transform 300ms var(--ease-out), opacity 300ms ease; }
+  @media (hover: hover) and (pointer: fine) {
+    [data-site="lexonabogados"] .lx-tile:hover::before { transform: scaleY(1); }
+    [data-site="lexonabogados"] .lx-tile:hover { color: var(--c-on-brand); }
+    [data-site="lexonabogados"] .lx-tile:hover .lx-ic { color: var(--lx-bronze-light); }
+    [data-site="lexonabogados"] .lx-tile:hover .lx-go { transform: translate(3px, -3px); }
+  }
+  [data-site="lexonabogados"] .lx-row { transition: color 250ms ease; }
+  [data-site="lexonabogados"] .lx-row .lx-rt { transition: transform 450ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    [data-site="lexonabogados"] .lx-row:hover .lx-rt { transform: translateX(8px); }
+    [data-site="lexonabogados"] .lx-row:hover .lx-rb { background: var(--c-accent); color: var(--c-on-accent); border-color: transparent; }
+  }
+  [data-site="lexonabogados"] [id] { scroll-margin-top: 7rem; }
+</style>

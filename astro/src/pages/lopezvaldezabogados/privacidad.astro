@@ -1,0 +1,20 @@
+---
+import Layout from "@/sites/lopezvaldezabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { privacidad } from "@/sites/lopezvaldezabogados/privacidad";
+
+const base = "/lopezvaldezabogados";
+---
+
+<Layout title="Aviso de privacidad | López Valdez Abogados" description="Aviso de privacidad integral de López Valdez Abogados conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares." breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        {privacidad.map((b) => b.h ? <h2>{b.h}</h2> : b.h3 ? <h3>{b.h3}</h3> : b.ul ? <ul>{b.ul.map((x) => <li>{x}</li>)}</ul> : <p>{b.p}</p>)}
+      </Prose>
+    </div>
+  </Section>
+</Layout>

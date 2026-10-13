@@ -1,0 +1,27 @@
+---
+// Calificación de Google y reseñas reales, completas y atribuidas tal como aparecen. Variante del kit sin recorte de líneas.
+interface Props {
+  rating: number;
+  count: number;
+  quotes: { text: string; author: string }[];
+  class?: string;
+}
+const { rating, count, quotes, class: cls = "" } = Astro.props;
+---
+
+<div class={cls}>
+  <p class="flex items-baseline gap-4">
+    <span data-count={rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(3.5rem,8vw,6.5rem)] font-medium leading-none tracking-[-0.03em] tabular-nums">{rating.toFixed(1)}</span>
+    <span class="text-lg text-(--c-muted)">en Google, {count} reseñas</span>
+  </p>
+  <ul data-stagger data-gap="90" class="mt-10 grid items-start gap-5 md:grid-cols-3">
+    {
+      quotes.map((q) => (
+        <li class="flex h-full flex-col justify-between gap-8 bg-(--c-bg) p-7 sm:p-8">
+          <blockquote class="text-[1.2rem] leading-[1.45]" style="font-family:var(--f-display)">“{q.text}”</blockquote>
+          <p class="text-sm text-(--c-muted)">{q.author}</p>
+        </li>
+      ))
+    }
+  </ul>
+</div>

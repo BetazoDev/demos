@@ -1,0 +1,21 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/calderonorozco/site";
+import { areas } from "@/sites/calderonorozco/data";
+
+const base = "/calderonorozco";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Servicios | Calderón · Orozco Abogados" description="Defensa penal y juicio oral, defensa civil, mercantil, familiar, laboral y administrativa, y derecho empresarial y compliance." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Defensa penal y juicio oral, defensa civil, mercantil, familiar, laboral y administrativa, y derecho empresarial y compliance." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,4 @@
+[
+  { "name": "Gloock", "cssVariable": "--f-myaabogados-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Hind", "cssVariable": "--f-myaabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

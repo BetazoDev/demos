@@ -1,0 +1,81 @@
+---
+// Piel de Guerrero González: esquinas rectas, titulares en versalitas condensadas (como su logo)
+// y índice lateral de áreas que sigue el scroll.
+---
+
+<style is:global>
+  [data-site="guerrerogonzalezabogados"] {
+    --c-radius-nav: 0px;
+    --c-radius-img: 0px;
+    --c-radius-card: 0px;
+    --c-radius-field: 0px;
+  }
+  [data-site="guerrerogonzalezabogados"] :is(.arr, .nav-link, [data-nav-toggle], .acc-plus) {
+    border-radius: 0;
+  }
+  [data-site="guerrerogonzalezabogados"] :is(h1, h2, h3) {
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+  }
+  /* Índice lateral de áreas: el activo se enciende y su filete lima se dibuja */
+  [data-site="guerrerogonzalezabogados"] .gg-spy-link {
+    transition: color 250ms ease, transform 320ms var(--ease-out);
+  }
+  [data-site="guerrerogonzalezabogados"] .gg-spy-bar {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 320ms var(--ease-out);
+  }
+  [data-site="guerrerogonzalezabogados"] .gg-spy-link[aria-current="true"] {
+    color: var(--c-ink);
+    transform: translateX(0.15rem);
+  }
+  [data-site="guerrerogonzalezabogados"] .gg-spy-link[aria-current="true"] .gg-spy-bar {
+    transform: scaleX(1);
+  }
+  @media (hover: hover) {
+    [data-site="guerrerogonzalezabogados"] .gg-spy-link:hover { color: var(--c-ink); }
+  }
+  /* Las áreas fuera de foco se atenúan (solo escritorio) */
+  @media (min-width: 1024px) {
+    [data-site="guerrerogonzalezabogados"] [data-spy] .gg-spy-area {
+      opacity: 0.38;
+      transition: opacity 400ms var(--ease-out);
+    }
+    [data-site="guerrerogonzalezabogados"] [data-spy] .gg-spy-area[data-on] { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-site="guerrerogonzalezabogados"] .gg-spy-link, [data-site="guerrerogonzalezabogados"] .gg-spy-bar, [data-site="guerrerogonzalezabogados"] [data-spy] .gg-spy-area { transition: none; }
+  }
+</style>
+
+<script>
+  let cleanup: (() => void) | null = null;
+  function init() {
+    cleanup?.();
+    cleanup = null;
+    const root = document.querySelector<HTMLElement>("[data-spy]");
+    if (!root) return;
+    const areas = Array.from(root.querySelectorAll<HTMLElement>("[data-spy-area]"));
+    const links = Array.from(root.querySelectorAll<HTMLAnchorElement>("[data-spy-link]"));
+    const set = (key: string) => {
+      areas.forEach((a) => (a.dataset.spyArea === key ? a.setAttribute("data-on", "") : a.removeAttribute("data-on")));
+      links.forEach((l) => (l.dataset.spyLink === key ? l.setAttribute("aria-current", "true") : l.removeAttribute("aria-current")));
+    };
+    set(areas[0].dataset.spyArea!);
+    // El área activa es la que cruza la franja al 40% de la altura de la ventana
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) set((e.target as HTMLElement).dataset.spyArea!);
+      },
+      { rootMargin: "-38% 0px -58% 0px", threshold: 0 },
+    );
+    areas.forEach((a) => io.observe(a));
+    cleanup = () => io.disconnect();
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanup?.();
+    cleanup = null;
+  });
+</script>

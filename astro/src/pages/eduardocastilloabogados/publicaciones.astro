@@ -1,0 +1,45 @@
+---
+import SiteLayout from "@/sites/eduardocastilloabogados/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/eduardocastilloabogados/site";
+import { publicaciones, specialties, libro } from "@/sites/eduardocastilloabogados/data";
+import cover from "@/sites/eduardocastilloabogados/assets/libro-fideicomiso.png";
+
+const base = "/eduardocastilloabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const nombre = (k: string) => specialties.find((s) => s.key === k)?.title ?? k;
+---
+
+<SiteLayout site={site} title="Publicaciones | Eduardo Castillo Abogados" description="Obras del Lic. Eduardo Castillo: El Juicio Oral Mercantil, El Concurso Mercantil y su Proceso, Procedimientos Mercantiles y El Fideicomiso, el fideicomiso de garantía y su ejecución." nav={{ variant: "bar", tone: "light", logoHeight: 50 }} breadcrumbs={[{ name: "Publicaciones", href: `${base}/publicaciones` }]}>
+  <PageHero title="Publicaciones" lede="Cuatro obras del titular del despacho, el Lic. Eduardo Castillo." />
+  <Section size="sm" class="pt-10">
+    <div class="wrap">
+      <ul data-stagger data-gap="70" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {publicaciones.map((p) => (
+          <li>
+            <a href={`${base}/servicios/${p.area}`} class="group grid items-center gap-3 py-7 sm:grid-cols-[1fr_auto] sm:gap-10 sm:py-9">
+              <h2 class="max-w-[30ch] text-[clamp(1.5rem,3vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.025em] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-2">{p.title}</h2>
+              <span class="flex items-center gap-3 text-[15px] text-(--c-muted)">{nombre(p.area)}<Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <section class="section-y bg-[#F4F1EA] text-[#0F1D31]" style="--c-line:#D9D2C3;--c-muted:#4A5670;--c-brand:#0F1D31;--c-on-brand:#F4F1EA">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+      <div data-reveal="clip" class="mx-auto w-full max-w-[22rem]"><Pic src={cover} alt="Portada del libro El Fideicomiso, el fideicomiso de garantía y su ejecución" class="h-auto w-full" fill={false} /></div>
+      <div data-reveal data-delay="100">
+        <h2 class="max-w-[22ch] text-[clamp(1.8rem,3.4vw,2.8rem)] font-semibold leading-[1.05] tracking-[-0.03em]">{libro.title}</h2>
+        <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{libro.text}</p>
+        <h3 class="mt-9 text-lg font-semibold">Dónde comprarlo</h3>
+        <p class="mt-2 max-w-[48ch] text-lg text-(--c-muted)">{libro.donde}</p>
+      </div>
+    </div>
+  </section>
+  <CtaBand title="Contacto directo con el titular del despacho" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

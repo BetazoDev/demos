@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/valenciarangel/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/valenciarangel/site";
+import { areas } from "@/sites/valenciarangel/data";
+
+const base = "/valenciarangel";
+---
+
+<Layout title="Contacto | Valencia Rangel & Abogados Asociados, Chapultepec Morales, CDMX" description="Calz. Gral. Mariano Escobedo 375, Col. Chapultepec Morales, Miguel Hidalgo, Ciudad de México. Teléfono 55 9235 3069 y correo info@valenciarangel.com." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Queremos ayudarte a encontrar una solución jurídica con éxito." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,1.5rem) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

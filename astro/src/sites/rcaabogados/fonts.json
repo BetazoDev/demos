@@ -1,0 +1,4 @@
+[
+  { "name": "Urbanist", "cssVariable": "--f-rcaabogados-display", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui"] },
+  { "name": "Host Grotesk", "cssVariable": "--f-rcaabogados-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

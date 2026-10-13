@@ -1,0 +1,81 @@
+---
+import "@/sites/ariasvilledaabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/ariasvilledaabogados/site";
+import { areas } from "@/sites/ariasvilledaabogados/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/ariasvilledaabogados";
+const others = areas.filter((a) => a.key !== area.key);
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const slug = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const headed = area.blocks.filter((b) => b.heading);
+const showIndex = headed.length >= 3;
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: area.title,
+  description: area.lede,
+  provider: { "@id": `https://demos.diabolicalservices.tech/${site.slug}#organizacion` },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}];
+---
+
+<SiteLayout
+  site={site}
+  title={`${area.title} | Arias & Villeda Abogados, Roma Sur, Ciudad de México`}
+  description={area.lede}
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}
+  schema={schema}
+>
+  <PageHero title={area.title} lede={area.lede} transitionName={`area-${area.key}`} />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class:list={["wrap grid gap-12", showIndex && "lg:grid-cols-[0.55fr_1.45fr] lg:gap-20"]}>
+      {
+        showIndex && (
+          <nav aria-label="En esta página" class="av-index hidden lg:sticky lg:top-28 lg:block lg:self-start">
+            <ul>
+              {headed.map((b) => <li><a href={`#${slug(b.heading!)}`}>{b.heading}</a></li>)}
+            </ul>
+          </nav>
+        )
+      }
+      <div class="grid gap-14 lg:gap-16">
+        {
+          area.blocks.map((b) => (
+            <section id={b.heading ? slug(b.heading) : undefined} class="scroll-mt-28">
+              {b.heading && <h2 data-reveal class="mb-6 text-[clamp(1.6rem,2.8vw,2.4rem)] leading-[1.1] tracking-[-0.02em]">{b.heading}</h2>}
+              {b.paragraphs && (
+                <div data-reveal class="grid max-w-[64ch] gap-5">
+                  {b.paragraphs.map((p) => <p class="text-lg leading-relaxed text-(--c-muted) sm:text-xl">{p}</p>)}
+                </div>
+              )}
+              {b.items && (
+                <ul data-stagger data-gap="40" class:list={["grid gap-x-12 gap-y-4", b.paragraphs && "mt-8", b.columns ? "sm:grid-cols-2" : "max-w-[64ch]"]}>
+                  {b.items.map((i) => <li class="text-lg leading-snug">{i}</li>)}
+                </ul>
+              )}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.02em]">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[15px] hover:border-(--c-brand) hover:text-(--c-brand)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  {showIndex && <script>import "@/sites/ariasvilledaabogados/spy";</script>}
+</SiteLayout>

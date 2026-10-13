@@ -1,0 +1,21 @@
+---
+import DuLayout from "@/sites/dupratlira/DuLayout.astro";
+import DuPageHero from "@/sites/dupratlira/DuPageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+
+const base = "/dupratlira";
+---
+
+<DuLayout title="Aviso de privacidad | Duprat Lira Abogados" description="Aviso de privacidad de Duprat Lira Abogados conforme a la LFPDPPP: datos que se recopilan y derechos ARCO." breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <DuPageHero title="Aviso de privacidad" tone="paper" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Duprat Lira Abogados recopila datos de contacto, estado civil, CURP, RFC, número de seguridad social, datos laborales, información financiera para facturación y detalles del caso. No solicita información sensible.</p>
+        <p>Los datos están en resguardo del Lic. Alejandro Lira Duarte, quien atiende las solicitudes ARCO por teléfono, al 55 5160 1668, y en <a href="mailto:contacto@dupratlira.com">contacto@dupratlira.com</a>, conforme a la LFPDPPP.</p>
+        <p>El aviso completo está publicado por el despacho en <a href="https://dupratlira.com/aviso-de-privacidad" target="_blank" rel="noopener">dupratlira.com/aviso-de-privacidad</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</DuLayout>

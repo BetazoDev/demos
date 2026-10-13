@@ -1,0 +1,106 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Split from "@/kit/Split.astro";
+import Logo from "@/kit/Logo.astro";
+import Composer from "@/kit/Composer.astro";
+import GNav from "@/sites/guevarayguevara/GNav.astro";
+import GFooter from "@/sites/guevarayguevara/GFooter.astro";
+import GButton from "@/sites/guevarayguevara/GButton.astro";
+import Colonnade from "@/sites/guevarayguevara/Colonnade.astro";
+import ContactInfo from "@/sites/guevarayguevara/ContactInfo.astro";
+import { site } from "@/sites/guevarayguevara/site";
+import { areas, people, clients, photos } from "@/sites/guevarayguevara/data";
+
+const base = "/guevarayguevara";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.row, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02] tracking-[-0.03em]";
+---
+
+<SiteLayout
+  site={site}
+  title="Guevara & Guevara Abogados | Asesoría legal, cobranza y litigio en la Narvarte, Ciudad de México"
+  description="Bufete jurídico en la colonia Narvarte, Ciudad de México, con presencia a nivel nacional: asesoría legal, cobranza judicial y extrajudicial y litigio civil, mercantil y bancario."
+  nav={false}
+  footer={false}
+>
+  <GNav slot="nav" site={site} />
+
+  <section class="relative overflow-hidden border-b border-(--c-line) bg-(--c-bg) text-(--c-ink)">
+    <div class="wrap grid min-h-[100svh] gap-10 pt-32 lg:grid-cols-[1.12fr_0.88fr] lg:items-end lg:gap-14 lg:pt-28">
+      <div class="lg:pb-24">
+        <h1 data-hero="blur" class="max-w-[15ch] text-[clamp(2.7rem,5.7vw,5.6rem)] font-medium leading-[1] tracking-[-0.03em]">Asesoría legal, cobranza y litigio a nivel nacional</h1>
+        <p data-hero style="--i:1" class="mt-6 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">Bufete jurídico con un trato personal y profesional, bajo una visión moderna, innovadora y competitiva.</p>
+        <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+          <GButton href={wa} size="lg" external>Escribir por WhatsApp</GButton>
+          <GButton href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</GButton>
+        </div>
+      </div>
+      <Colonnade image={photos.fachada} alt="Fachada neoclásica de piedra con frontón y columnas" />
+    </div>
+  </section>
+
+  <Section>
+    <div class="wrap">
+      <Statement class="font-(family-name:--f-display) !font-normal" text="Contamos con un amplio conocimiento y comprobada experiencia, siendo primordial para nosotros atender las necesidades de nuestros clientes." />
+      <Split image={photos.lampara} alt="Lámpara de latón junto a un ventanal sobre un estante de libros jurídicos" ratio="4/5" class="mt-20 lg:mt-28 lg:grid-cols-[0.8fr_1.2fr]">
+        <p class="max-w-[34ch] font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.2rem)] leading-[1.25] tracking-[-0.015em]">Dicha necesidad se satisface manejando la información actual de manera oportuna y eficaz, prestando servicios de alta calidad que generen certidumbre y el éxito de nuestros clientes.</p>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Servicios</h2>
+      <AreasIndex areas={rows} />
+      <div data-reveal class="mt-10"><GButton href={`${base}/servicios`} variant="outline">Todos los servicios</GButton></div>
+    </div>
+  </Section>
+
+  <Section tone="brand" class="relative overflow-hidden">
+    <div class="pointer-events-none absolute -bottom-20 -right-[17%] hidden opacity-[0.07] md:block" aria-hidden="true">
+      <Logo src={site.logo.onDark!} alt="" height={360} eager={false} />
+    </div>
+    <div class="wrap relative">
+      <h2 data-reveal class={`mb-14 ${h2}`}>Asociados</h2>
+      <ul data-stagger data-gap="120" class="grid gap-14 md:grid-cols-2 md:gap-0">
+        {
+          people.map((p, i) => (
+            <li class:list={[i === 0 ? "md:pr-12" : "md:border-l md:border-white/20 md:pl-12"]}>
+              <h3 class="text-[clamp(1.8rem,3.2vw,2.8rem)] leading-tight tracking-[-0.02em]">{p.name}</h3>
+              <p class="mt-2 opacity-70">{p.role}</p>
+              <p class="mt-6 max-w-[44ch] text-[17px] leading-relaxed opacity-85">{p.short}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div data-reveal class="mt-14"><GButton href={`${base}/la-firma`} variant="light">Conocer a la firma</GButton></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Principales clientes</h2>
+      <ul data-stagger data-gap="90" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {clients.map((c, i) => <li class:list={["py-6 font-(family-name:--f-display) text-[clamp(1.6rem,3.4vw,2.9rem)] leading-tight tracking-[-0.02em] sm:py-8", i === clients.length - 1 && "text-(--c-muted)"]}>{c}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactInfo site={site} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <GFooter slot="footer" site={site} />
+</SiteLayout>

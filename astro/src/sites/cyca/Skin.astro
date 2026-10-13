@@ -1,0 +1,61 @@
+---
+// Piel de CYCA: esquinas rectas en todo el sitio y los rombos de su marca, que giran despacio con el scroll.
+---
+
+<style is:global>
+  [data-site="cyca"] {
+    --c-radius-nav: 0px;
+    --c-radius-img: 0px;
+    --c-radius-card: 0px;
+    --c-radius-field: 0px;
+  }
+  [data-site="cyca"] :is(.arr, .nav-link, [data-nav-toggle], .acc-plus) {
+    border-radius: 0;
+  }
+  /* La marca del despacho teñida: se usa su PNG como máscara, no se redibuja */
+  .cy-mark {
+    background: currentColor;
+    -webkit-mask: var(--m) center / contain no-repeat;
+    mask: var(--m) center / contain no-repeat;
+    mask-mode: luminance;
+    transform: rotate(calc(var(--r, 0) * 1deg));
+    will-change: transform;
+  }
+</style>
+
+<script>
+  let cleanup: (() => void) | null = null;
+  function init() {
+    cleanup?.();
+    cleanup = null;
+    const els = document.querySelectorAll<HTMLElement>("[data-spin]");
+    if (!els.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      els.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -300 || r.top > vh + 300) return;
+        const p = (r.top + r.height / 2 - vh / 2) / vh;
+        el.style.setProperty("--r", (p * -26).toFixed(2));
+      });
+    };
+    const on = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    update();
+    cleanup = () => {
+      window.removeEventListener("scroll", on);
+      window.removeEventListener("resize", on);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanup?.();
+    cleanup = null;
+  });
+</script>

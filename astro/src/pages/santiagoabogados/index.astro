@@ -1,0 +1,72 @@
+---
+import Layout from "@/sites/santiagoabogados/Layout.astro";
+import Band from "@/sites/santiagoabogados/Band.astro";
+import Hero from "@/kit/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/santiagoabogados/site";
+import { materias, photos, texto } from "@/sites/santiagoabogados/data";
+import sala from "@/sites/santiagoabogados/assets/sala-juntas.jpg";
+
+const base = "/santiagoabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.2vw,3.5rem)] font-medium leading-[1.06] tracking-[-0.015em]";
+---
+
+<Layout site={site} title="Santiago Abogados | Asesoría jurídica integral en la Roma Norte, CDMX">
+  <Hero layout="split" title={texto.titulo} lede="Despacho jurídico formado por abogados especialistas en diferentes áreas del Derecho, en la Roma Norte, Ciudad de México." image={photos.biblioteca} imageAlt="Librero de madera con libros de derecho encuadernados en piel y una escalera de biblioteca junto a una ventana" position="50% 40%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <Statement class="font-(family-name:--f-display) font-normal tracking-[-0.015em]" text={texto.objetivo} />
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Servicios</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-12 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+        {materias.map((m) => (
+          <li>
+            <a href={`${base}/servicios#${m.key}`} class="group flex items-center justify-between gap-4 py-4 font-(family-name:--f-display) text-[clamp(1.35rem,2.2vw,1.8rem)] leading-tight">
+              <span class="link-u">{m.title}</span>
+              <Icon name="arrow-up-right" weight="bold" class="size-5 shrink-0 text-(--c-accent) transition-transform duration-300 ease-(--ease-out) group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal class="mt-10"><Button href={`${base}/servicios`} variant="outline">Ver todos los servicios</Button></div>
+    </div>
+  </Section>
+
+  <Band image={sala} alt="Sala de juntas con una larga mesa de madera, sillas de piel y ventanales con cortinas de lino en una casona antigua" position="50% 55%" height="clamp(20rem,50vw,34rem)" />
+
+  <Section tone="brand">
+    <div class="wrap">
+      <Statement class="font-(family-name:--f-display) font-normal tracking-[-0.015em]" text={texto.codigo} />
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+        <p class="mt-8 text-[15px] text-(--c-muted)">{texto.facilidades}</p>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={materias.map((m) => m.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>
+

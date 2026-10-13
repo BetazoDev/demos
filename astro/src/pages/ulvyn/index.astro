@@ -1,0 +1,86 @@
+---
+import "@/sites/ulvyn/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import Composer from "@/kit/Composer.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Hero from "@/sites/ulvyn/Hero.astro";
+import ServiceTabs from "@/sites/ulvyn/ServiceTabs.astro";
+import Steps from "@/sites/ulvyn/Steps.astro";
+import { site, waLink } from "@/sites/ulvyn/site";
+import { areas, definicion, steps, director } from "@/sites/ulvyn/data";
+import heroImg from "@/sites/ulvyn/assets/hero-director.jpg";
+import german from "@/sites/ulvyn/assets/german.jpg";
+import ondas from "@/sites/ulvyn/assets/ondas.jpg";
+
+const base = "/ulvyn";
+const wa = waLink();
+const h2 = "text-[clamp(2.1rem,4.4vw,3.8rem)] font-semibold leading-[1.04] tracking-[-0.04em]";
+---
+
+<SiteLayout site={site} title="ULVYN | Abogados digitales en inteligencia artificial en México" nav={{ variant: "bar", tone: "light", logoHeight: 38 }} footer={{ variant: "dark", blurb: "Human-AI Interaction Law" }}>
+  <Hero title="Su abogado digital en México" lede="Derecho de IA, robótica, regulación tecnológica y protección de datos. Consultoría preventiva y litigio estratégico en toda la República." image={heroImg} imageAlt="Germán Martínez Saldaña, director de ULVYN, rodeado de íconos de inteligencia artificial, balanza y mazo" position="72% 30%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section size="sm" class="!pt-4">
+    <div class="wrap">
+      <h2 class="sr-only">Human-AI Interaction Law</h2>
+      <Statement text={definicion} class="max-w-[24ch] sm:max-w-[30ch]" />
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`${h2} mb-12 max-w-[16ch]`}>Cuatro áreas, dos maneras de actuar</h2>
+      <ServiceTabs areas={areas} base={base} />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`${h2} mb-16 max-w-[14ch]`}>Cómo trabajamos</h2>
+      <Steps steps={steps} />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="mx-auto aspect-square w-full max-w-[28rem] overflow-hidden rounded-(--c-radius-img) lg:mx-0">
+        <Pic src={german} alt="Retrato de Germán Martínez Saldaña, director de ULVYN" position="50% 20%" class="size-full object-cover" />
+      </div>
+      <div data-reveal data-delay="100">
+        <h2 class={h2}>{director.name}</h2>
+        <p class="mt-3 text-lg text-(--c-muted)">{director.role}</p>
+        <p class="mt-8 max-w-[52ch] text-xl leading-relaxed">{director.bio}</p>
+        <div class="mt-9"><Button href={`${base}/nosotros`} variant="outline">Conocer al despacho</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+    <div class="absolute inset-0 -z-10 opacity-90"><Pic src={ondas} alt="" class="size-full object-cover" /></div>
+    <div class="wrap grid items-end gap-10 py-24 sm:py-32 lg:grid-cols-[1fr_auto]">
+      <h2 data-reveal class="max-w-[16ch] text-[clamp(2.2rem,5vw,4.4rem)] font-semibold leading-[1.02] tracking-[-0.04em]">Agende la consultoría</h2>
+      <div data-reveal data-delay="120"><Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button></div>
+    </div>
+  </div>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`${h2} mb-10`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

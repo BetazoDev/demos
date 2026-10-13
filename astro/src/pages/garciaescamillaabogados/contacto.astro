@@ -1,0 +1,31 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Skin from "@/sites/garciaescamillaabogados/Skin.astro";
+import { site } from "@/sites/garciaescamillaabogados/site";
+import { areas } from "@/sites/garciaescamillaabogados/data";
+
+const base = "/garciaescamillaabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | García & Escamilla Abogados, Av. Yucatán 54, Roma Norte, CDMX"
+  description="Av. Yucatán 54, colonia Roma Norte, Ciudad de México. WhatsApp 55 7390 4149. Consulta y asesoría jurídica presencial o remota."
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Skin />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la colonia Roma Norte para solicitar una cita." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

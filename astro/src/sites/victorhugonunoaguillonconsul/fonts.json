@@ -1,0 +1,4 @@
+[
+  { "name": "Lexend", "cssVariable": "--f-victorhugonunoaguillonconsul-display", "weights": [300, 400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Karla", "cssVariable": "--f-victorhugonunoaguillonconsul-body", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

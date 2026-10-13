@@ -1,0 +1,31 @@
+---
+// Las 9 materias como acordeón (details nativo del kit) con ancla por materia: /servicios#civil abre la materia y baja a ella.
+interface Props { items: { key: string; title: string; text: string }[]; class?: string }
+const { items, class: cls = "" } = Astro.props;
+---
+
+<div class:list={["divide-y divide-current/15 border-y border-current/15", cls]}>
+  {
+    items.map((it, i) => (
+      <details id={it.key} open={i === 0} class="acc group scroll-mt-28">
+        <summary class="flex items-center justify-between gap-6 py-6 text-left font-(family-name:--f-display) text-[clamp(1.3rem,2.4vw,1.8rem)] font-medium tracking-[-0.01em]">
+          {it.title}
+          <span class="acc-plus grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+          </span>
+        </summary>
+        <div class="acc-body"><div><p class="max-w-[60ch] pb-7 text-[17px] text-(--c-muted)">{it.text}</p></div></div>
+      </details>
+    ))
+  }
+</div>
+
+<script>
+  const openFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id ? document.getElementById(id) : null;
+    if (el instanceof HTMLDetailsElement) el.open = true;
+  };
+  document.addEventListener("astro:page-load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+</script>

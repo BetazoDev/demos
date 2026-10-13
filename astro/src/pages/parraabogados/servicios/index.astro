@@ -1,0 +1,40 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Nav from "@/sites/parraabogados/Nav.astro";
+import Panels from "@/sites/parraabogados/Panels.astro";
+import "@/sites/parraabogados/theme.css";
+import { site } from "@/sites/parraabogados/site";
+import { areas, facilidades } from "@/sites/parraabogados/data";
+
+const base = "/parraabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const provider = { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href };
+const schema = [
+  { "@context": "https://schema.org", "@type": "Service", name: areas[0].title, description: areas[0].lead, provider, areaServed: { "@type": "Country", name: "México" } },
+  { "@context": "https://schema.org", "@type": "Service", name: areas[1].title, provider, areaServed: { "@type": "Country", name: "México" } },
+];
+---
+
+<SiteLayout site={site} title="Servicios | Parra & Abogados, asesoría legal a empresas y trabajadores" description="Asesoría legal a empresas: constitución de sociedades, contratos, trámites y necesidades fiscales. Asesoría a trabajadores gratuita. Bufete en la Condesa, Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} schema={schema} footer={{ variant: "light", blurb: "Bufete jurídico integral" }}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="Servicios" lede="Asesoría legal a empresarios y atención a todas las necesidades fiscales de nuestros clientes." />
+  <Panels wa={wa} />
+  <Section size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.02em]">Facilidades</h2>
+      <ul data-stagger data-gap="60" class="grid gap-4 sm:grid-cols-3">
+        {facilidades.map((f) => (
+          <li class="flex items-center gap-4 rounded-(--c-radius) border border-(--c-line) px-6 py-5 text-lg">
+            <Icon name="check" weight="bold" class="size-4 shrink-0" />
+            {f}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

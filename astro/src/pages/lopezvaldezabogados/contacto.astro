@@ -1,0 +1,37 @@
+---
+import Layout from "@/sites/lopezvaldezabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/lopezvaldezabogados/site";
+import { areas, amparo, evaluacion } from "@/sites/lopezvaldezabogados/data";
+
+const base = "/lopezvaldezabogados";
+---
+
+<Layout title="Contacto | López Valdez Abogados, abogados penalistas en Anzures, CDMX" description="Edificio CENTURY Plaza, Buffon 46, Despacho 404, Anzures, Miguel Hidalgo, Ciudad de México. WhatsApp 55 7211 7045 y oficina en Huixquilucan, Estado de México." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Somos abogados penalistas brindando certeza, confianza y seguridad." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...areas.map((a) => a.title), amparo]} />
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap grid gap-12 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(1.8rem,3.4vw,2.9rem)] leading-[1.06]">{evaluacion.title}</h2>
+        <p class="mt-6 max-w-[48ch] text-lg leading-relaxed text-(--c-muted)">{evaluacion.text}</p>
+        <div class="mt-9"><Button href={evaluacion.href} variant="outline" external>Agendar evaluación</Button></div>
+      </div>
+      <div data-reveal data-delay="120">
+        <h2 class="text-[clamp(1.8rem,3.4vw,2.9rem)] leading-[1.06]">Aviso de seguridad del despacho</h2>
+        <p class="mt-6 max-w-[48ch] text-lg leading-relaxed text-(--c-muted)">Los abogados o empleados de esta firma legal nunca se pondrán en contacto telefónico con usted para solicitar pagos o transferencias de dinero para la realización de trámites legales o cobro de honorarios. Si recibe una llamada de este tipo, no comparta ninguna información personal o financiera y comuníquese de inmediato con nosotros para verificar la situación.</p>
+      </div>
+    </div>
+  </Section>
+</Layout>

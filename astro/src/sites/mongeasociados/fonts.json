@@ -1,0 +1,4 @@
+[
+  { "name": "Epilogue", "cssVariable": "--f-mongeasociados-display", "weights": [500, 600, 700, 800], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Rethink Sans", "cssVariable": "--f-mongeasociados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

@@ -1,0 +1,42 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/icabogados/theme.css";
+import { site } from "@/sites/icabogados/site";
+import { areas } from "@/sites/icabogados/areas";
+
+const base = "/icabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Servicios | IC Abogados: amparo, corporativo, ambiental e inversión extranjera" description="Amparos, clausuras y sanciones administrativas, sociedades con capital extranjero, defensa contra autoridades, derecho ambiental, corporativo, migratorio, fusiones y adquisiciones, y litigio mercantil y civil." nav={{ variant: "bar", tone: "dark", logoHeight: 52 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} footer={{ variant: "dark" }}>
+  <PageHero title="Servicios" lede="Litigio y asesoría patrimonial, de empresa e inversión extranjera, para inversionistas y medianas y grandes empresas transnacionales." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <ul data-stagger data-gap="70" class="grid gap-4 md:grid-cols-2">
+        {areas.map((a) => {
+          const inner = (
+            <>
+              <h2 transition:name={a.key ? `area-${a.key}` : undefined} class="text-[clamp(1.5rem,2.4vw,2rem)] font-medium leading-[1.12]">{a.title}</h2>
+              <p class="mt-4 max-w-[46ch] text-[17px] text-(--c-muted)">{a.short}</p>
+              {a.key && <span class="mt-8 inline-flex w-fit items-center gap-2 text-[15px] font-medium text-(--c-accent) transition-[gap] duration-300 ease-(--ease-out) group-hover:gap-3">Ver este servicio <Icon name="arrow-right" weight="bold" class="size-4" /></span>}
+            </>
+          );
+          return (
+            <li class="h-full">
+              {a.key ? (
+                <a href={`${base}/servicios/${a.key}`} class="group flex h-full flex-col rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-7 transition-colors duration-300 hover:border-(--c-accent) sm:p-9">{inner}</a>
+              ) : (
+                <div class="flex h-full flex-col rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-7 sm:p-9">{inner}</div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

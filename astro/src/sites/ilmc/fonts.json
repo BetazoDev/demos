@@ -1,0 +1,4 @@
+[
+  { "name": "Be Vietnam Pro", "cssVariable": "--f-ilmc-display", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Figtree", "cssVariable": "--f-ilmc-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

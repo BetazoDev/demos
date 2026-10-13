@@ -1,0 +1,59 @@
+---
+// Áreas de especialidad como acordeón nativo (<details>). El título lleva transition:name para morfar desde la home.
+import Icon from "@/kit/Icon.astro";
+import type { Area } from "./data";
+interface Props { areas: Area[]; waHref: (a: Area) => string; first?: boolean }
+const { areas, waHref, first = false } = Astro.props;
+---
+
+<div data-area-acc class="divide-y divide-current/15 border-y border-current/15">
+  {
+    areas.map((a, i) => (
+      <details id={a.key} class="acc group scroll-mt-28" open={first && i === 0}>
+        <summary class="flex items-center justify-between gap-6 py-7 text-left sm:py-9">
+          <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1]">{a.title}</h2>
+          <span class="acc-plus grid size-11 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+          </span>
+        </summary>
+        <div class="acc-body">
+          <div>
+            <div class="grid gap-8 pb-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+              <p class="max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">{a.lead}</p>
+              <div>
+                {a.items && (
+                  <>
+                    <h3 class="text-[15px] font-medium text-(--c-muted)">{a.itemsTitle}</h3>
+                    <ul class="mt-4 grid gap-3">
+                      {a.items.map((it) => (
+                        <li class="flex gap-3 text-[17px]">
+                          <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+                          <span>{it}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                <a href={waHref(a)} target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 font-medium" aria-label={`Escribir por WhatsApp sobre ${a.title.toLowerCase()}`}>
+                  <Icon name="whatsapp-logo" weight="fill" class="size-5" />
+                  <span class="link-u">Escribir por WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<script>
+  // Un enlace con #area abre su acordeón.
+  const openFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id ? document.getElementById(id) : null;
+    if (el instanceof HTMLDetailsElement) el.open = true;
+  };
+  document.addEventListener("astro:page-load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+</script>

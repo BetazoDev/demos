@@ -1,0 +1,4 @@
+[
+  { "name": "Playfair", "cssVariable": "--f-mfabogados-display", "weights": [400, 500, 600], "styles": ["normal", "italic"], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Urbanist", "cssVariable": "--f-mfabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

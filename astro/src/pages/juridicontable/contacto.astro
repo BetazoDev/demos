@@ -1,0 +1,36 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/sites/juridicontable/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Button from "@/kit/Button.astro";
+import Nav from "@/sites/juridicontable/Nav.astro";
+import Footer from "@/sites/juridicontable/Footer.astro";
+import { site } from "@/sites/juridicontable/site";
+import { servicios, materias } from "@/sites/juridicontable/data";
+
+const base = "/juridicontable";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | José Antonio Alzate 238, Santa María la Ribera, Ciudad de México"
+  description="José Antonio Alzate 238, 3-I, colonia Agricultura, Ciudad de México. Lunes a viernes de 9:00 a 18:00. Teléfonos 55 5342 1551 y 55 2465 1180."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="light" />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp, llámenos o visítenos en horario de oficina." />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-10"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...servicios.map((s) => s.title), ...materias.map((m) => m.title)]} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" />
+</SiteLayout>

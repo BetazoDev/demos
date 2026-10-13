@@ -1,0 +1,31 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/abogadoscej/Nav.astro";
+import Footer from "@/sites/abogadoscej/Footer.astro";
+import { site, waLink } from "@/sites/abogadoscej/site";
+import { areas } from "@/sites/abogadoscej/data";
+
+const base = "/abogadoscej";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.summary, href: `${base}/servicios/${a.key}` }));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios jurídicos | Consultores & Estrategas Jurídicos"
+  description="Derecho familiar, civil e inmobiliario, mercantil y empresarial, penal, amparo, administrativo y fiscal, derecho militar, gestoría y capacitaciones."
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} />
+  <PageHero title="Servicios" lede="Familiar, civil e inmobiliario, mercantil y empresarial, penal, amparo, administrativo y fiscal, militar, gestoría y capacitaciones." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" text="Valoración preliminar sin costo." href={waLink()} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Dura lex, sed lex. Cumplimiento que protege. Estrategia que impulsa." />
+</SiteLayout>

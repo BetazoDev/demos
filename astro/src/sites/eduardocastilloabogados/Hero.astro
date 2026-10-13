@@ -1,0 +1,40 @@
+---
+// Héroe propio de ECA: titular tipográfico sobre azul marino y, debajo, la foto de su sitio a todo el ancho de la retícula.
+// La foto crece de 0.9 a 1 con el scroll (animation-timeline: view(), solo transform) y un filete dorado se dibuja bajo el titular.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="eca-hero relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap pt-36 sm:pt-44">
+    <h1 data-hero="blur" class="max-w-[21ch] text-[clamp(2.5rem,6.1vw,5.8rem)] font-semibold leading-[0.98] tracking-[-0.03em]">{title}</h1>
+    <div class="eca-rule mt-10 h-px bg-(--c-accent) sm:mt-14"></div>
+    <div class="mt-8 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <p data-hero style="--i:2" class="max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:3" class="flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+  <div class="wrap mt-14 sm:mt-20">
+    <div class="eca-band">
+      <div data-hero-media style="--d:500ms" class="aspect-[16/9] overflow-hidden sm:aspect-[2.2/1]">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  @keyframes eca-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .eca-rule { transform-origin: left center; animation: eca-rule 1.4s var(--ease-out) 0.5s both; }
+  @keyframes eca-band { from { transform: scale(0.88); } to { transform: scale(1); } }
+  @supports (animation-timeline: view()) {
+    .eca-band { animation: eca-band linear both; animation-timeline: view(); animation-range: entry 0% entry 90%; transform-origin: 50% 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .eca-rule, .eca-band { animation: none !important; transform: none !important; }
+  }
+</style>

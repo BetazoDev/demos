@@ -1,0 +1,19 @@
+---
+// Cierre de página: frase y un solo botón sobre el patrón de rombos azul petróleo.
+import Pic from "@/kit/Pic.astro";
+import VxButton from "./VxButton.astro";
+import patron from "./assets/patron.jpg";
+interface Props { title: string; href: string; label: string }
+const { title, href, label } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark) section-y">
+  <div aria-hidden="true" class="absolute inset-0 -z-10"><Pic src={patron} alt="" class="size-full object-cover" /><div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(14_40_55/0.85),rgb(14_40_55/0.25))]"></div></div>
+  <div class="wrap grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+    <div data-reveal>
+      <span class="rule mb-8"></span>
+      <h2 class="max-w-[20ch] text-[clamp(2.2rem,5vw,4.4rem)] leading-[1.06]">{title}</h2>
+    </div>
+    <div data-reveal data-delay="120"><VxButton href={href} variant="teal" size="lg" external>{label}</VxButton></div>
+  </div>
+</section>

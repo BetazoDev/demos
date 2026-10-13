@@ -1,0 +1,72 @@
+---
+// Índice de servicios que responde al cursor: títulos grandes a la izquierda y, en escritorio, un panel a la derecha con el texto del
+// servicio que se apunta o enfoca. En móvil cada fila muestra su texto. Todo el contenido está en el HTML; el JS solo cambia la clase activa.
+import Button from "@/kit/Button.astro";
+import Icon from "@/kit/Icon.astro";
+interface Area { key: string; title: string; lead: string; items: string[]; owner?: string; href: string }
+interface Props { areas: Area[] }
+const { areas } = Astro.props;
+---
+
+<div data-switch class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-20">
+  <ul data-stagger data-gap="60" class="grid gap-3 lg:gap-0.5">
+    {
+      areas.map((a, i) => (
+        <li>
+          <a href={a.href} data-switch-row={i} class:list={["switch-row group block py-2.5", i === 0 && "is-active"]}>
+            <h3 transition:name={`area-${a.key}`} class="switch-title text-[clamp(1.75rem,3.3vw,3rem)] font-semibold leading-[1.08] tracking-[-0.035em]">{a.title}</h3>
+            <p class="mt-1.5 max-w-[46ch] text-base text-(--c-muted) lg:hidden">{a.lead}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="relative hidden lg:block">
+    <div class="sticky top-28 grid">
+      {
+        areas.map((a, i) => (
+          <article data-switch-panel={i} aria-label={a.title} class:list={["switch-panel flex flex-col rounded-[2rem] bg-(--c-bg) p-10 [grid-area:1/1]", i === 0 && "is-active"]}>
+            <p class="text-[1.4rem] font-medium leading-snug tracking-[-0.015em]">{a.lead}</p>
+            <ul class="mt-7 grid gap-3 text-[15px] text-(--c-muted)">
+              {a.items.slice(0, 4).map((it) => (
+                <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1 size-4 shrink-0 text-(--c-brand)" /><span class="line-clamp-2">{it}</span></li>
+              ))}
+            </ul>
+            {a.owner && <p class="mt-6 text-[15px] text-(--c-muted)">Responsable del área: <span class="font-medium text-(--c-ink)">{a.owner}</span></p>}
+            <div class="mt-auto pt-9"><Button href={a.href} variant="solid" tabindex="-1">Ver servicio</Button></div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  [data-switch] .switch-panel { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 240ms var(--ease-out), transform 240ms var(--ease-out), visibility 0s linear 240ms; }
+  [data-switch] .switch-panel.is-active { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  @media (min-width: 1024px) {
+    [data-switch] .switch-row .switch-title { opacity: 0.58; transition: opacity 240ms var(--ease-out), transform 360ms var(--ease-out), color 240ms ease; }
+    [data-switch] .switch-row.is-active .switch-title { opacity: 1; color: var(--c-brand); transform: translateX(10px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-switch] .switch-panel, [data-switch] .switch-row .switch-title { transition: none; transform: none !important; }
+  }
+</style>
+
+<script>
+  const init = () => {
+    document.querySelectorAll<HTMLElement>("[data-switch]").forEach((root) => {
+      const rows = Array.from(root.querySelectorAll<HTMLElement>("[data-switch-row]"));
+      const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-switch-panel]"));
+      const set = (i: number) => {
+        rows.forEach((r, k) => r.classList.toggle("is-active", k === i));
+        panels.forEach((p, k) => p.classList.toggle("is-active", k === i));
+      };
+      rows.forEach((r, i) => {
+        r.addEventListener("pointerenter", () => set(i));
+        r.addEventListener("focus", () => set(i));
+      });
+    });
+  };
+  document.addEventListener("astro:page-load", init);
+</script>

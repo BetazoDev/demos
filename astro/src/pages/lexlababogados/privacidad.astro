@@ -1,0 +1,35 @@
+---
+import "@/sites/lexlababogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "@/kit/Nav.astro";
+import Footer from "@/sites/lexlababogados/Footer.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site, navSite } from "@/sites/lexlababogados/site";
+
+const base = "/lexlababogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | LexLab Abogados"
+  description="Aviso de privacidad de LexLab Abogados: responsable del tratamiento, finalidades y derechos ARCO."
+  nav={false}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <Footer slot="footer" site={site} variant="dark" blurb="Blindaje Legal Laboral." />
+  <Nav slot="nav" site={navSite} variant="pill" tone="light" logoHeight={40} />
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Pedro Roldán Marín, comercialmente conocido como LexLab Abogados, con domicilio en av. insurgentes centro 132, es el responsable del uso y protección de sus datos personales.</p>
+        <p>Finalidad primaria: respuesta a mensajes del formulario de contacto. Finalidad secundaria: mercadotecnia o publicidad.</p>
+        <p>Derechos ARCO por el mismo correo; respuesta en 20 días hábiles. Contacto: pedro@lexlababogados.com.</p>
+        <p>Última actualización: 3/26/2026.</p>
+        <p>El texto completo del aviso está publicado en <a href="https://lexlababogados.com/aviso-de-privacidad/" target="_blank" rel="noopener">lexlababogados.com/aviso-de-privacidad</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

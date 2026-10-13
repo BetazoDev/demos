@@ -1,0 +1,126 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Pic from "@/kit/Pic.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/abogadoscej/Hero.astro";
+import Stack from "@/sites/abogadoscej/Stack.astro";
+import Nav from "@/sites/abogadoscej/Nav.astro";
+import Footer from "@/sites/abogadoscej/Footer.astro";
+import { site, waLink } from "@/sites/abogadoscej/site";
+import { areas, featured, others, steps, reviews } from "@/sites/abogadoscej/data";
+import sala from "@/sites/abogadoscej/assets/sala-juntas.jpg";
+
+const base = "/abogadoscej";
+const wa = waLink();
+const mercantil = areas.find((a) => a.key === "mercantil")!;
+const rows = others.map((a) => ({ key: a.key, title: a.title, text: a.summary, href: `${base}/servicios/${a.key}` }));
+---
+
+<SiteLayout site={site} title="Consultores & Estrategas Jurídicos | Abogados en CDMX y San Luis Potosí" nav={false} footer={false}>
+  <Nav slot="nav" site={site} />
+  <Hero title={["Dura lex,", "sed lex"]} lede="Cumplimiento que protege. Estrategia que impulsa.">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <h2 class="sr-only">Soluciones jurídicas para un entorno complejo</h2>
+      <Statement text="Acompañamos a empresas e instituciones a operar con seguridad legal, mitigando riesgos y convirtiendo la regulación en una ventaja competitiva." class="max-w-[30ch] sm:max-w-[34ch]" />
+    </div>
+  </Section>
+
+  <Section id="servicios" class="!pt-0">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 max-w-[14ch] text-[clamp(2.2rem,5vw,4.4rem)] leading-[1.02] tracking-[-0.02em]">Áreas de especialidad</h2>
+      <Stack areas={featured} base={base} />
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)" style="height:clamp(26rem,56vw,40rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="60">
+      <Pic src={sala} alt="Sala de juntas con ventanal al Monumento a la Revolución, Ciudad de México" position="50% 55%" class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(0_0_0/0.86),rgb(0_0_0/0.35)_70%,rgb(0_0_0/0.2))]"></div>
+    <div class="wrap flex h-full items-end pb-10 sm:pb-14">
+      <figure data-reveal>
+        <blockquote class="max-w-[30ch] font-(family-name:--f-display) text-[clamp(1.5rem,3.4vw,2.8rem)] leading-[1.12] tracking-[-0.01em]">“Que todo el que se queje con justicia, tenga un tribunal que lo escuche, lo ampare y lo defienda contra el fuerte y el arbitrario.”</blockquote>
+        <figcaption class="mt-5 text-(--c-accent)">José María Morelos</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="max-w-[14ch] text-[clamp(2.2rem,5vw,4.4rem)] leading-[1.02] tracking-[-0.02em]">Planes jurídicos para empresas</h2>
+        <p class="mt-6 max-w-[34ch] text-lg text-(--c-muted)">{mercantil.note}</p>
+        <div class="mt-8"><Button href={`${base}/servicios/mercantil`} variant="outline">Ver mercantil y empresarial</Button></div>
+      </div>
+      <ul data-stagger data-gap="90" class="divide-y divide-(--c-line) self-start border-y border-(--c-line)">
+        {mercantil.plans!.map((p) => (
+          <li class="flex items-baseline justify-between gap-6 py-6 sm:py-8">
+            <span class="text-[clamp(1.2rem,2.2vw,1.7rem)]">{p.name}</span>
+            <span class="text-right font-(family-name:--f-display) text-[clamp(1.8rem,3.4vw,3rem)] leading-none tracking-[-0.02em] text-(--c-accent)">{p.price}<span class="ml-2 block text-sm font-(family-name:--f-body) tracking-normal text-(--c-muted) sm:inline">MXN + IVA al mes</span></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+      <div data-reveal class="self-start lg:sticky lg:top-28">
+        <p class="flex items-baseline gap-4">
+          <span data-count="4.9" class="font-(family-name:--f-display) text-[clamp(4.5rem,11vw,9rem)] leading-none tracking-[-0.03em] tabular-nums text-(--c-accent)">4.9</span>
+          <span class="max-w-[12ch] text-lg text-(--c-muted)">en Google, 77 reseñas</span>
+        </p>
+      </div>
+      <ul data-stagger data-gap="100" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {reviews.map((r) => (
+          <li class="py-8">
+            <blockquote class="text-[clamp(1.05rem,1.6vw,1.3rem)] leading-snug">“{r.text}”</blockquote>
+            <p class="mt-4 text-sm text-(--c-muted)">{r.author}, {r.when}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="max-w-[14ch] text-[clamp(2.2rem,5vw,4.4rem)] leading-[1.02] tracking-[-0.02em]">Antes de decidir, conozca sus opciones legales</h2>
+        <ol class="mt-12 grid gap-6">
+          {steps.map((s, i) => (
+            <li class="flex items-center gap-5 text-lg">
+              <span class="grid size-11 shrink-0 place-items-center rounded-full border border-(--c-brand) font-(family-name:--f-display) text-(--c-accent)">{i + 1}</span>
+              {s}
+            </li>
+          ))}
+        </ol>
+        <p class="mt-10 flex gap-3 text-(--c-muted)"><Icon name="map-pin" class="mt-1 size-5 shrink-0" />Ignacio L. Vallarta 1, Tabacalera, Ciudad de México, y San Luis 100, Centro, San Luis Potosí</p>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} tone="surface" />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Dura lex, sed lex. Cumplimiento que protege. Estrategia que impulsa." />
+</SiteLayout>

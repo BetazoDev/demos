@@ -1,0 +1,4 @@
+[
+  { "name": "Besley", "cssVariable": "--f-gardunomonterde-display", "weights": [400, 500, 600], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Onest", "cssVariable": "--f-gardunomonterde-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

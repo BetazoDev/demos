@@ -1,0 +1,27 @@
+---
+// Héroe tipográfico propio: el lema del despacho en un Bodoni enorme; cada línea sube desde una máscara.
+interface Props { lines: string[]; sub?: string; lede?: string }
+const { lines, sub, lede } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="wrap flex min-h-[100svh] flex-col justify-end pb-12 pt-36 sm:pb-16">
+    <h1 class="font-medium leading-[0.92] tracking-[-0.035em] text-[clamp(3.6rem,16vw,5.5rem)] sm:text-[clamp(5rem,13.4vw,14rem)]">
+      {lines.map((l, i) => <span class="line block overflow-hidden pb-[0.2em] -mb-[0.16em]"><span class="line-in block" style={`--i:${i}`}>{l}</span></span>)}
+    </h1>
+    {sub && <p data-hero style="--i:3" class="mt-6 font-(family-name:--f-display) text-[clamp(1.2rem,2.4vw,2rem)] italic text-(--c-muted)">{sub}</p>}
+    <span class="rule mt-10 block h-px w-full bg-(--c-line)" aria-hidden="true"></span>
+    <div class="mt-8 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+      {lede && <p data-hero style="--i:4" class="max-w-[44ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:5" class="flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .line-in { transform: translateY(108%); animation: line-up 1.25s var(--ease-out) both; animation-delay: calc(140ms + var(--i, 0) * 120ms); }
+  @keyframes line-up { to { transform: translateY(0); } }
+  .rule { transform-origin: left center; animation: rule-in 1.4s var(--ease-out) 700ms both; }
+  @keyframes rule-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) { .line-in { transform: none; animation: none; } .rule { animation: none; } }
+</style>

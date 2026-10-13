@@ -1,0 +1,47 @@
+---
+// Banda de foto que se amplía con el scroll: del marco al ancho completo (solo transform; sin movimiento si se pide reducirlo).
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { image: Img; alt?: string; position?: string; class?: string }
+const { image, alt = "", position, class: cls = "" } = Astro.props;
+---
+
+<div data-grow class:list={["relative overflow-hidden bg-(--c-bg)", cls]}>
+  <div data-grow-frame class="mx-auto h-[clamp(20rem,56vw,40rem)] w-full origin-center overflow-hidden rounded-(--c-radius,12px) will-change-transform" style="transform:scale(0.84)">
+    <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+  </div>
+</div>
+
+<script>
+  const reduce = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let off: Array<() => void> = [];
+  let live = false;
+  function init() {
+    if (live) return;
+    live = true;
+    const hosts = document.querySelectorAll<HTMLElement>("[data-grow]");
+    if (!hosts.length) return;
+    if (reduce()) return hosts.forEach((h) => (h.querySelector<HTMLElement>("[data-grow-frame]")!.style.transform = "none"));
+    let raf = 0;
+    const run = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      hosts.forEach((h) => {
+        const f = h.querySelector<HTMLElement>("[data-grow-frame]")!;
+        const r = h.getBoundingClientRect();
+        // 0 cuando el borde superior entra por abajo, 1 cuando la banda está centrada o más arriba
+        const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.9 )));
+        const e = 1 - Math.pow(1 - p, 3);
+        f.style.transform = `scale(${(0.84 + 0.16 * e).toFixed(4)})`;
+      });
+    };
+    const on = () => { if (!raf) raf = requestAnimationFrame(run); };
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    run();
+    off.push(() => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); if (raf) cancelAnimationFrame(raf); });
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => { off.forEach((f) => f()); off = []; live = false; });
+  init();
+</script>

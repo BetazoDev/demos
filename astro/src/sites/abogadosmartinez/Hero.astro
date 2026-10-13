@@ -1,0 +1,22 @@
+---
+// Héroe propio (split): titular y botones a la izquierda, foto propia del despacho en marco amplio a la derecha.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-16 pt-36 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-14 lg:pt-32">
+    <div>
+      <h1 data-hero="blur" class="max-w-[17ch] text-[clamp(2.8rem,5vw,4.9rem)] leading-[1.04] tracking-[-0.015em]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-10 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div data-hero-media style="--d:200ms" class="relative aspect-[4/5] max-h-[78svh] w-full overflow-hidden rounded-(--c-radius-img) bg-(--c-surface) lg:ml-auto lg:max-w-[34rem]">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+  </div>
+</section>

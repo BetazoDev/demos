@@ -1,0 +1,137 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Split from "@/kit/Split.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import Logo from "@/kit/Logo.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import GMarquee from "@/sites/myaabogados/GMarquee.astro";
+import Tokens from "@/sites/myaabogados/Tokens.astro";
+import { site } from "@/sites/myaabogados/site";
+import { areas, photos, clients, about, quote } from "@/sites/myaabogados/data";
+
+const base = "/myaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const feat = areas.slice(0, 3);
+const rows = areas.slice(3).map((a) => ({ key: a.key, title: a.title, text: a.row, href: `${base}/servicios#${a.key}` }));
+const h2 = "text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.01em]";
+const aboutShort = about.split(", circunstancia")[0] + ".";
+---
+
+<SiteLayout
+  site={site}
+  title="M&A Abogados | Abogados en derecho administrativo y gestión gubernamental, Roma Sur, CDMX"
+  description="Abogados especialistas en derecho administrativo y gestión gubernamental en la Roma Sur, Ciudad de México: establecimientos mercantiles, obras y construcción, uso de suelo y protección civil."
+  nav={{ variant: "bar", tone: "light", logoHeight: 48 }}
+  footer={{ variant: "dark" }}
+>
+  <Tokens />
+  <section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+    <div class="wrap grid min-h-[100svh] items-center gap-12 pb-16 pt-32 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16 lg:pb-14 lg:pt-28">
+      <div>
+        <h1 data-hero="blur" class="max-w-[11ch] text-[clamp(2.9rem,6.4vw,6.3rem)] leading-[0.98] tracking-[-0.012em]">Excelencia legal para su tranquilidad.</h1>
+        <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">Especialistas en derecho administrativo y gestión gubernamental: establecimientos mercantiles y de la construcción.</p>
+        <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+          <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+          <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+        </div>
+      </div>
+      <div class="hero-frame relative lg:ml-auto lg:w-full lg:max-w-[33rem]">
+        <div data-hero-media style="--d:200ms" class="relative aspect-[4/5] max-h-[78svh] w-full overflow-hidden rounded-(--c-radius-img)">
+          <Pic src={photos.calle} alt="Calle arbolada de la colonia Roma con edificios de los años treinta bajo la luz de la tarde" priority position="50% 60%" class="size-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section size="sm" class="border-y border-(--c-line)">
+    <p class="wrap mb-6 text-[15px] text-(--c-muted)">Algunos de nuestros clientes</p>
+    <GMarquee items={clients} />
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <Statement class="font-(family-name:--f-display) !font-normal !max-w-[18ch]" text="Nos regimos por el orden y la presentación." />
+      <div class="mt-14 grid gap-8 text-[19px] leading-relaxed text-(--c-muted) md:grid-cols-2 md:gap-20 lg:mt-20">
+        <p data-reveal class="max-w-[40ch]">Asumimos un compromiso de puntualidad, orden, formalidad y eficacia en todo lo que implica esta materia.</p>
+        <p data-reveal data-delay="100" class="max-w-[40ch]">Únicamente dependemos de ustedes para los datos y la documentación necesarios: nuestro enfoque principal es resolver favorablemente.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Servicios</h2>
+      <ul data-stagger data-gap="110" class="grid gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:grid-rows-2">
+        {
+          feat.map((a, i) => (
+            <li class:list={[i === 0 && "lg:row-span-2"]}>
+              <a href={`${base}/servicios#${a.key}`} class:list={["img-zoom group relative isolate flex h-full flex-col justify-end overflow-hidden rounded-(--c-radius-img,1.25rem) bg-(--c-dark) p-6 text-white sm:p-8", i === 0 ? "min-h-[26rem] lg:min-h-[38rem]" : "min-h-[20rem] lg:min-h-[17rem]"]}>
+                <div class="absolute inset-0 -z-10" data-parallax="36">
+                  <Pic src={a.image} alt="" position={i === 0 ? "50% 60%" : "50% 50%"} class="size-full object-cover" />
+                </div>
+                <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(5_14_30/0.86),rgb(5_14_30/0.25)_62%,rgb(5_14_30/0.1))]"></div>
+                <span class="arr absolute right-5 top-5 grid size-11 place-items-center rounded-full bg-white text-(--c-dark) transition-transform duration-300 ease-(--ease-out) group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+                <h3 transition:name={`area-${a.key}`} class="max-w-[16ch] text-[clamp(1.8rem,3vw,2.7rem)] leading-[1.04] tracking-[-0.01em]">{a.title}</h3>
+                <p class="mt-3 line-clamp-2 max-w-[44ch] text-[15px] opacity-90">{a.row}</p>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-14"><AreasIndex areas={rows} /></div>
+      <div data-reveal class="mt-10"><Button href={`${base}/servicios`} variant="outline">Todos los servicios</Button></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <Split image={photos.oficina} alt="Fachada de la oficina de M&A Abogados en Manzanillo 138, colonia Roma Sur" ratio="5/4" position="50% 40%">
+        <h2 class={`mb-6 ${h2}`}>La firma</h2>
+        <p class="max-w-[48ch] text-[19px] leading-relaxed text-(--c-muted)">{aboutShort}</p>
+        <div class="mt-9"><Button href={`${base}/la-firma`} variant="outline">Conocer a la firma</Button></div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="brand" class="relative overflow-hidden">
+    <div class="pointer-events-none absolute -bottom-16 -right-[10%] hidden opacity-[0.1] md:block" aria-hidden="true">
+      <Logo src={site.logo.onDark!} alt="" height={420} eager={false} />
+    </div>
+    <div class="wrap relative">
+      <blockquote data-reveal class="max-w-[28ch] font-(family-name:--f-display) text-[clamp(1.8rem,3.8vw,3.1rem)] leading-[1.16] tracking-[-0.01em]">“{quote.text}”</blockquote>
+      <p data-reveal data-delay="120" class="mt-8 text-lg opacity-80">{quote.author}, reseña en Google, {quote.when}</p>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-8"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+      </div>
+      <div data-reveal data-delay="120" class="self-start rounded-(--c-radius-card) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>
+
+<style>
+  .hero-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--c-line);
+    border-radius: var(--c-radius-img, 1.75rem);
+    translate: 18px 18px;
+    z-index: 0;
+  }
+  .hero-frame > * { position: relative; z-index: 1; }
+</style>

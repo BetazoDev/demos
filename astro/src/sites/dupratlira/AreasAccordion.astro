@@ -1,0 +1,58 @@
+---
+// Servicios como acordeón exclusivo: cada fila abre el listado detallado del despacho. Contenido completo en el HTML (<details name>).
+import DuButton from "./DuButton.astro";
+import Icon from "@/kit/Icon.astro";
+import type { Area } from "./data";
+interface Props { areas: (Area & { href: string })[] }
+const { areas } = Astro.props;
+---
+
+<div data-stagger data-gap="60" class="border-t border-(--c-line)">
+  {
+    areas.map((a, i) => (
+      <div class="border-b border-(--c-line)">
+        <details class="acc group" name="servicios" open={i === 0}>
+          <summary class="flex items-center justify-between gap-6 py-6 sm:py-7">
+            <span class="grid min-w-0 gap-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] sm:items-center sm:gap-10">
+              <span class="block text-[clamp(1.55rem,2.8vw,2.4rem)] leading-[1.1]" style="font-family: var(--f-display)">{a.title}</span>
+              <span class="hidden text-[16px] leading-snug text-(--c-muted) group-open:invisible sm:line-clamp-2 sm:block">{a.lead}</span>
+            </span>
+            <span class="acc-plus grid size-11 shrink-0 place-items-center border border-(--c-ink)/25 sm:size-12" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" fill="none" /></svg>
+            </span>
+          </summary>
+          <div class="acc-body">
+            <div>
+              <div class="grid gap-8 pb-9 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-14">
+                <div class="grid gap-7">
+                  <p class="max-w-[58ch] text-[17px] text-(--c-muted)">{a.lead}</p>
+                  {a.groups.map((g) => (
+                    <div>
+                      {g.title && <p class="mb-3 text-[15px] font-semibold text-(--du-gold-ink)">{g.title}</p>}
+                      <ul class="grid gap-x-10 gap-y-2.5 sm:grid-cols-2">
+                        {g.items.map((it) => (
+                          <li class="flex gap-3 text-[16px] leading-snug">
+                            <Icon name="check" weight="bold" class="mt-1 size-4 shrink-0 text-(--du-gold)" />
+                            <span>{it}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <div><DuButton href={a.href} variant="outline">Ver servicio</DuButton></div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    ))
+  }
+</div>
+
+<style is:global>
+  html details.acc[open] .acc-plus { rotate: 0deg; }
+  html details.acc .acc-plus svg { transition: rotate 260ms var(--ease-out); }
+  html details.acc[open] .acc-plus svg { rotate: 45deg; }
+  @media (prefers-reduced-motion: reduce) { html details.acc .acc-plus svg { transition: none; } }
+</style>

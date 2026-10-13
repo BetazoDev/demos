@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/fidemabogados/site";
+import { tipos } from "@/sites/fidemabogados/data";
+
+const base = "/fidemabogados";
+---
+
+<SiteLayout site={site} title="Contacto | Fidem Abogados, Calle Querétaro 226, Roma Norte, CDMX" description="Calle Querétaro 226, Despacho 3B, Col. Roma Norte, Ciudad de México. Agende su cita por WhatsApp al 55 4603 6101 o llame al 55 5264 6570." nav={{ variant: "pill", tone: "light", logoHeight: 40 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]} footer={{ variant: "dark" }}>
+  <PageHero title="Contacto" lede="Agende su cita por WhatsApp o visítenos en la Roma Norte." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[0.75rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={tipos.map((t) => t.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

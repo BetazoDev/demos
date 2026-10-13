@@ -1,0 +1,51 @@
+---
+// Copia del Composer del kit con la voz del despacho (tú). Redactor de consulta: arma un mensaje y abre WhatsApp del despacho (wa.me). No envía datos a ningún servidor.
+// Si el despacho no tiene WhatsApp confirmado (number null) cae a una llamada.
+import type { SiteConfig } from "@/kit/types";
+import Icon from "@/kit/Icon.astro";
+interface Props {
+  site: SiteConfig;
+  /** Áreas/servicios reales para el selector */
+  areas: string[];
+  /** Etiqueta del botón (la misma intención en todo el sitio) */
+  label?: string;
+  tone?: "paper" | "surface" | "dark";
+  class?: string;
+}
+const { site, areas, label = "Escribir por WhatsApp", tone = "paper", class: cls = "" } = Astro.props;
+const wa = site.whatsapp.number;
+const field = "mt-2 w-full rounded-(--c-radius-field,0.75rem) border border-current/20 bg-transparent px-4 py-3.5 text-base placeholder:text-current/45 focus:border-current focus:outline-none";
+const en = site.lang === "en";
+---
+
+<form data-wa={wa ?? undefined} data-intro={site.whatsapp.intro} data-badge-avoid class:list={["grid gap-5", cls]} onsubmit={wa ? undefined : "event.preventDefault()"}>
+  <div>
+    <label for={`area-${site.slug}`} class="text-sm font-medium">{en ? "Area" : "Área de consulta"}</label>
+    <select id={`area-${site.slug}`} name="area" class:list={[field, "bg-(--c-bg) text-(--c-ink)"]}>
+      <option value="">{en ? "Select an area" : "Elige un área"}</option>
+      {areas.map((a) => <option value={a}>{a}</option>)}
+    </select>
+  </div>
+  <div>
+    <label for={`msg-${site.slug}`} class="text-sm font-medium">{en ? "Your message" : "Cuéntanos tu caso"}</label>
+    <textarea id={`msg-${site.slug}`} name="mensaje" rows="4" placeholder={en ? "A few lines about your matter" : "Unas líneas sobre tu situación"} class:list={[field, "resize-none"]}></textarea>
+  </div>
+  <div>
+    <label for={`name-${site.slug}`} class="text-sm font-medium">{en ? "Name" : "Tu nombre"}</label>
+    <input id={`name-${site.slug}`} name="nombre" type="text" autocomplete="name" class={field} />
+  </div>
+  {
+    wa ? (
+      <button type="submit" class="press nudge inline-flex h-14 items-center justify-center gap-3 rounded-(--c-radius,999px) bg-(--c-brand) px-7 text-base font-medium text-(--c-on-brand) hover:brightness-110">
+        <Icon name="whatsapp-logo" weight="fill" class="size-5" />
+        {label}
+      </button>
+    ) : (
+      <a href={`tel:${site.phones[0]?.tel}`} class="press inline-flex h-14 items-center justify-center gap-3 rounded-(--c-radius,999px) bg-(--c-brand) px-7 text-base font-medium text-(--c-on-brand)">
+        <Icon name="phone" weight="fill" class="size-5" />
+        {en ? "Call" : "Llamar"} {site.phones[0]?.display}
+      </a>
+    )
+  }
+  <p class="text-sm opacity-60">{en ? "This opens WhatsApp with your message ready. Nothing is sent from this page." : "Se abre WhatsApp con tu mensaje listo. Desde esta página no se envía nada."}</p>
+</form>

@@ -1,0 +1,54 @@
+---
+// Selector de áreas: a la izquierda los nombres como pestañas grandes, a la derecha el detalle real de cada una.
+// Sin JavaScript se ven todos los paneles apilados; con JavaScript (ver Skin.astro) solo el activo.
+import Icon from "@/kit/Icon.astro";
+import type { Area } from "./data";
+interface Props { areas: Area[] }
+const { areas } = Astro.props;
+---
+
+<div data-tabs class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+  <div role="tablist" aria-label="Servicios" class="flex flex-wrap gap-x-8 gap-y-2 lg:flex-col lg:gap-y-4">
+    {
+      areas.map((a, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tab-${a.key}`}
+          aria-controls={`panel-${a.key}`}
+          aria-selected={i === 0 ? "true" : "false"}
+          tabindex={i === 0 ? 0 : -1}
+          data-tab
+          class="press group flex items-center justify-between gap-6 py-1 text-left text-[clamp(1.9rem,3.6vw,3.2rem)] leading-[1.05] tracking-[-0.02em] text-(--c-muted) transition-colors duration-200 [font-family:var(--f-display)] aria-selected:text-(--c-ink) hover:text-(--c-ink)"
+        >
+          <span>{a.title}</span>
+          <Icon name="arrow-right" weight="bold" class="gj-arr hidden size-6 shrink-0 text-(--c-brand) lg:block" />
+        </button>
+      ))
+    }
+  </div>
+  <div>
+    {
+      areas.map((a, i) => (
+        <div role="tabpanel" id={`panel-${a.key}`} aria-labelledby={`tab-${a.key}`} data-panel class:list={["rounded-(--c-radius-card,12px) bg-(--c-surface) p-6 sm:p-10", i > 0 && "mt-4"]}>
+          <p class="max-w-[40ch] text-xl leading-snug">{a.lead}</p>
+          <div class="mt-8 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+            {a.groups.map((g) => (
+              <div class:list={[a.groups.length === 1 && "sm:col-span-2"]}>
+                <h3 class="text-lg font-semibold tracking-[-0.01em] [font-family:var(--f-body)]">{g.title}</h3>
+                <ul class:list={["mt-3 grid gap-2 text-[17px] text-(--c-muted)", a.groups.length === 1 && "sm:grid-cols-2 sm:gap-x-10"]}>
+                  {g.items.map((it) => (
+                    <li class="flex gap-3">
+                      <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-brand)" />
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

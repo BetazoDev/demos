@@ -1,0 +1,49 @@
+---
+import DuLayout from "@/sites/dupratlira/DuLayout.astro";
+import DuPageHero from "@/sites/dupratlira/DuPageHero.astro";
+import DuCta from "@/sites/dupratlira/DuCta.astro";
+import Section from "@/kit/Section.astro";
+import DuStatement from "@/sites/dupratlira/DuStatement.astro";
+import Pic from "@/kit/Pic.astro";
+import { site, WA } from "@/sites/dupratlira/site";
+import { team, areas } from "@/sites/dupratlira/data";
+
+const base = "/dupratlira";
+const wa = `https://wa.me/${WA}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const areaLinks = (id: string) => areas.filter((a) => a.lawyer === id);
+---
+
+<DuLayout title="Nuestra firma | Duprat Lira Abogados, Roma Norte, CDMX" description="Conozca a los abogados de Duprat Lira: Alejandro Lira Duarte, litigio laboral, civil y familiar, y Maribeth Duprat Mendoza, litigio fiscal y administrativo." breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}>
+  <DuPageHero title="Nuestra firma" lede="Servicios de asesoría, consultoría y defensa jurídica, a través de estrategias integrales, con atención personalizada, especializada, profesional y de excelencia." />
+  <Section>
+    <div class="wrap"><DuStatement text="Nuestros abogados se caracterizan por su amplia experiencia, eficacia y honestidad." /></div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap grid gap-24 sm:gap-32">
+      {
+        team.map((p, i) => (
+          <article class:list={["grid items-start gap-10 md:gap-16", i % 2 === 0 ? "md:grid-cols-[0.8fr_1.2fr]" : "md:grid-cols-[1.2fr_0.8fr]"]}>
+            <div data-reveal="clip" class:list={["relative aspect-[4/5] max-w-[28rem] overflow-hidden outline outline-1 outline-offset-[12px] outline-(--du-gold)/70", i % 2 === 1 && "md:order-2 md:ml-auto"]}>
+              <Pic src={p.photo} alt={`Retrato de ${p.name}`} position="50% 28%" class="size-full object-cover" />
+            </div>
+            <div data-reveal class="md:py-6">
+              <span class="rule mb-7"></span>
+              <h2 class="text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.08]">{p.name}</h2>
+              <p class="mt-3 text-lg text-(--c-muted)">{p.role}</p>
+              <p class="mt-1 text-[15px] text-(--c-muted)">Cédula profesional {p.cedula}</p>
+              <div class="mt-7 grid max-w-[58ch] gap-4 text-[17px] leading-relaxed">
+                {p.bio.map((t) => <p>{t}</p>)}
+              </div>
+              {areaLinks(p.id).length > 0 && (
+                <ul class="mt-8 flex flex-wrap gap-2.5">
+                  {areaLinks(p.id).map((a) => <li><a href={`${base}/servicios/${a.key}`} class="press inline-flex border border-(--c-ink)/25 bg-(--c-bg) px-4 py-2 text-[15px] hover:border-(--du-gold) hover:text-(--du-gold-ink)">{a.title}</a></li>)}
+                </ul>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+  <DuCta title="Primera consulta sin costo" href={wa} label="Escribir por WhatsApp" />
+</DuLayout>

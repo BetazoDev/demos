@@ -1,0 +1,30 @@
+---
+// Héroe de HORUS: lema en serif con «humano» en cursiva y un subrayado dorado que se dibuja, y una foto de ambiente
+// (escritorio con luz de mañana, sin personas) a la derecha con esquinas suaves y barrido.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { lede: string; image: Img; imageAlt?: string; position?: string }
+const { lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-16 pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20 lg:pb-14">
+    <div>
+      <h1 data-hero="blur" class="max-w-[14ch] text-[clamp(2.8rem,6.9vw,6.5rem)] font-medium leading-[1.02] tracking-[-0.025em]">La ley con aspecto <em class="hu-em pr-[0.06em]">humano</em></h1>
+      <p data-hero style="--i:1" class="mt-8 max-w-[38ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div data-hero-media style="--d:250ms" class="relative aspect-[4/5] max-h-[78svh] w-full overflow-hidden rounded-(--c-radius-img) lg:ml-auto lg:max-w-[32rem]">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .hu-em { position: relative; font-style: italic; white-space: nowrap; }
+  .hu-em::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0.04em; height: 0.075em; background: var(--c-accent); transform-origin: left center; transform: scaleX(0); animation: hu-draw 1s var(--ease-out) 1s forwards; }
+  @keyframes hu-draw { to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) { .hu-em::after { animation: none; transform: none; } }
+</style>

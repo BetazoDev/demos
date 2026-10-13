@@ -1,0 +1,56 @@
+---
+// Datos reales de contacto del despacho. full = incluye sedes foráneas y todos los correos.
+import type { SiteConfig } from "@/kit/types";
+import Icon from "@/kit/Icon.astro";
+import GButton from "./GButton.astro";
+import { sedes } from "./data";
+interface Props { site: SiteConfig; full?: boolean; class?: string }
+const { site, full = false, class: cls = "" } = Astro.props;
+const wa = site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}` : null;
+const emails = full ? site.emails : site.emails.slice(0, 2);
+const row = "flex gap-4";
+const ico = "mt-1 size-5 shrink-0 opacity-55";
+---
+
+<div class:list={["grid gap-7 text-[17px]", cls]}>
+  <div class={row}>
+    <Icon name="map-pin" class={ico} />
+    <div>
+      <p class="text-sm font-medium opacity-60">{site.addresses[0].label}</p>
+      <address class="not-italic">{site.addresses[0].text}</address>
+    </div>
+  </div>
+  <div class={row}>
+    <Icon name="phone" class={ico} />
+    <ul class="grid gap-1">
+      {site.phones.map((p) => <li><a href={`tel:${p.tel}`} class="link-u">{p.display}</a></li>)}
+    </ul>
+  </div>
+  {wa && (
+    <div class={row}>
+      <Icon name="whatsapp-logo" class={ico} />
+      <a href={wa} target="_blank" rel="noopener" class="link-u">WhatsApp {site.whatsapp.display}</a>
+    </div>
+  )}
+  <div class={row}>
+    <Icon name="envelope-simple" class={ico} />
+    <ul class="grid gap-1">{emails.map((m) => <li><a href={`mailto:${m}`} class="link-u break-all">{m}</a></li>)}</ul>
+  </div>
+  {full && (
+    <div class={row}>
+      <Icon name="buildings" class={ico} />
+      <div class="grid gap-5">
+        <p class="text-sm font-medium opacity-60">Otras sedes</p>
+        <ul class="grid gap-5 sm:grid-cols-2 sm:gap-x-10">
+          {sedes.map((s) => (
+            <li>
+              <p class="font-medium">{s.label}</p>
+              <address class="text-[15px] not-italic opacity-75">{s.text}</address>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )}
+  {site.mapsUrl && <div class="pt-1"><GButton href={site.mapsUrl} variant="outline" external>Ver en el mapa</GButton></div>}
+</div>

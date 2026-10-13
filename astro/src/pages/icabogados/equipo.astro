@@ -1,0 +1,22 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import TeamGrid from "@/sites/icabogados/TeamGrid.astro";
+import "@/sites/icabogados/theme.css";
+import grupo from "@/sites/icabogados/assets/grupo.jpg";
+import { site } from "@/sites/icabogados/site";
+import { team } from "@/sites/icabogados/data";
+
+const base = "/icabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Equipo | IC Abogados, abogados litigantes en Ciudad de México y Querétaro" description="Conozca al equipo de IC Abogados: abogados de litigio constitucional, administrativo, civil, mercantil, laboral empresarial y migratorio, con oficinas en Ciudad de México y Querétaro." nav={{ variant: "bar", tone: "dark", logoHeight: 52 }} breadcrumbs={[{ name: "Equipo", href: `${base}/equipo` }]} footer={{ variant: "dark" }}>
+  <PageHero title="Equipo" lede="Cada oficina local mantiene su autonomía, pero opera bajo la misma marca." image={grupo} imageAlt="El equipo de IC Abogados sobre fondo negro" />
+  <Section>
+    <div class="wrap"><TeamGrid people={team} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,29 @@
+---
+import Layout from "@/sites/irra/Layout.astro";
+import Muro from "@/sites/irra/Muro.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/irra/site";
+import { areas, sectores } from "@/sites/irra/areas";
+
+const base = "/irra";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const items = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/areas-de-practica/${a.key}` }));
+---
+
+<Layout site={site} title="Áreas de práctica | Irra Ibarra, arbitraje, litigio, bancario, corporativo, marítimo y más" description="Quince áreas de práctica: administrativo, arbitraje, bancario y financiero, civil, concursos mercantiles, constitucional, corporativo, inmobiliario, marítimo, seguros y fianzas, entre otras." breadcrumbs={[{ name: "Áreas de práctica", href: `${base}/areas-de-practica` }]}>
+  <PageHero title="Áreas de práctica" lede="Asesoría jurídica integral reconocida a nivel nacional e internacional." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><Muro items={items} idle="Quince áreas de práctica en las que asesora la firma." /></div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.7rem,3vw,2.6rem)] font-bold leading-tight tracking-[-0.03em]">Sectores</h2>
+      <ul data-stagger data-gap="30" class="flex flex-wrap gap-2.5">
+        {sectores.map((s) => <li class="border border-(--c-line) px-4 py-2.5 text-[15px]">{s}</li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Soluciones jurídicas prácticas para los complejos retos de los negocios actuales" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

@@ -1,0 +1,96 @@
+---
+import SiteLayout from "@/sites/eduardocastilloabogados/Page.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Stats from "@/kit/Stats.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/eduardocastilloabogados/Hero.astro";
+import Composer from "@/sites/eduardocastilloabogados/Composer.astro";
+import { site } from "@/sites/eduardocastilloabogados/site";
+import { specialties, withPage, others, lema, promesa, titular, libro } from "@/sites/eduardocastilloabogados/data";
+import hero from "@/sites/eduardocastilloabogados/assets/martillo-balanza.jpg";
+import biblioteca from "@/sites/eduardocastilloabogados/assets/biblioteca-tratados-lampara.jpg";
+import cover from "@/sites/eduardocastilloabogados/assets/libro-fideicomiso.png";
+
+const base = "/eduardocastilloabogados";
+const rows = withPage.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const stats = [
+  { value: "29+", label: "años de experiencia en el mercado mexicano" },
+  { value: "4", label: "obras de derecho mercantil publicadas por el titular" },
+  { value: "1984", label: "titulación en la UNAM y comienzo de la docencia universitaria" },
+];
+---
+
+<SiteLayout site={site} title="Eduardo Castillo Abogados | Abogados en derecho mercantil, Ciudad de México" nav={{ variant: "bar", tone: "light", logoHeight: 50 }} footer={{ variant: "dark", blurb: promesa }}>
+  <Hero title={lema} lede="Despacho de profesionales en derecho, especialmente en materia mercantil." image={hero} imageAlt="Balanza, libros jurídicos y martillo de juez sobre una mesa" position="50% 45%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text={promesa} /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <div>
+        <h2 data-reveal class="text-[clamp(2rem,4vw,3.4rem)] font-semibold leading-[1.02] tracking-[-0.035em] lg:sticky lg:top-32">Servicios</h2>
+      </div>
+      <div>
+        <AreasIndex areas={rows} />
+        <div data-reveal class="mt-14">
+          <h3 class="text-xl font-semibold tracking-[-0.01em]">Otras especialidades</h3>
+          <ul class="mt-6 grid gap-x-10 gap-y-3 text-lg text-(--c-muted) sm:grid-cols-2">
+            {others.map((o) => <li>{o.title}</li>)}
+          </ul>
+          <div class="mt-10"><Button href={`${base}/servicios`} variant="outline">Todos los servicios</Button></div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <ImageBand image={biblioteca} alt="Biblioteca de tratados jurídicos encuadernados, con una lámpara encendida sobre una mesa de lectura" position="50% 50%" />
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(2.4rem,6vw,5.4rem)] font-semibold leading-[0.98] tracking-[-0.035em]">{titular.name}</h2>
+      <p data-reveal data-delay="60" class="mt-3 text-lg text-(--c-muted)">{titular.role}</p>
+      <p data-reveal data-delay="100" class="mt-8 max-w-[56ch] text-xl leading-relaxed">{titular.bio}</p>
+      <Stats stats={stats} class="mt-16" />
+      <div data-reveal class="mt-14"><Button href={`${base}/nosotros`} variant="outline">Conocer al despacho</Button></div>
+    </div>
+  </Section>
+
+  <section class="bg-[#F4F1EA] text-[#0F1D31] section-y" style="--c-line:#D9D2C3;--c-muted:#4A5670;--c-brand:#0F1D31;--c-on-brand:#F4F1EA">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+      <div data-reveal="clip" class="mx-auto w-full max-w-[22rem]"><Pic src={cover} alt="Portada del libro El Fideicomiso, el fideicomiso de garantía y su ejecución" class="h-auto w-full" fill={false} /></div>
+      <div data-reveal data-delay="100">
+        <h2 class="max-w-[22ch] text-[clamp(1.9rem,3.8vw,3.2rem)] font-semibold leading-[1.04] tracking-[-0.03em]">{libro.title}</h2>
+        <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{libro.text}</p>
+        <div class="mt-9"><Button href={`${base}/publicaciones`}>Publicaciones</Button></div>
+      </div>
+    </div>
+  </section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4vw,3.4rem)] font-semibold leading-[1.02] tracking-[-0.035em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={specialties.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Contacto directo con el titular del despacho" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

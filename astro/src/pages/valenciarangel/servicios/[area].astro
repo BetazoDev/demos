@@ -1,0 +1,66 @@
+---
+import Layout from "@/sites/valenciarangel/Layout.astro";
+import Faq from "@/sites/valenciarangel/Faq.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/valenciarangel/site";
+import { areas, faqs } from "@/sites/valenciarangel/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/valenciarangel";
+const others = areas.filter((a) => a.key !== area.key);
+const related = faqs.filter((f) => f.area === area.key);
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const org = new URL(`/${site.slug}#organizacion`, Astro.site).href;
+const schema: Record<string, unknown>[] = [
+  { "@context": "https://schema.org", "@type": "Service", name: area.title, description: area.lead, provider: { "@id": org }, areaServed: { "@type": "City", name: "Ciudad de México" } },
+];
+if (related.length) schema.push({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: related.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: (f.p ?? []).join(" ") } })) });
+const dash = "mt-[0.78em] h-px w-5 shrink-0 bg-(--c-accent)";
+---
+
+<Layout title={`${area.title} | Abogados en Polanco, CDMX | Valencia Rangel`} description={area.lead} schema={schema} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}>
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14">
+      {
+        area.groups.map((g) => (
+          <div class={g.title ? "grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16" : ""}>
+            {g.title && <h2 data-reveal class="text-[clamp(1.5rem,2.8vw,2.3rem)] leading-tight">{g.title}</h2>}
+            <ul data-stagger data-gap="50" class:list={["grid gap-x-12 gap-y-4", !g.title && g.items.length > 5 ? "sm:grid-cols-2" : ""]}>
+              {g.items.map((i) => (
+                <li class="flex gap-4 text-lg leading-snug">
+                  <span aria-hidden="true" class={dash}></span>
+                  <span>{i}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+  {
+    related.length > 0 && (
+      <Section tone="surface" size="sm">
+        <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <h2 data-reveal class="text-[clamp(1.5rem,2.8vw,2.3rem)] leading-tight">Preguntas frecuentes</h2>
+          <div data-reveal data-delay="80"><Faq items={related} /></div>
+        </div>
+      </Section>
+    )
+  }
+  <Section tone={related.length ? "paper" : "surface"} size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.5rem,2.8vw,2.3rem)] leading-tight">Otros servicios</h2>
+      <ul data-stagger data-gap="40" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-full border border-(--c-line) px-5 py-2.5 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="¿Necesitas asesoría legal?" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

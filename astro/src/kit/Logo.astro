@@ -1,0 +1,30 @@
+---
+// Logo del despacho. Acepta un import de Astro (PNG/SVG optimizado) o una URL.
+import { Image } from "astro:assets";
+import type { Img } from "./types";
+interface Props {
+  src: Img;
+  alt: string;
+  /** Altura en px a la que se muestra (el ancho sale de la proporción) */
+  height?: number;
+  class?: string;
+  eager?: boolean;
+  [attr: string]: unknown;
+}
+const { src, alt, height = 36, class: cls = "", eager = true, ...rest } = Astro.props;
+const isUrl = typeof src === "string";
+const meta = isUrl ? null : src;
+const ratio = meta ? meta.width / meta.height : 3;
+const width = Math.round(height * ratio);
+const style = `height:${height}px;width:auto;max-width:none`;
+---
+
+{
+  isUrl ? (
+    <img src={src} alt={alt} class={cls} style={style} height={height} decoding="async" {...rest} />
+  ) : meta!.format === "svg" ? (
+    <img src={meta!.src} alt={alt} class={cls} style={style} width={width} height={height} decoding="async" {...rest} />
+  ) : (
+    <Image src={meta!} alt={alt} class={cls} style={style} width={Math.min(meta!.width, width * 2)} height={Math.round(Math.min(meta!.width, width * 2) / ratio)} layout="fixed" loading={eager ? "eager" : "lazy"} {...rest} />
+  )
+}

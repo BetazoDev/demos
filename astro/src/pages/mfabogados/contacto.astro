@@ -1,0 +1,35 @@
+---
+import "@/sites/mfabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Nav from "@/sites/mfabogados/Nav.astro";
+import Footer from "@/sites/mfabogados/Footer.astro";
+import { site } from "@/sites/mfabogados/site";
+import { areas, firma } from "@/sites/mfabogados/data";
+
+const base = "/mfabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Moreno & Fuertes Abogados, Calle Dolores 10, Centro, Ciudad de México"
+  description="Calle Dolores n.º 10, Despacho 205, Colonia Centro, Ciudad de México. Lunes a viernes de 9:00 a 18:00, sábados previa cita. Teléfonos 55 6608 8373 y 55 2684 9193."
+  nav={false}
+  footer={false}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="dark" />
+  <PageHero title="Contacto" lede={firma.lema} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones legales profesionales." />
+</SiteLayout>

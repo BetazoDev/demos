@@ -1,0 +1,71 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/bravoabogados/Nav.astro";
+import Footer from "@/sites/bravoabogados/Footer.astro";
+import Personas from "@/sites/bravoabogados/Personas.astro";
+import { site } from "@/sites/bravoabogados/site";
+import { fundador, equipo, corresponsales, clientes } from "@/sites/bravoabogados/data";
+
+const base = "/bravoabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "text-[clamp(1.8rem,3.4vw,2.8rem)] font-normal leading-[1.08] tracking-[-0.02em]";
+---
+
+<SiteLayout site={site} bodyClass="[--c-radius-img:0px] [--c-radius-card:0px] [--c-radius-field:0px]" title="Nosotros | Bravo Abogados, bufete en la Ciudad de México" description="Corporación de abogados especialistas en derecho administrativo, amparo, mercantil, civil, penal y laboral, con corresponsales en el interior de la República." nav={false} footer={false} breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="Nosotros" lede="Una corporación de abogados constituida por especialistas, en la Ciudad de México y en otras ciudades del interior de la República." />
+
+  <Section size="sm" class="pt-8 sm:pt-14">
+    <div class="wrap grid gap-8 lg:grid-cols-2 lg:gap-20">
+      <p data-reveal class="max-w-[52ch] text-lg leading-relaxed">Somos una corporación de abogados constituida por especialistas en Derecho Administrativo, Amparo, Derecho Mercantil, Derecho Civil, Derecho Penal, Derecho Laboral y un área corporativa, establecida para brindar servicios legales que requieren no solo las grandes empresas, sino también las medianas y pequeñas.</p>
+      <p data-reveal data-delay="100" class="max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">Nuestro equipo se conforma por abogados especialistas en diversas materias del Derecho, con el objeto de apoyar a las empresas que llevan a cabo obras y servicios públicos, así como a empresas y personas físicas que se ven afectadas por los actos de las autoridades federales, locales y municipales. También atendemos asuntos de naturaleza mercantil, civil y penal que se derivan de las actividades de la industria y el comercio.</p>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div data-reveal="clip" class="aspect-[4/5] overflow-hidden rounded-(--c-radius) bg-(--c-bg) lg:sticky lg:top-28 lg:self-start"><Pic src={fundador.photo} alt={`${fundador.name}, abogado fundador, en su biblioteca`} class="size-full object-cover" position="50% 15%" /></div>
+      <div data-reveal>
+        <h2 class={h2}>{fundador.name}</h2>
+        <p class="mt-2 text-lg text-(--c-muted)">{fundador.role}</p>
+        <div class="mt-8 grid max-w-[58ch] gap-5 text-lg leading-relaxed">
+          {fundador.bio.map((p) => <p>{p}</p>)}
+        </div>
+        <h3 class="mt-12 font-(family-name:--f-display) text-2xl tracking-[-0.01em]">Ha prestado sus servicios, entre otras empresas, a:</h3>
+        <ul class="mt-6 grid max-w-[60ch] gap-x-8 gap-y-3 text-[16px] sm:grid-cols-2">
+          {clientes.map((c) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{c}</span></li>)}
+        </ul>
+        <p class="mt-10"><a href={fundador.linkedin} target="_blank" rel="noopener" class="inline-flex items-center gap-2 font-medium underline decoration-current/35 underline-offset-4 transition-[text-decoration-color] hover:decoration-current"><Icon name="linkedin-logo" class="size-5 shrink-0" /><span>Perfil de LinkedIn de {fundador.name}</span></a></p>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Equipo en la Ciudad de México</h2>
+      <Personas people={equipo} detail />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Corresponsales en el interior de la República</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+        {corresponsales.map((c) => (
+          <li>
+            <p class="font-(family-name:--f-display) text-[1.45rem] leading-tight tracking-[-0.01em]">{c.city}</p>
+            <p class="mt-1.5 text-[16px] text-(--c-muted)">Lic. {c.name}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su asunto" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Bufete Bravo Abogados. Soporte funcional, S.C." />
+</SiteLayout>

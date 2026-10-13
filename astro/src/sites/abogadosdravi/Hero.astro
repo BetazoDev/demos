@@ -1,0 +1,18 @@
+---
+// Héroe propio: lema a la izquierda, foto generada de despacho a sangre a la derecha con la esquina en curva amplia.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="dr-hero">
+  <div class="dr-grid">
+    <div class="dr-copy">
+      <h1 data-hero="blur" class="max-w-[19ch] text-[clamp(2.4rem,4.4vw,4.6rem)] font-normal leading-[1.06] tracking-[-0.03em]">{title}</h1>
+      <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+    <div class="dr-photo" data-hero-media style="--d:200ms"><Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" /></div>
+  </div>
+</section>

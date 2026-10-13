@@ -1,0 +1,41 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Pic from "@/kit/Pic.astro";
+import Composer from "@/sites/chavezcleto/Composer.astro";
+import Footer from "@/sites/chavezcleto/Footer.astro";
+import Skin from "@/sites/chavezcleto/Skin.astro";
+import { site } from "@/sites/chavezcleto/site";
+import { areas, photos } from "@/sites/chavezcleto/data";
+
+const base = "/chavezcleto";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Chávez Cleto & Asociados, Ezequiel Montes 39, Tabacalera, CDMX"
+  description="Despacho jurídico en Ezequiel Montes 39, colonia Tabacalera, Ciudad de México. Escríbenos por WhatsApp al 55 1772 1395."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 54 }}
+  footer={false}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Skin />
+  <PageHero title="Contacto" lede="Escríbenos por WhatsApp o visítanos en la colonia Tabacalera, Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div id="consulta" data-reveal data-delay="120" class="rounded-[6px] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Section size="sm" class="pt-0">
+    <div class="wrap grid gap-4 sm:grid-cols-2">
+      <div data-reveal="clip" class="aspect-[4/3] overflow-hidden rounded-[6px] bg-(--c-surface)"><Pic src={photos.sala} alt="Sala de espera del despacho con la placa del búho y una banca de madera" position="20% 50%" class="size-full object-cover" /></div>
+      <div data-reveal="clip" data-delay="120" class="aspect-[4/3] overflow-hidden rounded-[6px] bg-(--c-surface)"><Pic src={photos.escritorio} alt="Escritorio del despacho frente a un librero" position="50% 60%" class="size-full object-cover" /></div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Estrategia jurídica. Defensa firme. Resultados que importan." />
+</SiteLayout>

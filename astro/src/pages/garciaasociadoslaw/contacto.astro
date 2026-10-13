@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/garciaasociadoslaw/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/garciaasociadoslaw/site";
+import { areas } from "@/sites/garciaasociadoslaw/data";
+
+const base = "/garciaasociadoslaw";
+---
+
+<Layout site={site} title="Contacto | García & Asociados, Lago Constanza 155, Miguel Hidalgo" description="Escríbanos por WhatsApp al 55 1493 2767 o al 984 316 3234. Oficina en Lago Constanza 155, Torre A, Lago Sur, Miguel Hidalgo, Ciudad de México." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp. Atendemos en Ciudad de México y Quintana Roo." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => `Derecho ${a.title.toLowerCase()}`)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

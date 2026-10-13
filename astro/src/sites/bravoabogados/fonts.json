@@ -1,0 +1,4 @@
+[
+  { "name": "Spectral", "cssVariable": "--f-bravoabogados-display", "weights": [300, 400, 500, 600], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Albert Sans", "cssVariable": "--f-bravoabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/scyaa/site";
+import { areas } from "@/sites/scyaa/data";
+
+const base = "/scyaa";
+---
+
+<SiteLayout site={site} title="Contacto | Salcedo Caballero y Abogados Asociados, Condesa, Ciudad de México" description="Calle Cuautla 96, Col. Condesa, Ciudad de México, y oficina en Irapuato. Teléfono 55 5264 6256. Atención de lunes a viernes de 8:30 a 18:00 h." nav={{ variant: "pill", tone: "light", logoHeight: 30 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]} footer={{ variant: "light", blurb: "Legal & Business Advisor" }}>
+  <PageHero title="Contacto" lede="Oficinas en la Ciudad de México e Irapuato. Escríbanos por WhatsApp o visítenos de lunes a viernes." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

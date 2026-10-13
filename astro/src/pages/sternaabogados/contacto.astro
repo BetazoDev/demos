@@ -1,0 +1,30 @@
+---
+import "@/sites/sternaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/sternaabogados/Composer.astro";
+import { site } from "@/sites/sternaabogados/site";
+import { serviceNames } from "@/sites/sternaabogados/data";
+
+const base = "/sternaabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Sterna Abogados, Despacho México en la CDMX"
+  description="Despacho México: Plaza de la República 55, despacho 101, Tabacalera, CDMX, +52 55 8957 7743. Sedes en Madrid y Valencia. WhatsApp +34 689 389 410 e info@sternaabogados.com."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="¿Quieres vivir en España? Te ayudamos a gestionar tu visado desde México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={serviceNames} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

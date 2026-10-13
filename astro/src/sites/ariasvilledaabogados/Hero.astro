@@ -1,0 +1,25 @@
+---
+// Héroe propio de Arias & Villeda: foto de la colonia a sangre con velo claro desde la izquierda y titular oscuro (nav tone="light").
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede: string; image: Img; imageAlt: string; position?: string }
+const { title, lede, image, imageAlt, position } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="60">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,var(--c-bg)_0%,color-mix(in_oklab,var(--c-bg)_92%,transparent)_46%,color-mix(in_oklab,var(--c-bg)_30%,transparent)_100%)] lg:hidden"></div>
+    <div class="absolute inset-0 hidden bg-[linear-gradient(to_right,var(--c-bg)_0%,color-mix(in_oklab,var(--c-bg)_90%,transparent)_30%,color-mix(in_oklab,var(--c-bg)_25%,transparent)_62%,transparent_100%)] lg:block"></div>
+    <div class="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(to_top,var(--c-bg),transparent)]"></div>
+  </div>
+  <div class="wrap pb-16 pt-40 sm:pb-24">
+    <h1 data-hero="blur" class="max-w-[13ch] text-[clamp(2.7rem,6.4vw,6.4rem)] font-light leading-[1] tracking-[-0.03em]">{title}</h1>
+    <p data-hero style="--i:1" class="mt-7 max-w-[42ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Skin from "@/sites/gjarillo/Skin.astro";
+import { site } from "@/sites/gjarillo/site";
+import { areas } from "@/sites/gjarillo/data";
+
+const base = "/gjarillo";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Gerardo Jarillo y Abogados, Av. Baja California 163 bis, Roma Sur, CDMX"
+  description="Av. Baja California 163 bis, despacho 603, colonia Roma Sur, Ciudad de México. WhatsApp 55 6450 8069. Lunes a viernes de 9:00 a 19:00 h."
+  nav={{ variant: "bar", tone: "light", logoHeight: 50 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Skin />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp, llámenos o visítenos en la colonia Roma Sur." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,12px) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

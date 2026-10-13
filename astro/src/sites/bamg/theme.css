@@ -1,0 +1,21 @@
+/* Ajustes propios de BAM-G sobre el kit. Un solo sistema de radios: 6px. */
+html[data-site="bamg"] {
+  --c-radius-img: 6px;
+  --c-radius-card: 6px;
+  --c-radius-field: 6px;
+}
+html[data-site="bamg"] .arr { border-radius: 4px; }
+html[data-site="bamg"] :is(h1, h2, h3, [data-statement], [data-count]) { letter-spacing: -0.02em; }
+/* Sobre el vidrio oscuro de la nav el botón es blanco en todos los estados (el azul de marca se pierde). */
+html[data-site="bamg"] [data-nav][data-tone="dark"] .nav-cta { background: var(--c-on-dark); color: var(--c-dark); }
+html[data-site="bamg"] [data-nav][data-tone="dark"] .nav-cta .arr { background: var(--c-dark); color: var(--c-on-dark); }
+
+/* Proceso: el avión recorre la línea con el scroll (solo transform). */
+[data-journey-line] { transform: scaleX(0); transform-origin: left; will-change: transform; }
+[data-journey-plane] { will-change: transform; }
+[data-journey-step] .step-body { opacity: 0.5; transition: opacity 360ms var(--ease-out); }
+[data-journey-step].is-on .step-body { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  [data-journey-line] { transform: scaleX(1) !important; }
+  [data-journey-step] .step-body { opacity: 1; transition: none; }
+}

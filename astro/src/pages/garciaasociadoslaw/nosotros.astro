@@ -1,0 +1,51 @@
+---
+import Layout from "@/sites/garciaasociadoslaw/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Split from "@/kit/Split.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/garciaasociadoslaw/site";
+import { principios, cobertura, photos } from "@/sites/garciaasociadoslaw/data";
+
+const base = "/garciaasociadoslaw";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout site={site} title="La firma | García & Asociados, abogados en Ciudad de México y Quintana Roo" description="García & Asociados brinda servicios jurídicos de alto nivel con experiencia, preparación y atención personalizada. Presencia en Ciudad de México, Estado de México y Quintana Roo." breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede="García & Asociados nace con el compromiso de brindar servicios jurídicos de alto nivel, combinando experiencia, preparación y atención personalizada para cada uno de nuestros clientes." />
+
+  <Section>
+    <div class="wrap"><Statement class="max-w-[30ch] text-[clamp(1.7rem,3.6vw,3.2rem)] sm:max-w-[36ch]" text="Con presencia en Ciudad de México y Quintana Roo, hemos construido una firma comprometida con la excelencia profesional y la defensa de los derechos de nuestros clientes." /></div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <Split image={photos.columnas} alt="Una sala de columnas altas con un haz de luz dorada sobre el piso" position="50% 55%" ratio="4/5" class="lg:gap-24">
+        <h2 class="text-[clamp(1.8rem,3.4vw,2.8rem)] leading-tight">Principios</h2>
+        <ul class="mt-6 flex flex-wrap gap-3">
+          {principios.map((p) => <li class="border border-(--c-line) px-5 py-2.5 text-lg">{p}</li>)}
+        </ul>
+        <p class="mt-8 max-w-[46ch] text-lg leading-relaxed text-(--c-muted)">Nuestro objetivo es brindar soluciones jurídicas efectivas, con un enfoque estratégico orientado a resultados.</p>
+      </Split>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.6rem)] leading-none">Cobertura</h2>
+      <div class="grid gap-12 md:grid-cols-2 md:gap-20">
+        {cobertura.map((c) => (
+          <div data-reveal>
+            <h3 class="text-[clamp(1.4rem,2.4vw,2rem)] leading-tight">{c.region}</h3>
+            <ul class="mt-5 flex flex-wrap gap-2.5">
+              {c.lugares.map((l) => <li class="border border-(--c-line) px-4 py-2 text-[15px]">{l}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Soluciones legales para su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

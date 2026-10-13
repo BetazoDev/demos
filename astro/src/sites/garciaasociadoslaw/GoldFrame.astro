@@ -1,0 +1,26 @@
+---
+// Firma de movimiento: un marco dorado que se dibuja (cuatro filetes con transform) cuando el bloque entra en pantalla.
+interface Props { class?: string }
+const { class: cls = "" } = Astro.props;
+---
+
+<div data-reveal class:list={["gold-frame relative", cls]}>
+  <span aria-hidden="true" class="gf gf-t"></span>
+  <span aria-hidden="true" class="gf gf-r"></span>
+  <span aria-hidden="true" class="gf gf-b"></span>
+  <span aria-hidden="true" class="gf gf-l"></span>
+  <slot />
+</div>
+
+<style is:global>
+  .gold-frame .gf { position: absolute; background: var(--c-accent); transition: transform 0.9s var(--ease-in-out); }
+  .gf-t, .gf-b { left: 0; right: 0; height: 1px; transform: scaleX(0); }
+  .gf-r, .gf-l { top: 0; bottom: 0; width: 1px; transform: scaleY(0); }
+  .gf-t { top: 0; transform-origin: left; }
+  .gf-r { right: 0; transform-origin: top; transition-delay: 0.7s; }
+  .gf-b { bottom: 0; transform-origin: right; transition-delay: 1.4s; }
+  .gf-l { left: 0; transform-origin: bottom; transition-delay: 2.1s; }
+  .gold-frame.is-in .gf-t, .gold-frame.is-in .gf-b { transform: scaleX(1); }
+  .gold-frame.is-in .gf-r, .gold-frame.is-in .gf-l { transform: scaleY(1); }
+  @media (prefers-reduced-motion: reduce) { .gold-frame .gf { transition: none; transform: none !important; } }
+</style>

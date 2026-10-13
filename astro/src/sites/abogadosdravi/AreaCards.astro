@@ -1,0 +1,24 @@
+---
+// Materias como bloques llenos en dos columnas; el título morfa a su página (area-<key>).
+import Icon from "@/kit/Icon.astro";
+interface Props { areas: { key: string; title: string; text?: string; href: string }[]; class?: string }
+const { areas, class: cls = "" } = Astro.props;
+---
+
+<ul data-stagger data-gap="70" class:list={["grid gap-4 sm:grid-cols-2", cls]}>
+  {
+    areas.map((a, i) => (
+      <li class:list={[i === areas.length - 1 && areas.length % 2 === 1 && "sm:col-span-2"]}>
+        <a href={a.href} data-area={a.title} class="dr-card group h-full">
+          <h3 transition:name={`area-${a.key}`} class="max-w-[16ch] text-[clamp(1.6rem,2.8vw,2.3rem)] font-normal leading-[1.1] tracking-[-0.02em]">{a.title}</h3>
+          <div class="flex items-end justify-between gap-6">
+            {a.text && <p class="line-clamp-3 max-w-[42ch] text-base text-(--c-muted)">{a.text}</p>}
+            <span class="arr grid size-12 shrink-0 place-items-center border border-current/25 transition-[background-color,color,border-color] duration-300">
+              <Icon name="arrow-up-right" weight="bold" class="size-5" />
+            </span>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>

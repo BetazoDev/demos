@@ -1,0 +1,75 @@
+---
+import Layout from "@/sites/sanchezsoto/Layout.astro";
+import Hero from "@/sites/sanchezsoto/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/sites/sanchezsoto/CtaBand.astro";
+import { site } from "@/sites/sanchezsoto/site";
+import { areas, firma, director, photos } from "@/sites/sanchezsoto/data";
+
+const base = "/sanchezsoto";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-light leading-[1.04] tracking-[-0.035em]";
+---
+
+<Layout
+  site={site}
+  title="Sánchez Soto Abogados | Defensa constitucional y fiscal en la Ciudad de México"
+  description="Firma de abogados en Ciudad de México: juicio de amparo, litigio fiscal, defensa en cobro coactivo y embargos, y atención a requerimientos y comprobación digital."
+  nav={{ variant: "bar", tone: "dark", logoHeight: 46 }}
+  footer={{ variant: "dark" }}
+>
+  <Hero title="Defensa constitucional y fiscal" lede="Firma especializada en la representación, litigio y consultoría en derecho administrativo, fiscal, constitucional y juicio de amparo." image={photos.retratoOscuro} imageAlt="Retrato de Gustavo Sánchez Soto con los brazos cruzados sobre fondo oscuro">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text={firma.divisas} class="!max-w-[26ch] !font-light" /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12", h2]}>Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={photos.archivo} alt="Archivo con filas de cajas de documentos sobre estantes de acero" position="50% 50%" />
+
+  <Section>
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] max-w-[30rem] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)"><Pic src={director.photo} alt="Gustavo Sánchez Soto, director de la firma" class="size-full object-cover" position="45% 20%" /></div>
+      <div data-reveal data-delay="100">
+        <h2 class={h2}>{director.name}</h2>
+        <p class="mt-3 text-lg text-(--c-muted)">{director.role}</p>
+        <p class="mt-8 max-w-[52ch] text-xl leading-snug">{director.bio}</p>
+        <p class="mt-6 max-w-[52ch] text-lg text-(--c-muted)">{firma.cartas}</p>
+        <div class="mt-9"><Button href={`${base}/nosotros`} variant="outline">Conócenos</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[2rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Protege tus derechos y asegura tu tranquilidad" text="Contáctanos para recibir una asesoría legal personalizada y resolver tu caso con expertos." href={wa} label="Escribir por WhatsApp" external />
+</Layout>

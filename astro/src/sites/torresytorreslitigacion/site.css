@@ -1,0 +1,36 @@
+/* Torres & Torres: sistema sobrio de 6px. Solo los retratos son círculos, como los marcos de su sitio actual. */
+[data-site="torresytorreslitigacion"] {
+  --c-radius: 6px;
+  --c-radius-img: 6px;
+  --c-radius-card: 6px;
+  --c-radius-field: 6px;
+  --c-radius-nav: 6px;
+}
+[data-site="torresytorreslitigacion"] .arr,
+[data-site="torresytorreslitigacion"] .acc-plus,
+[data-site="torresytorreslitigacion"] .nav-link,
+[data-site="torresytorreslitigacion"] [data-nav-toggle],
+[data-site="torresytorreslitigacion"] footer ul a[aria-label] { border-radius: 4px; }
+
+/* Héroe split: la foto sangra a la derecha y se funde con el fondo por la izquierda */
+.tt-hero { position: relative; background: var(--c-bg); }
+.tt-hero-grid { display: grid; min-height: 100svh; }
+@media (min-width: 1024px) { .tt-hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); } }
+.tt-hero-copy { display: flex; flex-direction: column; justify-content: flex-end; padding: 9rem 1.25rem 3rem; position: relative; z-index: 1; }
+@media (min-width: 768px) { .tt-hero-copy { padding-inline: 2.5rem; } }
+@media (min-width: 1024px) { .tt-hero-copy { padding: 9rem 3rem 5rem max(2.5rem, calc((100vw - 76rem) / 2)); } }
+.tt-hero-media { position: relative; min-height: 26rem; overflow: hidden; }
+.tt-hero-media::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, var(--c-bg) 0%, transparent 28%), linear-gradient(to right, var(--c-bg) 0%, transparent 34%); }
+@media (min-width: 1024px) { .tt-hero-media { min-height: 0; } .tt-hero-media::after { background: linear-gradient(to right, var(--c-bg) 0%, transparent 36%); } }
+
+/* Paneles que se apilan: el segundo cubre al primero mientras este se encoge y se oscurece */
+.tt-stack { position: relative; }
+.tt-panel { border-radius: 6px; position: sticky; top: 5.25rem; transform-origin: 50% 0; background: var(--c-surface); border: 1px solid var(--c-line); overflow: hidden; transform: scale(var(--k, 1)); will-change: transform; }
+.tt-panel + .tt-panel { margin-top: 3rem; background: #101c31; }
+.tt-panel::after { content: ""; position: absolute; inset: 0; background: var(--c-bg); opacity: var(--shade, 0); pointer-events: none; }
+
+/* Retratos circulares con aro dorado fino */
+.tt-medal { border-radius: 9999px; overflow: hidden; outline: 1px solid color-mix(in oklab, var(--c-accent) 70%, transparent); outline-offset: 6px; aspect-ratio: 1; background: var(--c-surface); }
+
+/* Cita de aviso con filete dorado */
+.tt-note { border-left: 2px solid var(--c-accent); padding-left: 1.5rem; }

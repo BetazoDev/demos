@@ -1,0 +1,35 @@
+---
+import VxLayout from "@/sites/vinlexabogados/VxLayout.astro";
+import VxPageHero from "@/sites/vinlexabogados/VxPageHero.astro";
+import VxButton from "@/sites/vinlexabogados/VxButton.astro";
+import VxCta from "@/sites/vinlexabogados/VxCta.astro";
+import Section from "@/kit/Section.astro";
+import { site, WA } from "@/sites/vinlexabogados/site";
+import { areas } from "@/sites/vinlexabogados/data";
+
+const base = "/vinlexabogados";
+const wa = `https://wa.me/${WA}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<VxLayout title="Servicios legales en la Ciudad de México | VINLEX Abogados" description="Derecho corporativo, civil, fiscal, administrativo, mercantil, familiar y penal: asesoría, consultoría y representación jurídica en la Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <VxPageHero title="Servicios" lede="Servicios de asesoría, consultoría y representación jurídica en diversas áreas del derecho." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-16 sm:gap-20">
+      {
+        areas.map((a) => (
+          <article id={a.key} data-reveal class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+            <div>
+              <span class="rule mb-6"></span>
+              <h2 transition:name={a.page ? `area-${a.key}` : undefined} class="text-[clamp(1.8rem,2.9vw,2.6rem)] leading-[1.1]">{a.title}</h2>
+            </div>
+            <div>
+              <p class="max-w-[52ch] text-xl leading-relaxed text-(--c-muted)">{a.lead}</p>
+              {a.page && <div class="mt-7"><VxButton href={`${base}/servicios/${a.key}`} variant="outline">Ver servicio</VxButton></div>}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+  <VxCta title="Le ayudaremos con mucho gusto" href={wa} label="Escribir por WhatsApp" />
+</VxLayout>

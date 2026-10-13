@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/irra/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/irra/site";
+import { areas } from "@/sites/irra/areas";
+
+const base = "/irra";
+---
+
+<Layout site={site} title="Contacto | Irra Ibarra, Roma Norte y Torre Reforma, Ciudad de México" description="Oficinas en Querétaro 226-8, Roma Norte, y en Torre Reforma, Paseo de la Reforma 483, piso 14, Ciudad de México. contacto@irra.com.mx." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos o visítenos en cualquiera de nuestras dos oficinas en la Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

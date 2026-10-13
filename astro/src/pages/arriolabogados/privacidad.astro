@@ -1,0 +1,24 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+
+const base = "/arriolabogados";
+---
+
+<SiteLayout site={site} title="Aviso de privacidad | Arriola Abogados" description="Aviso de privacidad de Arriola Abogados, actualizado el 16 de junio de 2025." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <PageHero title="Aviso de privacidad" lede="Actualizado el 16 de junio de 2025." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Responsable: Lic. Gabriel Ramírez Arriola, persona física con actividad empresarial, conocido comercialmente como ARRIOLABOGADOS, con domicilio en Nueces 198 Altos, Col. Nueva Santa María, Azcapotzalco, C.P. 02800, Ciudad de México.</p>
+        <p>Contacto: <a href="mailto:arriolabogados@gmail.com">arriolabogados@gmail.com</a>, <a href="tel:+525535227769">55 3522 7769</a>.</p>
+        <p>No se recaban datos sensibles y no se transfieren datos a terceros.</p>
+        <p>El documento completo, en PDF, está publicado por el despacho: <a href="https://arriolabogados.com/documentos/aviso-de-privacidad.pdf" target="_blank" rel="noopener">aviso de privacidad de Arriola Abogados</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

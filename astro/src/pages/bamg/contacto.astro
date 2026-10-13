@@ -1,0 +1,32 @@
+---
+import "@/sites/bamg/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/bamg/Composer.astro";
+import Urgent from "@/sites/bamg/Urgent.astro";
+import { site } from "@/sites/bamg/site";
+import { intro, serviceNames } from "@/sites/bamg/data";
+
+const base = "/bamg";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | BAM-G Abogados Migratorios, frente al Monumento a la Revolución"
+  description="Ignacio L. Vallarta 1, 3.er piso, Tabacalera, Ciudad de México. WhatsApp 55 1852 1553 y contacto@bam-g.com. Defensa Urgente 55 3532 9854, activos las 24 horas."
+  nav={{ variant: "pill", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede={intro.about2} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={serviceNames} />
+      </div>
+    </div>
+  </Section>
+  <Urgent />
+</SiteLayout>

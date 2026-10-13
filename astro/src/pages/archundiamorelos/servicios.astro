@@ -1,0 +1,46 @@
+---
+import Layout from "@/sites/archundiamorelos/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/archundiamorelos/site";
+import { materias, photos, waLink } from "@/sites/archundiamorelos/data";
+
+const base = "/archundiamorelos";
+const wa = waLink(site.whatsapp.intro + ".");
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Asesoría, consultoría, orientación y representación jurídica y legal",
+    description: "Derecho penal, civil, mercantil, administrativo fiscal, constitucional y amparo.",
+    provider: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href },
+    areaServed: { "@type": "City", name: "Ciudad de México" },
+  },
+];
+---
+
+<Layout site={site} title="Servicios | Jesús Archundia Morelos Abogados, derecho penal, civil, mercantil y amparo" description="Asesoría, consultoría, orientación y representación jurídica y legal en derecho penal, civil, mercantil, administrativo fiscal, constitucional y amparo." nav={{ variant: "pill", tone: "light", logoHeight: 44 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} schema={schema} footer={{ variant: "dark" }}>
+  <PageHero title="Servicios" lede="Asesoría, consultoría, orientación y representación jurídica y legal." />
+  <Section size="sm" class="pt-6">
+    <div class="wrap grid items-start gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] max-h-[40rem] overflow-hidden"><Pic src={photos.escritorio} alt="Cuaderno de piel cerrado, pluma y un vaso de agua sobre una mesa de madera junto a la ventana" position="38% 50%" class="size-full object-cover" /></div>
+      <div>
+        <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-bold leading-tight tracking-[-0.03em]">Materias</h2>
+        <ul data-stagger data-gap="80" class="grid">
+          {materias.map((m) => (
+            <li>
+              <a href={`${base}/contacto?area=${encodeURIComponent(m)}`} class="group flex items-center justify-between gap-6 border-b border-(--c-line) py-6 first:border-t">
+                <span class="text-[clamp(1.4rem,2.6vw,2.2rem)] font-semibold leading-tight tracking-[-0.03em] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-2">{m}</span>
+                <span class="grid size-11 shrink-0 place-items-center border border-current/25 transition-[background-color,border-color] duration-300 group-hover:border-transparent group-hover:bg-(--c-accent)"><Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</Layout>

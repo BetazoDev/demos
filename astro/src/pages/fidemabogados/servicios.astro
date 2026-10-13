@@ -1,0 +1,70 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/fidemabogados/site";
+import { tipos, gastos, waLink } from "@/sites/fidemabogados/data";
+
+const base = "/fidemabogados";
+const wa = waLink(site.whatsapp.intro + ".");
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Litigio especializado en materia de daños",
+    description: "Derecho de Daños: daño moral y responsabilidad civil por hechos ilícitos, derivados de incumplimiento de contratos y por hechos extracontractuales.",
+    provider: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href },
+    areaServed: { "@type": "City", name: "Ciudad de México" },
+  },
+];
+---
+
+<SiteLayout site={site} title="Litigio especializado en materia de daños | Fidem Abogados" description="Daño moral, mala práctica profesional, daños por entidades del gobierno, productos y cosas peligrosas, privacidad, propiedad intelectual y más. Despacho de Derecho de Daños en la Roma Norte, CDMX." nav={{ variant: "pill", tone: "light", logoHeight: 40 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} schema={schema} footer={{ variant: "dark" }}>
+  <PageHero title="Litigio especializado en materia de daños" lede="Somos un despacho especializado en Derecho de Daños. Defendemos a nuestros clientes frente a empresas de transportes, instituciones de gobierno y particulares." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight tracking-[-0.02em] lg:sticky lg:top-32 lg:self-start">Tipos de daño</h2>
+      <div data-reveal data-delay="100" class="divide-y divide-current/15 border-y border-current/15">
+        {
+          tipos.map((t) => (
+            <details class="acc group" id={t.key}>
+              <summary class="flex items-center justify-between gap-6 py-6 text-left text-[clamp(1.1rem,2vw,1.4rem)] font-medium tracking-[-0.01em]">
+                {t.title}
+                <span class="acc-plus grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+                </span>
+              </summary>
+              <div class="acc-body"><div><p class="max-w-[62ch] pb-7 text-[17px] text-(--c-muted)">{t.text}</p></div></div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid items-end gap-10 lg:grid-cols-[1.2fr_auto] lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(1.8rem,3.4vw,2.8rem)] font-medium leading-tight tracking-[-0.025em]">Gastos del juicio</h2>
+        <p class="mt-5 max-w-[58ch] text-lg leading-relaxed text-(--c-muted)">{gastos} No deje que una limitación económica le impida ejercer su derecho a ser indemnizado de forma justa e integral.</p>
+      </div>
+      <div data-reveal data-delay="100"><Button href={wa} size="lg" external>Escribir por WhatsApp</Button></div>
+    </div>
+  </Section>
+  <CtaBand title="Agende su cita" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>
+
+<script>
+  // Abre el tipo de daño al que apunta el enlace (#clave) desde la home o la URL.
+  const openFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id ? document.getElementById(id) : null;
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      el.scrollIntoView({ block: "center" });
+    }
+  };
+  document.addEventListener("astro:page-load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+</script>

@@ -1,0 +1,58 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+import { publicaciones, videos } from "@/sites/arriolabogados/data";
+
+const base = "/arriolabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Publicaciones y videos | Arriola Abogados, propiedad intelectual en CDMX" description="Columnas enlazadas por Arriola Abogados y videos sobre propiedad intelectual y marcas del canal del despacho." nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "Publicaciones", href: `${base}/publicaciones` }]}>
+  <PageHero title="Publicaciones y videos" lede="Columnas que el despacho enlaza desde su sitio y videos de su canal." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight tracking-[-0.02em]">Videos</h2>
+      <ul data-stagger data-gap="90" class="grid gap-4 sm:grid-cols-2">
+        {videos.map((v) => (
+          <li>
+            <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener" class="group relative isolate flex aspect-video items-end overflow-hidden rounded-(--c-radius-img) bg-(--c-dark) p-6 text-white">
+              <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt="" loading="lazy" class="absolute inset-0 -z-10 size-full scale-[1.18] object-cover" />
+              <span class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(20_16_14/0.85),rgb(20_16_14/0.05)_65%)]"></span>
+              <span class="flex w-full items-end justify-between gap-4">
+                <span class="text-xl font-medium leading-tight sm:text-2xl">{v.title}</span>
+                <span class="arr grid size-12 shrink-0 place-items-center rounded-full bg-(--c-brand) text-(--c-on-brand)"><Icon name="play" weight="fill" class="size-4" /></span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight tracking-[-0.02em]">Columnas</h2>
+      <ul data-stagger data-gap="40" class="grid gap-x-12 md:grid-cols-2">
+        {publicaciones.map((p) => (
+          <li class="border-t border-(--c-line)">
+            <a href={p.href} target="_blank" rel="noopener" class="group flex items-start justify-between gap-6 py-6">
+              <span>
+                <span class="block text-lg font-medium leading-snug">{p.title}</span>
+                <span class="mt-1 block text-[15px] text-(--c-muted)">{p.source}</span>
+              </span>
+              <Icon name="arrow-up-right" weight="bold" class="mt-1 size-5 shrink-0 opacity-50 transition-transform duration-300 ease-(--ease-out) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

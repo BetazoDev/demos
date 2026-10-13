@@ -1,0 +1,44 @@
+---
+// Héroe propio: titular arriba y, al pie de la primera pantalla, los cuatro integrantes del despacho en fila (fotos propias)
+// que suben escalonados con barrido. La fila queda cortada por el borde inferior de la sección.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Person { name: string; photo: Img; alt: string; pos?: string }
+interface Props { title: string; lede?: string; people: Person[] }
+const { title, lede, people } = Astro.props;
+const offsets = ["0rem", "2.6rem", "0.9rem", "3.4rem"];
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap pt-32 sm:pt-36">
+    <h1 data-hero="blur" class="max-w-[19ch] text-[clamp(2.4rem,5.2vw,5.2rem)] leading-[1.03]">{title}</h1>
+    <div class="mt-7 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+      {lede && <p data-hero style="--i:1" class="max-w-[42ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+  <div class="wrap mt-auto pt-12 lg:pt-8">
+    <ul class="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      {
+        people.map((p, i) => (
+          <li class="lineup-item" style={`--off:${offsets[i % offsets.length]}`}>
+            <div data-hero-media style={`--d:${300 + i * 140}ms`} class="aspect-[3/4] overflow-hidden rounded-(--c-radius-img,4px) bg-(--c-surface)">
+              <Pic src={p.photo} alt={p.alt} priority={i < 2} position={p.pos} class="size-full object-cover" />
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  @media (min-width: 1024px) {
+    .lineup-item { margin-top: var(--off); margin-bottom: calc(var(--off) * -1 - 1.5rem); }
+  }
+  @media (max-width: 1023px) {
+    .lineup-item:nth-child(even) { margin-top: 1.4rem; }
+  }
+</style>

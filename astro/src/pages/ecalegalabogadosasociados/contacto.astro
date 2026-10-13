@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/ecalegalabogadosasociados/site";
+import { areas } from "@/sites/ecalegalabogadosasociados/data";
+
+const base = "/ecalegalabogadosasociados";
+---
+
+<SiteLayout site={site} title="Contacto | ECA Legal Abogados & Asociados, Plaza Buenavista" description="Av. Plaza Buenavista 2, colonia Buenavista, Ciudad de México. WhatsApp y teléfono 55 6323 8387. Abierto las 24 horas." nav={{ variant: "bar", tone: "light", logoHeight: 64 }} footer={{ variant: "dark", blurb: "Una injusticia a uno solo es una amenaza para todos." }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la Plaza Buenavista." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

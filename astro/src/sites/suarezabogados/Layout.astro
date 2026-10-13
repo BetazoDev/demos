@@ -1,0 +1,28 @@
+---
+// Envuelve el layout del kit: nav flotante oscura (el logo del despacho es dorado para fondo oscuro) y detalles dorados de los paneles.
+import SiteLayout from "@/kit/SiteLayout.astro";
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout {...rest} nav={nav ?? { variant: "pill", tone: "dark", logoHeight: 40 }} footer={footer ?? { variant: "dark", blurb: "Abogados en pensiones y derecho laboral." }}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="suarezabogados"] { --gold: #CDB06A; }
+  html[data-site="suarezabogados"] .panel { position: relative; }
+  html[data-site="suarezabogados"] .panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--c-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.9s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 110ms + 350ms);
+  }
+  html[data-site="suarezabogados"] .panel-dark::before { background: var(--gold); }
+  html[data-site="suarezabogados"] [data-stagger].is-in > .panel::before { transform: scaleX(1); }
+  @media (prefers-reduced-motion: reduce) { html[data-site="suarezabogados"] .panel::before { transition: none; transform: scaleX(1); } }
+</style>

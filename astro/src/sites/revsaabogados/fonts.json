@@ -1,0 +1,4 @@
+[
+  { "name": "Questrial", "cssVariable": "--f-revsaabogados-display", "weights": [400], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Hanken Grotesk", "cssVariable": "--f-revsaabogados-body", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/riosabogados/site";
+import { areas } from "@/sites/riosabogados/data";
+
+const base = "/riosabogados";
+---
+
+<SiteLayout site={site} title="Contacto | R1OS Abogados, Halley 21, colonia Anzures, CDMX" description="R1OS Abogados: Halley No. 21, colonia Anzures, Miguel Hidalgo, Ciudad de México. Teléfonos 55 5280 2789 y 55 5280 2794, correo info@riosabogados.com." nav={{ variant: "pill", tone: "light", logoHeight: 44 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos, llámenos o visítenos en la colonia Anzures." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.75rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

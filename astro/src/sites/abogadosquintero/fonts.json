@@ -1,0 +1,4 @@
+[
+  { "name": "Marcellus", "cssVariable": "--f-abogadosquintero-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Nunito Sans", "cssVariable": "--f-abogadosquintero-body", "weights": [400, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

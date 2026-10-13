@@ -1,0 +1,21 @@
+---
+import Layout from "@/sites/abogadosemprendedores/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/abogadosemprendedores/site";
+
+const base = "/abogadosemprendedores";
+---
+
+<Layout site={site} title="Aviso de privacidad | Abogados para Emprendedores MX" description="Aviso de privacidad de Abogados para Emprendedores MX." breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>ABOGADOS PARA EMPRENDEDORES MX te informa que la encargada y responsable del uso y protección de tus datos personales es la C. María Elena Cortés Zárate (domicilio Av. Insurgentes Sur 716, piso 8, Col. Del Valle). Incluye finalidades necesarias y no necesarias, datos recabados, transferencias, cookies y medios de contacto.</p>
+        <p>Consulta el aviso completo en <a href="http://www.abogadosparaemprendedoresmx.com/nuestro-aviso-de-privacidad/" target="_blank" rel="noopener">el sitio del despacho</a> y sus <a href="https://www.abogadosparaemprendedoresmx.com/terminos-y-condiciones/" target="_blank" rel="noopener">términos y condiciones</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</Layout>

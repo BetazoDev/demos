@@ -1,0 +1,27 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/scyaa/site";
+import { areas, administrativo, waLink } from "@/sites/scyaa/data";
+
+const base = "/scyaa";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<SiteLayout site={site} title="Servicios legales para empresas | Salcedo Caballero y Abogados Asociados" description="Corporativo, laboral, migratorio, contratos, litigio, inmobiliario, propiedad intelectual y recuperación de cartera para empresas, en la Ciudad de México." nav={{ variant: "pill", tone: "light", logoHeight: 30 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} footer={{ variant: "light", blurb: "Legal & Business Advisor" }}>
+  <PageHero title="Servicios" lede="Servicios legales para empresas y desarrollo de negocios." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <AreasIndex areas={rows} />
+      <div data-reveal class="mt-12 grid gap-3 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+        <h2 class="text-[clamp(1.5rem,2.6vw,2.1rem)] font-medium leading-tight tracking-[-0.02em]">Administrativo</h2>
+        <p class="max-w-[58ch] text-lg text-(--c-muted)">{administrativo}</p>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

@@ -1,0 +1,25 @@
+---
+// Tira de los sectores en los que asesora la firma en tipografía enorme (una sola marquesina por página). Los sectores también van
+// como lista oculta visualmente para lectores de pantalla; la tira en sí es decorativa.
+interface Props { items: string[]; speed?: number }
+const { items, speed = 60 } = Astro.props;
+---
+
+<div class="relative overflow-hidden border-y border-(--c-line) py-8 sm:py-12">
+  <ul class="sr-only">{items.map((i) => <li>{i}</li>)}</ul>
+  <div class="overflow-hidden" aria-hidden="true">
+    <div class="marquee" style={`--marquee-s:${speed}s`}>
+      {[0, 1].map(() => (
+        <ul class="flex shrink-0 items-center">
+          {items.map((it, i) => (
+            <li class:list={["whitespace-nowrap px-6 font-(family-name:--f-display) text-[clamp(2.6rem,7.4vw,6.6rem)] font-bold leading-none tracking-[-0.045em] sm:px-10", i % 2 === 1 ? "tira-out" : ""]}>{it}</li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .tira-out { color: transparent; -webkit-text-stroke: 1.5px var(--c-ink); }
+</style>

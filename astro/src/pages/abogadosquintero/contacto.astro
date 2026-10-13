@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/abogadosquintero/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/abogadosquintero/site";
+import { areas, texto } from "@/sites/abogadosquintero/data";
+
+const base = "/abogadosquintero";
+---
+
+<Layout footer={{ variant: "light", blurb: "Expertos en derecho familiar." }} title="Contacto | Abogados Quintero, derecho familiar en Av. de la República 9, CDMX" description="Avenida de la República 9, colonia Tabacalera, Cuauhtémoc, Ciudad de México. WhatsApp 55 3069 5902 y correo info@abogadosquintero.com." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede={texto.cotizacion} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,16px) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

@@ -1,0 +1,30 @@
+---
+// Envoltorio de SiteLayout con los valores propios de este sitio: sistema de ángulos rectos (0px), nav de barra y tipografía display.
+import SiteLayout from "@/kit/SiteLayout.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number };
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string };
+}
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout site={site} nav={{ variant: "bar", tone: "light", logoHeight: 62, ...nav }} footer={{ variant: "dark", blurb: "Certeza, Confianza y Atención Personalizada.", ...footer }} {...rest}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="lopezvaldezabogados"] {
+    --c-radius-nav: 0px;
+    --c-radius-img: 0px;
+    --c-radius-card: 0px;
+    --c-radius-field: 0px;
+  }
+  [data-site="lopezvaldezabogados"] :is(h1, h2, h3) { font-weight: 500; letter-spacing: -0.02em; }
+  [data-site="lopezvaldezabogados"] [data-statement] { font-weight: 400; letter-spacing: -0.02em; }
+  [data-site="lopezvaldezabogados"] main :is(.opacity-60, .opacity-65, .opacity-70) { opacity: 0.82; }
+</style>

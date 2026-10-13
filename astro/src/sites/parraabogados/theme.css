@@ -1,0 +1,7 @@
+/* Formas de 6px y detalles propios de Parra & Abogados. Todo bajo [data-site] para no filtrarse a otros sitios. */
+[data-site="parraabogados"] {
+  --c-radius-nav: 6px;
+  --c-radius-img: 6px;
+  --c-radius-card: 6px;
+  --c-radius-field: 6px;
+}

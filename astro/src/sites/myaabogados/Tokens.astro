@@ -1,0 +1,13 @@
+---
+// Ajustes globales del sitio: radios (sistema pastilla + imágenes suaves) y tracking de Gloock (la serif pide interletraje neutro).
+---
+
+<style is:global>
+  html[data-site="myaabogados"] {
+    --c-radius-img: 1.75rem;
+    --c-radius-card: 1.75rem;
+    --c-radius-field: 1rem;
+  }
+  html[data-site="myaabogados"] [class*="tracking-[-"] { letter-spacing: 0.004em; word-spacing: 0.05em; }
+  html[data-site="myaabogados"] ::placeholder { color: var(--c-muted); opacity: 1; }
+</style>

@@ -1,0 +1,25 @@
+---
+// Navegación entre etapas del procedimiento: la etapa actual se marca con el filete dorado; el resto enlaza.
+interface Item { key: string; short: string; href: string }
+interface Props { items: Item[]; current: string }
+const { items, current } = Astro.props;
+---
+
+<nav aria-label="Etapas del procedimiento penal">
+  <ul data-stagger data-gap="70" class="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+    {
+      items.map((it) => (
+        <li class:list={["relative border-t pt-5", it.key === current ? "border-(--c-accent)" : "border-(--c-line)"]}>
+          {it.key === current ? (
+            <span aria-current="page" class="text-[clamp(1.15rem,1.9vw,1.55rem)] leading-tight text-(--c-accent)" style="font-family:var(--f-display)">{it.short}</span>
+          ) : (
+            <a href={it.href} class="group inline-flex items-center gap-3 text-[clamp(1.15rem,1.9vw,1.55rem)] leading-tight transition-colors duration-200 hover:text-(--c-accent)" style="font-family:var(--f-display)">
+              {it.short}
+              <svg class="size-4 shrink-0 opacity-50 transition-transform duration-300 ease-(--ease-out) group-hover:translate-x-1" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>

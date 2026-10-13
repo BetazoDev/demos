@@ -1,0 +1,51 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/icabogados/theme.css";
+import { site } from "@/sites/icabogados/site";
+import { article } from "@/sites/icabogados/article";
+
+export function getStaticPaths() {
+  return [{ params: { slug: article.key } }];
+}
+const base = "/icabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const fmt = new Intl.DateTimeFormat("es-MX", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: article.title,
+  datePublished: article.date,
+  author: { "@type": "Person", name: article.author },
+  publisher: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href },
+}];
+---
+
+<SiteLayout site={site} title="¿Cuándo consultar con un abogado? | IC Abogados" description="Cuándo, por qué, dónde y cómo consultar con un abogado en México: prescripción, amparo contra leyes, información que conviene reunir y conferencia telefónica gratuita de 30 minutos." nav={{ variant: "bar", tone: "dark", logoHeight: 52 }} breadcrumbs={[{ name: "Artículos", href: `${base}/articulos` }, { name: article.title, href: `${base}/articulos/${article.key}` }]} schema={schema} footer={{ variant: "dark" }}>
+  <PageHero title={article.title}>
+    <p data-hero style="--i:1" class="mt-6 text-lg opacity-70">{article.author}, <time datetime={article.date}>{fmt.format(new Date(article.date))}</time></p>
+  </PageHero>
+  <Section size="sm" class="pt-4">
+    <article class="wrap">
+      <div class="mx-auto grid max-w-[66ch] gap-14 text-[18px] leading-[1.75]">
+        {article.sections.map((s) => (
+          <section data-reveal>
+            {s.title && <h2 class="mb-5 text-[clamp(1.6rem,2.8vw,2.2rem)] font-semibold leading-tight">{s.title}</h2>}
+            <div class="grid gap-5 text-(--c-muted)">
+              {s.paragraphs.map((p) => <p>{p}</p>)}
+              {s.list && (
+                <ul class="grid gap-3 pl-5 [list-style:disc] marker:text-(--c-accent)">
+                  {s.list.map((i) => <li class="pl-1">{i}</li>)}
+                </ul>
+              )}
+              {s.after?.map((p) => <p>{p}</p>)}
+            </div>
+          </section>
+        ))}
+      </div>
+    </article>
+  </Section>
+  <CtaBand title="Conferencia telefónica gratuita de 30 minutos" text="Cuéntenos su pretensión, el problema que se dio y el estado actual." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,21 @@
+---
+// Envuelve SiteLayout: nav de barra sobre fondo oscuro y un sistema de radios único (todo recto, 0px).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import type { SiteConfig } from "@/kit/types";
+interface Props {
+  site: SiteConfig;
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+}
+const props = Astro.props;
+---
+
+<SiteLayout {...props} nav={{ variant: "bar", tone: "dark", logoHeight: 30 }} footer={{ variant: "dark", blurb: "Más de 40 años brindando asesoría legal de excelencia" }}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  :root { --c-radius-nav: 0px; --c-radius-img: 0px; --c-radius-card: 0px; --c-radius-field: 0px; }
+</style>

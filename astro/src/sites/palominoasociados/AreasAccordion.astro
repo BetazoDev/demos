@@ -1,0 +1,35 @@
+---
+// Índice de servicios en acordeón nativo (<details>): cada materia abre su lista y enlaza a su página. El título morfa a la página.
+import Icon from "@/kit/Icon.astro";
+import type { Area } from "./data";
+interface Props { areas: Area[]; base: string; open?: string }
+const { areas, base, open } = Astro.props;
+---
+
+<div class="divide-y divide-(--c-line) border-y border-(--c-line)">
+  {
+    areas.map((a) => (
+      <details class="acc group" open={a.key === open}>
+        <summary class="flex items-center gap-5 py-6 text-left sm:gap-7">
+          <Icon name={a.icon} class="size-7 shrink-0 text-(--c-accent) sm:size-8" />
+          <h3 transition:name={`area-${a.key}`} class="flex-1 text-[clamp(1.35rem,2.4vw,2rem)] font-medium leading-tight tracking-[-0.015em]">{a.title}</h3>
+          <span class="acc-plus grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+          </span>
+        </summary>
+        <div class="acc-body">
+          <div>
+            <div class="pb-8 sm:pl-[3.75rem]">
+              <ul class="grid gap-x-8 gap-y-2 text-[17px] text-(--c-muted) sm:grid-cols-2">
+                {a.items.map((i) => <li class="flex gap-2.5"><Icon name="check" weight="bold" class="mt-1.5 size-3.5 shrink-0 text-(--c-accent)" /><span>{i}</span></li>)}
+              </ul>
+              <a href={`${base}/servicios/${a.key}`} class="link-u mt-7 inline-flex! items-center gap-2 whitespace-nowrap font-medium text-(--c-accent)">
+                Ver servicio <Icon name="arrow-up-right" weight="bold" class="size-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </details>
+    ))
+  }
+</div>

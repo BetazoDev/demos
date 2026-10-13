@@ -1,0 +1,19 @@
+---
+// Piel de REVSA: sistema de radios en pastilla (imágenes y tarjetas con radio grande, campos de 1.1rem),
+// titulares en Questrial (un solo peso, como el trazo fino de su logo) y oro de marca solo en relleno.
+---
+
+<style is:global>
+  [data-site="revsaabogados"] {
+    --c-radius-img: 1.75rem;
+    --c-radius-card: 1.5rem;
+    --c-radius-field: 1.1rem;
+  }
+  [data-site="revsaabogados"] :is(h1, h2, h3, h4) { font-weight: 400; font-synthesis: none; }
+  [data-site="revsaabogados"] .rv-row-title { transition: transform 450ms var(--ease-out); }
+  [data-site="revsaabogados"] .rv-card { transition: transform 320ms var(--ease-out), background-color 250ms ease; }
+  @media (hover: hover) and (pointer: fine) {
+    [data-site="revsaabogados"] .rv-card:hover { transform: translateY(-4px); }
+  }
+  [data-site="revsaabogados"] [id] { scroll-margin-top: 7rem; }
+</style>

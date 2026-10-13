@@ -1,0 +1,90 @@
+---
+// Héroe de la home. Tres composiciones:
+//  photo : foto a sangre con gradiente, titular abajo a la izquierda (nav tone="dark")
+//  split : texto a la izquierda, foto vertical a la derecha con barrido (nav tone="light")
+//  type  : campo de color de marca/oscuro con titular tipográfico enorme y foto opcional (nav tone="dark")
+// Slot "actions": botones (máx. 2, una sola intención). Slot por defecto: línea de prueba opcional bajo los botones (evitar).
+import type { Img } from "./types";
+import Pic from "./Pic.astro";
+
+interface Props {
+  layout?: "photo" | "split" | "type";
+  title: string;
+  lede?: string;
+  image?: Img;
+  imageAlt?: string;
+  /** object-position de la foto, p. ej. "50% 30%" */
+  position?: string;
+  /** Solo layout="type": "dark" | "brand" */
+  tone?: "dark" | "brand";
+  /** Transición compartida del titular */
+  transitionName?: string;
+}
+const { layout = "photo", title, lede, image, imageAlt = "", position, tone = "dark", transitionName } = Astro.props;
+---
+
+{
+  layout === "photo" && (
+    <section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+      {image && (
+        <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+          <div class="size-full" data-parallax="70">
+            <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+          </div>
+          <div class="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_92%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_55%,transparent)_38%,color-mix(in_oklab,var(--c-dark)_12%,transparent)_100%)]" />
+        </div>
+      )}
+      <div class="wrap pb-14 pt-40 sm:pb-20">
+        <h1 data-hero="blur" transition:name={transitionName} class="max-w-[17ch] text-[clamp(2.6rem,6.8vw,6.4rem)] font-medium leading-[0.98] tracking-[-0.035em]">{title}</h1>
+        {lede && <p data-hero style="--i:1" class="mt-6 max-w-[46ch] text-lg opacity-85 sm:text-xl">{lede}</p>}
+        <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+          <slot name="actions" />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  layout === "split" && (
+    <section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+      <div class="wrap grid min-h-[100svh] items-center gap-10 pb-16 pt-36 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-12 lg:pt-32">
+        <div>
+          <h1 data-hero="blur" transition:name={transitionName} class="max-w-[16ch] text-[clamp(2.5rem,5.6vw,5.4rem)] font-medium leading-[1] tracking-[-0.035em]">{title}</h1>
+          {lede && <p data-hero style="--i:1" class="mt-6 max-w-[44ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+          <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+            <slot name="actions" />
+          </div>
+        </div>
+        {image && (
+          <div data-hero-media style="--d:200ms" class="relative aspect-[4/5] max-h-[78svh] w-full overflow-hidden rounded-(--c-radius-img,1.5rem) lg:ml-auto lg:max-w-[34rem]">
+            <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+{
+  layout === "type" && (
+    <section class:list={["relative overflow-hidden", tone === "brand" ? "bg-(--c-brand) text-(--c-on-brand)" : "bg-(--c-dark) text-(--c-on-dark)"]}>
+      <div class="wrap flex min-h-[100svh] flex-col justify-end gap-12 pb-14 pt-40 sm:pb-20">
+        <h1 data-hero="blur" transition:name={transitionName} class="max-w-[14ch] text-[clamp(3rem,9.4vw,9.5rem)] font-medium leading-[0.92] tracking-[-0.045em]">{title}</h1>
+        <div class="grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+          <div>
+            {lede && <p data-hero style="--i:1" class="max-w-[46ch] text-lg opacity-85 sm:text-xl">{lede}</p>}
+            <div data-hero style="--i:2" class="mt-8 flex flex-wrap items-center gap-3">
+              <slot name="actions" />
+            </div>
+          </div>
+          {image && (
+            <div data-hero-media style="--d:350ms" class="hidden aspect-[5/4] w-[min(26rem,32vw)] overflow-hidden rounded-(--c-radius-img,1.25rem) lg:block">
+              <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

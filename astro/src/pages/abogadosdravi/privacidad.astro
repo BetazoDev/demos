@@ -1,0 +1,38 @@
+---
+import Layout from "@/sites/abogadosdravi/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/abogadosdravi/site";
+
+const base = "/abogadosdravi";
+---
+
+<Layout
+  site={site}
+  title="Aviso de privacidad | Abogados DRAVI"
+  description="Aviso de privacidad de datos personales de Corporativo DRAVI S.A. de C.V. y su subsidiaria Abogados DRAVI."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Sirva el presente AVISO DE PRIVACIDAD DE DATOS PERSONALES para efectos de informar a usted, que de conformidad con lo dispuesto en los Artículos 15 y 16 de la Ley Federal de Protección de Datos Personales en Posesión de Particulares, CORPORATIVO DRAVI S.A. DE C.V. y su subsidiaria ABOGADOS DRAVI, hacen de su conocimiento la política de privacidad y manejo de datos personales, en la que en todo momento buscarán que el tratamiento de los mismos sea legítimo, controlado e informado, a efecto de garantizar la privacidad de los mismos.</p>
+        <p>CORPORATIVO DRAVI S.A. DE C.V. tiene su domicilio en Avenida Paseo de la Reforma, número 42, oficina 1-A, Colonia Centro, Alcaldía Cuauhtémoc en la Ciudad de México y será el responsable de sus datos personales. Señalando que no cuenta con más subsidiarias que la señalada, sucursales u otros servicios más los que se señalan en el sitio web www.abogadosdravi.com.mx o se contratan con el personal de la subsidiaria enunciada, quienes son Licenciados en Derecho y en su caso Especialistas para poder ejercer dicha profesión.</p>
+        <p>Toda la información que contenga datos personales proporcionados a CORPORATIVO DRAVI S.A. DE C.V. se utilizará para los siguientes efectos y finalidades:</p>
+        <ul>
+          <li>Proveer los servicios y productos que haya solicitado de CORPORATIVO DRAVI S.A. DE C.V. para identificarle, ubicarle, comunicarle, contactarle, enviarle información y/o documentación legal.</li>
+          <li>Notificarle sobre nuevos servicios o productos de CORPORATIVO DRAVI S.A. DE C.V. y de su subsidiaria, así como comunicarle sobre cambios o modificaciones en los servicios o productos en los mismos.</li>
+        </ul>
+        <p>Toda información que contenga datos personales y que sea recibida por CORPORATIVO DRAVI S.A. DE C.V. en forma escrita, gráfica o electrónica será considerada confidencial y propiedad de su emisor, por tanto su uso será restringido en los términos que se precisan en este AVISO DE PRIVACIDAD.</p>
+        <p>Toda modificación o actualización al presente aviso de privacidad será comunicada a los titulares a través del siguiente sitio web: www.abogadosdravi.com.mx (sección AVISO DE PRIVACIDAD).</p>
+        <p>CORPORATIVO DRAVI S.A. DE C.V. reconoce que toda la información que contenga datos personales y que sea proporcionada a ésta pertenece exclusivamente a la parte emisora de la misma y, como receptora de la misma, se obliga a proteger la información con el mismo grado de seguridad y cuidado que tiene para su propia información de similar importancia y cuyo fin no requiere tener divulgación.</p>
+        <p>La temporalidad del manejo de los datos personales será indefinida a partir de la fecha en que usted los proporcionó al responsable.</p>
+        <p>En caso de que desee ejercer sus derechos de acceso, rectificación, cancelación u oposición, es necesario que envíe su solicitud (ESCRITO LIBRE) de forma expresa en los términos que señalan los Artículos 28 al 35 de la Ley Federal de Protección de Datos Personales de CORPORATIVO DRAVI S.A. DE C.V. en el domicilio de oficinas, ubicadas en Avenida Paseo de la Reforma, número 42, oficina 1-A, Colonia Centro, Alcaldía Cuauhtémoc en la Ciudad de México, o bien, se comunique directamente a los teléfonos (52) 5570392167 o vía correo electrónico a <a href="mailto:dravi_abogados@hotmail.com">dravi_abogados@hotmail.com</a>, confirmando vía telefónica para garantizar su correcta recepción.</p>
+        <p>ATENTAMENTE<br />CORPORATIVO DRAVI, S.A. DE C.V.</p>
+      </Prose>
+    </div>
+  </Section>
+</Layout>

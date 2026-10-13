@@ -1,0 +1,65 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Hero from "@/kit/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/parraabogados/Nav.astro";
+import Panels from "@/sites/parraabogados/Panels.astro";
+import "@/sites/parraabogados/theme.css";
+import { site } from "@/sites/parraabogados/site";
+import { areas, facts, photos } from "@/sites/parraabogados/data";
+
+const base = "/parraabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.04] tracking-[-0.025em]";
+---
+
+<SiteLayout site={site} title="Parra & Abogados | Bufete jurídico integral en Ciudad de México" footer={{ variant: "light", blurb: "Bufete jurídico integral" }}>
+  <Nav slot="nav" site={site} variant="bar" tone="dark" />
+  <Hero layout="type" tone="dark" title="Bufete jurídico integral" lede="Asesoría legal a empresarios y atención a todas las necesidades fiscales de nuestros clientes." image={photos.escritorio} imageAlt="Carpeta azul marino, pluma y lentes sobre un escritorio claro" position="40% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Antes de que algo empiece a ir mal, prevenga problemas legales poniéndose en contacto con nosotros." class="font-normal font-(family-name:--f-display)" /></div>
+  </Section>
+
+  <section id="servicios" aria-label="Servicios"><Panels wa={wa} /></section>
+
+  <ImageBand image={photos.condesa} alt="Edificio art déco con balcones curvos en una calle arbolada de la colonia Condesa, Ciudad de México" position="50% 55%" />
+
+  <Section>
+    <div class="wrap">
+      <dl data-stagger data-gap="90" class="grid gap-x-16 gap-y-14 sm:grid-cols-2">
+        {facts.map((f) => (
+          <div class="border-t border-(--c-ink)/25 pt-6">
+            <dt class="text-[15px] text-(--c-muted)">{f.label}</dt>
+            <dd class="mt-3 max-w-[22ch] font-(family-name:--f-display) text-[clamp(1.9rem,3.4vw,3rem)] leading-[1.08] tracking-[-0.02em]">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

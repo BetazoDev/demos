@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/ilmc/site";
+import { areas } from "@/sites/ilmc/data";
+
+const base = "/ilmc";
+---
+
+<SiteLayout site={site} title="Contacto | ILMC Abogados, derecho migratorio en CDMX, Mazatlán, Cancún y Puebla" description="Oficina principal en Calle Tehuantepec 62, Roma Sur, Ciudad de México, y oficinas en Mazatlán, Cancún y Puebla. WhatsApp 55 1951 9708." nav={{ variant: "bar", tone: "light", logoHeight: 52 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]} footer={{ variant: "dark", blurb: "Expertos en derecho migratorio." }}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en cualquiera de nuestras oficinas." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

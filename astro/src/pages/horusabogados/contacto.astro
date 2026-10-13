@@ -1,0 +1,27 @@
+---
+import SiteLayout from "@/sites/horusabogados/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Icon from "@/kit/Icon.astro";
+import Composer from "@/sites/horusabogados/Composer.astro";
+import { site } from "@/sites/horusabogados/site";
+import { consultas } from "@/sites/horusabogados/data";
+
+const base = "/horusabogados";
+---
+
+<SiteLayout site={site} title="Contacto | HORUS Abogados, Francisco Olaguibel 154-A, Col. Obrera, CDMX" description="Francisco Olaguibel 154-A, Col. Obrera, Cuauhtémoc, Ciudad de México. Teléfono y WhatsApp 55 7138 8796." nav={{ variant: "pill", tone: "light", logoHeight: 46 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Contáctanos vía llamada o WhatsApp: 55 7138 8796." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} />
+        <a href={site.social.facebook!} target="_blank" rel="noopener" class="mt-8 flex gap-4 text-[17px]"><Icon name="facebook-logo" class="mt-1 size-5 shrink-0 opacity-55" /><span class="link-u">Facebook HORUS.Abogados</span></a>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={consultas} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

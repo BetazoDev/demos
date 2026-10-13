@@ -1,0 +1,25 @@
+/* Ajustes propios de Sterna sobre el kit. */
+html[data-site="sternaabogados"] {
+  --c-radius-img: 1.75rem;
+  --c-radius-card: 1.75rem;
+  --c-radius-field: 1.1rem;
+}
+html[data-site="sternaabogados"] :is(h1, h2, h3, [data-statement], [data-count]) { letter-spacing: -0.02em; }
+html[data-site="sternaabogados"] :focus-visible { outline-color: currentColor; }
+/* El botón de la nav conserva el verde azulado de marca en todos los estados. */
+html[data-site="sternaabogados"] [data-nav][data-tone] .nav-cta { background: var(--c-brand); color: var(--c-on-brand); }
+html[data-site="sternaabogados"] [data-nav][data-tone] .nav-cta .arr { background: var(--c-on-brand); color: var(--c-brand); }
+
+/* Héroe: un arco (la puerta hacia España) con dos postigos que se abren al cargar. Solo transform. */
+.arch { border-radius: 50% 50% 2rem 2rem / 34% 34% 2rem 2rem; border: 1px solid var(--c-line); }
+.arch .shutter { position: absolute; top: 0; bottom: 0; width: 50.5%; z-index: 2; background: var(--c-bg); animation: shutter-open 1.6s var(--ease-in-out) 0.55s both; }
+.arch .shutter-l { left: 0; --to: -101%; }
+.arch .shutter-r { right: 0; --to: 101%; }
+@keyframes shutter-open { to { transform: translateX(var(--to)); } }
+@media (prefers-reduced-motion: reduce) { .arch .shutter { display: none; } }
+
+/* Trayectoria del equipo: <details> con apertura animada del kit (details.acc). */
+details.bio > summary { list-style: none; cursor: pointer; }
+details.bio > summary::-webkit-details-marker { display: none; }
+details.bio[open] .bio-plus { rotate: 45deg; }
+.bio-plus { transition: rotate 260ms var(--ease-out); }

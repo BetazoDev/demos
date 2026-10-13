@@ -1,0 +1,6 @@
+/* Sistema de radios del sitio: suave. Botones en pastilla; imágenes, tarjetas y campos con esquinas amplias. */
+[data-site="abogadosmartinez"] {
+  --c-radius-img: 1.75rem;
+  --c-radius-card: 1.75rem;
+  --c-radius-field: 1.25rem;
+}

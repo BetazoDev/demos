@@ -1,0 +1,32 @@
+---
+// Envoltorio de las páginas de VINLEX: nav propia (VxNav, barra) y variables de forma (todo recto, 0px).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import VxNav from "./VxNav.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+}
+const { title, description, breadcrumbs, schema } = Astro.props;
+---
+
+<SiteLayout site={site} title={title} description={description} breadcrumbs={breadcrumbs} schema={schema} nav={false} footer={{ variant: "dark", blurb: "Asesoría, Consultoría, Representación y Defensa." }}>
+  <VxNav slot="nav" site={site} variant="bar" tone="light" logoHeight={58} />
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="vinlexabogados"] {
+    --c-radius-img: 0px;
+    --c-radius-card: 0px;
+    --c-radius-field: 0px;
+    --vx-teal-ink: #2b675e;
+    --vx-olive: #a2a35f;
+  }
+  html[data-site="vinlexabogados"] h1,
+  html[data-site="vinlexabogados"] h2,
+  html[data-site="vinlexabogados"] h3 { font-weight: 400; letter-spacing: -0.018em; }
+  html[data-site="vinlexabogados"] .rule { display: block; width: 3.5rem; height: 2px; background: var(--vx-olive); }
+</style>

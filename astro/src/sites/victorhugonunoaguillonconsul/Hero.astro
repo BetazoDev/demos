@@ -1,0 +1,20 @@
+---
+// Héroe propio: campo azul marino, titular enorme y el monograma del abogado que sube con el scroll.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; mark: Img }
+const { title, lede, mark } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap relative z-10 flex min-h-[100svh] flex-col justify-end pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="max-w-[15ch] text-[clamp(2.7rem,7.2vw,7rem)] font-medium leading-[0.98] tracking-[-0.04em]">{title}</h1>
+    <div class="mt-9 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
+      <p data-hero style="--i:1" class="max-w-[38ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+  </div>
+  <div aria-hidden="true" class="pointer-events-none absolute right-5 top-28 w-40 sm:right-[3vw] sm:top-[10svh] sm:w-[min(28rem,46vw)] lg:top-[12svh]">
+    <div data-hero-media style="--d:300ms" data-parallax="80"><Pic src={mark} alt="" fill={false} class="h-auto w-full opacity-90" /></div>
+  </div>
+</section>

@@ -1,0 +1,71 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/asesorestrategia/Nav.astro";
+import Footer from "@/sites/asesorestrategia/Footer.astro";
+import Filete from "@/sites/asesorestrategia/Filete.astro";
+import { site } from "@/sites/asesorestrategia/site";
+import { photos, socio, principios } from "@/sites/asesorestrategia/data";
+
+const base = "/asesorestrategia";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.8rem,3.4vw,3rem)] leading-[1.06] tracking-[-0.015em]";
+---
+
+<SiteLayout site={site} title="La firma | Strategia Asesores, consultoría patrimonial en la Roma Sur" description="Firma boutique de asesoría legal y patrimonial en la Ciudad de México. Atención directa del socio fundador, el Lic. José Ruiz, abogado y economista." nav={false} footer={false} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="La firma" lede="Firma boutique de asesoría legal y patrimonial en la Ciudad de México. Atención directa por el socio fundador y confidencialidad absoluta." />
+
+  <Section tone="surface" size="sm" class="pt-10">
+    <div class="wrap">
+      <Filete class="mb-14" />
+      <Statement class="font-(family-name:--f-display) font-normal tracking-[-0.01em]" text="Estrategia jurídica y económica para personas con patrimonio." />
+      <div class="mt-14 grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-24">
+        <h2 data-reveal class="text-[clamp(1.6rem,2.8vw,2.4rem)] leading-[1.1] tracking-[-0.01em]">¿Qué distingue a una firma boutique de asesoría legal?</h2>
+        <div data-reveal data-delay="100" class="grid gap-5 text-lg text-(--c-muted)">
+          <p>Una firma boutique se caracteriza por especialización profunda, atención personalizada y análisis estratégico de cada caso.</p>
+          <p>A diferencia de los despachos tradicionales, aquí cada asunto es atendido directamente por el titular, integrando criterios legales y económicos para proteger el patrimonio y anticipar riesgos.</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="mx-auto w-full max-w-[28rem] overflow-hidden">
+        <div class="aspect-[5/7] w-full"><Pic src={photos.retrato} alt="Lic. José Ruiz, socio director de Strategia Asesores" class="size-full object-cover" /></div>
+      </div>
+      <div data-reveal>
+        <p class="text-(--c-muted)">Socio director</p>
+        <h2 class={`mt-2 ${h2}`}>{socio.name}</h2>
+        <p class="mt-2 text-lg text-(--c-accent)">Abogado y economista</p>
+        <p class="mt-1 text-(--c-muted)">{socio.studies}</p>
+        <div class="mt-8 grid max-w-[56ch] gap-5 text-lg">
+          {socio.paragraphs.map((t) => <p>{t}</p>)}
+        </div>
+        <blockquote class="mt-10 max-w-[40ch] border-l-2 border-(--c-accent) pl-6 font-(family-name:--f-display) text-[clamp(1.3rem,2vw,1.7rem)] leading-snug text-(--c-brand)">“{socio.quote}”</blockquote>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Principios</h2>
+      <ul data-stagger data-gap="90" class="grid gap-10 md:grid-cols-[1fr_1fr_1fr] md:gap-12">
+        {principios.map((p) => (
+          <li>
+            <h3 class="mb-4 text-[clamp(1.35rem,2vw,1.7rem)] leading-tight">{p.title}</h3>
+            <p class="text-(--c-muted)">{p.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su legado" text="La tranquilidad patrimonial comienza con una conversación honesta." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Firma legal y consultoría patrimonial" />
+</SiteLayout>

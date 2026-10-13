@@ -1,0 +1,57 @@
+---
+import "@/sites/calizsosaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/calizsosaabogados/Nav.astro";
+import Footer from "@/sites/calizsosaabogados/Footer.astro";
+import { site, waLink } from "@/sites/calizsosaabogados/site";
+import { areas } from "@/sites/calizsosaabogados/data";
+
+const base = "/calizsosaabogados";
+const skin = {
+  inmobiliario: { box: "bg-(--c-brand) text-(--c-on-brand)", lead: "text-white/75", icon: "text-(--c-accent)" },
+  familiar: { box: "bg-(--c-accent) text-(--c-on-accent)", lead: "text-(--c-on-accent)/80", icon: "" },
+  corresponsalia: { box: "border border-(--c-line) bg-(--c-surface) text-(--c-ink)", lead: "text-(--c-muted)", icon: "text-(--c-ink)" },
+} as const;
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios inmobiliarios, familiares y corresponsalía | Caliz & Sosa"
+  description="Juicios de arrendamiento, reivindicatorio, prescripción y sucesorios; divorcio, pensión alimenticia, guarda y custodia; corresponsalía jurídica en la CDMX."
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="light" />
+  <PageHero title="Servicios" lede="Derecho inmobiliario, derecho familiar y corresponsalía jurídica." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-4">
+      {
+        areas.map((a) => (
+          <section id={a.key} class={`scroll-mt-28 rounded-(--c-radius-card) p-8 sm:p-12 lg:p-16 ${skin[a.key].box}`} data-reveal>
+            <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+              <div>
+                <h2 class="max-w-[14ch] text-[clamp(1.9rem,3.6vw,3.2rem)] font-medium leading-[1.05] tracking-[-0.02em]">{a.title}</h2>
+                <p class={`mt-5 max-w-[34ch] text-lg ${skin[a.key].lead}`}>{a.lead}</p>
+              </div>
+              <ul class="grid gap-x-10 gap-y-4 text-[17px] sm:grid-cols-2">
+                {a.items.map((i) => (
+                  <li class="flex gap-3">
+                    <Icon name="check" weight="bold" class={`mt-1.5 size-4 shrink-0 ${skin[a.key].icon}`} />
+                    <span>{i}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" text="Asesoría jurídica gratuita." href={waLink()} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones legales confiables en derecho inmobiliario y derecho de familia." />
+</SiteLayout>

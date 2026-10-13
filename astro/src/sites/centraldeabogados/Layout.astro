@@ -1,0 +1,20 @@
+---
+// Envuelve el layout del kit con la nav y el pie propios (el despacho no tiene logo: el nombre se compone en texto).
+import { Font } from "astro:assets";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import "./site.css";
+const { nav = {}, footer = {}, ...rest } = Astro.props;
+const site = rest.site;
+---
+
+<SiteLayout {...rest} nav={false} footer={false}>
+  <Fragment slot="nav"><Font cssVariable="--f-centraldeabogados-mark" /><Nav site={site} {...(nav || {})} /></Fragment>
+  <slot />
+  <Footer slot="footer" site={site} {...(footer || {})} />
+</SiteLayout>
+
+<script>
+  import "./motion";
+</script>

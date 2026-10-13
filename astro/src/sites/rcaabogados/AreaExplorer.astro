@@ -1,0 +1,77 @@
+---
+// Índice de las 12 áreas: lista a la izquierda y, a la derecha, el detalle del área señalada (texto y servicios reales).
+// En escritorio el detalle cambia al pasar el cursor o enfocar; cada fila es un enlace a la página del área.
+// En pantallas táctiles/estrechas queda solo la lista de enlaces. Sin JavaScript se ve el primer detalle.
+import Icon from "@/kit/Icon.astro";
+interface Area { key: string; title: string; lead: string; services: string[]; href: string }
+interface Props { areas: Area[]; preview?: number }
+const { areas, preview = 6 } = Astro.props;
+---
+
+<div data-explorer class="grid gap-x-16 lg:grid-cols-[0.9fr_1.1fr]">
+  <ul class="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-1" data-stagger data-gap="40">
+    {
+      areas.map((a, i) => (
+        <li>
+          <a href={a.href} data-item={a.key} data-area={a.title} {...(i === 0 ? { "data-active": "" } : {})} class="rca-item group relative flex items-center justify-between gap-4 py-3.5 pl-0 lg:py-3">
+            <span transition:name={`area-${a.key}`} class="rca-name text-[clamp(1.5rem,2.6vw,2.4rem)] font-medium leading-[1.1] tracking-[-0.025em]">{a.title}</span>
+            <Icon name="arrow-up-right" weight="bold" class="rca-arrow size-5 shrink-0" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="relative hidden lg:block">
+    <div class="sticky top-32">
+      <div class="rca-panels grid">
+        {
+          areas.map((a, i) => (
+            <article data-panel={a.key} {...(i === 0 ? { "data-on": "" } : {})} class="rca-panel col-start-1 row-start-1 rounded-(--c-radius-card,8px) bg-(--c-bg) p-10 shadow-[0_1px_0_var(--c-line)] ring-1 ring-(--c-line)" aria-hidden={i === 0 ? undefined : "true"}>
+              <h3 class="text-[clamp(1.6rem,2.4vw,2.2rem)] font-semibold leading-tight tracking-[-0.02em]">{a.title}</h3>
+              <p class="mt-4 max-w-[48ch] text-lg leading-relaxed text-(--c-muted)">{a.lead}</p>
+              <ul class="mt-8 grid gap-x-8 gap-y-2.5 text-[16px] sm:grid-cols-2">
+                {a.services.slice(0, preview).map((s) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1 size-4 shrink-0 text-(--c-brand)" /><span>{s}</span></li>)}
+              </ul>
+              {a.services.length > preview && <p class="mt-5 text-[15px] text-(--c-muted)">y {a.services.length - preview} servicios más</p>}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .rca-item { color: color-mix(in oklab, var(--c-ink) 52%, transparent); transition: color 250ms var(--ease-out); }
+  .rca-item[data-active] { color: var(--c-ink); }
+  .rca-item .rca-arrow { opacity: 0; transform: translate(-6px, 6px); transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out); }
+  .rca-item[data-active] .rca-arrow { opacity: 1; transform: none; }
+  .rca-item::before { content: ""; position: absolute; left: -1.25rem; top: 20%; bottom: 20%; width: 4px; border-radius: 2px; background: var(--c-brand); transform: scaleY(0); transition: transform 300ms var(--ease-out); }
+  .rca-item[data-active]::before { transform: scaleY(1); }
+  .rca-panel { opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out), visibility 0s linear 260ms; }
+  .rca-panel[data-on] { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  @media (max-width: 1023px) { .rca-item { color: var(--c-ink); } .rca-item .rca-arrow { opacity: 1; transform: none; } .rca-item::before { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .rca-panel, .rca-item, .rca-item .rca-arrow { transition: none; } }
+</style>
+
+<script>
+  function init() {
+    document.querySelectorAll<HTMLElement>("[data-explorer]").forEach((root) => {
+      const items = Array.from(root.querySelectorAll<HTMLAnchorElement>("[data-item]"));
+      const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-panel]"));
+      const set = (key: string) => {
+        items.forEach((i) => i.toggleAttribute("data-active", i.dataset.item === key));
+        panels.forEach((p) => {
+          const on = p.dataset.panel === key;
+          p.toggleAttribute("data-on", on);
+          p.setAttribute("aria-hidden", on ? "false" : "true");
+        });
+      };
+      items.forEach((i) => {
+        i.addEventListener("pointerenter", () => window.matchMedia("(hover:hover)").matches && set(i.dataset.item!));
+        i.addEventListener("focus", () => set(i.dataset.item!));
+      });
+    });
+  }
+  document.addEventListener("astro:page-load", init);
+</script>

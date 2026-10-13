@@ -1,0 +1,34 @@
+---
+// Áreas de práctica con índice lateral que sigue el scroll (scrollspy): a la izquierda los nombres, a la derecha el texto de cada área.
+// El área en foco se enciende en el índice y las demás se atenúan (ver Skin.astro). En móvil solo se muestran los bloques.
+interface Area { key: string; title: string; text: string }
+interface Props { areas: Area[] }
+const { areas } = Astro.props;
+---
+
+<div data-spy class="grid gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
+  <nav aria-label="Áreas de práctica" class="hidden lg:block">
+    <ul class="gg-spy sticky top-32 grid gap-3">
+      {
+        areas.map((a) => (
+          <li>
+            <a href={`#${a.key}`} data-spy-link={a.key} class="gg-spy-link flex items-start gap-4 py-0.5 text-[1.35rem] font-medium uppercase leading-[1.1] text-(--c-muted) [font-family:var(--f-display)]">
+              <span aria-hidden="true" class="gg-spy-bar mt-[0.62em] h-0.5 w-7 shrink-0 bg-(--c-accent)"></span>
+              <span>{a.title}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <div>
+    {
+      areas.map((a, i) => (
+        <article id={a.key} data-spy-area={a.key} class:list={["gg-spy-area scroll-mt-28 py-10 lg:min-h-[44svh] lg:py-16", i === 0 && "pt-0 lg:pt-0"]}>
+          <h2 transition:name={`area-${a.key}`} class="max-w-[16ch] text-[clamp(2.4rem,4.6vw,4.2rem)] font-semibold leading-[0.98]">{a.title}</h2>
+          <p class="mt-7 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{a.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</div>

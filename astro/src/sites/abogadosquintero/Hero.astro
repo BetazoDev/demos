@@ -1,0 +1,25 @@
+---
+// Héroe propio: titular a la izquierda y fotografía cuadrada en blanco y negro con un bloque del azul-gris de la marca desfasado detrás.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "55% 40%" } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-14 pb-20 pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-14">
+    <div>
+      <h1 data-hero="blur" class="max-w-[12ch] text-[clamp(2.8rem,6.2vw,6.2rem)] leading-[0.98]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div class="relative mx-auto w-full max-w-[34rem] lg:ml-auto lg:mr-0">
+      <span aria-hidden="true" class="absolute -bottom-4 -right-4 left-9 top-9 rounded-(--c-radius-img,16px) bg-[#C4CFDE] sm:-bottom-5 sm:-right-5"></span>
+      <div data-hero-media style="--d:200ms" class="relative aspect-square overflow-hidden rounded-(--c-radius-img,16px)">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

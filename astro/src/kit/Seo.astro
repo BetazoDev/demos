@@ -1,0 +1,55 @@
+---
+// Metadatos, Open Graph y datos estructurados (schema.org). Las demos no se indexan (noindex) pero llevan el SEO completo.
+import type { SiteConfig } from "./types";
+interface Props {
+  site: SiteConfig;
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+}
+const { site, title, description, path, image, breadcrumbs, schema = [] } = Astro.props;
+const origin = Astro.site!;
+const abs = (p: string) => new URL(p, origin).href;
+const canonical = abs(path);
+const org = {
+  "@context": "https://schema.org",
+  "@type": site.schemaType ?? "LegalService",
+  "@id": abs(`/${site.slug}#organizacion`),
+  name: site.name,
+  description: site.description,
+  url: abs(`/${site.slug}`),
+  telephone: site.phones[0]?.tel,
+  email: site.emails[0],
+  address: site.addresses.map((a) => ({ "@type": "PostalAddress", streetAddress: a.text, addressCountry: "MX" })),
+  ...(site.addresses[0]?.lat ? { geo: { "@type": "GeoCoordinates", latitude: site.addresses[0].lat, longitude: site.addresses[0].lng } } : {}),
+  ...(site.mapsUrl ? { hasMap: site.mapsUrl } : {}),
+  ...(site.google ? { aggregateRating: { "@type": "AggregateRating", ratingValue: site.google.rating, reviewCount: site.google.reviews } } : {}),
+  sameAs: Object.values(site.social).filter(Boolean),
+  areaServed: (site.areaServed ?? ["Ciudad de México"]).map((name) => ({ "@type": name === "México" ? "Country" : "AdministrativeArea", name })),
+};
+const crumbs = breadcrumbs?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [{ name: site.name, href: `/${site.slug}` }, ...breadcrumbs].map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: abs(c.href) })),
+    }
+  : null;
+const graph = [org, ...(crumbs ? [crumbs] : []), ...schema];
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="noindex,nofollow" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={site.lang === "en" ? "en_US" : "es_MX"} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+{image && <meta property="og:image" content={image} />}
+<meta name="twitter:card" content={image ? "summary_large_image" : "summary"} />
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

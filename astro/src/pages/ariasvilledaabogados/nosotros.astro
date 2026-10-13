@@ -1,0 +1,50 @@
+---
+import "@/sites/ariasvilledaabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/ariasvilledaabogados/site";
+import escritorio from "@/sites/ariasvilledaabogados/assets/escritorio.jpg";
+import { team, firma } from "@/sites/ariasvilledaabogados/data";
+
+const base = "/ariasvilledaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "text-[clamp(1.8rem,3.4vw,3rem)] leading-[1.05] tracking-[-0.025em]";
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | Arias & Villeda Abogados, misión, visión y equipo"
+  description="Arias Sánchez & Villeda Chávez es un despacho de abogados con atención experta y personalizada. Conozca su misión, su visión y a los seis abogados de su equipo."
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <PageHero title="La firma" lede={firma.razon} image={escritorio} imageAlt="Escritorio con una pila de papel en blanco, una carpeta de piel azul, un sello de latón y una pluma sobre una carpeta de escritorio azul" />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap"><p data-statement class="max-w-[32ch] font-(family-name:--f-display) text-[clamp(1.7rem,3.4vw,3rem)] font-light leading-[1.14] tracking-[-0.02em]">{firma.perfil}</p></div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap">
+      <dl class="border-y border-(--c-line)">
+        <div data-reveal class="grid gap-3 py-10 md:grid-cols-[0.6fr_1.4fr] md:gap-16">
+          <dt class={`font-(family-name:--f-display) ${h2}`}>Misión</dt>
+          <dd class="max-w-[58ch] text-lg leading-relaxed text-(--c-muted) sm:text-xl">{firma.mision}</dd>
+        </div>
+        <div data-reveal class="grid gap-3 border-t border-(--c-line) py-10 md:grid-cols-[0.6fr_1.4fr] md:gap-16">
+          <dt class={`font-(family-name:--f-display) ${h2}`}>Visión</dt>
+          <dd class="max-w-[58ch] text-lg leading-relaxed text-(--c-muted) sm:text-xl">{firma.vision}</dd>
+        </div>
+      </dl>
+    </div>
+  </Section>
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24">
+      <h2 data-reveal class={h2}>Equipo</h2>
+      <ul data-stagger data-gap="70" class="grid gap-x-10 gap-y-10 sm:grid-cols-2">
+        {team.map((p) => <li><h3 class="text-xl font-medium leading-snug tracking-[-0.01em]">{p.name}</h3><p class="mt-1 text-base text-(--c-muted)">{p.role}</p></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

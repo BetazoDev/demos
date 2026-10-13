@@ -1,0 +1,85 @@
+---
+import Layout from "@/sites/lopezvaldezabogados/Layout.astro";
+import Hero from "@/sites/lopezvaldezabogados/Hero.astro";
+import Etapas from "@/sites/lopezvaldezabogados/Etapas.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import Stats from "@/kit/Stats.astro";
+import Reviews from "@/sites/lopezvaldezabogados/Reviews.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/lopezvaldezabogados/site";
+import { areas, amparo, photos, fundador, firma, evaluacion, stats, quotes } from "@/sites/lopezvaldezabogados/data";
+
+const base = "/lopezvaldezabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.04]";
+---
+
+<Layout title="Abogados penalistas en la Ciudad de México | López Valdez Abogados" nav={{ tone: "light" }}>
+  <Hero title="Certeza, confianza y atención personalizada" lede="Somos especialistas en derecho penal y litigio estratégico." image={photos.hero} imageAlt="Mtro. Luis Marco Antonio López Valdez, socio fundador, frente a su biblioteca" position="50% 18%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Prestamos servicios profesionales de excelencia con compromiso y lealtad." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 sm:mb-16 ${h2}`}>Servicios</h2>
+      <Etapas items={rows} />
+      <p data-reveal class="mt-10 pl-8 text-[15px] text-(--c-muted) sm:pl-14">También: {amparo.toLowerCase()}.</p>
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)" style="height:clamp(20rem,46vw,32rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={photos.libros} alt="Estante con libros de derecho penal" position="50% 50%" class="size-full object-cover" /></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_88%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_45%,transparent)_55%,color-mix(in_oklab,var(--c-dark)_25%,transparent)_100%)]"></div>
+    <div class="wrap flex h-full items-end pb-10 sm:pb-14">
+      <p data-reveal class="max-w-[16ch] text-[clamp(2rem,4.6vw,4.2rem)] leading-[1.04]" style="font-family:var(--f-display)">Somos certeza, confianza, seguridad.</p>
+    </div>
+  </div>
+
+  <Section>
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] max-w-[30rem] overflow-hidden rounded-(--c-radius-img,0px) lg:max-w-none">
+        <Pic src={fundador.photo} alt="Mtro. Luis Marco Antonio López Valdez en su escritorio" position="50% 30%" class="size-full object-cover" />
+      </div>
+      <div data-reveal data-delay="100">
+        <h2 class={h2}>{fundador.name}</h2>
+        <p class="mt-3 text-lg text-(--c-accent)">{fundador.role}</p>
+        <p class="mt-8 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">{firma.historia}</p>
+        <Stats stats={stats} class="mt-12" />
+        <div class="mt-12"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <Reviews rating={5.0} count={18} quotes={quotes} />
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...areas.map((a) => a.title), amparo]} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title={evaluacion.title} text={evaluacion.text} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

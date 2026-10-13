@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/sites/eduardocastilloabogados/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/eduardocastilloabogados/Composer.astro";
+import { site } from "@/sites/eduardocastilloabogados/site";
+import { specialties } from "@/sites/eduardocastilloabogados/data";
+
+const base = "/eduardocastilloabogados";
+---
+
+<SiteLayout site={site} title="Contacto | Eduardo Castillo Abogados, Col. Granada, Ciudad de México" description="Laguna de Términos 221, Torre B, piso 5, oficina 502, Col. Granada, Miguel Hidalgo. Móvil 55 5404 4136, oficina 55 9116 8397." nav={{ variant: "bar", tone: "light", logoHeight: 50 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Atención directa del titular: por móvil, por teléfono de oficina o por correo." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={specialties.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

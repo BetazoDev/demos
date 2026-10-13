@@ -1,0 +1,50 @@
+---
+// Datos de contacto reales de Duprat Lira, con sus dos WhatsApp publicados (principal y alterno).
+import type { SiteConfig } from "@/kit/types";
+import Icon from "@/kit/Icon.astro";
+import DuButton from "./DuButton.astro";
+import { WA, WA_ALT } from "./site";
+interface Props { site: SiteConfig; showCta?: boolean }
+const { site, showCta = true } = Astro.props;
+const wa = (n: string) => `https://wa.me/${n}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const row = "flex gap-4";
+const ico = "mt-1 size-5 shrink-0 text-(--du-gold-ink)";
+---
+
+<div class="grid gap-8 text-[17px]">
+  {site.addresses.map((a) => (
+    <div class={row}>
+      <Icon name="map-pin" class={ico} />
+      <div>
+        {a.label && <p class="text-sm font-medium text-(--c-muted)">{a.label}</p>}
+        <p>{a.text}</p>
+      </div>
+    </div>
+  ))}
+  <div class={row}>
+    <Icon name="whatsapp-logo" class={ico} />
+    <ul class="grid gap-1">
+      <li><a href={wa(WA)} target="_blank" rel="noopener" class="link-u">WhatsApp 55 3228 3556</a></li>
+      <li><a href={wa(WA_ALT)} target="_blank" rel="noopener" class="link-u">WhatsApp 55 1475 0441</a></li>
+    </ul>
+  </div>
+  <div class={row}>
+    <Icon name="phone" class={ico} />
+    <ul class="grid gap-1">
+      {site.phones.map((p) => (
+        <li><a href={`tel:${p.tel}`} class="link-u">{p.display}</a>{p.label && <span class="ml-2 text-sm text-(--c-muted)">{p.label}</span>}</li>
+      ))}
+    </ul>
+  </div>
+  <div class={row}>
+    <Icon name="envelope-simple" class={ico} />
+    <ul class="grid gap-1">{site.emails.map((m) => <li><a href={`mailto:${m}`} class="link-u break-all">{m}</a></li>)}</ul>
+  </div>
+  {site.hours && <div class={row}><Icon name="clock" class={ico} /><p>{site.hours}</p></div>}
+  {showCta && (
+    <div class="flex flex-wrap gap-3 pt-2">
+      <DuButton href={wa(WA)} external>Escribir por WhatsApp</DuButton>
+      {site.mapsUrl && <DuButton href={site.mapsUrl} variant="outline" external>Ver en el mapa</DuButton>}
+    </div>
+  )}
+</div>

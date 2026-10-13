@@ -1,0 +1,105 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/juridicontable/Nav.astro";
+import Footer from "@/sites/juridicontable/Footer.astro";
+import { site } from "@/sites/juridicontable/site";
+import { servicios, materias } from "@/sites/juridicontable/data";
+
+const base = "/juridicontable";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const orgId = new URL(`${base}#organizacion`, Astro.site).href;
+const schema = [...servicios, ...materias].map((s) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: s.title,
+  description: ("text" in s && s.text) || ("lead" in s && s.lead) || s.title,
+  provider: { "@id": orgId },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios: asesoría fiscal, litigio, amparo y contabilidad | Grupo de Abogados, Contadores & Consultores"
+  description="Asesoría fiscal, patrocinio, litigio fiscal y administrativo, amparo, contabilidad y nómina, y servicios fiscal contables en Ciudad de México."
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={schema}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="light" />
+  <PageHero title="Servicios" lede="Asesoría jurídica, fiscal, contable y litigio ante autoridades administrativas y tribunales federales y locales." />
+
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap">
+      <ul class="divide-y divide-current/15 border-y border-current/15">
+        {servicios.map((s) => (
+          <li id={s.key} class="scroll-mt-28 py-10 sm:py-14">
+            <div class="grid gap-6 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
+              <h2 data-reveal class="text-[clamp(1.8rem,3.2vw,2.6rem)] leading-[1.06] tracking-[-0.015em]">{s.title}</h2>
+              <div data-reveal data-delay="80">
+                {s.text && <p class="max-w-[58ch] text-lg leading-relaxed opacity-85">{s.text}</p>}
+                {s.items && (
+                  <ul class="mt-5 grid gap-3">
+                    {s.items.map((i) => (
+                      <li class="flex gap-3 text-[17px] leading-relaxed"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{i}</span></li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="materias">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.015em]">Materias</h2>
+      <div class="divide-y divide-current/15 border-y border-current/15">
+        {materias.map((m, i) => (
+          <details id={m.key} class="acc group scroll-mt-28" open={i === 0}>
+            <summary class="flex items-center justify-between gap-6 py-6 text-left font-(family-name:--f-display) text-[clamp(1.4rem,2.6vw,2.1rem)] leading-tight">
+              {m.title}
+              <span class="acc-plus grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <div>
+                <div class="pb-9">
+                  {m.text && <p class="max-w-[62ch] text-[17px] leading-relaxed opacity-85">{m.text}</p>}
+                  {m.items && (
+                    <ul class:list={["grid gap-x-10 gap-y-3 sm:grid-cols-2", m.text && "mt-5"]}>
+                      {m.items.map((it) => (
+                        <li class="flex gap-3 text-[17px]"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{it}</span></li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" />
+</SiteLayout>
+
+<script>
+  // Un enlace con #materia abre su acordeón.
+  function openFromHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id ? document.getElementById(id) : null;
+    if (el instanceof HTMLDetailsElement) el.open = true;
+  }
+  document.addEventListener("astro:page-load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+  openFromHash();
+</script>

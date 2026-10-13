@@ -1,0 +1,50 @@
+---
+import Layout from "@/sites/zepco/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/zepco/site";
+import { equipo, texto } from "@/sites/zepco/data";
+
+const base = "/zepco";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const h2 = "text-[clamp(1.9rem,3.8vw,3.2rem)] leading-[1.06]";
+const org = new URL(`/${site.slug}#organizacion`, Astro.site).href;
+const schema = equipo.map((p) => ({ "@context": "https://schema.org", "@type": "Person", name: p.name, jobTitle: p.role, worksFor: { "@id": org } }));
+---
+
+<Layout footer={{ variant: "light" }} title="La firma | Zepeda & Torres Abogados, desde 1975" description="Despacho fundado en 1975 como Bufete Zepeda Trujillo. Conozca a los socios y abogados de Zepeda & Torres Abogados en la Ciudad de México." schema={schema} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede={texto.equipoLede} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+      <h2 data-reveal class={`max-w-[14ch] ${h2}`}>Bienvenido a Zepeda &amp; Torres Abogados</h2>
+      <div data-reveal data-delay="80" class="grid max-w-[58ch] gap-5 text-lg leading-relaxed text-(--c-muted)">
+        {texto.bienvenida.map((p) => <p>{p}</p>)}
+        <p>{texto.representamos}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Socios y abogados</h2>
+      <ul data-stagger data-gap="110" class="grid grid-cols-2 gap-x-4 gap-y-12 lg:grid-cols-4 lg:gap-x-6">
+        {
+          equipo.map((p) => (
+            <li>
+              <div class="img-zoom aspect-[3/4] overflow-hidden rounded-(--c-radius-img,4px) bg-(--c-bg)">
+                <Pic src={p.photo} alt={p.alt} position={p.pos} class="size-full object-cover" />
+              </div>
+              <h3 class="mt-5 text-[clamp(1.25rem,2vw,1.6rem)] leading-tight">{p.name}</h3>
+              <p class="mt-1.5 text-[15px] text-(--c-muted)">{p.role}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Ponte en contacto" text="Llena el formulario y nos pondremos en contacto a la brevedad." href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</Layout>

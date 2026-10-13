@@ -1,0 +1,82 @@
+---
+// Proceso en tres pasos (texto real del sitio). La línea vertical se dibuja con el scroll y cada paso se enciende al alcanzarlo.
+import { process } from "./data";
+---
+
+<div data-process class="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-24">
+  <div class="lg:sticky lg:top-32 lg:self-start">
+    <h2 data-reveal class="max-w-[16ch] text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02] tracking-[-0.035em]">{process.title}</h2>
+    <div data-reveal data-delay="120" class="mt-8"><slot name="action" /></div>
+  </div>
+  <ol class="relative pl-12 sm:pl-16">
+    <span aria-hidden="true" class="absolute left-[11px] top-3 w-px bg-current/15" style="height:var(--track,calc(100% - 1.5rem))"></span>
+    <span aria-hidden="true" data-process-line class="absolute left-[11px] top-3 w-px bg-(--c-ink)" style="height:var(--track,calc(100% - 1.5rem))"></span>
+    {
+      process.steps.map((s) => (
+        <li data-process-step class="relative pb-20 last:pb-0 sm:pb-28">
+          <span aria-hidden="true" class="absolute -left-12 top-2 grid size-6 place-items-center rounded-full border border-current/30 bg-(--c-surface) sm:-left-16">
+            <span class="dot-fill block size-3.5 rounded-full bg-(--c-ink)"></span>
+          </span>
+          <div class="step-body">
+            <h3 class="text-[clamp(1.9rem,3.6vw,3rem)] leading-none tracking-[-0.03em]">{s.t}</h3>
+            <p class="mt-4 max-w-[44ch] text-lg text-(--c-muted)">{s.d}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  // Se inicializa en cada navegación (View Transitions) y se limpia antes del intercambio de página.
+  let cleanup: (() => void) | null = null;
+  const reduce = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function init() {
+    const root = document.querySelector<HTMLElement>("[data-process]");
+    if (!root) return;
+    const line = root.querySelector<HTMLElement>("[data-process-line]");
+    const steps = Array.from(root.querySelectorAll<HTMLElement>("[data-process-step]"));
+    if (!line || !steps.length) return;
+    if (reduce()) return steps.forEach((s) => s.classList.add("is-on"));
+    let raf = 0;
+    const ol = line.parentElement as HTMLElement;
+    const measure = () => {
+      // La pista termina en el centro del último punto.
+      const lastDot = steps[steps.length - 1].querySelector<HTMLElement>(".dot-fill")!.getBoundingClientRect();
+      const top = ol.getBoundingClientRect().top + 12;
+      ol.style.setProperty("--track", `${Math.max(0, lastDot.top + lastDot.height / 2 - top)}px`);
+    };
+    const update = () => {
+      raf = 0;
+      const mark = window.innerHeight * 0.62;
+      const top = ol.getBoundingClientRect().top + 12;
+      const track = parseFloat(ol.style.getPropertyValue("--track")) || 1;
+      line.style.transform = `scaleY(${Math.min(1, Math.max(0, (mark - top) / track)).toFixed(4)})`;
+      steps.forEach((s) => {
+        const d = s.querySelector<HTMLElement>(".dot-fill")!.getBoundingClientRect();
+        s.classList.toggle("is-on", d.top + d.height / 2 < mark);
+      });
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    measure();
+    update();
+    cleanup = () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanup?.();
+    cleanup = null;
+  });
+</script>

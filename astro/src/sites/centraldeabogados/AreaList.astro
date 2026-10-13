@@ -1,0 +1,33 @@
+---
+// Lista de áreas con <details>: título y, si el despacho publica texto, la descripción; siempre un acceso directo a WhatsApp.
+import Button from "@/kit/Button.astro";
+import type { SiteConfig } from "@/kit/types";
+interface Props { areas: { title: string; text?: string }[]; site: SiteConfig }
+const { areas, site } = Astro.props;
+const link = (t: string) => `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${t.toLowerCase()}.`)}`;
+---
+
+<div data-stagger data-gap="45" class="grid gap-x-10 lg:grid-cols-2">
+  {
+    [areas.slice(0, Math.ceil(areas.length / 2)), areas.slice(Math.ceil(areas.length / 2))].map((col) => (
+      <div class="divide-y divide-current/15 border-y border-current/15 self-start">
+        {col.map((a) => (
+          <details class="acc cd-area group">
+            <summary class="flex items-start justify-between gap-6 py-6 text-left text-[clamp(1.15rem,1.7vw,1.4rem)] font-semibold leading-snug tracking-[-0.01em]">
+              <span class="font-(family-name:--f-display)">{a.title}</span>
+              <span class="acc-plus mt-0.5 grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <div class="pb-7">
+                {a.text && <p class="mb-5 max-w-[56ch] text-[17px] text-(--c-muted)">{a.text}</p>}
+                <Button href={link(a.title)} variant="outline" external>Escribir por WhatsApp</Button>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,33 @@
+---
+// Héroe propio de Gerardo Jarillo: titular enorme con una foto en línea dentro de la frase y, debajo, una franja de foto.
+// Nav con tone="light".
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { before: string; after: string; lede?: string; chip: Img; strip: Img; stripAlt?: string; stripPosition?: string }
+const { before, after, lede, chip, strip, stripAlt = "", stripPosition = "50% 60%" } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap pt-36 sm:pt-44">
+    <h1 data-hero="blur" class="max-w-[17ch] text-[clamp(3.1rem,8.6vw,8.4rem)] leading-[0.98] tracking-[-0.035em]">
+      {before}
+      <span aria-hidden="true" class="mx-[0.06em] inline-block h-[0.74em] w-[1.5em] overflow-hidden rounded-[0.16em] align-[-0.06em]" data-hero-media style="--d:500ms">
+        <Pic src={chip} alt="" priority sizes="320px" position="62% 55%" class="size-full object-cover" />
+      </span>
+      {after}
+    </h1>
+    <div class="mt-9 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      {lede && <p data-hero style="--i:1" class="max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+  <div class="wrap mt-12 pb-16 sm:mt-16 sm:pb-24">
+    <div data-hero-media style="--d:350ms" class="h-[clamp(14rem,34vw,31rem)] overflow-hidden rounded-(--c-radius-img,12px)">
+      <div class="size-full" data-parallax="40">
+        <Pic src={strip} alt={stripAlt} priority position={stripPosition} class="size-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

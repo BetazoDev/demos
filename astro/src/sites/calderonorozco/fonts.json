@@ -1,0 +1,4 @@
+[
+  { "name": "Marcellus", "cssVariable": "--f-calderonorozco-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Lato", "cssVariable": "--f-calderonorozco-body", "weights": [300, 400, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

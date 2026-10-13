@@ -1,0 +1,57 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/scyaa/site";
+import { waLink } from "@/sites/scyaa/data";
+import { photos, team } from "@/sites/scyaa/people";
+
+const base = "/scyaa";
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<SiteLayout site={site} title="La firma | Salcedo Caballero y Abogados Asociados, socios y abogados" description="Asociación de abogados SCYAA, con más de 20 profesionales y oficinas en la Ciudad de México e Irapuato. Conozca a los socios y abogados asociados de la firma." nav={{ variant: "pill", tone: "light", logoHeight: 30 }} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]} footer={{ variant: "light", blurb: "Legal & Business Advisor" }}>
+  <PageHero title="La firma" lede="Una asociación de abogados especializada en servicios legales para empresas y desarrollo de negocios." image={photos.socios} imageAlt="Tres integrantes del despacho junto al letrero de la oficina" />
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
+      <Statement text="Nacimos en 1993, orientados al área corporativa. En 1996 abrimos nuestro campo de acción." class="!max-w-[24ch] !text-[clamp(1.9rem,3.8vw,3.4rem)]" />
+      <div data-reveal data-delay="120" class="grid gap-5 self-end text-lg text-(--c-muted)">
+        <p>Esta firma nace como Salcedo Caballero y Abogados Asociados en 1996 y ha evolucionado a lo largo de más de 20 años con el principal objetivo de ser un socio de negocios de sus clientes.</p>
+        <p>Actualmente somos un equipo de más de 20 profesionales con oficinas en las ciudades de México e Irapuato, que presta servicios a compañías mexicanas y trasnacionales, principalmente de origen alemán, japonés y norteamericano.</p>
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-14 text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.02em]">Socios y abogados</h2>
+      <ul class="grid gap-16 sm:gap-24">
+        {team.map((p, i) => (
+          <li class:list={["grid items-start gap-8 md:gap-16", i % 2 === 0 ? "md:grid-cols-[0.7fr_1.3fr]" : "md:grid-cols-[1.3fr_0.7fr]"]}>
+            <div data-reveal="clip" class:list={["aspect-[4/5] max-w-[24rem] overflow-hidden rounded-[1.25rem] bg-(--c-bg)", i % 2 === 1 && "md:order-2 md:justify-self-end"]}><Pic src={p.photo} alt={p.name} class="size-full object-cover" /></div>
+            <div data-reveal class="md:py-6">
+              <h3 class="text-[clamp(1.6rem,2.8vw,2.4rem)] font-medium leading-tight tracking-[-0.02em]">{p.name}</h3>
+              <p class="mt-2 text-(--c-muted)">{p.role}</p>
+              <p class="mt-6 max-w-[58ch] text-lg leading-relaxed text-(--c-muted)">{p.bio}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(1.7rem,3vw,2.6rem)] font-medium leading-tight tracking-[-0.015em]">Socios de negocios</h2>
+        <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">Nuestro diferenciador con otros abogados es que el principal objetivo de nuestro personal es encontrar la manera en la que legalmente nuestros clientes puedan realizar las actividades y negocios que han planeado. Siempre tendremos presente la defensa y el cuidado de nuestros clientes, con el objetivo de brindarles la mejor asesoría de negocios posible, que les permita consolidar el éxito esperado.</p>
+      </div>
+      <div data-reveal data-delay="120">
+        <h2 class="text-[clamp(1.7rem,3vw,2.6rem)] font-medium leading-tight tracking-[-0.015em]">Gente profesional</h2>
+        <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">Nuestro mayor orgullo es nuestra gente. Todos debemos ser profesionales conocedores y especializados en áreas específicas, no solo del derecho sino también de áreas de negocios como automotriz, autotransporte, fabricación y eléctrica. Nuestro equipo está integrado por abogados titulados con especialidades, maestrías y muchas actualizaciones anuales.</p>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

@@ -1,0 +1,15 @@
+---
+// Envoltura de SiteLayout: radios del sitio (8px) para campos, imágenes y tarjetas, y anillo de foco legible sobre blanco.
+import SiteLayout from "@/kit/SiteLayout.astro";
+---
+
+<SiteLayout {...Astro.props}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  :root { --c-radius-field: 8px; --c-radius-img: 8px; --c-radius-card: 8px; }
+  :focus-visible { outline-color: var(--c-brand); }
+  [data-tone="dark"] :focus-visible, .rca-hero :focus-visible { outline-color: var(--c-accent); }
+  @media (max-width: 480px) { .break-all { font-size: 15px; } }
+</style>

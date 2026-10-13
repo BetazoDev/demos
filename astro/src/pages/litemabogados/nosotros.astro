@@ -1,0 +1,58 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/litemabogados/site";
+import { photos } from "@/sites/litemabogados/data";
+
+const base = "/litemabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.025em]";
+const pasos = ["Solicitar cotización", "Investigación", "Defenderemos el caso"];
+---
+
+<SiteLayout site={site} bodyClass="[--c-radius-img:12px] [--c-radius-card:12px] [--c-radius-field:12px]" title="Nosotros | Lítem Abogados, despacho en Polanco" description="Misión, enfoque y visión de Lítem Abogados: asesoría oportuna, representación profesional y defensa contundente. Despacho en Polanco, Ciudad de México." nav={{ variant: "bar", tone: "light", logoHeight: 48 }} breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}>
+  <PageHero title="Nosotros" lede="Porque usted se merece un experto como aliado." image={photos.duotono} imageAlt="Estatua de la justicia con balanza y espada, en tonos azules" />
+
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class={h2}>¿Por qué elegir Lítem Abogados?</h2>
+      <p data-reveal data-delay="100" class="max-w-[58ch] text-lg leading-relaxed text-(--c-muted)">Lítem Abogados provee servicios legales dinámicos y estratégicos, que nacen de la amplia experiencia y pericia de sus profesionales en el mundo del Derecho. Nuestro objetivo es dar el valor agregado que nuestros clientes merecen, generando soluciones efectivas y confiables que les brinden la seguridad y el confort que solo un aliado como nuestro despacho puede otorgar.</p>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-8 ${h2}`}>Misión</h2>
+      <Statement text="Servicios jurídicos de calidad, a través de asesoría oportuna, representación profesional y defensa contundente de sus intereses y derechos." class="max-w-[30ch] sm:max-w-[32ch]" />
+      <p data-reveal class="mt-10 max-w-[62ch] text-lg leading-relaxed text-(--c-muted)">Para ello seleccionamos la mejor estrategia legal y empleamos los recursos jurídicos más eficaces, blindando de forma integral a nuestra clientela ante particulares, empresas y autoridades.</p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-6 ${h2}`}>Enfoque</h2>
+        <p class="max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">Nuestro despacho ofrece una amplia gama de servicios legales dirigidos a cualquier ciudadano o empresa, con el objetivo de prevenir y corregir situaciones legales adversas a los intereses de nuestros clientes, y de ejercer la defensa frontal contra particulares, empresas y autoridades, en juicios, pleitos y controversias, ante los distintos tribunales que integran el sistema jurídico mexicano.</p>
+      </div>
+      <div data-reveal data-delay="120">
+        <h2 class={`mb-6 ${h2}`}>Cómo trabajamos</h2>
+        <ol class="grid gap-3">
+          {pasos.map((p) => <li class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) px-6 py-5 font-(family-name:--f-display) text-xl font-medium tracking-[-0.01em]">{p}</li>)}
+        </ol>
+        <p class="mt-6 text-[17px] text-(--c-muted)">Contamos con investigadores profesionales.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="brand">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-8 ${h2}`}>Visión</h2>
+      <p data-reveal data-delay="80" class="max-w-[24ch] font-(family-name:--f-display) text-[clamp(1.9rem,4.4vw,3.8rem)] font-medium leading-[1.08] tracking-[-0.03em]">Ser un despacho líder reconocido por la obtención de resultados, trabajo profesional y confiabilidad.</p>
+    </div>
+  </Section>
+
+  <CtaBand title="Luchamos por nuestros clientes" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

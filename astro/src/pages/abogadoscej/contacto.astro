@@ -1,0 +1,34 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Nav from "@/sites/abogadoscej/Nav.astro";
+import Footer from "@/sites/abogadoscej/Footer.astro";
+import { site } from "@/sites/abogadoscej/site";
+import { areas } from "@/sites/abogadoscej/data";
+
+const base = "/abogadoscej";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Consultores & Estrategas Jurídicos"
+  description="Oficinas en Ignacio L. Vallarta 1, Tabacalera, Ciudad de México, y San Luis 100, Centro, San Luis Potosí. WhatsApp 55 2180 2100."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la Ciudad de México o en San Luis Potosí." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} tone="surface" />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Dura lex, sed lex. Cumplimiento que protege. Estrategia que impulsa." />
+</SiteLayout>

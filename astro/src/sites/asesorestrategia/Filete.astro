@@ -1,0 +1,21 @@
+---
+// Firma de movimiento: el filete dorado con punto central del logo de Strategia se dibuja desde el punto hacia los lados
+// cuando entra en pantalla. Solo transform/opacity; el kit marca .is-in con data-reveal.
+interface Props { class?: string }
+const { class: cls = "" } = Astro.props;
+---
+
+<div data-reveal class:list={["filete", cls]} aria-hidden="true">
+  <span class="ln l"></span><span class="dot"></span><span class="ln r"></span>
+</div>
+
+<style>
+  .filete { display: flex; align-items: center; gap: 14px; translate: 0 0; opacity: 1; }
+  .ln { height: 1px; flex: 1; background: linear-gradient(90deg, #936d3e, #dec276 55%, #936d3e); transition: transform 1.3s var(--ease-in-out); transition-delay: var(--delay, 0ms); transform: scaleX(0); }
+  .l { transform-origin: right center; }
+  .r { transform-origin: left center; }
+  .dot { width: 7px; height: 7px; border-radius: 9999px; background: #936d3e; opacity: 0; scale: 0.5; transition: opacity 500ms var(--ease-out), scale 500ms var(--ease-out); }
+  .filete.is-in .ln { transform: scaleX(1); }
+  .filete.is-in .dot { opacity: 1; scale: 1; }
+  @media (prefers-reduced-motion: reduce) { .ln { transform: none; transition: none; } .dot { opacity: 1; scale: 1; transition: none; } }
+</style>

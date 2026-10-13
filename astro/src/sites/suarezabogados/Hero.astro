@@ -1,0 +1,20 @@
+---
+// Héroe propio: campo azul marino con el titular y una foto de ambiente que cabalga sobre el límite con la página.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative z-10 bg-(--c-dark) text-(--c-on-dark)">
+  <div class="wrap pt-36 sm:pt-44">
+    <h1 data-hero="blur" class="max-w-[17ch] text-[clamp(2.7rem,6.6vw,6.4rem)] font-semibold leading-[1.02] tracking-[-0.035em]">{title}</h1>
+    <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+      <p data-hero style="--i:1" class="max-w-[46ch] text-lg opacity-90 sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+    <div data-hero-media style="--d:350ms" class="mt-12 aspect-[4/3] overflow-hidden rounded-(--c-radius-img,6px) shadow-[0_30px_60px_-30px_rgb(0_0_0/0.6)] sm:aspect-[16/8] -mb-12 lg:-mb-24">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+  </div>
+</section>

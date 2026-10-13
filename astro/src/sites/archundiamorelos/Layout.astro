@@ -1,0 +1,10 @@
+---
+// Envuelve SiteLayout para fijar la nav en cápsula con esquinas rectas (el sistema de este sitio es 0px).
+import SiteLayout from "@/kit/SiteLayout.astro";
+const props = Astro.props;
+---
+
+<SiteLayout {...props}><slot /></SiteLayout>
+<style is:global>
+  :root { --c-radius-nav: 0px; --c-radius-field: 0px; --c-radius-img: 0px; --c-radius-card: 0px; }
+</style>

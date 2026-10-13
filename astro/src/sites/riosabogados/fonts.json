@@ -1,0 +1,4 @@
+[
+  { "name": "Gabarito", "cssVariable": "--f-riosabogados-display", "weights": [500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Onest", "cssVariable": "--f-riosabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

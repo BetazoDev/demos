@@ -1,0 +1,52 @@
+---
+import SiteLayout from "@/sites/rcaabogados/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Stats from "@/kit/Stats.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/rcaabogados/site";
+import { descripcion, sectores, cifras, notaCifras, reconocimientos, alianzas } from "@/sites/rcaabogados/data";
+
+const base = "/rcaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="La firma | RCA Abogados, Polanco, Ciudad de México" description="Firma de servicios profesionales fundada en 1999 en la Ciudad de México, con 25 años de experiencia en el ámbito legal y de negocios empresariales." nav={{ variant: "bar", tone: "light", logoHeight: 52 }} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede="Firma de servicios profesionales fundada en 1999 en la Ciudad de México." />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.02em]">Somos RCA Abogados</h2>
+      <div class="grid max-w-[60ch] gap-6 text-[1.2rem] leading-relaxed">
+        {descripcion.map((p) => <p data-reveal>{p}</p>)}
+        <p data-reveal class="text-(--c-muted)">{sectores}</p>
+      </div>
+    </div>
+  </Section>
+  <Section tone="brand">
+    <div class="wrap">
+      <Stats stats={cifras} class="[&_[data-count]]:text-(--c-accent)" />
+      <p data-reveal class="mt-12 max-w-[56ch] text-[15px] text-white/70">{notaCifras}</p>
+    </div>
+  </Section>
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.02em]">Reconocimientos y alianzas</h2>
+      <div class="grid gap-10">
+        <ul data-stagger data-gap="80" class="grid gap-8">
+          {reconocimientos.map((r) => (
+            <li>
+              <h3 class="text-[clamp(1.3rem,2.2vw,1.8rem)] font-medium leading-snug tracking-[-0.015em]">{r.title}</h3>
+              <p class="mt-2 text-lg text-(--c-muted)">{r.text}</p>
+            </li>
+          ))}
+        </ul>
+        <div data-reveal>
+          <h3 class="text-lg font-semibold">Alianzas globales</h3>
+          <p class="mt-3 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{alianzas.join(", ")}.</p>
+        </div>
+        <p data-reveal class="max-w-[56ch] text-[15px] text-(--c-muted)">Reconocimientos y alianzas declarados por el despacho en su sitio. No están verificados por terceros.</p>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su asunto" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

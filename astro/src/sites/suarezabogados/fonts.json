@@ -1,0 +1,4 @@
+[
+  { "name": "Josefin Sans", "cssVariable": "--f-suarezabogados-display", "weights": [300, 400, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Nunito Sans", "cssVariable": "--f-suarezabogados-body", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

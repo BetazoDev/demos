@@ -1,0 +1,41 @@
+---
+// Héroe de CYCA: campo navy con titular enorme, la foto de su pluma que se disuelve en el campo a la derecha
+// y los rombos de su marca como textura (giran con el scroll). Nav con tone="dark".
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+import mark from "./assets/mark.png";
+
+interface Props {
+  title: string;
+  lede?: string;
+  image: Img;
+  imageAlt?: string;
+  position?: string;
+}
+const { title, lede, image, imageAlt = "", position = "50% 50%" } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-brand) text-(--c-on-brand)">
+  <div aria-hidden="true" class="cy-mark pointer-events-none absolute -left-[14%] -top-[6%] -z-10 aspect-[520/378] w-[min(64rem,100vw)] text-white/[0.05]" data-spin style={`--m:url(${mark.src})`}></div>
+
+  <div class="absolute inset-y-0 right-0 -z-10 hidden w-[44%] lg:block" data-hero-media style="--d:250ms">
+    <div class="size-full [mask-image:linear-gradient(to_right,transparent_0%,#000_46%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,#000_46%)]">
+      <div class="size-full" data-parallax="40">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap flex min-h-[calc(100svh-12rem)] flex-col justify-end pb-14 pt-40 sm:pb-20 lg:min-h-[100svh]">
+    <h1 data-hero="blur" class="max-w-[10ch] text-[clamp(3.2rem,10vw,10rem)] font-medium leading-[0.92] tracking-[-0.045em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-8 max-w-[44ch] text-lg text-white/85 sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+
+  <div class="relative -mb-px aspect-[16/8] lg:hidden" data-hero-media style="--d:350ms">
+    <Pic src={image} alt={imageAlt} position={position} class="size-full object-cover" />
+    <div class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-(--c-brand) to-transparent"></div>
+  </div>
+</section>

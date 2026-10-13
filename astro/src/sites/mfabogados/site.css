@@ -1,0 +1,79 @@
+/* Moreno & Fuertes: ajustes de sitio, acotados a [data-site="mfabogados"]. */
+[data-site="mfabogados"] {
+  --c-radius-img: 0px;
+  --c-radius-card: 0px;
+  --c-radius-field: 0px;
+  --c-radius-nav: 0px;
+}
+/* Logo compuesto en texto: Playfair en versales con el ampersand en cursiva */
+[data-site="mfabogados"] .mf-wordmark {
+  font-family: var(--f-display);
+  font-weight: 500;
+  letter-spacing: 0.035em;
+  line-height: 1;
+}
+[data-site="mfabogados"] .mf-wordmark em {
+  font-style: italic;
+  font-weight: 400;
+  margin-inline: 0.12em;
+}
+/* Ampersand gigante del héroe: solo contorno, de fondo */
+[data-site="mfabogados"] .mf-amp {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.78;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in oklab, var(--c-ink) 16%, transparent);
+}
+/* Filas de áreas: al pasar el cursor, un barrido claro llena la fila (solo transform) */
+[data-site="mfabogados"] .mf-row {
+  position: relative;
+  isolation: isolate;
+  transition: color 300ms ease;
+}
+[data-site="mfabogados"] .mf-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--c-ink);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 480ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+[data-site="mfabogados"] .mf-row .mf-teaser {
+  transition: color 300ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-site="mfabogados"] .mf-row:hover {
+    color: var(--c-bg);
+  }
+  [data-site="mfabogados"] .mf-row:hover::before {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  [data-site="mfabogados"] .mf-row:hover .mf-teaser {
+    color: #4b4b4b;
+  }
+  [data-site="mfabogados"] .mf-row:hover .mf-arrow {
+    background: var(--c-bg);
+    color: var(--c-ink);
+    border-color: transparent;
+  }
+}
+[data-site="mfabogados"] .mf-arrow {
+  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-site="mfabogados"] .mf-row::before { transition: none; }
+}
+/* Banda de foto en blanco y negro con velo */
+[data-site="mfabogados"] .mf-veil {
+  background: linear-gradient(to top, color-mix(in oklab, var(--c-dark) 82%, transparent), color-mix(in oklab, var(--c-dark) 35%, transparent) 70%, color-mix(in oklab, var(--c-dark) 20%, transparent));
+}
+
+/* Urbanist es fina: peso 500 para el texto corrido sobre fondo oscuro */
+[data-site="mfabogados"] {
+  font-weight: 500;
+}

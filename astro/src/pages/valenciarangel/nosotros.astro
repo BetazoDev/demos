@@ -1,0 +1,49 @@
+---
+import Layout from "@/sites/valenciarangel/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/valenciarangel/site";
+import { equipo, firma, photos } from "@/sites/valenciarangel/data";
+
+const base = "/valenciarangel";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const h2 = "text-[clamp(1.9rem,3.8vw,3.2rem)] leading-[1.06]";
+---
+
+<Layout title="La firma | Valencia Rangel & Abogados Asociados, abogados en Polanco" description="Firma de abogados multidisciplinaria de alta especialización en Polanco, Ciudad de México. Conozca a Gabriela Valencia Rangel y a su equipo jurídico." breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede={firma.multi} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <p data-reveal class="max-w-[30ch] text-[clamp(1.7rem,3.4vw,3rem)] leading-[1.12]" style="font-family:var(--f-display)">{firma.alta}</p>
+      <p data-reveal data-delay="80" class="mt-8 max-w-[52ch] text-lg text-(--c-muted)">{firma.mueve}</p>
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark)" style="height:clamp(16rem,38vw,28rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={photos.torre} alt="Torre de oficinas de cristal y acero vista desde abajo al anochecer" position="50% 40%" class="size-full object-cover" /></div>
+  </div>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 sm:mb-16 ${h2}`}>Equipo jurídico</h2>
+      <ul class="grid">
+        {
+          equipo.map((p, i) => (
+            <li data-reveal class:list={["grid gap-4 py-9 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16", i > 0 && "border-t border-(--c-line)"]}>
+              <div>
+                <h3 class="text-[clamp(1.6rem,2.7vw,2.3rem)] leading-tight">{p.name}</h3>
+                <p class="mt-2 text-[15px] text-(--c-accent)">{p.role}</p>
+              </div>
+              <p class="max-w-[60ch] text-[17px] leading-relaxed text-(--c-muted)">{p.bio}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="¿Necesitas asesoría legal?" text="Solucionamos tus problemas legales de manera eficaz, con la mejor estrategia de defensa." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

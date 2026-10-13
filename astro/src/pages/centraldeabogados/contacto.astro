@@ -1,0 +1,29 @@
+---
+import Layout from "@/sites/centraldeabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/centraldeabogados/site";
+import { areas } from "@/sites/centraldeabogados/data";
+
+const base = "/centraldeabogados";
+---
+
+<Layout
+  site={site}
+  title="Contacto | Central de Abogados, Calle Independencia 111, Centro Histórico, CDMX"
+  description="Calle Independencia 111, Despacho 25-C, Piso 2, Alcaldía Cuauhtémoc, Ciudad de México. Atención solo con cita agendada. WhatsApp 779 144 3643."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Servicio personalizado. Atención solo con cita agendada, con sede en la Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-lg border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

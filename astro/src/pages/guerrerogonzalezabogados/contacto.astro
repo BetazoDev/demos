@@ -1,0 +1,36 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import Icon from "@/kit/Icon.astro";
+import Skin from "@/sites/guerrerogonzalezabogados/Skin.astro";
+import { site } from "@/sites/guerrerogonzalezabogados/site";
+
+const base = "/guerrerogonzalezabogados";
+const tel = `tel:${site.phones[0].tel}`;
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Guerrero González Abogados, Av. Yucatán 56, Roma Norte, CDMX"
+  description="Av. Yucatán 56, colonia Roma Norte, alcaldía Cuauhtémoc, Ciudad de México. Teléfono 55 5564 5950. Lunes a viernes de 9:00 a 17:00 h."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 46 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Skin />
+  <PageHero title="Contacto" lede="Llámenos o visítenos en la colonia Roma Norte." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap" data-badge-avoid>
+      <a data-reveal href={tel} class="link-u block text-[clamp(3.6rem,13vw,11rem)] font-semibold leading-[0.9] tracking-tight [font-family:var(--f-display)]">55 5564 5950</a>
+      <address data-reveal data-delay="100" class="mt-14 grid gap-8 text-lg not-italic sm:grid-cols-2 lg:max-w-4xl">
+        <p class="flex gap-4"><Icon name="map-pin" class="mt-1 size-5 shrink-0 text-(--c-accent)" /><span>{site.addresses[0].text}</span></p>
+        <p class="flex gap-4"><Icon name="clock" class="mt-1 size-5 shrink-0 text-(--c-accent)" /><span>{site.hours}</span></p>
+      </address>
+      <div data-reveal data-delay="160" class="mt-10 flex flex-wrap gap-3">
+        <Button href={tel} size="lg">Llamar al 55 5564 5950</Button>
+        <Button href={site.mapsUrl!} variant="outline" size="lg" external>Ver en el mapa</Button>
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

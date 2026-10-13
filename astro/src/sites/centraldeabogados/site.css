@@ -1,0 +1,32 @@
+/* Central de Abogados: esquinas de 8px en todo (botones, imágenes, bloques). Todo va bajo [data-site]. */
+[data-site="centraldeabogados"] {
+  --c-radius: 8px;
+  --c-radius-img: 8px;
+  --c-radius-card: 8px;
+  --c-radius-field: 8px;
+  --c-radius-nav: 12px;
+}
+[data-site="centraldeabogados"] .arr,
+[data-site="centraldeabogados"] .acc-plus,
+[data-site="centraldeabogados"] .nav-link,
+[data-site="centraldeabogados"] [data-nav-toggle] { border-radius: 6px; }
+[data-site="centraldeabogados"] footer ul a[aria-label] { border-radius: 6px; }
+
+/* Nombre compuesto: Alfa Slab One, la fuente con la que su sitio actual escribe el nombre */
+.cd-mark { font-family: var(--f-centraldeabogados-mark), Georgia, serif; font-weight: 400; }
+
+/* Héroe: foto a la izquierda en marco alto, titular a la derecha */
+.cd-hero { background: var(--c-bg); }
+.cd-hero .cd-photo { position: relative; overflow: hidden; border-radius: 8px; aspect-ratio: 4 / 5; max-height: 80svh; width: 100%; max-width: 32rem; background: var(--c-surface); }
+.cd-hero .cd-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, color-mix(in oklab, var(--c-bg) 55%, transparent), transparent 40%); pointer-events: none; }
+
+/* Lista que se enfoca: cada fila gana opacidad al acercarse al centro de la ventana (motion.ts fija --f) */
+[data-focus] > li { opacity: calc(0.26 + 0.74 * var(--f, 1)); transform: translateX(calc((1 - var(--f, 1)) * 16px)); will-change: opacity, transform; }
+@media (prefers-reduced-motion: reduce) { [data-focus] > li { opacity: 1; transform: none; } }
+
+/* Áreas: <details> con apertura animada (mismo patrón del kit) */
+.cd-area summary { list-style: none; cursor: pointer; }
+.cd-area summary::-webkit-details-marker { display: none; }
+
+/* Correo largo: que parta en el guion y no a media palabra */
+[data-site="centraldeabogados"] a[href^="mailto:"] { word-break: normal; overflow-wrap: anywhere; }

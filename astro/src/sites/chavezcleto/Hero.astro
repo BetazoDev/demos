@@ -1,0 +1,49 @@
+---
+// Héroe de Chávez Cleto: el lema en tres golpes sobre azul marino y la foto de su sala de espera con un marco dorado
+// que se separa de la imagen al cargar (guiño a la placa con tornillos dorados de su recepción).
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { lines: string[]; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { lines, lede, image, imageAlt = "", position = "18% 50%" } = Astro.props;
+const last = lines.length - 1;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-20 pt-36 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20 lg:pb-14 lg:pt-32">
+    <div>
+      <h1 class="cc-h1 text-[clamp(2.2rem,5.4vw,5.2rem)] font-medium leading-[1.02] tracking-[-0.02em]">
+        {lines.map((l, i) => <span data-hero="blur" style={`--i:${i}`} class:list={["block", i === last && "italic text-(--c-accent)"]}>{l}</span>)}
+      </h1>
+      {lede && <p data-hero style={`--i:${lines.length}`} class="mt-8 max-w-[50ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style={`--i:${lines.length + 1}`} class="mt-10 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div class="cc-frame relative mx-auto w-full max-w-[26rem] lg:mx-0 lg:ml-auto lg:max-w-[28rem]">
+      <div data-hero-media style="--d:200ms" class="relative aspect-[4/5] max-h-[74svh] w-full overflow-hidden rounded-(--c-radius-img,6px)">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cc-frame { --off: 10px; }
+  @media (min-width: 1024px) { .cc-frame { --off: 18px; } }
+  .cc-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid color-mix(in oklab, var(--c-brand) 70%, transparent);
+    border-radius: var(--c-radius-img, 6px);
+    animation: cc-frame-out 1.3s var(--ease-out) 1.1s both;
+    pointer-events: none;
+  }
+  @keyframes cc-frame-out {
+    from { translate: 0 0; }
+    to { translate: var(--off) var(--off); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cc-frame::before { animation: none; translate: var(--off) var(--off); }
+  }
+</style>

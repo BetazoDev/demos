@@ -1,0 +1,16 @@
+---
+// Marca compacta para la nav: el búho con el techo (recorte del vector original) y el nombre en versalitas finas, como en su logo.
+import mark from "./assets/mark.svg";
+import markLight from "./assets/mark-light.svg";
+interface Props { tone?: "light" | "dark"; height?: number }
+const { tone = "light", height = 40 } = Astro.props;
+const src = (tone === "dark" ? markLight : mark).src;
+---
+
+<span class="inline-flex items-center gap-3">
+  <img src={src} alt="" width={Math.round(height * 1.68)} height={height} class="shrink-0" style={`height:${height}px;width:auto`} />
+  <span class="grid text-[13px] font-light uppercase leading-[1.2] tracking-[0.14em]">
+    <span>Caliz &amp; Sosa</span>
+    <span class="font-normal">Abogados</span>
+  </span>
+</span>

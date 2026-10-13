@@ -1,0 +1,28 @@
+---
+import "@/sites/ariasvilledaabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/ariasvilledaabogados/site";
+import { areas } from "@/sites/ariasvilledaabogados/data";
+
+const base = "/ariasvilledaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.teaser, href: `${base}/servicios/${a.key}` }));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios | Arias & Villeda Abogados, derecho corporativo, inmobiliario, gestión y trámites, y litigio"
+  description="Derecho corporativo, administrativo e inmobiliario, cobranza judicial, gestión y trámites, y litigio civil, mercantil, familiar, laboral y penal en la Ciudad de México."
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios" lede="Atención experta y personalizada en diversas áreas del Derecho." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,54 @@
+---
+import "@/sites/megoiabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/megoiabogados/Composer.astro";
+import Footer from "@/sites/megoiabogados/Footer.astro";
+import { site } from "@/sites/megoiabogados/site";
+import { areas } from "@/sites/megoiabogados/data";
+
+const base = "/megoiabogados";
+const channels = [
+  { label: "En línea", text: "Cuéntanos tu caso con el formulario de esta página y se abre WhatsApp con tu mensaje." },
+  { label: "Telefónica", text: "55 1198 2918, lunes a viernes de 9:00 a 15:00." },
+  { label: "Presencial", text: "Insurgentes Centro 132, 2.º piso, Despacho 208, Colonia Tabacalera, Ciudad de México." },
+];
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto y citas | Megoi Abogados Asociados, Colonia Tabacalera, Ciudad de México"
+  description="Insurgentes Centro 132, Despacho 208, Colonia Tabacalera, Ciudad de México. Teléfono 55 2345 1802, asesoría en línea, telefónica o presencial."
+  nav={{ variant: "pill", tone: "light", logoHeight: 52 }}
+  footer={false}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Agenda tu cita: asesoría en línea, telefónica o presencial en nuestras oficinas." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-8 lg:grid-cols-[0.5fr_1.5fr] lg:gap-16">
+      <h2 data-reveal class="font-(family-name:--f-display) text-[clamp(1.4rem,2.2vw,1.9rem)] font-medium leading-tight tracking-[-0.03em]">Agendar cita</h2>
+      <div>
+        <dl class="divide-y divide-(--c-line) border-y border-(--c-line)">
+          {channels.map((c) => (
+            <div data-reveal class="grid gap-2 py-6 sm:grid-cols-[10rem_1fr] sm:gap-8">
+              <dt class="mgo-body text-xl font-medium">{c.label}</dt>
+              <dd class="text-lg text-(--c-muted)">{c.text}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="mt-6 text-base text-(--c-muted)">Los costos varían dependiendo el tipo de asesoría.</p>
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Profesionalismo a tu alcance." />
+</SiteLayout>

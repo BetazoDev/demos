@@ -1,0 +1,68 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Split from "@/kit/Split.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/riosabogados/site";
+import { team, images, principles } from "@/sites/riosabogados/data";
+
+const base = "/riosabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const lawyers = team.filter((p) => p.legal);
+const staff = team.filter((p) => !p.legal);
+const h2 = "text-[clamp(2.1rem,4.4vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.04em]";
+---
+
+<SiteLayout site={site} title="La firma | R1OS Abogados, boutique legal en la Ciudad de México" description="R1OS Abogados es una firma ubicada en la Ciudad de México, fundada en 1999 por Agustín Ríos. Conozca a su equipo de abogados y sus principios." nav={{ variant: "pill", tone: "light", logoHeight: 44 }} breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede="Firma de abogados ubicada en la Ciudad de México, especialista en derecho informático, derecho corporativo, propiedad industrial, derechos de autor y litigio." />
+  <Section>
+    <div class="wrap"><Statement text="Fundada en el año de 1999, la firma cuenta con un servicio legal personalizado e integral a personas físicas y morales de cualquier naturaleza." /></div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap">
+      <Split image={images.sello} alt="Sello de cera roja sobre papel junto a una pluma fuente" ratio="5/4" position="38% 50%">
+        <h2 class:list={[h2]}>Los principios que nos rigen</h2>
+        <ul data-stagger data-gap="90" class="mt-8 grid gap-x-8 gap-y-2 text-[clamp(1.9rem,3.6vw,3.1rem)] font-semibold leading-[1.1] tracking-[-0.035em] sm:grid-cols-2">
+          {principles.map((p) => <li>{p}</li>)}
+        </ul>
+        <p class="mt-8 max-w-[46ch] text-lg text-(--c-muted)">Comprometidos a satisfacer de manera integral las necesidades legales de nuestros clientes.</p>
+      </Split>
+    </div>
+  </Section>
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12 sm:mb-16", h2]}>El equipo</h2>
+      <ul class="grid gap-x-12 gap-y-14 lg:grid-cols-2">
+        {lawyers.map((p, i) => (
+          <li data-reveal class:list={["grid grid-cols-[7.5rem_1fr] gap-x-5 gap-y-5 sm:grid-rows-[auto_1fr]", i === 0 ? "sm:grid-cols-[13rem_1fr] sm:gap-x-9 lg:col-span-2" : "sm:grid-cols-[10.5rem_1fr] sm:gap-x-7"]}>
+            <div class="img-zoom aspect-[9/13] overflow-hidden rounded-[1.5rem] bg-(--c-brand) sm:row-span-2"><Pic src={p.photo} alt={`Retrato ilustrado de ${p.name}`} position="50% 0%" class="size-full object-cover" /></div>
+            <div class="self-end sm:self-start">
+              <h3 class:list={["font-semibold leading-tight tracking-[-0.025em]", i === 0 ? "text-[clamp(1.7rem,3vw,2.6rem)]" : "text-[clamp(1.35rem,2.2vw,1.8rem)]"]}>{p.name}</h3>
+              <p class="mt-1.5 text-[15px] text-(--c-muted)">{p.role}</p>
+            </div>
+            <p class:list={["col-span-2 text-[16px] leading-relaxed text-(--c-muted) sm:col-span-1 sm:col-start-2", i === 0 && "max-w-[62ch] sm:text-[17px]"]}>{p.bio}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.03em]">Administración y apoyo</h2>
+      <ul data-stagger data-gap="80" class="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4">
+        {staff.map((p) => (
+          <li>
+            <div class="img-zoom aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-(--c-brand)"><Pic src={p.photo} alt={`Retrato ilustrado de ${p.name}`} position="50% 0%" class="size-full object-cover" /></div>
+            <h3 class="mt-4 text-lg font-semibold leading-snug tracking-[-0.01em]">{p.name}</h3>
+            <p class="mt-1 text-[15px] text-(--c-muted)">{p.role}</p>
+            {p.bio && <p class="mt-2 text-[14.5px] leading-snug text-(--c-muted)">{p.bio}</p>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

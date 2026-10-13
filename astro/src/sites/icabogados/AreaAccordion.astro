@@ -1,0 +1,25 @@
+---
+// Las áreas del despacho como acordeón (hay diez): cada una con su texto real y, si tiene página, un enlace a ella.
+import type { Area } from "./areas";
+interface Props { areas: Area[]; base: string; class?: string }
+const { areas, base, class: cls = "" } = Astro.props;
+---
+
+<div class:list={["divide-y divide-current/15 border-y border-current/15", cls]}>
+  {areas.map((a) => (
+    <details class="acc group">
+      <summary class="flex items-center justify-between gap-6 py-6 text-left text-[clamp(1.2rem,2.2vw,1.65rem)] font-medium tracking-[-0.01em] sm:py-7">
+        {a.title}
+        <span class="acc-plus grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="grid gap-3 pb-7">
+          {a.paragraphs.map((p) => <p class="max-w-[68ch] text-[17px] opacity-75">{p}</p>)}
+          {a.key && <a href={`${base}/servicios/${a.key}`} class="link-u mt-2 w-fit text-[15px] font-medium text-(--c-accent)">Ver este servicio</a>}
+        </div>
+      </div>
+    </details>
+  ))}
+</div>

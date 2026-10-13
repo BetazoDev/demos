@@ -1,0 +1,26 @@
+---
+// Héroe split propio: texto a la izquierda y foto en arco (eco de la columna del logo) a la derecha.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-10 pb-14 pt-32 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 lg:pb-10 lg:pt-28">
+    <div>
+      <h1 data-hero="blur" class="max-w-[14ch] text-[clamp(2.6rem,5.8vw,5.6rem)] leading-[1.08]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div data-hero-media style="--d:200ms" class="arch relative aspect-[4/5] max-h-[76svh] w-full overflow-hidden lg:ml-auto lg:max-w-[33rem]">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .arch { border-radius: 999px 999px 1.5rem 1.5rem; }
+</style>

@@ -1,0 +1,4 @@
+[
+  { "name": "Spectral", "cssVariable": "--f-saldanamedina-display", "weights": [300, 400, 500], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Manrope", "cssVariable": "--f-saldanamedina-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

@@ -1,0 +1,73 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Reviews from "@/kit/Reviews.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/arriolabogados/Hero.astro";
+import LogoMarquee from "@/sites/arriolabogados/LogoMarquee.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+import { areas, photos, quotes } from "@/sites/arriolabogados/data";
+import { featured } from "@/sites/arriolabogados/logos";
+
+const base = "/arriolabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.03em]";
+---
+
+<SiteLayout site={site} title="Arriola Abogados | Propiedad intelectual, corporativo y fiscal en Polanco, CDMX" nav={{ variant: "pill", tone: "light" }} footer={{ variant: "dark" }}>
+  <Hero title="Reducir riesgos y proveer soluciones expeditas" lede="Propiedad intelectual, corporativo, civil y mercantil, y fiscal. Asesoría a startups y emprendedores desde Polanco, Ciudad de México." image={photos.ventana} imageAlt="Tres abogados de Arriola Abogados frente a un ventanal con vista a Reforma y el Ángel de la Independencia" position="50% 38%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Un traje a la medida es nuestro valor agregado." /></div>
+  </Section>
+
+  <ImageBand image={photos.manos} alt="Detalle de manos, reloj y saco de traje sobre un escritorio" position="50% 50%" />
+
+  <Section id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12", h2]}>Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm" class="overflow-hidden">
+    <div class="wrap mb-10 flex flex-wrap items-end justify-between gap-6">
+      <h2 data-reveal class:list={[h2]}>Clientes</h2>
+      <div data-reveal data-delay="100"><Button href={`${base}/clientes`} variant="outline">Ver todos los clientes</Button></div>
+    </div>
+    <LogoMarquee logos={featured} speed={70} />
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <Reviews rating={site.google!.rating} count={site.google!.reviews} quotes={quotes} />
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,33 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import ServiceRows from "@/sites/enley/ServiceRows.astro";
+import Steps from "@/sites/enley/Steps.astro";
+import "@/sites/enley/theme.css";
+import { site } from "@/sites/enley/site";
+import { home } from "@/sites/enley/data";
+import { services } from "@/sites/enley/services";
+
+const base = "/enley";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const rows = services.map((s) => ({ key: s.key, title: s.title, text: s.blurb, price: s.price, href: `${base}/servicios/${s.key}` }));
+---
+
+<SiteLayout site={site} title="Servicios | Enley: constitución de empresa, registro de marca, REPSE, contaduría y divorcio" description="Trámites legales y contables en línea con precio publicado: constitución de empresa desde $1,500, registro de marca desde $5,900, REPSE, contaduría desde $750 al mes, constancia del empleador y divorcio desde $4,000." nav={{ variant: "pill", tone: "dark" }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Constitución de empresa, registro de marca, REPSE, contaduría, constancia del empleador y divorcio, completamente en línea." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <p data-reveal class="mb-8 text-(--c-muted)">Precios en pesos mexicanos, sin IVA.</p>
+      <ServiceRows rows={rows} />
+    </div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-16 max-w-[24ch] text-[clamp(1.8rem,3.4vw,2.8rem)] font-semibold leading-[1.05]">{home.stepsTitle}</h2>
+      <Steps steps={home.steps} />
+    </div>
+  </Section>
+  <CtaBand title="Primera consulta gratuita" text="Cuéntanos tu caso y un abogado se pondrá en contacto contigo." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

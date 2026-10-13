@@ -1,0 +1,21 @@
+---
+// Envuelve el layout del kit: barra de navegación siempre en café de marca (logo claro del despacho) en todas las páginas.
+import SiteLayout from "@/kit/SiteLayout.astro";
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout {...rest} nav={nav ?? { variant: "bar", tone: "dark", logoHeight: 46 }} footer={footer ?? { variant: "dark", blurb: "Bufete de abogados con más de 30 años de experiencia." }}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="hernanpizarro"] [data-nav][data-variant="bar"]::before {
+    opacity: 1;
+    background: color-mix(in oklab, var(--c-brand) 94%, transparent);
+    border-bottom: 0;
+    backdrop-filter: blur(12px);
+  }
+  html[data-site="hernanpizarro"] [data-nav][data-variant="bar"][data-tone="dark"] { color: var(--c-on-brand); }
+  html[data-site="hernanpizarro"] [data-nav] .nav-cta { background: var(--c-on-dark) !important; color: var(--c-dark) !important; }
+  html[data-site="hernanpizarro"] [data-nav] .nav-cta .arr { background: var(--c-dark) !important; color: var(--c-on-dark) !important; }
+</style>

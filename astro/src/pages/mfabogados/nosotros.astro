@@ -1,0 +1,74 @@
+---
+import "@/sites/mfabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/mfabogados/Nav.astro";
+import Footer from "@/sites/mfabogados/Footer.astro";
+import { site } from "@/sites/mfabogados/site";
+import { partners, firma } from "@/sites/mfabogados/data";
+
+const base = "/mfabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "text-[clamp(1.8rem,3.4vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em]";
+const pilares = [
+  { t: "Misión", d: firma.mision },
+  { t: "Visión", d: firma.vision },
+  { t: "Objetivo", d: firma.objetivo },
+];
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | Moreno & Fuertes Abogados, fundada en 2013 en la Ciudad de México"
+  description="Moreno & Fuertes Abogados nace en 2013 con una nueva ideología de los servicios legales: diligencia, honestidad y lealtad. Conozca a sus socios fundadores."
+  nav={false}
+  footer={false}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="dark" />
+  <PageHero title="La firma" lede="Ofreciendo la mejor asistencia legal desde 2013." />
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap">
+      <p data-statement class="max-w-[30ch] font-(family-name:--f-display) text-[clamp(1.7rem,3.4vw,3rem)] font-medium leading-[1.14] tracking-[-0.02em]">{firma.descripcion}</p>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <dl class="border-y border-(--c-line)">
+        {pilares.map((p) => (
+          <div data-reveal class="grid gap-3 border-t border-(--c-line) py-9 first:border-t-0 md:grid-cols-[0.6fr_1.4fr] md:gap-16">
+            <dt class={`font-(family-name:--f-display) ${h2}`}>{p.t}</dt>
+            <dd class="max-w-[52ch] text-xl leading-relaxed text-(--c-muted)">{p.d}</dd>
+          </div>
+        ))}
+      </dl>
+      <ul data-stagger data-gap="120" class="mt-20 grid gap-2 sm:gap-0">
+        {firma.valores.map((v) => <li class="border-b border-(--c-line) py-3 font-(family-name:--f-display) text-[clamp(2.8rem,10vw,9rem)] font-medium italic leading-[1] tracking-[-0.03em] first:border-t sm:py-5">{v}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-14 ${h2}`}>Socios fundadores</h2>
+      <ul>
+        {
+          partners.map((p) => (
+            <li data-reveal class="grid gap-5 border-t border-(--c-line) py-12 md:grid-cols-[0.6fr_1.4fr] md:gap-16 lg:py-14">
+              <div>
+                <h3 class="text-[clamp(1.6rem,2.5vw,2.2rem)] font-medium leading-tight tracking-[-0.015em]">{p.name}</h3>
+                <p class="mt-2 text-[15px] text-(--c-muted)">{p.role}</p>
+              </div>
+              <p class="max-w-[60ch] text-lg leading-relaxed text-(--c-muted)">{p.bio}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones legales profesionales." />
+</SiteLayout>

@@ -1,0 +1,28 @@
+---
+// Imagen del sitio: optimizada por astro:assets si viene de un import; <img> si es una URL.
+import { Image } from "astro:assets";
+import type { Img } from "./types";
+interface Props {
+  src: Img;
+  alt: string;
+  class?: string;
+  /** Imagen principal de la página: carga inmediata y prioridad alta */
+  priority?: boolean;
+  sizes?: string;
+  /** Para recortes: "50% 30%" */
+  position?: string;
+  /** Rellena su contenedor (object-fit: cover). Por defecto sí; el CSS de imágenes responsivas de Astro no está en capas y pisaría size-full. */
+  fill?: boolean;
+  [attr: string]: unknown;
+}
+const { src, alt, class: cls = "", priority = false, sizes, position, fill = true, ...rest } = Astro.props;
+const style = [fill && "width:100%;height:100%;object-fit:cover", position && `object-position:${position}`].filter(Boolean).join(";") || undefined;
+---
+
+{
+  typeof src === "string" ? (
+    <img src={src} alt={alt} class={cls} style={style} loading={priority ? "eager" : "lazy"} decoding="async" {...rest} />
+  ) : (
+    <Image src={src} alt={alt} class={cls} style={style} sizes={sizes} layout="full-width" loading={priority ? "eager" : "lazy"} fetchpriority={priority ? "high" : "auto"} {...rest} />
+  )
+}

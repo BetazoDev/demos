@@ -1,0 +1,37 @@
+---
+// Héroe propio: titular centrado y un tríptico de fotos escalonadas que asoma por el borde inferior de la primera pantalla.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props {
+  title: string;
+  lede?: string;
+  center: { src: Img; alt: string; position?: string };
+  left: { src: Img; alt: string; position?: string };
+  right: { src: Img; alt: string; position?: string };
+}
+const { title, lede, center, left, right } = Astro.props;
+const img = "overflow-hidden rounded-(--c-radius-img,6px) bg-(--c-surface)";
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap pt-36 text-center sm:pt-44">
+    <h1 data-hero="blur" class="mx-auto max-w-[17ch] text-[clamp(2.7rem,6.6vw,6.2rem)] leading-[1.06]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mx-auto mt-7 max-w-[44ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center justify-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+  <div class="wrap mt-14 pb-12 sm:mt-20 sm:pb-16">
+    <div class="grid grid-cols-2 items-start gap-3 sm:gap-5 lg:grid-cols-[0.78fr_1.5fr_0.78fr]">
+      <div data-hero-media style="--d:380ms" class:list={[img, "aspect-[3/4] lg:mt-20"]}>
+        <Pic src={left.src} alt={left.alt} position={left.position} priority class="size-full object-cover" />
+      </div>
+      <div data-hero-media style="--d:240ms" class:list={[img, "col-span-2 row-start-1 aspect-[4/3] lg:col-span-1 lg:col-start-2 lg:row-start-1"]}>
+        <Pic src={center.src} alt={center.alt} position={center.position} priority class="size-full object-cover" />
+      </div>
+      <div data-hero-media style="--d:520ms" class:list={[img, "aspect-[3/4] lg:mt-40"]}>
+        <Pic src={right.src} alt={right.alt} position={right.position} priority class="size-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

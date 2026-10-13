@@ -1,0 +1,4 @@
+[
+  { "name": "Forum", "cssVariable": "--f-valenciarangel-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Golos Text", "cssVariable": "--f-valenciarangel-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

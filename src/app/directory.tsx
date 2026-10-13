@@ -4,8 +4,11 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { Site } from "@/data/sites";
 import { EASE_OUT } from "@/components/motion";
+
+/** Tarjeta del directorio (común a las dos listas). */
+export type Entry = { slug: string; name: string; domain: string; thumb: string; kindLabel: string | null; isDespacho: boolean };
+export type List = { id: string; label: string; stack: string; entries: Entry[] };
 
 const FILTERS = [
   { id: "all", label: "Todos" },
@@ -14,30 +17,24 @@ const FILTERS = [
 ] as const;
 type FilterId = (typeof FILTERS)[number]["id"];
 
-const KIND_LABEL: Record<Site["kind"], string> = {
-  despacho: "Despacho",
-  auditoría: "Auditoría",
-  colegio: "Colegio de abogados",
-  legaltech: "Legaltech",
-  vacante: "Vacante",
-  arquitectura: "Arquitectura",
-  viajes: "Viajes escolares",
-};
 
 const normalize = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
-export function Directory({ sites }: { sites: Site[] }) {
+export function Directory({ lists }: { lists: List[] }) {
+  const [listId, setListId] = useState(lists[0].id);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterId>("all");
   const reduce = useReducedMotion();
-  // Numeración consecutiva para mostrar; `num` conserva el número original (carpetas, miniaturas, enlaces antiguos).
+  const active = lists.find((l) => l.id === listId) ?? lists[0];
+  const sites = active.entries;
+  // Numeración consecutiva por lista para mostrar.
   const label = useMemo(() => new Map(sites.map((s, i) => [s.slug, String(i + 1).padStart(2, "0")])), [sites]);
 
   const visible = useMemo(() => {
     const q = normalize(query.trim());
     return sites.filter((s) => {
-      if (filter === "despacho" && s.kind !== "despacho") return false;
-      if (filter === "otros" && s.kind === "despacho") return false;
+      if (filter === "despacho" && !s.isDespacho) return false;
+      if (filter === "otros" && s.isDespacho) return false;
       if (!q) return true;
       return normalize(`${label.get(s.slug)} ${s.name} ${s.domain}`).includes(q);
     });
@@ -45,6 +42,23 @@ export function Directory({ sites }: { sites: Site[] }) {
 
   return (
     <section aria-label="Directorio" className="pt-10">
+      {lists.length > 1 && (
+        <div role="tablist" aria-label="Lista" className="mb-8 inline-flex flex-wrap gap-1 rounded-full bg-black/5 p-1">
+          {lists.map((l) => (
+            <button
+              key={l.id}
+              role="tab"
+              aria-selected={listId === l.id}
+              onClick={() => { setListId(l.id); setQuery(""); setFilter("all"); }}
+              className={`press h-11 rounded-full px-5 text-sm font-medium ${listId === l.id ? "bg-[#141414] text-white" : "text-black/65 hover:text-black"}`}
+            >
+              {l.label}
+              <span className={`ml-2 font-mono text-xs tabular-nums ${listId === l.id ? "text-white/60" : "text-black/40"}`}>{l.entries.length}</span>
+              <span className={`ml-2 text-xs ${listId === l.id ? "text-white/60" : "text-black/40"}`}>{l.stack}</span>
+            </button>
+          ))}
+        </div>
+      )}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div role="tablist" aria-label="Filtrar" className="flex flex-wrap gap-2">
           {FILTERS.map((f) => (
@@ -112,14 +126,14 @@ export function Directory({ sites }: { sites: Site[] }) {
   );
 }
 
-function Card({ site, label, eager }: { site: Site; label: string; eager: boolean }) {
+function Card({ site, label, eager }: { site: Entry; label: string; eager: boolean }) {
   return (
     <Link href={`/${site.slug}`} className="group block focus-visible:outline-offset-8">
       <div className="img-zoom relative aspect-[16/10] overflow-hidden rounded-xl bg-black/5 ring-1 ring-black/5">
         {/* Sin optimizador: /thumbs es privado y la petición interna de /_next/image no lleva la sesión. */}
         <Image
           unoptimized
-          src={`/thumbs/${site.num}.webp`}
+          src={site.thumb}
           alt={`Rediseño de la home de ${site.name}`}
           fill
           sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 100vw"
@@ -131,7 +145,7 @@ function Card({ site, label, eager }: { site: Site; label: string; eager: boolea
         <div className="min-w-0">
           <p className="flex items-center gap-2 text-xs text-black/45">
             <span className="font-mono tabular-nums">{label}</span>
-            {site.kind !== "despacho" && <span className="rounded-full bg-black/5 px-2 py-0.5">{KIND_LABEL[site.kind]}</span>}
+            {site.kindLabel && <span className="rounded-full bg-black/5 px-2 py-0.5">{site.kindLabel}</span>}
           </p>
           <h2 className="mt-1 truncate text-lg font-medium tracking-tight">{site.name}</h2>
           <p className="truncate text-sm text-black/50">{site.domain}</p>

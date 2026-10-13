@@ -1,0 +1,74 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Stats from "@/kit/Stats.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/abogadoherver/Nav.astro";
+import Footer from "@/sites/abogadoherver/Footer.astro";
+import { site } from "@/sites/abogadoherver/site";
+import { team, confianza, asesoria, equipoFrase } from "@/sites/abogadoherver/data";
+import sala from "@/sites/abogadoherver/assets/oficina-sala-juntas-hd.jpg";
+import redonda from "@/sites/abogadoherver/assets/oficina-sala-redonda.jpg";
+import papeleria from "@/sites/abogadoherver/assets/papeleria-herver-poder-judicial.jpg";
+import "@/sites/abogadoherver/theme.css";
+
+const base = "/abogadoherver";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | Herver Abogados de México, Narvarte, CDMX"
+  description="Abogados profesionales y de confianza en la colonia Narvarte Poniente. Conoce al equipo de Derecho Civil, Familiar, Penal y Laboral y la calificación de 5.0 en Google."
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <Nav slot="nav" site={site} variant="bar" tone="light" logoHeight={38} />
+  <PageHero title="La firma" lede={asesoria} />
+
+  <Section size="sm" class="pt-10 sm:pt-16">
+    <div class="wrap"><Statement class="!max-w-[32ch] font-(family-name:--f-display) font-normal" text={confianza} /></div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <Stats stats={[{ value: "5.0", label: "calificación en Google" }, { value: String(site.google!.reviews), label: "reseñas en Google" }]} />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(2.1rem,4.6vw,4rem)] font-normal leading-[1.02] tracking-[-0.01em]">Equipo</h2>
+      <p data-reveal data-delay="60" class="mt-5 max-w-[48ch] text-lg text-(--c-muted)">{equipoFrase}</p>
+      <ul data-stagger data-gap="90" class="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 lg:gap-x-6">
+        {team.map((p) => (
+          <li>
+            <div class="img-zoom aspect-[4/5] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)">
+              <Pic src={p.photo} alt={p.name} position={p.position} class="size-full object-cover" />
+            </div>
+            <h3 class="mt-4 text-xl font-normal tracking-[0.01em]">{p.name}</h3>
+            <p class="mt-1 text-[15px] text-(--c-accent)">{p.role}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(2.1rem,4.6vw,4rem)] font-normal leading-[1.02] tracking-[-0.01em]">Oficina</h2>
+      <div class="grid gap-4 md:grid-cols-[1.6fr_1fr]">
+        <div data-reveal="clip" class="overflow-hidden rounded-(--c-radius-img) bg-(--c-bg) md:h-full"><div class="aspect-[16/10] md:aspect-auto md:h-full"><Pic src={sala} alt="Sala de juntas con una mesa larga de cubierta oscura, sillas y una pantalla en la pared" class="size-full object-cover" /></div></div>
+        <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
+          <div data-reveal="clip" class="overflow-hidden rounded-(--c-radius-img) bg-(--c-bg)"><div class="aspect-[4/3]"><Pic src={redonda} alt="Sala de juntas con mesa redonda y pizarrón de cristal" class="size-full object-cover" /></div></div>
+          <div data-reveal="clip" data-delay="120" class="overflow-hidden rounded-(--c-radius-img) bg-(--c-bg)"><div class="aspect-[4/3]"><Pic src={papeleria} alt="Sobre con el logotipo de Herver Abogados sobre un mostrador de mármol" class="size-full object-cover" /></div></div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Más que abogados, somos aliados estratégicos en la protección de tus derechos." />
+</SiteLayout>

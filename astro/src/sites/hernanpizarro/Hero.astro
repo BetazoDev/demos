@@ -1,0 +1,22 @@
+---
+// Héroe propio: campo café con el titular en una línea y la foto del titular que cuelga sobre la siguiente sección.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative z-10 bg-(--c-brand) text-(--c-on-brand)">
+  <div class="wrap flex min-h-[100svh] flex-col justify-end pb-12 pt-36 sm:pb-16">
+    <h1 data-hero="blur" class="text-[clamp(2.7rem,8.6vw,8.2rem)] font-normal leading-[0.95] tracking-[-0.03em]">{title}</h1>
+    <div class="mt-10 grid items-end gap-10 lg:mt-14 lg:grid-cols-[1fr_auto]">
+      <div>
+        <p data-hero style="--i:1" class="max-w-[38ch] text-lg opacity-90 sm:text-xl">{lede}</p>
+        <div data-hero style="--i:2" class="mt-8 flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+      </div>
+      <figure data-hero-media style="--d:350ms" class="relative z-10 aspect-[4/5] w-full max-w-[17rem] overflow-hidden rounded-(--c-radius) shadow-[0_30px_60px_-30px_rgb(0_0_0/0.55)] lg:mb-[-9.5rem] lg:w-[min(21rem,26vw)] lg:max-w-none">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </figure>
+    </div>
+  </div>
+</section>

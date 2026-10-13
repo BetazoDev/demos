@@ -1,0 +1,44 @@
+---
+import Layout from "@/sites/mendozaalvarez/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/mendozaalvarez/site";
+import { areas, texto } from "@/sites/mendozaalvarez/data";
+
+const base = "/mendozaalvarez";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const waArea = (t: string) => `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${t.toLowerCase()}.`)}`;
+---
+
+<Layout site={site} title="Servicios | Mendoza Álvarez Abogados, asesoría legal y empresarial en el Centro de la CDMX" description="Asesoría legal y asesoría empresarial y litigio en el Centro de la Ciudad de México. Servicios jurídicos y empresariales que buscan la seguridad y rentabilidad de nuestros clientes." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede={texto.serviciosLede} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <ul data-stagger data-gap="120" class="grid gap-4 md:grid-cols-2">
+        {areas.map((a) => (
+          <li id={a.key} class="scroll-mt-28">
+            <div class="img-zoom relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden bg-(--c-dark) p-7 text-white sm:min-h-[34rem] sm:p-9">
+              <div class="absolute inset-0 -z-10"><Pic src={a.image} alt={a.alt} position={a.key === "asesoria-legal" ? "30% 50%" : "28% 50%"} class="size-full object-cover" /></div>
+              <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(5_6_11/0.93),rgb(5_6_11/0.55)_45%,rgb(5_6_11/0.15)_85%)]"></div>
+              <h2 transition:name={`area-${a.key}`} class="max-w-[14ch] font-(family-name:--f-display) text-[clamp(2rem,3.6vw,3.2rem)] font-extrabold leading-[1] tracking-[-0.04em]">{a.title}</h2>
+              <div class="mt-7"><Button href={waArea(a.title)} variant="light" external>Escribir por WhatsApp</Button></div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <p data-reveal class="max-w-[30ch] font-(family-name:--f-display) text-[clamp(1.7rem,3.4vw,3rem)] font-bold leading-[1.12] tracking-[-0.035em]">Servicios jurídicos y empresariales que buscan la seguridad y rentabilidad de nuestros clientes.</p>
+      <p data-reveal data-delay="100" class="mt-10 max-w-[62ch] text-lg text-(--c-muted)">{texto.formacion}</p>
+    </div>
+  </Section>
+
+  <CtaBand title="Contáctanos" text={texto.contactoLede} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

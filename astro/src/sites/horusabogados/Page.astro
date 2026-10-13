@@ -1,0 +1,15 @@
+---
+// Envoltura de SiteLayout: radios suaves del sitio (20px) y anillo de foco azul (el dorado no contrasta sobre crema).
+import SiteLayout from "@/kit/SiteLayout.astro";
+---
+
+<SiteLayout {...Astro.props}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  :root { --c-radius-field: 14px; --c-radius-img: 20px; --c-radius-card: 20px; }
+  :focus-visible { outline-color: var(--c-brand); }
+  [data-tone="dark"] :focus-visible { outline-color: var(--c-accent); }
+  @media (max-width: 480px) { .break-all { font-size: 15px; } }
+</style>

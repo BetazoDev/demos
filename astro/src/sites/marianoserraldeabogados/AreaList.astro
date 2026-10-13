@@ -1,0 +1,35 @@
+---
+// Áreas de práctica en acordeón nativo (<details>), con id para enlazar desde el inicio (#corporativo, #laboral...).
+import type { Area } from "./data";
+interface Props { areas: Area[] }
+const { areas } = Astro.props;
+---
+
+<div data-area-list class="divide-y divide-current/15 border-y border-current/15">
+  {
+    areas.map((a) => (
+      <details class="acc group" id={a.key}>
+        <summary class="flex items-center justify-between gap-6 py-7 text-left text-[clamp(1.5rem,3vw,2.4rem)] leading-tight">
+          {a.title}
+          <span class="acc-plus grid size-10 shrink-0 place-items-center border border-current/25" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+          </span>
+        </summary>
+        <div class="acc-body"><div><p class="max-w-[62ch] pb-8 text-lg text-(--c-muted)">{a.text}</p></div></div>
+      </details>
+    ))
+  }
+</div>
+
+<script>
+  // Abre el área indicada en el hash de la URL.
+  function openHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const el = document.querySelector<HTMLDetailsElement>(`[data-area-list] details[id="${CSS.escape(id)}"]`);
+    if (!el) return;
+    el.open = true;
+    el.scrollIntoView({ block: "center" });
+  }
+  document.addEventListener("astro:page-load", openHash);
+</script>

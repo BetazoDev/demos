@@ -1,0 +1,37 @@
+---
+// Firma de movimiento: las especialidades son tarjetas planas que se apilan al hacer scroll (position: sticky, sin JavaScript).
+import Icon from "@/kit/Icon.astro";
+import type { Area } from "./data";
+interface Props { areas: Area[]; base: string }
+const { areas, base } = Astro.props;
+---
+
+<ul class="stack grid gap-4 sm:gap-5">
+  {
+    areas.map((a, i) => (
+      <li class="stack-item" style={`--i:${i}`}>
+        <a
+          href={`${base}/servicios#${a.key}`}
+          data-area={a.title}
+          class:list={[
+            "stack-card group flex min-h-[17rem] flex-col justify-between gap-12 rounded-(--c-radius) p-7 sm:min-h-[19rem] sm:p-10",
+            i % 2 === 0 ? "bg-(--c-brand) text-(--c-on-brand)" : "bg-(--c-surface) text-(--c-ink)",
+          ]}
+        >
+          <h3 transition:name={`area-${a.key}`} class="text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.05]">{a.title}</h3>
+          <div class="flex items-end justify-between gap-6 lg:pl-[46%]">
+            <p class="max-w-[38ch] text-lg leading-snug opacity-85">{a.lead}</p>
+            <span class="arr grid size-12 shrink-0 place-items-center rounded-full border border-current/30 transition-[background-color,color,border-color] duration-300 group-hover:border-transparent group-hover:bg-(--c-accent) group-hover:text-(--c-on-accent)">
+              <Icon name="arrow-up-right" weight="bold" class="size-5" />
+            </span>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .stack-item { position: sticky; top: calc(5.5rem + var(--i) * 0.8rem); }
+  .stack-card { box-shadow: 0 -14px 32px -22px rgb(22 22 22 / 0.5); }
+</style>

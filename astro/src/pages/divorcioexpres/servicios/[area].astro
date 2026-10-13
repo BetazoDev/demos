@@ -1,0 +1,115 @@
+---
+import Layout from "@/sites/divorcioexpres/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Requisitos from "@/sites/divorcioexpres/Requisitos.astro";
+import { site } from "@/sites/divorcioexpres/site";
+import { areas, requisitos, convenio } from "@/sites/divorcioexpres/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/divorcioexpres";
+const others = areas.filter((a) => a.key !== area.key);
+const isDivorcio = area.key === "divorcio-expres";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const first = area.blocks[0] && !area.blocks[0].h ? area.blocks[0] : null;
+const blocks = first ? area.blocks.slice(1) : area.blocks;
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: area.title,
+    description: area.lead,
+    provider: { "@id": new URL(`${base}#organizacion`, Astro.site!).href },
+    areaServed: [{ "@type": "City", name: "Ciudad de México" }, { "@type": "State", name: "Estado de México" }],
+  },
+];
+const h2 = "text-[clamp(1.5rem,2.6vw,2.1rem)] leading-[1.12] lg:sticky lg:top-28";
+---
+
+<Layout
+  title={`${area.title} en la Ciudad de México | Divorcio Exprés, Abogados de lo Familiar`}
+  description={`${area.lead.length > 150 ? area.lead.slice(0, area.lead.lastIndexOf(" ", 150)) + "..." : area.lead} Asesoría gratuita en la Ciudad de México.`}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}
+  schema={schema}
+>
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} />
+
+  {
+    first && (
+      <Section size="sm" class="pt-4">
+        <div class="wrap grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div data-reveal class="grid gap-5 text-lg leading-relaxed lg:col-start-2">
+            {first.p?.map((t) => <p>{t}</p>)}
+          </div>
+        </div>
+      </Section>
+    )
+  }
+
+  {
+    isDivorcio && (
+      <Section size="sm" class="pt-4">
+        <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <h2 data-reveal class={h2}>Requisitos para su divorcio exprés</h2>
+          <div>
+            <Requisitos items={requisitos} size="md" />
+            <div data-reveal class="mt-12 border-t border-(--c-line) pt-10">
+              <h3 class="text-[clamp(1.3rem,2.2vw,1.7rem)]">En el convenio vamos a contemplar</h3>
+              <ul data-stagger data-gap="50" class="mt-6 grid gap-3 sm:grid-cols-2">
+                {
+                  convenio.map((c) => (
+                    <li class="flex gap-3 text-lg">
+                      <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+                      <span>{c}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Section>
+    )
+  }
+
+  <Section size="sm" class={first || isDivorcio ? "pt-4" : "pt-4"}>
+    <div class="wrap grid gap-16 sm:gap-20">
+      {
+        blocks.map((b) => (
+          <section class="grid items-start gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+            {b.h ? <h2 data-reveal class={h2}>{b.h}</h2> : <span class="hidden lg:block"></span>}
+            <div data-reveal class="grid gap-5 text-lg leading-relaxed">
+              {b.p?.map((t) => <p>{t}</p>)}
+              {b.list && (
+                <ul class="grid gap-3.5">
+                  {b.list.map((it) => (
+                    <li class="flex gap-3">
+                      <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {b.after?.map((t) => <p>{t}</p>)}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] leading-tight">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-(--c-radius) border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="¿Tiene dudas? Asesórese de manera gratuita" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</Layout>

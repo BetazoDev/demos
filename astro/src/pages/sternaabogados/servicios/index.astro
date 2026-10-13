@@ -1,0 +1,44 @@
+---
+import "@/sites/sternaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/sternaabogados/site";
+import { services, intro } from "@/sites/sternaabogados/data";
+
+const base = "/sternaabogados";
+const [featured, ...rest] = services;
+const rows = [{ key: featured.key, title: featured.title, text: featured.text, href: `${base}/servicios/${featured.key}` }];
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios de extranjería e inmigración a España | Sterna Abogados"
+  description="Nacionalidad española, nómada digital, estudiantes, permisos de trabajo, arraigo, residencia no lucrativa y servicios para empresas. Abogados de inmigración a España desde México."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios" lede={intro.statement} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <ul data-stagger data-gap="60" class="grid gap-x-16 gap-y-10 md:grid-cols-2">
+        {rest.map((s) => (
+          <li>
+            <h2 class="text-[clamp(1.4rem,2.2vw,1.9rem)] font-medium leading-tight">{s.title}</h2>
+            <p class="mt-3 max-w-[48ch] text-(--c-muted)">{s.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="¿Quieres vivir en España?" text="Te ayudamos a gestionar tu visado desde México." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

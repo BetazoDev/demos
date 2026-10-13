@@ -1,0 +1,27 @@
+---
+import Layout from "@/sites/sanchezsoto/Layout.astro";
+import PageHead from "@/sites/sanchezsoto/PageHead.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/sites/sanchezsoto/CtaBand.astro";
+import { site } from "@/sites/sanchezsoto/site";
+import { areas } from "@/sites/sanchezsoto/data";
+
+const base = "/sanchezsoto";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout
+  site={site}
+  title="Servicios | Amparo, litigio fiscal y defensa ante el SAT en CDMX | Sánchez Soto Abogados"
+  description="Juicio de amparo, litigio fiscal y contribuciones, defensa en cobro coactivo y embargos, y atención a requerimientos y comprobación digital en Ciudad de México."
+  nav={{ variant: "bar", tone: "light", logoHeight: 46 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHead title="Servicios" lede="Representación, litigio y consultoría en derecho administrativo, fiscal, constitucional y juicio de amparo." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="Protege tus derechos y asegura tu tranquilidad" text="Contáctanos para recibir una asesoría legal personalizada y resolver tu caso con expertos." href={wa} label="Escribir por WhatsApp" external />
+</Layout>

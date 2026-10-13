@@ -1,0 +1,19 @@
+---
+// Materias del despacho como filas grandes que enlazan a la página de servicios.
+import Icon from "@/kit/Icon.astro";
+interface Props { items: string[]; href: string }
+const { items, href } = Astro.props;
+---
+
+<ul data-stagger data-gap="70" class="divide-y divide-current/12 border-y border-current/12">
+  {items.map((m) => (
+    <li>
+      <a href={href} class="group flex items-center justify-between gap-6 py-6 sm:py-8">
+        <span class="font-(family-name:--f-display) text-[clamp(1.7rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.02em] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-2">{m}</span>
+        <span class="grid size-12 shrink-0 place-items-center rounded-full border border-current/25 transition-[background-color,color,border-color] duration-300 group-hover:border-transparent group-hover:bg-(--c-accent) group-hover:text-(--c-on-accent)">
+          <Icon name="arrow-up-right" weight="bold" class="size-5" />
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>

@@ -1,0 +1,53 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/ilmc/site";
+import { photos, waLink } from "@/sites/ilmc/data";
+
+const base = "/ilmc";
+const wa = waLink(site.whatsapp.intro + ".");
+const pillars = [
+  { title: "Filosofía", text: "Prestar a nuestros clientes servicios de la más óptima calidad, orientados en la mayoría de los casos a la prevención de riesgos y contingencias que puedan derivar de su operación diaria." },
+  { title: "Misión", text: "Optimizar el tiempo y los recursos de nuestros clientes, fomentando en ellos, en todo momento, la confianza y tranquilidad que da el saber que sus asuntos están siendo debidamente atendidos por un grupo de abogados preparados y respetuosos de la ética, el profesionalismo y la lealtad incondicional." },
+  { title: "Visión", text: "Que nuestros servicios sean integrales, a fin de satisfacer todas las necesidades de nuestros clientes en la forma más eficiente." },
+];
+---
+
+<SiteLayout site={site} title="Nosotros | ILMC Abogados, expertos en derecho migratorio" description="Despacho creado por la unión de abogados con servicios profesionales, corporativos e integrales, con más de 25 años de experiencia en derecho migratorio ante la Secretaría de Gobernación, el INM y la SRE." nav={{ variant: "bar", tone: "light", logoHeight: 52 }} breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]} footer={{ variant: "dark", blurb: "Expertos en derecho migratorio." }}>
+  <PageHero title="Nosotros" lede="Abogados con servicios profesionales, corporativos e integrales, dedicados a los asuntos migratorios." image={photos.roma} imageAlt="Vista aérea de azoteas y arbolado de una colonia de la Ciudad de México al atardecer" />
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
+      <Statement text="Creado mediante la unión de expertos abogados, con más de 25 años de experiencia en su conjunto." class="!max-w-[26ch] !text-[clamp(1.9rem,3.8vw,3.4rem)]" />
+      <p data-reveal data-delay="120" class="self-end text-lg text-(--c-muted)">Durante los años de práctica profesional, la firma ha adquirido una amplia experiencia y reconocimiento ante la Secretaría de Gobernación, el Instituto Nacional de Migración, la Secretaría de Relaciones Exteriores y el aval de empresas trasnacionales, por su seriedad y profesionalismo en la materia.</p>
+    </div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap grid gap-14">
+      {
+        pillars.map((p) => (
+          <div class="grid gap-4 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24">
+            <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.5rem)] font-medium leading-tight tracking-[-0.03em]">{p.title}</h2>
+            <p data-reveal data-delay="100" class="max-w-[60ch] text-xl leading-relaxed">{p.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(1.8rem,3.4vw,2.8rem)] font-medium leading-tight tracking-[-0.03em]">Oficinas</h2>
+      <ul data-stagger data-gap="90" class="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
+        {site.addresses.map((a) => (
+          <li>
+            <h3 class="text-xl font-medium tracking-[-0.02em]">{a.label}</h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-(--c-muted)">{a.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

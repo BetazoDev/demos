@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/riosabogados/site";
+
+const base = "/riosabogados";
+---
+
+<SiteLayout site={site} title="Aviso de privacidad | R1OS Abogados" description="Aviso de privacidad de R1OS Abogados, S.C. y Ríos Aparicio y Asociados, S.C., conforme a la LFPDPPP." nav={{ variant: "pill", tone: "light", logoHeight: 44 }} breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Aviso de privacidad conforme a la LFPDPPP. Responsables: R1OS ABOGADOS, S.C. y RÍOS APARICIO Y ASOCIADOS, S.C.</p>
+        <p>Domicilio: calle Halley No. 21, colonia Anzures, alcaldía Miguel Hidalgo, C.P. 11590, Ciudad de México.</p>
+        <p>El aviso cubre los datos de candidatos, trabajadores, clientes, proveedores y visitantes, y los derechos ARCO.</p>
+        <p>El texto completo y el formulario para ejercer los derechos ARCO están publicados por el despacho en <a href="https://www.riosabogados.com/privacy-policy/" target="_blank" rel="noopener">riosabogados.com/privacy-policy</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

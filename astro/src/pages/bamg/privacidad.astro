@@ -1,0 +1,32 @@
+---
+import "@/sites/bamg/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/bamg/site";
+
+const base = "/bamg";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | BAM-G Abogados Migratorios"
+  description="Aviso de privacidad de BAM-G: responsable, domicilio, transferencias y derechos ARCO."
+  nav={{ variant: "pill", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Germán Martínez, con nombre comercial «Bam-G» es responsable del uso y protección de sus datos personales.</p>
+        <p>Domicilio: Ignacio L. Vallarta 1, 3.er piso, Tabacalera, Cuauhtémoc, 06030 Ciudad de México, CDMX. Correo: contacto@bam-g.com.</p>
+        <p>Transferencias: Stripe, Google Analytics, Google Ads.</p>
+        <p>Derechos ARCO: contacto@bam-g.com, respuesta en 20 días hábiles.</p>
+        <p>Fecha de última actualización: 14 de abril de 2026.</p>
+        <p>El texto completo del aviso está publicado en <a href="https://bam-g.com/politica-de-privacidad/" target="_blank" rel="noopener">bam-g.com/politica-de-privacidad</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

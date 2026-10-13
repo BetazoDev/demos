@@ -1,0 +1,27 @@
+---
+// Calificación de Google y reseñas publicadas por Enley: una cita grande y tres pequeñas.
+interface Props { rating: number; count: number; quotes: { text: string; author: string }[] }
+const { rating, count, quotes } = Astro.props;
+const [first, ...rest] = quotes;
+---
+
+<div class="grid gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-24">
+  <div>
+    <p class="flex items-baseline gap-4">
+      <span data-count={rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(3.5rem,8vw,6.5rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums">{rating.toFixed(1)}</span>
+      <span class="text-lg opacity-75">en Google, {count} reseñas</span>
+    </p>
+    <figure data-reveal class="mt-12">
+      <blockquote class="font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.18] tracking-[-0.02em]">“{first.text}”</blockquote>
+      <figcaption class="mt-6 text-[15px] opacity-65">{first.author}, en Google</figcaption>
+    </figure>
+  </div>
+  <ul data-stagger data-gap="90" class="grid content-start divide-y divide-current/12 border-y border-current/12">
+    {rest.map((q) => (
+      <li class="py-8">
+        <blockquote class="text-lg leading-snug">“{q.text}”</blockquote>
+        <p class="mt-4 text-[15px] opacity-65">{q.author}, en Google</p>
+      </li>
+    ))}
+  </ul>
+</div>

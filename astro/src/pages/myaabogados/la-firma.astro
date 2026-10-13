@@ -1,0 +1,62 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Split from "@/kit/Split.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Tokens from "@/sites/myaabogados/Tokens.astro";
+import { site } from "@/sites/myaabogados/site";
+import { photos, about, asociados, colaboradores, clients } from "@/sites/myaabogados/data";
+
+const base = "/myaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.01em]";
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | M&A Abogados, sociedad civil de abogados en derecho administrativo, Roma Sur, CDMX"
+  description="Sociedad Civil de profesionales del Derecho especializados en derecho administrativo, con asociados y colaboradores. Roma Sur, Ciudad de México."
+  nav={{ variant: "bar", tone: "light", logoHeight: 48 }}
+  breadcrumbs={[{ name: "La firma", href: `${base}/la-firma` }]}
+>
+  <Tokens />
+  <PageHero title="La firma" lede="Sociedad Civil de profesionales del Derecho especializados en la rama del Derecho Administrativo." />
+
+  <Section size="sm" class="pt-6 sm:pt-10">
+    <div class="wrap">
+      <Split image={photos.oficina} alt="Fachada de la oficina de M&A Abogados en Manzanillo 138, colonia Roma Sur" ratio="5/4" position="50% 40%">
+        <p class="max-w-[52ch] text-[19px] leading-[1.7] text-(--c-muted)">{about}</p>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`${h2}`}>Nuestro equipo</h2>
+      <p data-reveal data-delay="80" class="mt-4 text-xl text-(--c-muted)">Experimentados y estratégicos</p>
+
+      <h3 data-reveal class="mt-16 text-xl text-(--c-muted)">Asociados</h3>
+      <ul data-stagger data-gap="100" class="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+        {asociados.map((n) => <li class="border-t border-(--c-ink) pt-5 font-(family-name:--f-display) text-[clamp(1.6rem,2.6vw,2.2rem)] leading-tight">{n}</li>)}
+      </ul>
+
+      <h3 data-reveal class="mt-16 text-xl text-(--c-muted)">Colaboradores</h3>
+      <ul data-stagger data-gap="60" class="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+        {colaboradores.map((n) => <li class="border-t border-(--c-line) pt-4 text-[19px]">{n}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={h2}>Nuestros clientes</h2>
+      <p data-reveal data-delay="80" class="mt-4 max-w-[44ch] text-xl text-(--c-muted)">No pudimos mencionarlos a todos, pero puede conocer algunos.</p>
+      <ul data-stagger data-gap="40" class="mt-12 flex flex-wrap gap-x-3 gap-y-3">
+        {clients.map((c) => <li class="rounded-full border border-(--c-line) px-5 py-2.5 font-(family-name:--f-display) text-[clamp(1.1rem,1.6vw,1.4rem)]">{c}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

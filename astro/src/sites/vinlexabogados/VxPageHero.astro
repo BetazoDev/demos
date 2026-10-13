@@ -1,0 +1,16 @@
+---
+// Cabecera de páginas interiores de VINLEX: título en su display, lema y planos translúcidos a la derecha.
+import VxLayers from "./VxLayers.astro";
+interface Props { title: string; lede?: string; transitionName?: string }
+const { title, lede, transitionName } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) pb-16 pt-36 text-(--c-ink) sm:min-h-[26rem] sm:pb-24 sm:pt-44">
+  <VxLayers variant="fit" class="-z-10 right-[3%] top-[6.4rem] hidden aspect-[1.7/1] h-[calc(100%-9rem)] sm:block lg:right-[5%]" />
+  <div class="wrap">
+    <span data-hero class="rule mb-8"></span>
+    <h1 data-hero="blur" style="--i:1" transition:name={transitionName} class="max-w-[16ch] text-[clamp(2.5rem,5.4vw,5rem)] leading-[1.05]">{title}</h1>
+    {lede && <p data-hero style="--i:2" class="mt-6 max-w-[52ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+    <slot />
+  </div>
+</section>

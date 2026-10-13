@@ -1,0 +1,37 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/solucionesjuridicas/Nav.astro";
+import { site } from "@/sites/solucionesjuridicas/site";
+import { person, photos, waLink } from "@/sites/solucionesjuridicas/data";
+
+const base = "/solucionesjuridicas";
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<SiteLayout site={site} title="La firma | Soluciones Jurídicas, Lic. Víctor Carrillo Estrada" description="Equipo de abogados dirigido por el Lic. Víctor Carrillo Estrada, en la Roma Sur, Ciudad de México. Procesos legales en toda la República Mexicana." breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]} footer={{ variant: "dark", blurb: "Despacho de abogados en Ciudad de México. Asesoría legal gratuita." }}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" logoHeight={46} />
+  <PageHero title="La firma" lede="Un equipo de abogados dirigidos por el Lic. Víctor Carrillo Estrada, con oficinas en la Roma Sur, Ciudad de México." image={photos.herreria} imageAlt="Arco de herrería y letrero de la oficina de Soluciones Jurídicas en Ario 5" />
+  <Section>
+    <div class="wrap"><Statement text="Certeza jurídica y honestidad en las consultas y servicios en los que intervenimos." class="!max-w-[30ch] !text-[clamp(1.9rem,3.8vw,3.4rem)]" /></div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] max-w-[26rem] overflow-hidden rounded-(--c-radius) bg-(--c-bg)"><Pic src={person.photo} alt={person.name} class="size-full object-cover" /></div>
+      <div data-reveal class="lg:py-6">
+        <h2 class="text-[clamp(1.8rem,3.2vw,2.8rem)] font-bold leading-tight tracking-[-0.025em]">{person.name}</h2>
+        <p class="mt-2 text-(--c-muted)">{person.role}</p>
+        <div class="mt-8 grid max-w-[58ch] gap-5 text-lg leading-relaxed text-(--c-muted)">
+          <p>Atendemos asuntos de carácter familiar, civil, mercantil, arrendamiento inmobiliario, penal y laboral, ya que contamos con especialistas en diversas áreas del derecho.</p>
+          <p>Nuestras oficinas se encuentran en la calle Ario 5, colonia Roma Sur, alcaldía Cuauhtémoc, Ciudad de México. Atendemos procesos legales en toda la República Mexicana gracias a nuestros convenios de colaboración y corresponsalía con despachos de abogados en todo México.</p>
+          <p>Lo que nos distingue de otros despachos es brindar asesoría legal personal a cualquier persona física o moral que la solicite, ajustando el costo de los servicios legales a la capacidad económica de nuestros clientes.</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

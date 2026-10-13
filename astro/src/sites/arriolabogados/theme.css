@@ -1,0 +1,19 @@
+/* Formas de Arriola Abogados: botones en pastilla y fotos con 1.5rem. Todo bajo [data-site] para no filtrarse a otros sitios. */
+[data-site="arriolabogados"] {
+  --c-radius-img: 1.5rem;
+  --c-radius-card: 1.5rem;
+  --c-radius-field: 0.9rem;
+}
+/* Logos de clientes: siluetas de un solo tono (preparadas en assets/clientes) a opacidad media; plenas al pasar el cursor */
+[data-site="arriolabogados"] .client-logo {
+  opacity: 0.78;
+  transition: opacity 300ms ease;
+}
+@media (hover: hover) {
+  [data-site="arriolabogados"] .client-logo:hover { opacity: 1; }
+}
+
+/* Urbanist viene con el interletraje ya apretado: se afloja el de los titulares del kit */
+[data-site="arriolabogados"] :is(h1, h2, h3, [data-statement]) {
+  letter-spacing: -0.012em;
+}

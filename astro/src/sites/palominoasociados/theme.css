@@ -1,0 +1,7 @@
+/* Sistema de ángulos rectos: todo a 0px, también la nav flotante, los campos y las imágenes. */
+html[data-site="palominoasociados"] {
+  --c-radius-nav: 0px;
+  --c-radius-img: 0px;
+  --c-radius-card: 0px;
+  --c-radius-field: 0px;
+}

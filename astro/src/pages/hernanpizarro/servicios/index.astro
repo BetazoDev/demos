@@ -1,0 +1,21 @@
+---
+import Layout from "@/sites/hernanpizarro/Layout.astro";
+import ServiceList from "@/sites/hernanpizarro/ServiceList.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/hernanpizarro/site";
+import { areas, consulta } from "@/sites/hernanpizarro/data";
+
+const base = "/hernanpizarro";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout site={site} title="Servicios jurídicos | Hernán Pizarro y Asociados" description="Servicios de asesoría y patrocinio en materia civil, familiar, mercantil, laboral, corporativa e inmobiliaria, negligencia médica y juicios administrativos en la Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede={consulta} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><ServiceList areas={rows} class="lg:grid-cols-2 lg:gap-x-20" /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

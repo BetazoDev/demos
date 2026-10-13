@@ -1,0 +1,110 @@
+---
+import Layout from "@/sites/lozanoguzman/Layout.astro";
+import Mosaico from "@/sites/lozanoguzman/Mosaico.astro";
+import Hero from "@/kit/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/lozanoguzman/site";
+import { areas } from "@/sites/lozanoguzman/areas";
+import { photos, frase, conviccion, principios, team, testimonios, municipios } from "@/sites/lozanoguzman/data";
+
+const base = "/lozanoguzman";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const tiles = areas.map((a) => ({ key: a.key, short: a.short, text: a.summary, icon: a.icon, href: `${base}/servicios/${a.key}` }));
+const h2 = "text-[clamp(2rem,4.2vw,3.6rem)] font-bold leading-[1.06] tracking-[-0.02em]";
+const [grande, ...chicos] = testimonios;
+---
+
+<Layout site={site} title="Lozano Guzmán Abogados | Justicia, equidad y verdad en la Ciudad de México y Ecatepec" navTone="dark">
+  <Hero layout="photo" title="Justicia. Equidad. Verdad." lede={frase} image={photos.balanza} imageAlt="Balanza de bronce sobre un fondo azul marino" position="60% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external class="!bg-[#FBB601] !text-[#071031] hover:!brightness-105">Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <Statement class="font-(family-name:--f-display) font-normal tracking-[-0.02em]" text={conviccion} />
+    </div>
+  </Section>
+
+  <Section tone="dark" size="sm">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-0">
+      {principios.map((p, i) => (
+        <div data-reveal data-delay={i * 120} class:list={["lg:py-6", i === 0 ? "lg:border-r lg:border-white/15 lg:pr-16" : "lg:pl-16"]}>
+          <Icon name={p.icon} class="size-10 text-[#FBB601]" />
+          <h2 class="mt-6 font-(family-name:--f-display) text-[clamp(1.7rem,2.8vw,2.4rem)] font-bold leading-[1.1]">{p.title}</h2>
+          <p class="mt-4 max-w-[44ch] text-lg opacity-80">{p.text}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Servicios</h2>
+      <Mosaico items={tiles} />
+    </div>
+  </Section>
+
+  <ImageBand image={photos.azoteas} alt="Azoteas y cúpulas del Centro Histórico de la Ciudad de México a la hora azul" position="50% 55%" height="clamp(22rem,56vw,38rem)">
+    <div class="max-w-[34rem] pb-2">
+      <p data-reveal class="font-(family-name:--f-display) text-[clamp(1.7rem,3.2vw,2.8rem)] font-bold leading-[1.1]">Presentes en la Ciudad de México y su área metropolitana</p>
+      <p data-reveal data-delay="100" class="mt-3 text-[15px] opacity-90 sm:text-base">{municipios.join(", ")} y alrededores.</p>
+    </div>
+  </ImageBand>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Nuestro equipo</h2>
+      <div class="grid gap-14 lg:grid-cols-2 lg:gap-24">
+        {team.map((p, i) => (
+          <div data-reveal data-delay={i * 120}>
+            <h3 class="font-(family-name:--f-display) text-[clamp(1.6rem,2.6vw,2.2rem)] font-bold leading-[1.12]">{p.name}</h3>
+            <p class="mt-2 text-(--c-accent)">{p.role}</p>
+            <p class="mt-5 max-w-[46ch] text-lg text-(--c-muted)">{p.short}</p>
+          </div>
+        ))}
+      </div>
+      <div data-reveal class="mt-12"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Testimonios</h2>
+      <div class="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
+        <figure data-reveal>
+          <blockquote class="font-(family-name:--f-display) text-[clamp(1.4rem,2.3vw,2rem)] leading-[1.38]">“{grande.text}”</blockquote>
+          <figcaption class="mt-6 text-(--c-muted)">{grande.author}</figcaption>
+        </figure>
+        <ul data-stagger data-gap="120" class="grid gap-9">
+          {chicos.map((q) => (
+            <li>
+              <blockquote class="text-lg leading-snug">“{q.text}”</blockquote>
+              <p class="mt-3 text-[15px] text-(--c-muted)">{q.author}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.short)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

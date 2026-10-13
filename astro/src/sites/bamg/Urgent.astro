@@ -1,0 +1,20 @@
+---
+// Defensa Urgente: la segunda línea de WhatsApp que el despacho publica (activa las 24 horas). Es el único uso del color de acento.
+import Button from "@/kit/Button.astro";
+import { urgent } from "./site";
+import { intro } from "./data";
+const wa = `https://wa.me/${urgent.number}?text=${encodeURIComponent(urgent.message)}.`;
+---
+
+<section class="bg-(--c-accent) text-(--c-on-accent) section-y-sm">
+  <div class="wrap grid items-center gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
+    <div data-reveal>
+      <h2 class="max-w-[18ch] text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02]">{intro.urgent.title}</h2>
+      <p class="mt-5 max-w-[46ch] text-lg">{intro.urgent.text}</p>
+    </div>
+    <div data-reveal data-delay="100">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <p class="mt-4">WhatsApp {urgent.display}</p>
+    </div>
+  </div>
+</section>

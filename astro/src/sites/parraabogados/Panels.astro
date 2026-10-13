@@ -1,0 +1,34 @@
+---
+// Los dos servicios como las dos mitades del isotipo: azul marino (empresas) y gris (trabajadores), a sangre.
+import Button from "@/kit/Button.astro";
+import Icon from "@/kit/Icon.astro";
+import { empresas, trabajadores } from "./data";
+interface Props { wa: string; h?: "h2" }
+const { wa } = Astro.props;
+const pad = "p-[clamp(2rem,5.5vw,6rem)]";
+---
+
+<div class="grid md:grid-cols-2">
+  <div data-reveal="clip">
+    <article id="empresas" class:list={["flex h-full flex-col bg-(--c-brand) text-(--c-on-brand)", pad]}>
+      <h2 transition:name="area-empresas" class="max-w-[14ch] text-[clamp(2.2rem,4.4vw,4rem)] leading-[1.02] tracking-[-0.025em]">{empresas.title}</h2>
+      <p class="mt-6 max-w-[40ch] text-lg opacity-80">{empresas.lead}</p>
+      <ul class="mt-10 grid gap-3.5 text-[17px]">
+        {empresas.items.map((i) => (
+          <li class="flex gap-3.5">
+            <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+            <span>{i}</span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  </div>
+  <div data-reveal="clip" data-delay="140">
+    <article id="trabajadores" class:list={["flex h-full flex-col justify-between gap-16 bg-(--c-accent) text-(--c-on-accent)", pad]}>
+      <h2 transition:name="area-trabajadores" class="max-w-[12ch] text-[clamp(2.2rem,4.4vw,4rem)] leading-[1.02] tracking-[-0.025em]">{trabajadores.title}</h2>
+      <div>
+        <Button href={wa} variant="solid" external>Escribir por WhatsApp</Button>
+      </div>
+    </article>
+  </div>
+</div>

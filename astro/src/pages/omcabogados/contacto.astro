@@ -1,0 +1,36 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Button from "@/kit/Button.astro";
+import { site } from "@/sites/omcabogados/site";
+import { areas, avisoLegal } from "@/sites/omcabogados/data";
+
+const base = "/omcabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | OMC abogados, Paseo de la Reforma 87, Ciudad de México"
+  description="Paseo de la Reforma 87, despacho 203, colonia Tabacalera, Ciudad de México. Teléfono 55 5207 8457 y WhatsApp 55 1823 4033."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 42 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero tone="brand" title="Contacto" lede="Escríbanos por WhatsApp, llámenos o visítenos en Paseo de la Reforma." />
+  <Section size="sm" class="pt-14 sm:pt-20">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-10"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+      </div>
+      <div data-reveal data-delay="120">
+        <div class="rounded-(--c-radius) bg-(--c-surface) p-6 sm:p-9">
+          <Composer site={site} areas={areas.map((a) => a.title)} />
+        </div>
+        <p class="mt-6 max-w-[56ch] text-sm leading-relaxed text-(--c-muted)">{avisoLegal}</p>
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

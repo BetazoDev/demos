@@ -1,0 +1,31 @@
+---
+// Héroe propio (split con foto a sangre por la derecha): titular a la izquierda, sala de juntas del despacho en panel que sale del margen.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+import mark from "./assets/mark-light.svg";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <img src={mark.src} alt="" aria-hidden="true" class="pointer-events-none absolute -left-10 bottom-[-6%] -z-10 h-[78%] w-auto opacity-[0.045]" />
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-14 pt-32 lg:grid-cols-[1fr_1fr] lg:gap-14 lg:pb-12">
+    <div>
+      <h1 data-hero="blur" class="max-w-[15ch] text-[clamp(2.7rem,5.4vw,5.4rem)] font-normal leading-[1.02] tracking-[-0.015em]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-7 max-w-[44ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-10 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div data-hero-media style="--d:200ms" class="bleed relative aspect-[4/3] w-full overflow-hidden rounded-(--c-radius-img) bg-(--c-surface) lg:rounded-r-none">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklab,var(--c-bg)_35%,transparent),transparent_40%)]"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (min-width: 1024px) {
+    .bleed { margin-right: calc((min(100vw - 5rem, 76rem) - 100vw) / 2); width: auto; }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+// Héroe propio: la foto va enmarcada (no a sangre) y el titular se asienta sobre el muro azul de la imagen.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "70% 50%" } = Astro.props;
+---
+
+<section class="bg-(--c-bg) pb-4 pt-24 sm:pt-28">
+  <div class="wrap">
+    <div data-hero-media style="--d:80ms" class="relative isolate flex min-h-[min(46rem,calc(100svh-8.5rem))] items-end overflow-hidden rounded-(--c-radius-img) bg-(--c-dark) text-white">
+      <div class="absolute inset-0 -z-10">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" sizes="(min-width: 1280px) 1216px, 100vw" />
+        <div class="absolute inset-0 bg-[linear-gradient(to_top,rgb(2_10_37/0.82),rgb(2_10_37/0.05)_65%)] md:bg-[linear-gradient(to_right,rgb(2_10_37/0.5),transparent_62%)]"></div>
+      </div>
+      <div class="w-full p-7 pb-9 sm:p-12 lg:p-16">
+        <h1 data-hero="blur" class="max-w-[12ch] text-[clamp(2.7rem,5.6vw,5.4rem)] font-medium leading-[1] tracking-[-0.03em]">{title}</h1>
+        {lede && <p data-hero style="--i:1" class="mt-6 max-w-[38ch] text-lg text-white/85 sm:text-xl">{lede}</p>}
+        <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+          <slot name="actions" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

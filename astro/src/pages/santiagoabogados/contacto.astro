@@ -1,0 +1,27 @@
+---
+import Layout from "@/sites/santiagoabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/santiagoabogados/site";
+import { materias, texto } from "@/sites/santiagoabogados/data";
+
+const base = "/santiagoabogados";
+---
+
+<Layout site={site} title="Contacto | Santiago Abogados, San Luis Potosí 127, Roma Norte, CDMX" description="San Luis Potosí 127, Int. 101, Roma Norte, Ciudad de México. Lunes a viernes de 8:00 a 19:00. WhatsApp 55 1801 3213." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la Roma Norte." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} />
+        <p class="mt-8 text-[15px] text-(--c-muted)">{texto.facilidades}</p>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={materias.map((m) => m.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>
+

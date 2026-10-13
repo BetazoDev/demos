@@ -1,0 +1,107 @@
+---
+import "@/sites/cardenassoriano/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/cardenassoriano/site";
+import { areas } from "@/sites/cardenassoriano/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/cardenassoriano";
+const others = areas.filter((a) => a.key !== area.key);
+const org = new URL(`/${site.slug}#organizacion`, Astro.site).href;
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const schema = [
+  { "@context": "https://schema.org", "@type": "Service", name: area.title, description: area.lead, provider: { "@id": org }, areaServed: { "@type": "City", name: "Ciudad de México" } },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [{ "@type": "Question", name: area.faq.q, acceptedAnswer: { "@type": "Answer", text: area.faq.a } }] },
+];
+---
+
+<SiteLayout
+  site={site}
+  title={`${area.title} | Cárdenas Soriano Abogados`}
+  description={`${area.lead} Abogados en Polanco, CDMX.`}
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}
+  schema={schema}
+>
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em]">Asuntos que atendemos</h2>
+      <ul data-stagger data-gap="50" class="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+        {area.asuntos.map((a) => (
+          <li class="flex gap-4">
+            <span class="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-(--c-accent) text-(--c-on-accent)"><Icon name="check" weight="bold" class="size-3.5" /></span>
+            <div>
+              <h3 class="text-lg font-medium leading-snug">{a.t}</h3>
+              {a.d && <p class="mt-1.5 text-[15px] text-(--c-muted)">{a.d}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div data-reveal>
+        <h2 class="max-w-[18ch] text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em]">{area.audienceTitle}</h2>
+        <p class="mt-4 max-w-[40ch] text-lg text-(--c-muted)">{area.audienceIntro}</p>
+      </div>
+      <ul data-stagger data-gap="40" class="flex flex-wrap content-start gap-3">
+        {area.audience.map((p) => <li class="rounded-full border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[15px]">{p}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 max-w-[20ch] text-[clamp(1.8rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.03em]">La ventaja de conocer la norma por dentro.</h2>
+      <ul data-stagger data-gap="90" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {area.why.map((w) => (
+          <li class="grid gap-3 py-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <h3 class="text-[clamp(1.3rem,2.2vw,1.8rem)] font-medium leading-tight tracking-[-0.02em]">{w.t}</h3>
+            <p class="max-w-[58ch] text-lg text-(--c-muted)">{w.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="dark">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class="max-w-[14ch] text-[clamp(1.9rem,3.8vw,3.2rem)] leading-[1.05] tracking-[-0.03em]">Estrategia primero, tribunal cuando conviene.</h2>
+      <div data-reveal data-delay="100" class="grid max-w-[62ch] gap-6 text-lg opacity-85">
+        {area.practice.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em]">Pregunta frecuente</h2>
+      <div data-reveal data-delay="100">
+        <h3 class="text-[clamp(1.2rem,2vw,1.6rem)] font-medium leading-snug">{area.faq.q}</h3>
+        <p class="mt-4 max-w-[62ch] text-lg text-(--c-muted)">{area.faq.a}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em]">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-full border border-(--c-line) px-5 py-2.5 text-[15px] hover:border-(--c-ink)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Empecemos por una llamada." text={area.cta} href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</SiteLayout>

@@ -1,0 +1,7 @@
+---
+// Frase real del despacho que se llena palabra por palabra con el scroll, en su display.
+interface Props { text: string }
+const { text } = Astro.props;
+---
+
+<p data-statement class="max-w-[30ch] font-(family-name:--f-display) text-[clamp(1.8rem,3.3vw,3rem)] leading-[1.16] sm:max-w-[36ch]">{text}</p>

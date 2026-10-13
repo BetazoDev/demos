@@ -1,0 +1,35 @@
+---
+import Layout from "@/sites/rinconabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/rinconabogados/site";
+import { areas, otrasAreas } from "@/sites/rinconabogados/data";
+
+const base = "/rinconabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout
+  site={site}
+  title="Servicios | Rincón Mayorga Abogados"
+  description="Litigio y solución de controversias, asesoría corporativa y de inversión, derecho constitucional y amparo, estrategia regulatoria y compliance en Ciudad de México y Guadalajara."
+  nav={{ variant: "bar", tone: "light", logoHeight: 38 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios" lede="Litigio, arbitraje, amparo y asesoría corporativa para empresas e inversionistas nacionales e internacionales." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-light leading-tight tracking-[-0.02em]">También atendemos</h2>
+      <ul data-stagger data-gap="40" class="grid gap-x-10 gap-y-3 text-lg sm:grid-cols-2 lg:grid-cols-3">
+        {otrasAreas.map((o) => <li>{o}</li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

@@ -1,0 +1,18 @@
+---
+// Héroe tipográfico de Moreno & Fuertes: lema en Playfair enorme sobre un ampersand de contorno que sube con el scroll.
+interface Props { title: string; lede: string }
+const { title, lede } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" aria-hidden="true" data-hero-media style="--d:0ms">
+    <div class="mf-amp pointer-events-none absolute -right-[3vw] top-[6svh] select-none text-[clamp(22rem,54vw,60rem)]" data-parallax="40">&amp;</div>
+  </div>
+  <div class="wrap flex min-h-[100svh] flex-col justify-end pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="text-[clamp(3.2rem,10.4vw,10.5rem)] font-medium leading-[0.94] tracking-[-0.03em]">{title}</h1>
+    <p data-hero style="--i:1" class="mt-8 max-w-[44ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,75 @@
+---
+import SiteLayout from "@/sites/eduardocastilloabogados/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import Button from "@/kit/Button.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/eduardocastilloabogados/site";
+import { withPage, detalle, enfoque, prioridades, libro, titular } from "@/sites/eduardocastilloabogados/data";
+import cover from "@/sites/eduardocastilloabogados/assets/libro-fideicomiso.png";
+
+export function getStaticPaths() {
+  return withPage.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/eduardocastilloabogados";
+const d = detalle[area.key];
+const others = withPage.filter((a) => a.key !== area.key);
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const origin = Astro.site!.origin;
+const schema = [{ "@context": "https://schema.org", "@type": "Service", name: area.title, description: area.lead, provider: { "@id": `${origin}${base}#organizacion` }, areaServed: { "@type": "City", name: "Ciudad de México" } }];
+---
+
+<SiteLayout site={site} title={`${area.title} | Eduardo Castillo Abogados, Ciudad de México`} description={area.lead} nav={{ variant: "bar", tone: "light", logoHeight: 50 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]} schema={schema}>
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} />
+
+  {
+    area.key === "fiduciario" ? (
+      <section class="section-y mt-10 bg-[#F4F1EA] text-[#0F1D31]" style="--c-line:#D9D2C3;--c-muted:#4A5670;--c-brand:#0F1D31;--c-on-brand:#F4F1EA">
+        <div class="wrap grid items-center gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+          <div data-reveal="clip" class="mx-auto w-full max-w-[22rem]"><Pic src={cover} alt="Portada del libro El Fideicomiso, el fideicomiso de garantía y su ejecución" class="h-auto w-full" fill={false} /></div>
+          <div data-reveal data-delay="100">
+            <h2 class="max-w-[22ch] text-[clamp(1.8rem,3.4vw,2.8rem)] font-semibold leading-[1.05] tracking-[-0.03em]">{libro.title}</h2>
+            <p class="mt-6 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{libro.text}</p>
+            <p class="mt-6 max-w-[56ch] text-base text-(--c-muted)">Dónde comprarlo: {libro.donde}</p>
+          </div>
+        </div>
+      </section>
+    ) : (
+      <Section size="sm" class="pt-10">
+        <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+          <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.02em]">Publicaciones del titular</h2>
+          <div>
+            <ul data-stagger data-gap="60" class="grid gap-6">
+              {d.pubs.map((p) => <li class="text-[clamp(1.4rem,2.6vw,2.2rem)] font-medium leading-tight tracking-[-0.02em]">{p}</li>)}
+            </ul>
+            {d.curso && <p data-reveal class="mt-10 max-w-[56ch] text-lg text-(--c-muted)">{d.curso}</p>}
+            {area.key === "litigio-mercantil" && <p data-reveal class="mt-10 max-w-[60ch] text-lg leading-relaxed text-(--c-muted)">{titular.capacitacion}</p>}
+          </div>
+        </div>
+      </Section>
+    )
+  }
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.02em]">Cómo se atiende</h2>
+      <ul data-stagger data-gap="60" class="grid max-w-[62ch] gap-5 text-lg leading-relaxed">
+        {area.key === "litigio-mercantil" && enfoque.map((e) => <li>{e}</li>)}
+        {prioridades.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.02em]">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex border border-(--c-line) px-5 py-2.5 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">{o.title}</a></li>)}
+        <li><a href={`${base}/servicios`} class="press inline-flex border border-(--c-line) px-5 py-2.5 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">Todos los servicios</a></li>
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Contacto directo con el titular del despacho" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

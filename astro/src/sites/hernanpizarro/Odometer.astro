@@ -1,0 +1,52 @@
+---
+// Cifra grande cuyos dígitos ruedan al entrar en pantalla (solo transform). Sin JavaScript se muestra el valor final.
+interface Props { value: string; prefix?: string; label: string; class?: string }
+const { value, prefix = "", label, class: cls = "" } = Astro.props;
+const digits = value.split("");
+---
+
+<div data-odo class:list={["odo", cls]} role="img" aria-label={`${prefix}${value} ${label}`}>
+  <span aria-hidden="true" class="odo-row">
+    {prefix && <span class="odo-fixed">{prefix}</span>}
+    {digits.map((d, k) => (
+      <span class="odo-col">
+        <span class="odo-strip" style={`--n:${d};--k:${k}`}>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => <span>{n}</span>)}
+        </span>
+      </span>
+    ))}
+  </span>
+</div>
+
+<style is:global>
+  .odo-row { display: inline-flex; line-height: 1; }
+  .odo-fixed { display: block; height: 1em; }
+  .odo-col { display: block; height: 1em; overflow: hidden; margin-inline: -0.025em; }
+  .odo-strip { display: flex; flex-direction: column; transform: translateY(calc(var(--n) * -1em - 10em)); transition: transform 1.9s var(--ease-out) calc(var(--k) * 140ms); will-change: transform; }
+  .odo-strip > span { display: block; height: 1em; line-height: 1; }
+  .odo.is-ready:not(.is-in) .odo-strip { transform: none; transition: none; }
+  @media (prefers-reduced-motion: reduce) { .odo-strip { transition: none; transform: translateY(calc(var(--n) * -1em - 10em)) !important; } }
+</style>
+
+<script>
+  const start = () => {
+    const els = document.querySelectorAll<HTMLElement>("[data-odo]:not([data-odo-ready])");
+    if (!els.length) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    els.forEach((el) => (el.dataset.odoReady = "1"));
+    if (reduce) return;
+    els.forEach((el) => el.classList.add("is-ready"));
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          (e.target as HTMLElement).classList.add("is-in");
+          io.unobserve(e.target);
+        }
+      },
+      { threshold: 0.5 },
+    );
+    els.forEach((el) => io.observe(el));
+  };
+  document.addEventListener("astro:page-load", start);
+</script>

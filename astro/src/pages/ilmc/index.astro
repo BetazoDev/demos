@@ -1,0 +1,89 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/ilmc/Hero.astro";
+import Journey from "@/sites/ilmc/Journey.astro";
+import { site } from "@/sites/ilmc/site";
+import { areas, photos, waLink } from "@/sites/ilmc/data";
+
+const base = "/ilmc";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = waLink(site.whatsapp.intro + ".");
+const steps = [
+  { title: "Visitante", meta: "Hasta 180 días", text: "Turismo, negocios o tránsito." },
+  { title: "Residente temporal", meta: "Más de 180 días, hasta 4 años", text: "Estudiantes, oferta de empleo en México, vínculos familiares, inversionistas y otros criterios." },
+  { title: "Residente permanente", meta: "Periodo indefinido", text: "Puede obtenerse tras 4 años ininterrumpidos como residente temporal, entre otros supuestos." },
+];
+---
+
+<SiteLayout site={site} title="ILMC Abogados | Expertos en derecho migratorio en Ciudad de México" description="Expertos en derecho migratorio en la Roma Sur, Ciudad de México. Visas, permisos, residencias, naturalizaciones y apostilla, con oficinas en Mazatlán, Cancún y Puebla." nav={{ variant: "bar", tone: "light", logoHeight: 52 }} footer={{ variant: "dark", blurb: "Expertos en derecho migratorio." }}>
+  <Hero title="Expertos en derecho migratorio" lede="Despacho de abogados dedicado a asuntos migratorios de manera integral o en cualquiera de sus etapas." image={photos.hero} imageAlt="Sala luminosa con ventanal, cortinas ligeras y una maleta de viaje junto a la ventana">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
+      <Statement text="Nos respalda más de 25 años de experiencia en derecho migratorio." class="!max-w-[22ch] !text-[clamp(2rem,4.2vw,3.8rem)]" />
+      <p data-reveal data-delay="120" class="self-end text-lg text-(--c-muted)">Amplia experiencia y reconocimiento ante la Secretaría de Gobernación, el Instituto Nacional de Migración y la Secretaría de Relaciones Exteriores, por seriedad y profesionalismo en materia migratoria.</p>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-14 max-w-[18ch] text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.04em]">Tres condiciones de estancia</h2>
+      <Journey steps={steps} />
+      <div data-reveal class="mt-14"><Button href={`${base}/servicios/visas`} variant="outline">Visas, permisos y residencias</Button></div>
+    </div>
+  </Section>
+
+  <Section id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.04em]">Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={photos.roma} alt="Vista aérea de azoteas y arbolado de una colonia de la Ciudad de México al atardecer" class="size-full object-cover" /></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(11,13,26,0.8)_0%,rgba(11,13,26,0.42)_42%,rgba(11,13,26,0)_78%)]"></div>
+    <div class="wrap flex min-h-[26rem] items-end py-14 sm:min-h-[32rem] sm:py-20">
+      <p data-reveal class="max-w-[22ch] font-(family-name:--f-display) text-[clamp(1.9rem,4vw,3.6rem)] font-medium leading-[1.05] tracking-[-0.035em]">Oficinas en Ciudad de México, Mazatlán, Cancún y Puebla.</p>
+    </div>
+  </div>
+
+  <Section>
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] max-h-[42rem] overflow-hidden rounded-(--c-radius-img,1.5rem)"><Pic src={photos.ventanilla} alt="Vista desde la ventanilla de un avión sobre un mar de nubes al amanecer" class="size-full object-cover" /></div>
+      <div data-reveal data-delay="100">
+        <h2 class="max-w-[16ch] text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.04em]">Ayudamos a resolver problemas en derecho migratorio</h2>
+        <p class="mt-8 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">La migración internacional se ha convertido en un gran fenómeno de seguridad y desarrollo global. En ILMC sabemos que México favorece la migración y el tránsito de inmigrantes en todos los sentidos, lo que sumado a los tratados de libre comercio celebrados con múltiples naciones, requiere un servicio migratorio integral y eficaz.</p>
+        <p class="mt-5 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">Nuestra filosofía es prestar servicios de la más óptima calidad, orientados en la mayoría de los casos a la prevención de riesgos y contingencias que puedan derivar de la operación diaria de nuestros clientes.</p>
+        <div class="mt-9"><Button href={`${base}/nosotros`} variant="outline">Conocer al despacho</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.04em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,23 @@
+---
+// Héroe propio de Enley: titular enorme sobre campo oscuro y el cubo de su logo, muy grande, que se «construye» de abajo hacia arriba.
+interface Props { title: string; lede?: string; mark: string }
+const { title, lede, mark } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(44rem_34rem_at_78%_46%,rgb(0_190_214/0.14),transparent_72%)]"></div>
+    <div class="absolute inset-0" data-parallax="46">
+      <div data-hero-media style="--d:250ms" class="absolute right-[-26%] top-[52%] w-[min(30rem,84vw)] -translate-y-1/2 opacity-25 sm:right-[-6%] sm:w-[min(30rem,52vw)] sm:opacity-100 lg:right-[-3%] lg:w-[min(32rem,30vw)]">
+        <img src={mark} alt="" width="62" height="66" class="w-full" />
+      </div>
+    </div>
+  </div>
+  <div class="wrap flex min-h-[100svh] flex-col justify-center pb-16 pt-36">
+    <h1 data-hero="blur" class="max-w-[13ch] text-[clamp(2.7rem,7vw,7.2rem)] font-semibold leading-[0.97] tracking-[-0.04em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-8 max-w-[40ch] text-lg opacity-85 sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-10 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

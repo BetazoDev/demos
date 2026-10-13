@@ -1,0 +1,83 @@
+---
+import VxLayout from "@/sites/vinlexabogados/VxLayout.astro";
+import VxHero from "@/sites/vinlexabogados/VxHero.astro";
+import VxButton from "@/sites/vinlexabogados/VxButton.astro";
+import VxStatement from "@/sites/vinlexabogados/VxStatement.astro";
+import VxCta from "@/sites/vinlexabogados/VxCta.astro";
+import ServiceList from "@/sites/vinlexabogados/ServiceList.astro";
+import Section from "@/kit/Section.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site, WA } from "@/sites/vinlexabogados/site";
+import { areas, text, quote } from "@/sites/vinlexabogados/data";
+import fachada from "@/sites/vinlexabogados/assets/fachada.jpg";
+
+const base = "/vinlexabogados";
+const rows = areas.map((a) => ({ ...a, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${WA}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2.1rem,4.3vw,3.7rem)] leading-[1.06]";
+---
+
+<VxLayout title="VINLEX Abogados | Asesoría, consultoría, representación y defensa en CDMX" description="Despacho en la colonia Obrera, Ciudad de México, especializado en derecho corporativo, civil, fiscal, administrativo, mercantil, familiar y penal. Asesoría, consultoría, representación y defensa.">
+  <VxHero lines={["Asesoría, Consultoría,", "Representación y Defensa"]} lede="Despacho especializado en las áreas clave de defensa y asesoramiento legal a personas físicas y morales.">
+    <Fragment slot="actions">
+      <VxButton href={wa} size="lg" external>Escribir por WhatsApp</VxButton>
+      <VxButton href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</VxButton>
+    </Fragment>
+  </VxHero>
+
+  <Section>
+    <div class="wrap"><VxStatement text={text.philosophyShort} /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.62fr_1.38fr] lg:gap-16">
+      <div class="self-start lg:sticky lg:top-28">
+        <h2 data-reveal class={h2}>Servicios</h2>
+        <p data-reveal data-delay="80" class="mt-6 max-w-[34ch] text-lg text-(--c-muted)">Servicios de asesoría, consultoría y representación jurídica en diversas áreas del derecho.</p>
+        <div data-reveal data-delay="140" class="mt-8"><VxButton href={`${base}/servicios`} variant="outline">Ver servicios</VxButton></div>
+      </div>
+      <ServiceList areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={fachada} alt="Fachada de cristal de un edificio con retícula en diagonal" position="50% 38%" height="clamp(26rem,48vw,34rem)">
+    <div class="max-w-[38rem]">
+      <h2 data-reveal class="text-lg text-white/80 sm:text-xl">Misión</h2>
+      <p data-reveal data-delay="100" class="mt-3 font-(family-name:--f-display) text-[clamp(1.8rem,3.9vw,3.4rem)] leading-[1.12]">{text.missionShort}</p>
+    </div>
+  </ImageBand>
+
+  <Section>
+    <div class="wrap grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-8", h2]}>Nuestros clientes</h2>
+        <p class="max-w-[46ch] text-xl leading-relaxed text-(--c-muted)">{text.clients}</p>
+      </div>
+      <figure data-reveal data-delay="120" class="m-0 self-end">
+        <p class="flex items-baseline gap-4">
+          <span data-count={site.google!.rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(3.6rem,7vw,6rem)] leading-none tabular-nums">{site.google!.rating.toFixed(1)}</span>
+          <span class="text-lg text-(--c-muted)">en Google, {site.google!.reviews} reseñas</span>
+        </p>
+        <span class="rule my-7"></span>
+        <blockquote class="max-w-[34ch] text-[1.35rem] leading-snug">“{quote.text}”</blockquote>
+        <figcaption class="mt-4 text-[15px] text-(--c-muted)">{quote.author}</figcaption>
+      </figure>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <VxCta title="Le ayudaremos con mucho gusto" href={wa} label="Escribir por WhatsApp" />
+</VxLayout>

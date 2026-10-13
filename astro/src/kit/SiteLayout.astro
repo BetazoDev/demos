@@ -1,0 +1,65 @@
+---
+// Layout de cada sitio de la lista 2: tema del despacho, tipografías (API de fuentes de Astro), SEO, navegación,
+// View Transitions (ClientRouter), pie, insignia «Sitio demo» y el script de movimiento.
+import "../styles/kit.css";
+import { ClientRouter } from "astro:transitions";
+import { Font } from "astro:assets";
+import type { SiteConfig } from "./types";
+import Seo from "./Seo.astro";
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import DemoBadge from "./DemoBadge.astro";
+
+interface Props {
+  site: SiteConfig;
+  title: string;
+  description?: string;
+  /** Ruta absoluta de la página (por defecto la actual) */
+  path?: string;
+  /** URL absoluta de la imagen Open Graph */
+  image?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number } | false;
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string } | false;
+  bodyClass?: string;
+}
+const { site, title, description = site.description, path = Astro.url.pathname.replace(/\/$/, "") || "/", image, breadcrumbs, schema, nav = {}, footer = {}, bodyClass = "" } = Astro.props;
+const t = site.theme;
+const vars = [
+  ["bg", t.bg], ["surface", t.surface], ["ink", t.ink], ["muted", t.muted], ["brand", t.brand], ["on-brand", t.onBrand],
+  ["accent", t.accent], ["on-accent", t.onAccent], ["line", t.line], ["dark", t.dark], ["on-dark", t.onDark],
+]
+  .map(([k, v]) => `--c-${k}:${v}`)
+  .join(";");
+const style = `${vars};--c-radius:${t.radius ?? "999px"};--f-display:var(${site.fonts.display});--f-body:var(${site.fonts.body})`;
+---
+
+<!doctype html>
+<html lang={site.lang === "en" ? "en" : "es-MX"} data-site={site.slug} style={style}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content={t.bg} />
+    <link rel="icon" href="data:," />
+    <Font cssVariable={site.fonts.display as any} preload />
+    {site.fonts.body !== site.fonts.display && <Font cssVariable={site.fonts.body as any} preload />}
+    <Seo {site} {title} {description} {path} {image} {breadcrumbs} {schema} />
+    <ClientRouter fallback="swap" />
+  </head>
+  <body class:list={["min-h-svh flex flex-col", bodyClass]}>
+    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-(--c-brand) focus:px-5 focus:py-3 focus:font-medium focus:text-(--c-on-brand)">
+      {site.lang === "en" ? "Skip to content" : "Ir al contenido"}
+    </a>
+    <slot name="nav">{nav !== false && <Nav site={site} {...nav} />}</slot>
+    <main id="contenido" class="flex-1" transition:name="page">
+      <slot />
+    </main>
+    <slot name="footer">{footer !== false && <Footer site={site} {...footer} />}</slot>
+    <DemoBadge name={site.name} lang={site.lang} path={`/${site.slug}`} />
+    <script>
+      import "../scripts/motion";
+    </script>
+  </body>
+</html>

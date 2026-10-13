@@ -1,0 +1,30 @@
+---
+// Héroe de Jiménez, Valdez & Abogados: titular en serif de alto contraste a la izquierda, con un filete vertical plateado
+// (eco del filete de su membrete) que se dibuja de arriba abajo, y una foto de ambiente a la derecha con barrido.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-16 pt-32 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20 lg:pb-14">
+    <div class="relative pl-7 sm:pl-10">
+      <span class="jv-vline absolute -top-40 bottom-0 left-0 w-px bg-(--c-ink)/35" aria-hidden="true"></span>
+      <h1 data-hero="blur" class="max-w-[16ch] text-[clamp(2.5rem,5.6vw,5.3rem)] font-normal leading-[1.03] tracking-[-0.02em]">{title}</h1>
+      <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div data-hero-media style="--d:250ms" class="relative aspect-[4/5] max-h-[78svh] w-full overflow-hidden rounded-(--c-radius-img) lg:ml-auto lg:max-w-[32rem]">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  @keyframes jv-vline { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  .jv-vline { transform-origin: top center; animation: jv-vline 1.6s var(--ease-out) 0.3s both; }
+  @media (prefers-reduced-motion: reduce) { .jv-vline { animation: none !important; } }
+</style>

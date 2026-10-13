@@ -1,0 +1,89 @@
+---
+import "@/sites/lexcivitasabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Composer from "@/kit/Composer.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/lexcivitasabogados/Hero.astro";
+import Footer from "@/sites/lexcivitasabogados/Footer.astro";
+import { site, waLink } from "@/sites/lexcivitasabogados/site";
+import { areas, quienes, valores } from "@/sites/lexcivitasabogados/data";
+import sala from "@/sites/lexcivitasabogados/assets/sala-lectura.jpg";
+
+const base = "/lexcivitasabogados";
+const wa = waLink();
+const h2 = "font-medium leading-[1.02] tracking-[-0.03em] text-[clamp(2.3rem,5vw,4.4rem)]";
+---
+
+<SiteLayout site={site} title="Lex Civitas Abogados | Bufete integral en Santa María la Ribera, CDMX" nav={{ variant: "pill", tone: "dark", logoHeight: 50 }} footer={false}>
+  <Hero lines={["Iustitia in", "lege est"]} sub="En el derecho está la justicia" lede="Bufete integral en materia administrativa, agraria, civil, familiar, fiscal, laboral, mercantil y penal.">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <h2 class="sr-only">Medios alternativos de solución</h2>
+      <Statement text="Proponemos medios alternativos de solución antes de acudir a un órgano jurisdiccional." class="max-w-[22ch] sm:max-w-[26ch]" />
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`${h2} mb-14`}>Materias</h2>
+      <ul data-stagger data-gap="70" class="grid gap-x-16 gap-y-3 sm:grid-cols-2">
+        {areas.map((a) => (
+          <li>
+            <a href={`${base}/servicios#${a.key}`} class="group flex items-baseline justify-between gap-6 py-3">
+              <span class="area-name font-(family-name:--f-display) text-[clamp(2.2rem,5vw,4.6rem)] leading-none tracking-[-0.03em] transition-transform duration-500 ease-(--ease-out) group-hover:translate-x-2">{a.title}</span>
+              <Icon name="arrow-up-right" weight="bold" class="size-6 shrink-0 opacity-30 transition-[opacity,transform] duration-300 ease-(--ease-out) group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <ImageBand image={sala} alt="Sala de lectura abovedada con una larga mesa de madera iluminada por una sola lámpara, en blanco y negro" position="50% 50%" height="clamp(18rem,44vw,36rem)" />
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+      <h2 data-reveal class={`${h2} max-w-[11ch]`}>Lex Civitas Abogados</h2>
+      <div data-reveal data-delay="100">
+        <p class="max-w-[50ch] text-xl leading-relaxed text-(--c-muted)">{quienes}</p>
+        <div class="mt-10"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-2xl font-medium tracking-[-0.01em]">Valores</h2>
+      <ul data-stagger data-gap="50" class="flex flex-wrap gap-x-10 gap-y-1 font-(family-name:--f-display) text-[clamp(2rem,5.2vw,4.8rem)] italic leading-[1.1] tracking-[-0.025em]">
+        {valores.map((v) => <li>{v}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`${h2} mb-10`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => `Materia ${a.title.toLowerCase()}`)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Iustitia in lege est. En el derecho está la justicia." />
+</SiteLayout>

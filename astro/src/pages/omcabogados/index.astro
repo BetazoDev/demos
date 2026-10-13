@@ -1,0 +1,110 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/omcabogados/Hero.astro";
+import GrowBand from "@/sites/omcabogados/GrowBand.astro";
+import { site } from "@/sites/omcabogados/site";
+import { areas, socios, firma } from "@/sites/omcabogados/data";
+import hero from "@/sites/omcabogados/assets/hero-columnata.jpg";
+import vestibulo from "@/sites/omcabogados/assets/vestibulo.jpg";
+
+const base = "/omcabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+// Mosaico: anchos alternados sobre 12 columnas; el primero es la especialidad principal y va en el color de marca.
+const spans = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7", "lg:col-span-7", "lg:col-span-5"];
+---
+
+<SiteLayout
+  site={site}
+  title="Abogados en responsabilidades de servidores públicos | OMC abogados"
+  description="Abogados especialistas en responsabilidades de los servidores públicos y del Estado, derecho administrativo, transparencia y protección de datos personales en Paseo de la Reforma, Ciudad de México."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 42 }}
+  footer={{ variant: "dark", blurb: "Firma especializada en asesoría y defensa en materia de responsabilidades de los servidores públicos y del Estado." }}
+>
+  <Hero title="Asesoría y defensa en derecho administrativo" lede="Responsabilidades de los servidores públicos y del Estado, procesal constitucional, transparencia y protección de datos personales." image={hero} imageAlt="Columnata de piedra de un edificio público iluminada por el sol de la tarde" position="62% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Áreas de práctica</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement class="font-(family-name:--f-display) font-normal" text="Una asesoría eficaz y responsable, que atiende a la confianza depositada en la firma." /></div>
+  </Section>
+
+  <GrowBand image={vestibulo} alt="Vestíbulo de mármol con columnas y arcos de un edificio público" position="50% 55%" class="pb-6 sm:pb-10" />
+
+  <Section id="areas">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.025em]">Áreas de práctica</h2>
+      <ul data-stagger data-gap="70" class="grid gap-4 lg:grid-cols-12">
+        {areas.map((a, i) => (
+          <li class={spans[i]}>
+            <a href={`${base}/servicios#${a.key}`} class:list={["area-tile group relative flex h-full min-h-[14rem] flex-col sm:min-h-[18rem] justify-between gap-10 overflow-hidden rounded-(--c-radius) p-7 sm:p-9", i === 0 ? "bg-(--c-brand) text-(--c-on-brand) lg:min-h-[22rem]" : "bg-(--c-surface) text-(--c-ink)"]}>
+              <div class="flex items-start justify-between gap-6">
+                <span class:list={["grid size-12 place-items-center rounded-full", i === 0 ? "bg-(--c-on-brand) text-(--c-brand)" : "bg-(--c-brand) text-(--c-on-brand)"]}><Icon name={a.icon} class="size-6" /></span>
+                <span class="arr grid size-11 place-items-center rounded-full border border-current/25"><Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+              </div>
+              <div>
+                <h3 class:list={["max-w-[22ch] leading-[1.08] tracking-[-0.02em]", i === 0 ? "text-[clamp(1.9rem,3.2vw,2.8rem)]" : "text-[clamp(1.5rem,2.4vw,2.1rem)]"]}>{a.title}</h3>
+                <p class="mt-3 max-w-[44ch] text-[15px] leading-relaxed opacity-75 sm:text-base">{a.lead}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="brand" id="firma">
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.025em]">La firma</h2>
+      <p data-reveal data-delay="80" class="mt-8 max-w-[36ch] font-(family-name:--f-display) text-[clamp(1.55rem,2.9vw,2.4rem)] leading-[1.25] tracking-[-0.01em]">{firma.text}</p>
+      <div class="mt-16 grid gap-12 border-t border-current/20 pt-12 lg:grid-cols-[1fr_2fr] lg:gap-20">
+        <div data-reveal>
+          <p class="font-(family-name:--f-display) text-[clamp(4rem,9vw,7.5rem)] leading-none tracking-[-0.04em] tabular-nums">{firma.year}</p>
+          <p class="mt-3 max-w-[22ch] text-[15px] opacity-80">{firma.yearLabel}</p>
+        </div>
+        <ul data-stagger data-gap="100" class="grid gap-10 sm:grid-cols-2">
+          {socios.map((s) => (
+            <li>
+              <p class="font-(family-name:--f-display) text-[clamp(1.5rem,2.4vw,2.1rem)] leading-[1.1] tracking-[-0.015em]">{s.name}</p>
+              <p class="mt-2 text-[15px] opacity-80">{s.role}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <p data-reveal class="mt-14 max-w-[62ch] text-[15px] leading-relaxed opacity-80">{firma.colegio}</p>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.025em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>
+
+<style>
+  @media (hover: hover) and (pointer: fine) {
+    .area-tile { transition: background-color 300ms var(--ease-out), color 300ms var(--ease-out); }
+    .area-tile:hover { background-color: var(--c-dark); color: var(--c-on-dark); }
+    .area-tile:hover .arr { background: var(--c-on-dark); color: var(--c-dark); border-color: transparent; }
+    .area-tile .arr { transition: background-color 300ms var(--ease-out), color 300ms var(--ease-out), transform 300ms var(--ease-out); }
+    .area-tile:hover .arr { transform: translate(2px, -2px); }
+  }
+</style>

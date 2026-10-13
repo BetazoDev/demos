@@ -1,0 +1,84 @@
+---
+import "@/sites/lexlababogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "@/kit/Nav.astro";
+import Footer from "@/sites/lexlababogados/Footer.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site, navSite } from "@/sites/lexlababogados/site";
+import { about, lead, team, coverage, photos } from "@/sites/lexlababogados/data";
+
+const base = "/lexlababogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const profiles = [
+  { name: "Instagram", icon: "instagram-logo", href: site.social.instagram },
+  { name: "LinkedIn", icon: "linkedin-logo", href: site.social.linkedin },
+  { name: "TikTok", icon: "tiktok-logo", href: site.social.tiktok },
+];
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | LexLab Abogados, abogados laboralistas en la CDMX"
+  description="LexLab Abogados es una firma legal especializada en materia laboral que protege a las empresas de forma integral. Conoce a Pedro Roldán Marín, socio director, y a su equipo."
+  nav={false}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <Footer slot="footer" site={site} variant="dark" blurb="Blindaje Legal Laboral." />
+  <Nav slot="nav" site={navSite} variant="pill" tone="light" logoHeight={40} />
+  <PageHero title="La firma" lede={about[0]} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[3/4] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)">
+        <Pic src={photos.pedro} alt={`${lead.name}, ${lead.role.toLowerCase()} de LexLab Abogados`} position="50% 20%" class="size-full object-cover" />
+      </div>
+      <div>
+        <h2 data-reveal class="text-[clamp(2rem,4.4vw,3.8rem)] font-bold leading-[1]">{lead.name}</h2>
+        <p data-reveal data-delay="60" class="mt-3 text-lg text-(--c-muted)">{lead.role}</p>
+        <p data-reveal data-delay="120" class="mt-8 max-w-[44ch] text-[clamp(1.3rem,2.2vw,1.8rem)] leading-snug">{lead.bio}</p>
+        <ul data-reveal data-delay="160" class="mt-10 flex gap-3" aria-label="Perfiles de Pedro Roldán Marín">
+          {profiles.map((p) => (
+            <li><a href={p.href!} target="_blank" rel="noopener" aria-label={p.name} class="press grid size-11 place-items-center border border-(--c-line) hover:border-(--c-accent)" style="border-radius:0 14px 0 14px"><Icon name={p.icon} class="size-5" /></a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class="max-w-[12ch] text-[clamp(2rem,4.4vw,3.8rem)] font-bold leading-[1]">Cómo trabajamos</h2>
+      <div data-stagger data-gap="90" class="grid max-w-[56ch] gap-8 text-[clamp(1.15rem,1.8vw,1.45rem)] leading-snug">
+        {about.slice(1).map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] font-bold leading-[1]">Abogados</h2>
+      <ul data-stagger data-gap="50" class="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {team.map((p) => (
+          <li>
+            <h3 class="text-xl font-semibold leading-snug">{p.name}</h3>
+            <p class="mt-1 text-(--c-accent)">{p.role}</p>
+            <p class="mt-3 text-(--c-muted)">{p.bio}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="brand">
+    <div class="wrap grid items-end gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      <h2 data-reveal class="max-w-[12ch] text-[clamp(2.6rem,7vw,6.4rem)] font-bold leading-[0.94]">{coverage.title}</h2>
+      <p data-reveal data-delay="100" class="max-w-[52ch] text-lg">{coverage.text}</p>
+    </div>
+  </Section>
+
+  <CtaBand title="Blindaje Legal Laboral." href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</SiteLayout>

@@ -1,0 +1,20 @@
+---
+// Marca horizontal para la nav y el pie: el monograma SA original del despacho + su nombre en Barlow
+// (la tipografía que parece usar su logo). El logo vertical completo es demasiado cuadrado para una barra.
+import { Image } from "astro:assets";
+import mark from "./assets/mark.png";
+import markLight from "./assets/mark-light.png";
+interface Props { height?: number; tone?: "light" | "dark"; class?: string }
+const { height = 34, tone = "light", class: cls = "" } = Astro.props;
+const m = tone === "dark" ? markLight : mark;
+const w = Math.round(height * (mark.width / mark.height));
+---
+
+<span class:list={["inline-flex items-center gap-3", cls]}>
+  <Image src={m} alt="" width={w * 2} height={height * 2} layout="fixed" class="shrink-0" style={`height:${height}px;width:auto`} />
+  <span class="grid font-(family-name:--f-body) leading-none" aria-hidden="true">
+    <span class:list={["text-[15px] font-semibold uppercase tracking-[0.16em]", tone === "dark" ? "text-(--c-on-dark)" : "text-(--c-brand)"]}>Strategia</span>
+    <span class:list={["mt-[5px] text-[11.5px] font-light uppercase tracking-[0.43em]", tone === "dark" ? "text-[#DEC276]" : "text-(--c-accent)"]}>Asesores</span>
+  </span>
+  <span class="sr-only">Strategia Asesores</span>
+</span>

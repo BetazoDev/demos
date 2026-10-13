@@ -1,0 +1,34 @@
+---
+import "@/sites/lexlababogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "@/kit/Nav.astro";
+import Footer from "@/sites/lexlababogados/Footer.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/lexlababogados/Composer.astro";
+import { site, navSite } from "@/sites/lexlababogados/site";
+import { serviceNames } from "@/sites/lexlababogados/data";
+
+const base = "/lexlababogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | LexLab Abogados, Verónica Anzúres, CDMX"
+  description="C. Bahía de las Palmas 24, interior 102, Verónica Anzúres, Ciudad de México. WhatsApp 55 6878 3755 y pedro@lexlababogados.com. Atención presencial y remota."
+  nav={false}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Footer slot="footer" site={site} variant="dark" blurb="Blindaje Legal Laboral." />
+  <Nav slot="nav" site={navSite} variant="pill" tone="light" logoHeight={40} />
+  <PageHero title="Contacto" lede="Nuestra sede se encuentra en la Ciudad de México. Atendemos de manera presencial y remota." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={serviceNames} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

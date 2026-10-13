@@ -1,0 +1,136 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Logo from "@/kit/Logo.astro";
+import ContactBlock from "@/sites/abogadosmartinez/ContactBlock.astro";
+import Hero from "@/sites/abogadosmartinez/Hero.astro";
+import Composer from "@/sites/abogadosmartinez/Composer.astro";
+import Footer from "@/sites/abogadosmartinez/Footer.astro";
+import { site } from "@/sites/abogadosmartinez/site";
+import { servicios, promesa, resenas } from "@/sites/abogadosmartinez/data";
+import oficina from "@/sites/abogadosmartinez/assets/oficina.jpg";
+import mesa from "@/sites/abogadosmartinez/assets/mesa.jpg";
+import logoLight from "@/sites/abogadosmartinez/assets/logo-light.png";
+import "@/sites/abogadosmartinez/theme.css";
+
+const base = "/abogadosmartinez";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const [divorcio, ...resto] = servicios;
+const [destacada, ...otras] = resenas;
+---
+
+<SiteLayout
+  site={site}
+  title="Abogados de derecho familiar en el Centro Histórico de la CDMX | Abogados Martínez"
+  description="Despacho de derecho familiar en Av. Juárez 20, Centro Histórico, Ciudad de México: divorcio, pensión alimenticia, guarda y custodia, sucesiones y patria potestad."
+  nav={{ variant: "pill", tone: "light", logoHeight: 40 }}
+  footer={false}
+>
+  <Hero
+    title="Proteger tus intereses frente a otros"
+    lede="Despacho de derecho familiar en el Centro Histórico de la Ciudad de México."
+    image={oficina}
+    imageAlt="Abogada sentada en su escritorio de cristal con una laptop, frente a una pared con diplomas enmarcados"
+    position="50% 62%"
+  >
+    <Fragment slot="actions">
+      <Button href={wa} variant="solid" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="surface">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.5fr_1.5fr] lg:gap-24">
+      <div data-reveal="clip" class="mx-auto lg:mx-0"><div><Logo src={logoLight} alt="Martínez Abogados, logotipo plateado con la letra M, una Dama de la Justicia, una columna y un laurel" height={260} /></div></div>
+      <Statement class="!text-[clamp(1.7rem,3.2vw,2.8rem)] !max-w-[30ch] font-(family-name:--f-display) font-normal" text={promesa} />
+    </div>
+  </Section>
+
+  <Section id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.015em]">Servicios</h2>
+
+      <a data-reveal href={`${base}/servicios#${divorcio.key}`} class="div-card group grid gap-8 rounded-(--c-radius-card) bg-(--c-surface) p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+        <div class="flex items-start justify-between gap-6 lg:block">
+          <h3 class="text-[clamp(2.3rem,4.4vw,3.8rem)] leading-[1] tracking-[-0.015em]">{divorcio.title}</h3>
+          <span class="arr mt-0 grid size-12 shrink-0 place-items-center rounded-full border border-current/25 lg:mt-10"><Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+        </div>
+        <dl class="grid gap-6">
+          {divorcio.items!.map((i) => (
+            <div>
+              <dt class="font-(family-name:--f-display) text-[clamp(1.4rem,2vw,1.7rem)]">{i.name}</dt>
+              <dd class="mt-1 max-w-[46ch] text-(--c-muted)">{i.text}</dd>
+            </div>
+          ))}
+        </dl>
+      </a>
+
+      <ul data-stagger data-gap="60" class="mt-14 grid gap-x-16 gap-y-12 sm:grid-cols-2">
+        {resto.map((s) => (
+          <li>
+            <a href={`${base}/servicios#${s.key}`} class="svc group block">
+              <h3 class="flex items-start justify-between gap-4 text-[clamp(1.45rem,2.2vw,1.9rem)] leading-[1.12] tracking-[-0.01em]">
+                <span>{s.title}</span>
+                <Icon name="arrow-up-right" weight="bold" class="svc-arr mt-1.5 size-5 shrink-0 text-(--c-accent)" />
+              </h3>
+              <p class="mt-3 max-w-[46ch] text-(--c-muted)">{s.text}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <ImageBand image={mesa} alt="Mesa de comedor de madera junto a una ventana, con una taza azul y una planta, a primera hora de la mañana" position="50% 55%" />
+
+  <Section>
+    <div class="wrap">
+      <p data-reveal class="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+        <span data-count={site.google!.rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(3.5rem,8vw,6.5rem)] leading-none tracking-[-0.03em] tabular-nums">{site.google!.rating.toFixed(1)}</span>
+        <span class="text-lg text-(--c-muted)">en Google, {site.google!.reviews} reseñas</span>
+      </p>
+      <div class="mt-12 grid gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-20">
+        <figure data-reveal>
+          <blockquote class="font-(family-name:--f-display) text-[clamp(1.6rem,3vw,2.5rem)] leading-[1.22] tracking-[-0.01em]">“{destacada.text}”</blockquote>
+          <figcaption class="mt-6 text-(--c-muted)">{destacada.author}</figcaption>
+        </figure>
+        <ul data-stagger data-gap="120" class="grid content-start gap-10">
+          {otras.map((r) => (
+            <li>
+              <blockquote class="text-lg leading-relaxed">“{r.text}”</blockquote>
+              <p class="mt-3 text-sm text-(--c-muted)">{r.author}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.015em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={servicios.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <Footer slot="footer" site={site} variant="dark" blurb={`${"Somos un despacho diseñado para ayudar a proteger y salvaguardar tus intereses frente a otros."}`} />
+</SiteLayout>
+
+<style>
+  @media (hover: hover) and (pointer: fine) {
+    .div-card { transition: background-color 300ms var(--ease-out); }
+    .div-card .arr { transition: background-color 300ms var(--ease-out), color 300ms var(--ease-out), transform 300ms var(--ease-out); }
+    .div-card:hover .arr { background: var(--c-accent); color: var(--c-on-accent); border-color: transparent; transform: translate(2px, -2px); }
+    .svc .svc-arr { opacity: 0; transform: translate(-4px, 4px); transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out); }
+    .svc:hover .svc-arr { opacity: 1; transform: translate(0, 0); }
+  }
+</style>

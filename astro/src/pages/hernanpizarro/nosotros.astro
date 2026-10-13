@@ -1,0 +1,53 @@
+---
+import Layout from "@/sites/hernanpizarro/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/hernanpizarro/site";
+import { valores, photos, titularInfo } from "@/sites/hernanpizarro/data";
+
+const base = "/hernanpizarro";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout site={site} title="Nosotros | Hernán Pizarro y Asociados, abogados en la Roma Sur" description="Bufete de abogados con más de 30 años de experiencia. Conozca al Lic. Hernán A. Pizarro Monzón, titular del despacho, y los valores con los que trabaja." breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}>
+  <PageHero title="Nosotros" lede="Un bufete de abogados con más de 30 años de experiencia otorgando servicio en diferentes ramas jurídicas." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[3/4] max-w-[26rem] overflow-hidden rounded-(--c-radius) bg-(--c-surface)">
+        <Pic src={photos.titular} alt="El titular del despacho de pie frente a su biblioteca" position="50% 30%" />
+      </div>
+      <div data-reveal data-delay="100">
+        <h2 class="text-[clamp(2rem,4vw,3.4rem)] leading-[1.05] tracking-[-0.025em]">{titularInfo.name}</h2>
+        <p class="mt-2 text-(--c-muted)">{titularInfo.role}</p>
+        <p class="mt-6 max-w-[54ch] text-lg leading-relaxed text-(--c-muted)">{titularInfo.bio}</p>
+        <p class="mt-4 max-w-[54ch] text-lg leading-relaxed text-(--c-muted)">Atendemos a prestigiadas empresas nacionales y extranjeras, instituciones financieras, negocios medianos y personas físicas.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap"><Statement text="Nuestros clientes encuentran en nosotros un franco apoyo, con la atención más personal y un alto nivel de calidad y empatía." /></div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(1.8rem,3.4vw,2.8rem)] leading-tight tracking-[-0.02em]">Asesoría personalizada</h2>
+        <p class="mt-5 max-w-[48ch] text-lg leading-relaxed text-(--c-muted)">Alta calidad, por escrito o en forma verbal en su caso, así como en la elaboración de contratos, convenios y documentos de garantía civil o mercantil, entre otros.</p>
+        <p class="mt-4 max-w-[48ch] text-lg leading-relaxed text-(--c-muted)">Actuamos bajo el más estricto apego a las normas éticas y de discrecionalidad profesional, con la confidencialidad que el caso merece.</p>
+      </div>
+      <div>
+        <h2 data-reveal class="text-[clamp(1.8rem,3.4vw,2.8rem)] leading-tight tracking-[-0.02em]">Valores</h2>
+        <ul data-stagger data-gap="70" class="mt-5 flex flex-wrap gap-3">
+          {valores.map((v) => <li class="rounded-full border border-(--c-line) px-5 py-2.5 text-lg">{v}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

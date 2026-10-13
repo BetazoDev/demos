@@ -1,0 +1,24 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import "@/sites/saldanamedina/theme.css";
+import { site } from "@/sites/saldanamedina/site";
+import { areas } from "@/sites/saldanamedina/data";
+
+const base = "/saldanamedina";
+---
+
+<SiteLayout site={site} title="Contacto | Saldaña Medina & Abogados, Ciudad de México" description="Contacte a Saldaña Medina & Abogados en Dr. Erazo 85, Ciudad de México. Teléfono y WhatsApp 55 3143 2776. Disponibilidad las 24 horas, solo con cita previa." nav={{ variant: "pill", tone: "light", logoHeight: 42 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o llámenos. Atendemos solo con cita previa." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

@@ -1,0 +1,41 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import Skin from "@/sites/lexonabogados/Skin.astro";
+import { site } from "@/sites/lexonabogados/site";
+
+const base = "/lexonabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | Lexon Abogados"
+  description="Aviso de privacidad de Lexon Abogados y Consultores conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  footer={{ variant: "light", blurb: "Abogados para la nueva realidad jurídica" }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <Skin />
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>En LEXON ABOGADOS Y CONSULTORES, estamos comprometidos en garantizar su privacidad, por ello le informamos que, de conformidad con lo dispuesto en la Ley Federal de Protección de Datos Personales en posesión de los Particulares, salvaguardamos la integridad, privacidad y protección de sus datos personales. La información personal que Usted nos brinde es muy importante para nosotros, por lo que, en el presente documento le informamos sobre las políticas y condiciones de nuestra empresa con relación a la recopilación de datos personales, los cuales son recabados a través de nuestro sitio web https://www.lexonabogados.mx los medios y políticas de manejo de los mismos están acorde con los lineamientos que establece la Ley.</p>
+        <h2>Finalidad del uso de datos personales</h2>
+        <p>Sus datos personales serán utilizados para los efectos mencionados en el presente Aviso de Privacidad. En ese sentido hacemos de su conocimiento que toda la información que Usted nos proporcione será tratada y resguardada con base a los principios de licitud, consentimiento, información, calidad, finalidad, lealtad, proporcionalidad y responsabilidad, previstos en la Ley. Por lo que al acceder a nuestro sitio web o cualquiera de nuestras versiones web, nos autoriza el uso de sus datos personales para los siguientes fines:</p>
+        <ul>
+          <li>Establecer contacto con usted e informarle acerca de nuestros productos, promociones y ubicación.</li>
+          <li>Para que podamos ubicarlo como nuestro cliente y hacerle llegar nuestras promociones.</li>
+          <li>Para llevar a cabo todos y cada uno de los procesos de pago y realizar el envío de las notificaciones, actualizaciones y/o acuerdos de su caso en concreto.</li>
+        </ul>
+        <h2>Propiedad intelectual</h2>
+        <p>Para LEXON ABOGADOS Y CONSULTORES, es de suma importancia el resguardo de su información personal, por lo que hemos establecido bloqueos físicos y electrónicos que previenen el acceso no autorizado a los mismos, a fin de asegurar que su información personal se encuentre protegida. Le informamos que sus datos personales NO serán transferidos y tratados dentro y fuera del país por personas distintas a esta empresa.</p>
+        <p>Nuestra empresa es socialmente responsable y es nuestra obligación cumplir con las medidas legales contempladas en la Ley Federal de Protección de Datos Personales en posesión de los Particulares, VIGENTE CON FUNDAMENTO EN EL Art. 15º 16º y 17º EN SU FRACCIÓN I. En todo momento Usted tiene el derecho de acceder, rectificar y cancelar sus datos personales, así como oponerse al tratamiento de estos o revocar el consentimiento que para tal fin no haya otorgado a través de los procedimientos, requisitos y plazos previstos en la Ley.</p>
+        <p>Por lo cual en caso de que desee acceder, rectificar y cancelar sus datos personales, le pedimos sea tan amable en ponerse en contacto con nuestro de departamento de atención al cliente al teléfono 56 4366 4823 o bien si lo prefiere en documento escrito enviado o entregado en nuestras oficinas ubicadas en: Insurgentes 132, despacho 403, colonia Tabacalera en la Ciudad de México, Código Postal 06030.</p>
+        <p>Si usted desea dejar de recibir mensajes promocionales de nuestra página, podrá solicitarlo directamente en nuestra página https://www.lexonabogados.mx o al teléfono 56 4366 4823 con nuestra área de atención al cliente o por WhatsApp. Este aviso de privacidad podrá ser modificado cada cierto tiempo, dicha modificación podrá ser consultada en nuestra en la página electrónica https://www.lexonabogados.mx</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

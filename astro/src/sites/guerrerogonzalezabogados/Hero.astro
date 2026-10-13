@@ -1,0 +1,23 @@
+---
+// Héroe de Guerrero González: foto en blanco y negro a sangre, titular en versalitas condensadas abajo a la izquierda.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 40%" } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="70">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_94%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_62%,transparent)_40%,color-mix(in_oklab,var(--c-dark)_18%,transparent)_100%)]"></div>
+  </div>
+  <div class="wrap pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="max-w-[18ch] text-[clamp(3.3rem,10.4vw,10rem)] font-semibold leading-[0.9]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-7 max-w-[44ch] text-lg text-white/85 sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

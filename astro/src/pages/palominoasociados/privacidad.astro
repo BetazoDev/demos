@@ -1,0 +1,29 @@
+---
+import "@/sites/palominoasociados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/palominoasociados/site";
+
+const base = "/palominoasociados";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | Palomino & Asociados"
+  description="Política de privacidad y manejo de datos personales de Palomino & Asociados, conforme a la Ley Federal de Protección de Datos Personales en Posesión de Particulares."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Aviso de privacidad" tone="brand" />
+  <Section size="sm" class="pt-16 sm:pt-24">
+    <div class="wrap">
+      <Prose>
+        <p>En cumplimiento con lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de Particulares, DESPACHO PALOMINO Y ASOCIADOS, en lo sucesivo «Palomino &amp; Asociados», hace de su conocimiento la política de privacidad y manejo de datos personales.</p>
+        <p>Palomino &amp; Asociados será el responsable de sus datos personales, su domicilio es: CALLE DR ATL 74 A, COLONIA SANTA MARÍA LA RIBERA, ALCALDÍA CUAUHTÉMOC, C.P. 06400, CIUDAD DE MÉXICO.</p>
+        <p>El aviso completo está publicado en <a href="https://palominoasociados.com/archivos/pdf/Aviso-de-Privacidad-Palomino-y-Asociados.pdf" target="_blank" rel="noopener">palominoasociados.com</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

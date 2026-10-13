@@ -1,0 +1,30 @@
+/* Rincón Mayorga: botones pastilla, imágenes y bloques con radio amplio (1.5rem). Todo va bajo [data-site] para no tocar otros sitios. */
+[data-site="rinconabogados"] {
+  --c-radius: 999px;
+  --c-radius-img: 1.5rem;
+  --c-radius-card: 1.5rem;
+  --c-radius-field: 0.9rem;
+  --c-radius-nav: 999px;
+}
+
+/* Titular con cursiva de contraste */
+[data-site="rinconabogados"] .rm-em { font-style: italic; font-weight: 300; }
+
+/* Héroe: foto enmarcada bajo la nav, titular encima */
+.rm-hero { position: relative; padding: 4.75rem 0.75rem 0.75rem; background: var(--c-bg); }
+.rm-frame { position: relative; isolation: isolate; overflow: hidden; border-radius: 1.75rem; height: calc(100svh - 5.5rem); min-height: 34rem; background: var(--c-dark); }
+.rm-frame .rm-media { position: absolute; inset: 0; }
+.rm-frame .rm-shade { position: absolute; inset: 0; background: linear-gradient(to top, color-mix(in oklab, var(--c-dark) 92%, transparent) 0%, color-mix(in oklab, var(--c-dark) 62%, transparent) 34%, color-mix(in oklab, var(--c-dark) 8%, transparent) 78%); }
+.rm-copy { position: absolute; inset: 4.75rem 0.75rem 0.75rem; display: flex; flex-direction: column; justify-content: flex-end; color: var(--c-on-dark); padding-bottom: clamp(1.75rem, 4vw, 3.5rem); }
+.rm-copy h1 { font-weight: 300; max-width: 15ch; font-size: clamp(2.7rem, 7.2vw, 7rem); line-height: 0.98; letter-spacing: -0.035em; }
+.rm-row { display: grid; gap: 1.75rem; margin-top: 2rem; align-items: end; }
+@media (min-width: 900px) { .rm-row { grid-template-columns: minmax(0, 34rem) 1fr; gap: 4rem; } }
+
+/* Imagen que se amplía con el scroll (motion.ts fija --s) */
+.rm-grow { overflow: clip; }
+.rm-grow > figure { border-radius: 1.75rem; transform: scale(var(--s, 0.82)); transform-origin: 50% 50%; will-change: transform; }
+
+/* Proceso: columna fija a la izquierda, pasos grandes a la derecha */
+.rm-step { display: grid; gap: 0.5rem 3rem; padding-block: clamp(1.75rem, 3.4vw, 3rem); border-top: 1px solid color-mix(in oklab, currentColor 18%, transparent); }
+.rm-step:last-child { border-bottom: 1px solid color-mix(in oklab, currentColor 18%, transparent); }
+@media (min-width: 768px) { .rm-step { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: baseline; } }

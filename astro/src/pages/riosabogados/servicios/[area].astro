@@ -1,0 +1,54 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/riosabogados/site";
+import type { ImageMetadata } from "astro";
+import { areas, images } from "@/sites/riosabogados/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/riosabogados";
+const others = areas.filter((a) => a.key !== area.key);
+const hero: Record<string, { img: ImageMetadata; alt: string; pos: string }> = {
+  "derecho-informatico": { img: images.servidores, alt: "Pasillo de un centro de datos con luz roja", pos: "50% 60%" },
+  "propiedad-industrial": { img: images.sello, alt: "Sello de cera roja sobre papel junto a una pluma fuente", pos: "40% 55%" },
+  "propiedad-intelectual": { img: images.sello, alt: "Sello de cera roja sobre papel junto a una pluma fuente", pos: "40% 55%" },
+};
+const h = hero[area.key];
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const schema = [{ "@context": "https://schema.org", "@type": "Service", name: area.title, description: area.seo, provider: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href }, areaServed: { "@type": "City", name: "Ciudad de México" } }];
+---
+
+<SiteLayout site={site} title={`${area.title} en la Ciudad de México | R1OS Abogados`} description={area.seo} nav={{ variant: "pill", tone: "light", logoHeight: 44 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]} schema={schema}>
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} image={h?.img} imageAlt={h?.alt} />
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <div data-reveal>
+        <h2 class="text-[clamp(1.8rem,3.2vw,2.8rem)] font-semibold leading-tight tracking-[-0.03em]">Incluye</h2>
+        {area.owner && <p class="mt-5 max-w-[30ch] text-(--c-muted)">Responsable del área: <a href={`${base}/nosotros`} class="link-u font-medium text-(--c-ink)">{area.owner}</a></p>}
+      </div>
+      <ul data-stagger data-gap="45" class="grid gap-x-10 gap-y-5 sm:grid-cols-2">
+        {area.items.map((i) => (
+          <li class="flex gap-3.5 text-[18px] leading-snug">
+            <Icon name="check" weight="bold" class="mt-1 size-[18px] shrink-0 text-(--c-brand)" />
+            <span>{i}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight tracking-[-0.03em]">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-full border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[15px] hover:border-(--c-brand) hover:text-(--c-brand)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

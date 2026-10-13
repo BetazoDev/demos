@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/abogadosemprendedores/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/sites/abogadosemprendedores/Composer.astro";
+import { site } from "@/sites/abogadosemprendedores/site";
+import { areas } from "@/sites/abogadosemprendedores/data";
+
+const base = "/abogadosemprendedores";
+---
+
+<Layout site={site} title="Contacto | Abogados para Emprendedores MX, Av. Insurgentes Sur, Col. Del Valle" description="Escríbenos por WhatsApp al 55 5104 6321 o por correo. Atendemos en Av. Insurgentes Sur 716, piso 8, colonia Del Valle, Ciudad de México." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="¿Tienes dudas o requieres atención personalizada? Contáctanos por chat, correo electrónico o WhatsApp." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

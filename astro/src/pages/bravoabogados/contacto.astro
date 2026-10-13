@@ -1,0 +1,27 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Nav from "@/sites/bravoabogados/Nav.astro";
+import Footer from "@/sites/bravoabogados/Footer.astro";
+import { site } from "@/sites/bravoabogados/site";
+import { areas, otras } from "@/sites/bravoabogados/data";
+
+const base = "/bravoabogados";
+---
+
+<SiteLayout site={site} bodyClass="[--c-radius-img:0px] [--c-radius-card:0px] [--c-radius-field:0px]" title="Contacto | Bravo Abogados, Ciudad de México" description="Bufete Bravo Abogados en la Ciudad de México. Teléfonos 55 5662 0194 y 55 5661 3380, correo bravo_abogados@yahoo.com.mx." nav={false} footer={false} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o llame a nuestras oficinas en la Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...areas.map((a) => a.title), ...otras]} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Bufete Bravo Abogados. Soporte funcional, S.C." />
+</SiteLayout>

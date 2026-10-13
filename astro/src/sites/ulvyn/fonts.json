@@ -1,0 +1,4 @@
+[
+  { "name": "Sora", "cssVariable": "--f-ulvyn-display", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Geist", "cssVariable": "--f-ulvyn-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

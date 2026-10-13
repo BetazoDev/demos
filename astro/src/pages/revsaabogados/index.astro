@@ -1,0 +1,101 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Pic from "@/kit/Pic.astro";
+import Hero from "@/sites/revsaabogados/Hero.astro";
+import Composer from "@/sites/revsaabogados/Composer.astro";
+import Footer from "@/sites/revsaabogados/Footer.astro";
+import Cifras from "@/sites/revsaabogados/Cifras.astro";
+import Opiniones from "@/sites/revsaabogados/Opiniones.astro";
+import Skin from "@/sites/revsaabogados/Skin.astro";
+import { site } from "@/sites/revsaabogados/site";
+import { areas, opiniones, photos, quienes, stats, team } from "@/sites/revsaabogados/data";
+
+const base = "/revsaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const o = opiniones;
+---
+
+<SiteLayout
+  site={site}
+  title="REVSA Abogados | Abogados en la Roma Sur, CDMX: familiar, penal, civil, laboral y empresarial"
+  nav={{ variant: "pill", tone: "light", logoHeight: 60 }}
+  footer={false}
+>
+  <Skin />
+  <Hero title="Soluciones jurídicas|al alcance de tu mano" lede="Abogados con experiencia litigante en cada materia. Honorarios accesibles y planes de pago a tu alcance." image={photos.hero} imageAlt="Calle arbolada de la colonia Roma, Ciudad de México, con jacarandas florecidas y una fachada de cantera con puertas de madera" position="50% 55%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="solid" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver áreas jurídicas</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <p data-statement class="max-w-[34ch] font-(family-name:--f-display) text-[clamp(1.55rem,2.9vw,2.7rem)] leading-[1.2] tracking-[-0.025em] sm:max-w-[38ch]">{quienes}</p>
+      <div data-reveal class="mt-10"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="areas">
+    <div class="wrap">
+      <h2 data-reveal transition:name="servicios-title" class="mb-12 text-[clamp(2.2rem,5vw,4.4rem)] leading-[1] tracking-[-0.035em]">Áreas jurídicas</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <Section tone="dark">
+    <div class="wrap">
+      <Cifras stats={stats} />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-14 max-w-[18ch] text-[clamp(2.2rem,5vw,4.4rem)] leading-[1] tracking-[-0.035em]">Nuestro equipo</h2>
+      <ul data-stagger data-gap="90" class="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4 lg:gap-x-7">
+        {
+          team.map((p) => (
+            <li>
+              <div class="img-zoom aspect-[3/4] overflow-hidden rounded-(--c-radius-img,1.75rem) bg-(--c-surface)"><Pic src={p.photo} alt={p.name} class="size-full object-cover" position="50% 30%" /></div>
+              <h3 class="mt-5 text-[clamp(1.15rem,1.6vw,1.4rem)] leading-tight tracking-[-0.01em]">{p.name}</h3>
+              <p class="mt-1.5 text-[15px] text-(--c-muted)">{p.role}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div data-reveal class="mt-12"><Button href={`${base}/nosotros#equipo`} variant="outline">Conocer su trayectoria</Button></div>
+    </div>
+  </Section>
+
+  <ImageBand image={photos.banda} alt="Mesa de madera oscura con un expediente de piel, una lámpara de latón y una hoja en blanco, a la luz de la tarde" position="50% 50%" height="clamp(17rem,40vw,30rem)" />
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-14 max-w-[20ch] text-[clamp(2.2rem,5vw,4.4rem)] leading-[1] tracking-[-0.035em]">Nuestros clientes opinan</h2>
+      <Opiniones featured={o.michel} others={[o.guillermina, o.abril, o.giovanna, o.morales]} />
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.2rem,5vw,4.4rem)] leading-[1] tracking-[-0.035em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,1.5rem) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="¡Contáctanos ahora!" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones jurídicas al alcance de tu mano" />
+</SiteLayout>

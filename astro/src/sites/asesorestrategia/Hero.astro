@@ -1,0 +1,29 @@
+---
+// Héroe propio de Strategia: titular de una línea de pensamiento a la izquierda y el retrato del socio, ya compuesto sobre el papel
+// de la página (sin marco), con el pie que se funde. Entra con el barrido de foto del kit.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string }
+const { title, lede, image, imageAlt = "" } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] gap-2 pt-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:pt-24">
+    <div class="flex flex-col justify-center pb-6 lg:pb-24 lg:pr-4">
+      <h1 data-hero="blur" class="max-w-[13ch] text-[clamp(2.9rem,6.3vw,6.1rem)] leading-[0.98] tracking-[-0.015em] text-(--c-brand)">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <figure data-hero-media style="--d:250ms" class="relative mx-auto w-full max-w-[26rem] self-end sm:max-w-[30rem] lg:max-w-[38rem] lg:-mb-4">
+      <div class="portrait aspect-[5/7] w-full">
+        <Pic src={image} alt={imageAlt} priority sizes="(min-width:1024px) 38rem, 90vw" position="50% 0%" class="size-full object-cover" />
+      </div>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .portrait { -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); }
+</style>

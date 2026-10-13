@@ -1,4 +1,4 @@
-node_modules
+**/node_modules
 .next
 .git
 .DS_Store
@@ -6,3 +6,7 @@ npm-debug.log*
 .env*
 Dockerfile
 .dockerignore
+astro/dist
+astro/.astro
+public/_a
+public/_l2

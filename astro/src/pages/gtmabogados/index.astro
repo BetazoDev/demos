@@ -1,0 +1,116 @@
+---
+import "@/sites/gtmabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Figures from "@/sites/gtmabogados/Figures.astro";
+import Hero from "@/sites/gtmabogados/Hero.astro";
+import Grow from "@/sites/gtmabogados/Grow.astro";
+import Footer from "@/sites/gtmabogados/Footer.astro";
+import { site } from "@/sites/gtmabogados/site";
+import { groups, services, team, clients } from "@/sites/gtmabogados/data";
+import escritorio from "@/sites/gtmabogados/assets/escritorio.jpg";
+import columnas from "@/sites/gtmabogados/assets/columnas.jpg";
+
+const base = "/gtmabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const [founder, ...others] = team;
+const h2 = "text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-[1.05] tracking-[-0.03em]";
+---
+
+<SiteLayout site={site} title="GTM SC Abogados | Auditorías administrativas y laborales en la Ciudad de México" nav={{ variant: "pill", tone: "light", logoHeight: 44 }} footer={false}>
+  <Hero title="Auditorías administrativas y laborales" lede="Despacho de abogados en la Ciudad de México, legalmente constituido en 2001." image={escritorio} imageAlt="Escritorio de nogal con lámpara de latón, carpetas de piel y una pluma fuente" position="58% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <p data-statement class="max-w-[30ch] font-(family-name:--f-display) text-[clamp(1.8rem,3.9vw,3.5rem)] font-medium leading-[1.1] tracking-[-0.03em]">A lo largo de estos años hemos logrado ganarnos la confianza con base en los resultados que hemos obtenido para entidades y empresas.</p>
+      <div class="mt-20 grid gap-8 lg:mt-28 lg:grid-cols-[0.55fr_1.45fr] lg:gap-16">
+        <h2 data-reveal class="text-2xl font-medium tracking-[-0.02em]">Nuestros clientes</h2>
+        <ul data-stagger data-gap="60" class="grid gap-x-12 gap-y-6 text-lg leading-snug sm:grid-cols-2">
+          {clients.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="brand" id="servicios">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <h2 data-reveal class="text-[clamp(2.4rem,5vw,4.4rem)] font-medium leading-[1] tracking-[-0.035em]">Servicios</h2>
+        <div data-reveal data-delay="100" class="mt-9"><Button href={`${base}/servicios`} variant="light">Ver servicios</Button></div>
+      </div>
+      <div class="grid gap-14">
+        {
+          groups.map((g) => (
+            <div data-reveal>
+              <h3 class="text-xl font-semibold tracking-[-0.01em]">{g.title}</h3>
+              <ul class="mt-5 divide-y divide-current/25 border-y border-current/25">
+                {g.items.map((s) => (
+                  <li>
+                    <a href={`${base}/contacto?area=${encodeURIComponent(s.title)}`} class="gtm-row group flex items-start justify-between gap-6 py-5 text-[clamp(1.15rem,1.7vw,1.5rem)] leading-snug">
+                      <span class="max-w-[34ch]">{s.title}</span>
+                      <Icon name="arrow-up-right" weight="bold" class="gtm-row-arrow mt-1 size-5 shrink-0" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <Grow image={columnas} alt="Columnas y cornisa tallada de un edificio neoclásico de la Ciudad de México al atardecer" position="50% 40%" />
+
+  <Section tone="surface">
+    <div class="wrap">
+      <Figures class="mb-24 lg:mb-32" />
+      <h2 class="sr-only">Fundador y equipo multidisciplinario</h2>
+      <div class="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-24">
+        <div data-reveal>
+          <p class="text-lg font-medium text-(--c-accent)">{founder.role}</p>
+          <h3 class={`mt-3 ${h2}`}>{founder.name}</h3>
+          <p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">{founder.bio}</p>
+          <p class="mt-5 text-[15px] tabular-nums text-(--c-muted)">Cédula profesional {founder.cedula}</p>
+        </div>
+        <div data-reveal data-delay="120">
+          <p class="text-lg font-medium text-(--c-accent)">Equipo multidisciplinario</p>
+          <ul class="mt-5 grid gap-8">
+            {
+              others.map((p) => (
+                <li>
+                  <h3 class="text-2xl font-medium leading-tight tracking-[-0.02em]">{p.name}</h3>
+                  <p class="mt-1 text-[15px] tabular-nums text-(--c-muted)">Cédula profesional {p.cedula}</p>
+                </li>
+              ))
+            }
+          </ul>
+          <div class="mt-10"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={services.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <Footer slot="footer" site={site} />
+</SiteLayout>

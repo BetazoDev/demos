@@ -1,0 +1,15 @@
+---
+// Envuelve el layout del kit con la nav (escudo + nombre) y el pie propios, y la hoja de estilos del sitio.
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import "./site.css";
+const { nav = {}, footer = {}, ...rest } = Astro.props;
+const site = rest.site;
+---
+
+<SiteLayout {...rest} nav={false} footer={false}>
+  <Nav slot="nav" site={site} {...(nav || {})} />
+  <slot />
+  <Footer slot="footer" site={site} {...(footer || {})} />
+</SiteLayout>

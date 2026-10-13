@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/hernanpizarro/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/hernanpizarro/site";
+import { areas } from "@/sites/hernanpizarro/data";
+
+const base = "/hernanpizarro";
+---
+
+<Layout site={site} title="Contacto | Hernán Pizarro y Asociados, Manzanillo 123, Roma Sur" description="Calle Manzanillo 123, despachos 504 y 505, colonia Roma Sur, Ciudad de México. Teléfono 55 5264 0214. Lunes a viernes de 10:00 am a 4:00 pm." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Despachos 504 y 505, Calle Manzanillo 123, colonia Roma Sur, Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

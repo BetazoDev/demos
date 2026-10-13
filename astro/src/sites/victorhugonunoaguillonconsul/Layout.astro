@@ -1,0 +1,25 @@
+---
+// Envuelve el layout del kit: nav flotante con el logo del abogado en su versión para fondo azul marino.
+import SiteLayout from "@/kit/SiteLayout.astro";
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout {...rest} nav={nav ?? { variant: "pill", tone: "light", logoHeight: 52 }} footer={footer ?? { variant: "dark", blurb: "Compromiso, ética y resultados." }}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="victorhugonunoaguillonconsul"] .plan::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--w, 6px);
+    background: var(--c-accent);
+    transform: scaleY(0);
+    transform-origin: bottom center;
+    transition: transform 0.9s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 140ms + 350ms);
+  }
+  html[data-site="victorhugonunoaguillonconsul"] [data-stagger].is-in > .plan::before { transform: scaleY(1); }
+  @media (prefers-reduced-motion: reduce) { html[data-site="victorhugonunoaguillonconsul"] .plan::before { transition: none; transform: scaleY(1); } }
+</style>

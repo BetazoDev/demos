@@ -1,0 +1,26 @@
+/* Ajustes propios de Cárdenas Soriano sobre el kit (solo variables y estados). */
+html[data-site="cardenassoriano"] {
+  --c-radius-img: 2rem;
+  --c-radius-card: 1.75rem;
+  --c-radius-field: 1.1rem;
+}
+/* El foco usa el color del texto: la menta no se ve sobre fondo claro. */
+html[data-site="cardenassoriano"] :focus-visible { outline-color: currentColor; }
+/* El botón de la nav es menta en todos los estados (el verde petróleo se perdería sobre el vidrio oscuro). */
+html[data-site="cardenassoriano"] [data-nav][data-tone] .nav-cta { background: var(--c-accent); color: var(--c-on-accent); }
+html[data-site="cardenassoriano"] [data-nav][data-tone] .nav-cta .arr { background: var(--c-on-accent); color: var(--c-accent); }
+
+/* Proceso: la línea se dibuja con el scroll (solo transform y opacity). */
+[data-process-line] { transform: scaleY(0); transform-origin: top; will-change: transform; }
+[data-process-step] .dot-fill { opacity: 0; transform: scale(0.4); transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out); }
+[data-process-step].is-on .dot-fill { opacity: 1; transform: scale(1); }
+[data-process-step] .step-body { opacity: 0.45; transition: opacity 360ms var(--ease-out); }
+[data-process-step].is-on .step-body { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  [data-process-line] { transform: scaleY(1) !important; }
+  [data-process-step] .dot-fill, [data-process-step] .step-body { opacity: 1; transform: none; transition: none; }
+}
+
+/* Wix Madefor Display pide menos cierre de tracking que el del kit. */
+html[data-site="cardenassoriano"] :is(h1, h2, h3, h4, [data-statement], [data-count]) { letter-spacing: -0.022em; }
+html[data-site="cardenassoriano"] h1 { letter-spacing: -0.028em; }

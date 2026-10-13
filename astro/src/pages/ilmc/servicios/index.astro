@@ -1,0 +1,21 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/ilmc/site";
+import { areas, waLink } from "@/sites/ilmc/data";
+
+const base = "/ilmc";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<SiteLayout site={site} title="Servicios de derecho migratorio en México | ILMC Abogados" description="Visas, permisos y residencias, servicios globales, asistencia consular, obtención y legalización de documentos y naturalizaciones." nav={{ variant: "bar", tone: "light", logoHeight: 52 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} footer={{ variant: "dark", blurb: "Expertos en derecho migratorio." }}>
+  <PageHero title="Servicios" lede="Asuntos migratorios de manera integral o en cualquiera de sus etapas." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

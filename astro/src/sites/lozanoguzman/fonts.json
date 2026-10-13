@@ -1,0 +1,4 @@
+[
+  { "name": "Libre Baskerville", "cssVariable": "--f-lozanoguzman-display", "weights": [400, 700], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Source Sans 3", "cssVariable": "--f-lozanoguzman-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

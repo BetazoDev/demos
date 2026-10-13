@@ -1,0 +1,4 @@
+[
+  { "name": "Frank Ruhl Libre", "cssVariable": "--f-lopezvaldezabogados-display", "weights": [400, 500, 700], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Bricolage Grotesque", "cssVariable": "--f-lopezvaldezabogados-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

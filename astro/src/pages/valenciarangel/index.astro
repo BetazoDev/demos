@@ -1,0 +1,98 @@
+---
+import Layout from "@/sites/valenciarangel/Layout.astro";
+import Hero from "@/sites/valenciarangel/Hero.astro";
+import Indice from "@/sites/valenciarangel/Indice.astro";
+import Faq from "@/sites/valenciarangel/Faq.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import Reviews from "@/kit/Reviews.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/valenciarangel/site";
+import { areas, litigios, photos, equipo, firma, faqs, quotes } from "@/sites/valenciarangel/data";
+
+const base = "/valenciarangel";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.04]";
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.slice(0, 4).map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: (f.p ?? []).join(" ") } })),
+};
+---
+
+<Layout title="Abogados en Polanco, CDMX: propiedad intelectual, mercantil y migratorio | Valencia Rangel" schema={[faqSchema]}>
+  <Hero
+    title="Somos tu aliado para brindarte seguridad y tranquilidad jurídica"
+    lede="Ofrecemos soluciones inteligentes, personalizadas, oportunas, innovadoras, actualizadas, integrales y confiables."
+    big={photos.torre} bigAlt="Torre de oficinas de cristal y acero vista desde abajo al anochecer" bigPosition="49% 50%"
+    small={photos.contratos} smallAlt="Pila de contratos encuadernados con un clip de cobre sobre lino azul" smallPosition="62% 60%"
+  >
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Soluciones integrales a través de estrategias jurídicas eficientes y viables." class="max-w-[26ch] sm:max-w-[30ch]" /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-10 sm:mb-14 ${h2}`}>Servicios</h2>
+      <Indice items={rows} extra={litigios} />
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)" style="height:clamp(20rem,44vw,31rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={photos.pluma} alt="Pluma de cobre sobre papel crema en un escritorio azul marino" position="50% 52%" class="size-full object-cover" /></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_90%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_40%,transparent)_60%,color-mix(in_oklab,var(--c-dark)_20%,transparent)_100%)]"></div>
+    <div class="wrap flex h-full items-end pb-10 sm:pb-14">
+      <p data-reveal class="max-w-[22ch] text-[clamp(1.8rem,3.9vw,3.5rem)] leading-[1.08]" style="font-family:var(--f-display)">{firma.vanguardia}</p>
+    </div>
+  </div>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`max-w-[18ch] ${h2}`}>{firma.alta}</h2>
+      <p data-reveal data-delay="80" class="mt-7 max-w-[52ch] text-lg text-(--c-muted)">{firma.mueve}</p>
+      <ul data-stagger data-gap="70" class="mt-14 grid gap-x-16 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        {equipo.map((p) => <li><p class="text-[clamp(1.5rem,2.3vw,2rem)] leading-tight" style="font-family:var(--f-display)">{p.name}</p><p class="mt-1.5 text-[15px] text-(--c-accent)">{p.role}</p></li>)}
+      </ul>
+      <div data-reveal class="mt-12"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class={h2}>Preguntas frecuentes</h2>
+      <div data-reveal data-delay="100">
+        <Faq items={faqs.slice(0, 4)} />
+        <div class="mt-10"><Button href={`${base}/preguntas-frecuentes`} variant="outline">Ver todas las preguntas</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap"><Reviews rating={4.7} count={9} quotes={quotes} /></div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,1.5rem) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="¿Necesitas asesoría legal?" text="Solucionamos tus problemas legales de manera eficaz, con la mejor estrategia de defensa." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

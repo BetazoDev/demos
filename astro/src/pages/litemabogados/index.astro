@@ -1,0 +1,77 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import Split from "@/kit/Split.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Hero from "@/sites/litemabogados/Hero.astro";
+import Quotes from "@/sites/litemabogados/Quotes.astro";
+import { site } from "@/sites/litemabogados/site";
+import { areas, otros, photos, quotes } from "@/sites/litemabogados/data";
+
+const base = "/litemabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-semibold leading-[1.02] tracking-[-0.035em]";
+---
+
+<SiteLayout site={site} bodyClass="[--c-radius-img:12px] [--c-radius-card:12px] [--c-radius-field:12px]" title="Lítem Abogados | Abogados en Polanco, Ciudad de México" nav={{ variant: "bar", tone: "dark", logoHeight: 48 }} footer={{ variant: "dark", blurb: "Justicia, integridad, eficiencia, fortaleza." }}>
+  <Hero title="Tus aliados legales" lede="Servicios legales dinámicos y estratégicos que nacen de la amplia experiencia y pericia de nuestro equipo." image={photos.bronce} imageAlt="Estatua de la justicia en bronce con balanza y espada" position="30% 30%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="brand">
+    <div class="wrap"><Statement text="Asesoría oportuna, representación profesional y defensa contundente." class="max-w-[22ch] sm:max-w-[24ch]" /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Servicios</h2>
+      <AreasIndex areas={rows} />
+      <p data-reveal class="mt-8 text-[15px] text-(--c-muted)">También: {otros.join(", ").toLowerCase()}.</p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <Split image={photos.firma} alt="Manos firmando un contrato junto a una laptop" ratio="5/4">
+        <h2 class={h2}>Asesorías hechas a la medida</h2>
+        <p class="mt-6 max-w-[44ch] text-lg text-(--c-muted)">Generamos consultas jurídicas eficaces para nuestros clientes, al mismo tiempo que brindamos soluciones ante cualquier conflicto en el que se hallen.</p>
+        <div class="mt-9"><Button href={`${base}/nosotros`} variant="outline">Conocer el despacho</Button></div>
+      </Split>
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)" style="min-height:clamp(24rem,56vw,38rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={photos.torres} alt="Torres de cristal vistas desde abajo al atardecer" class="size-full object-cover" position="50% 30%" /></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_80%,transparent),color-mix(in_oklab,var(--c-dark)_20%,transparent)_70%)]"></div>
+    <div class="wrap flex min-h-[inherit] items-end pb-12 sm:pb-16">
+      <p data-reveal class="max-w-[26ch] font-(family-name:--f-display) text-[clamp(1.8rem,4vw,3.4rem)] font-medium leading-[1.1] tracking-[-0.03em]">Ser un despacho líder reconocido por la obtención de resultados, trabajo profesional y confiabilidad.</p>
+    </div>
+  </div>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <Quotes rating={site.google!.rating} count={site.google!.reviews} quotes={quotes} />
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

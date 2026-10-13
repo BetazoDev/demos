@@ -1,0 +1,76 @@
+---
+// Firma de movimiento: la ruta del emprendedor. Una línea se llena con el scroll y los pasos se encienden a su paso (solo transform y opacity).
+import Icon from "@/kit/Icon.astro";
+interface Step { key: string; title: string; text: string; href: string }
+interface Props { steps: Step[]; transitionPrefix?: string }
+const { steps, transitionPrefix = "area" } = Astro.props;
+const n = steps.length;
+---
+
+<ol data-ruta class="ruta relative grid gap-12 pl-9 lg:grid-cols-4 lg:gap-8 lg:pl-0 lg:pt-12">
+  <span aria-hidden="true" class="ruta-track"></span>
+  <span aria-hidden="true" class="ruta-fill"></span>
+  {steps.map((s, i) => (
+    <li class="ruta-step relative" style={`--t:${(i / n).toFixed(3)}`}>
+      <span aria-hidden="true" class="ruta-node"></span>
+      <a href={s.href} class="group block">
+        <h3 transition:name={`${transitionPrefix}-${s.key}`} class="text-[clamp(1.5rem,2.2vw,2rem)] font-semibold leading-[1.08] tracking-[-0.025em]">{s.title}</h3>
+        <p class="mt-3 max-w-[32ch] text-[15px] leading-relaxed text-(--c-muted) sm:text-base">{s.text}</p>
+        <span class="mt-5 inline-flex items-center gap-2 text-[15px] font-medium text-(--c-ink)">
+          <span class="link-u">Ver más</span>
+          <Icon name="arrow-right" weight="bold" class="size-4 transition-transform duration-300 ease-(--ease-out) group-hover:translate-x-1" />
+        </span>
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style is:global>
+  .ruta { --p: 1; }
+  .ruta-track, .ruta-fill { position: absolute; background: var(--c-line); }
+  .ruta-fill { background: var(--c-brand); }
+  /* móvil: línea vertical */
+  .ruta-track, .ruta-fill { left: 6px; top: 8px; bottom: 8px; width: 2px; }
+  .ruta-fill { transform-origin: top center; transform: scaleY(var(--p)); }
+  .ruta-node { position: absolute; left: -2.25rem; top: 0.45rem; width: 14px; height: 14px; background: var(--c-brand); }
+  .ruta-step { opacity: clamp(0.3, calc(0.3 + (var(--p) - var(--t)) * 14), 1); }
+  @media (min-width: 1024px) {
+    .ruta-track, .ruta-fill { left: 0; right: 0; top: 6px; bottom: auto; width: auto; height: 2px; }
+    .ruta-fill { transform-origin: left center; transform: scaleX(var(--p)); }
+    .ruta-node { left: 0; top: -2.9rem; }
+  }
+</style>
+
+<script>
+  let off: (() => void) | null = null;
+  const init = () => {
+    off?.();
+    off = null;
+    const el = document.querySelector<HTMLElement>("[data-ruta]");
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh * 0.8 - r.top) / (r.height + vh * 0.1)));
+      el.style.setProperty("--p", p.toFixed(3));
+    };
+    const h = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", h, { passive: true });
+    window.addEventListener("resize", h);
+    update();
+    off = () => {
+      window.removeEventListener("scroll", h);
+      window.removeEventListener("resize", h);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  };
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    off?.();
+    off = null;
+  });
+</script>

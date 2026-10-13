@@ -1,0 +1,4 @@
+[
+  { "name": "Host Grotesk", "cssVariable": "--f-enley-display", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Barlow", "cssVariable": "--f-enley-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

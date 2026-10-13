@@ -1,0 +1,15 @@
+---
+// Testimonios del propio sitio del despacho, citados tal como se publican (columnas de altura natural).
+interface Q { text: string; author: string }
+interface Props { items: Q[] }
+const { items } = Astro.props;
+---
+
+<ul data-stagger data-gap="90" class="gap-5 md:columns-2 lg:columns-3">
+  {items.map((q) => (
+    <li class="mb-5 break-inside-avoid bg-(--c-surface) p-7 sm:p-8">
+      <blockquote class="text-[17px] leading-relaxed">“{q.text}”</blockquote>
+      <p class="mt-5 text-sm font-medium text-(--c-muted)">{q.author}</p>
+    </li>
+  ))}
+</ul>

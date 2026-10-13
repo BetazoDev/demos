@@ -1,7 +1,40 @@
-import { SITES } from "@/data/sites";
+import { SITES, type Site } from "@/data/sites";
+import { SITES2 } from "@/data/sites2";
 import { HeroIntro, HeroItem } from "@/components/motion";
 import type { Metadata } from "next";
-import { Directory } from "./directory";
+import { Directory, type Entry, type List } from "./directory";
+
+const KIND_LABEL: Record<Site["kind"], string> = {
+  despacho: "Despacho",
+  auditoría: "Auditoría",
+  colegio: "Colegio de abogados",
+  legaltech: "Legaltech",
+  vacante: "Vacante",
+  arquitectura: "Arquitectura",
+  viajes: "Viajes escolares",
+};
+const KIND_LABEL2: Record<(typeof SITES2)[number]["kind"], string> = { despacho: "Despacho", legaltech: "Legaltech", contable: "Contable", asociación: "Asociación" };
+
+const list1: Entry[] = SITES.map((s) => ({
+  slug: s.slug,
+  name: s.name,
+  domain: s.domain,
+  thumb: `/thumbs/${s.num}.webp`,
+  kindLabel: s.kind === "despacho" ? null : KIND_LABEL[s.kind],
+  isDespacho: s.kind === "despacho",
+}));
+const list2: Entry[] = SITES2.map((s) => ({
+  slug: s.slug,
+  name: s.name,
+  domain: s.domain,
+  thumb: `/thumbs/l2-${s.slug}.webp`,
+  kindLabel: s.kind === "despacho" ? null : KIND_LABEL2[s.kind],
+  isDespacho: s.kind === "despacho",
+}));
+const LISTS: List[] = [
+  { id: "1", label: "Lista 1", stack: "Next.js", entries: list1 },
+  ...(list2.length ? [{ id: "2", label: "Lista 2", stack: "Astro", entries: list2 }] : []),
+];
 
 export const metadata: Metadata = { title: "Directorio de rediseños" };
 
@@ -15,12 +48,12 @@ export default function Home() {
               Rediseños
             </HeroItem>
             <HeroItem as="p" className="mt-6 max-w-[34rem] text-lg leading-relaxed text-black/60">
-              Propuestas de home para despachos de abogados en México, construidas con el logo, los colores y la información real de cada firma.
+              Propuestas para despachos de abogados en México, construidas con el logo, los colores y la información real de cada firma. La lista 1 reúne homes en Next.js; la lista 2, sitios completos en Astro con transiciones de vista.
             </HeroItem>
           </div>
           <HeroItem className="flex flex-col items-start gap-6 sm:flex-row sm:items-end sm:justify-between md:justify-end md:gap-10">
             <div>
-              <p className="font-mono text-4xl tabular-nums tracking-tight">{SITES.length}</p>
+              <p className="font-mono text-4xl tabular-nums tracking-tight">{SITES.length + SITES2.length}</p>
               <p className="mt-1 text-sm text-black/50">sitios rediseñados</p>
             </div>
             {/* Enlace normal (sin prefetch): /contacto es una ruta privada que devuelve HTML. */}
@@ -32,7 +65,7 @@ export default function Home() {
             </a>
           </HeroItem>
         </HeroIntro>
-        <Directory sites={SITES} />
+        <Directory lists={LISTS} />
       </div>
     </main>
   );

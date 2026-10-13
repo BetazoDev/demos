@@ -1,0 +1,90 @@
+---
+import "@/sites/sternaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/sternaabogados/site";
+import { intro, team, photos } from "@/sites/sternaabogados/data";
+
+const base = "/sternaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const [ainhoa, ...others] = team;
+const parts = (b: string) => {
+  const [intro, rest] = b.split(" Formación:");
+  const [formacion, trayectoria] = (rest ?? "").split(" Trayectoria:");
+  return { intro, formacion: formacion?.trim(), trayectoria: trayectoria?.trim() };
+};
+const a = parts(ainhoa.bio);
+---
+
+<SiteLayout
+  site={site}
+  title="Nosotros | Sterna Abogados, extranjería e inmigración desde 2013"
+  description="Sterna Abogados: despacho de extranjería e inmigración fundado en 2013 por Ainhoa Manero, con sedes en Madrid y Valencia y Despacho México en la Ciudad de México. Conoce al equipo."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}
+>
+  <PageHero title="Nosotros" lede={intro.about} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <div data-reveal="clip" class="aspect-[16/8] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)">
+        <Pic src={photos.equipo} alt="El equipo de Sterna Abogados sentado en una mesa de juntas" position="50% 38%" class="size-full object-cover" />
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap"><Statement text={intro.mission} /></div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/5] overflow-hidden rounded-(--c-radius-img) bg-(--c-bg)">
+        <Pic src={photos.ainhoaDesk} alt="Ainhoa Manero al teléfono en su escritorio" position="50% 30%" class="size-full object-cover" />
+      </div>
+      <div>
+        <h2 data-reveal class="text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02]">{ainhoa.name}</h2>
+        <p data-reveal data-delay="60" class="mt-3 text-(--c-muted)">{ainhoa.role}</p>
+        <p data-reveal data-delay="120" class="mt-8 max-w-[56ch] text-lg leading-relaxed">{a.intro}</p>
+        {a.formacion && <p data-reveal data-delay="140" class="mt-6 max-w-[56ch] text-(--c-muted)"><strong class="font-medium text-(--c-ink)">Formación.</strong> {a.formacion}</p>}
+        {a.trayectoria && <p data-reveal data-delay="160" class="mt-4 max-w-[56ch] text-(--c-muted)"><strong class="font-medium text-(--c-ink)">Trayectoria.</strong> {a.trayectoria}</p>}
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02]">Equipo</h2>
+      <ul data-stagger data-gap="60" class="grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 lg:grid-cols-5">
+        {others.map((p) => {
+          const b = parts(p.bio);
+          return (
+            <li>
+              <div class="img-zoom aspect-[3/4] overflow-hidden rounded-(--c-radius-img) bg-(--c-surface)">
+                <Pic src={p.photo} alt={p.name} position="50% 25%" class="size-full object-cover" />
+              </div>
+              <h3 class="mt-4 text-lg font-medium leading-snug">{p.name}</h3>
+              <p class="mt-1 text-[15px] text-(--c-muted)">{p.role}</p>
+              <details class="bio mt-3">
+                <summary class="inline-flex items-center gap-2 text-[15px] font-medium">
+                  Trayectoria
+                  <span class="bio-plus grid size-6 place-items-center rounded-full border border-current/30" aria-hidden="true"><Icon name="plus" weight="bold" class="size-3" /></span>
+                </summary>
+                <p class="mt-3 text-[15px] leading-relaxed text-(--c-muted)">{b.intro}</p>
+                {b.formacion && <p class="mt-2 text-[15px] leading-relaxed text-(--c-muted)"><strong class="font-medium text-(--c-ink)">Formación.</strong> {b.formacion}</p>}
+                {b.trayectoria && <p class="mt-2 text-[15px] leading-relaxed text-(--c-muted)"><strong class="font-medium text-(--c-ink)">Trayectoria.</strong> {b.trayectoria}</p>}
+              </details>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="¿Quieres vivir en España?" text="Te ayudamos a gestionar tu visado desde México." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,54 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Skin from "@/sites/cyca/Skin.astro";
+import Closing from "@/sites/cyca/Closing.astro";
+import { site } from "@/sites/cyca/site";
+import { partners, principles } from "@/sites/cyca/data";
+
+const base = "/cyca";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | CYCA Abogados, fundada en 2011 en la colonia Álamos"
+  description="Firma fundada en 2011 por abogados con trayectoria académica y profesional reconocida en México y en el extranjero. Conozca a sus socios."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <Skin />
+  <PageHero title="La firma" lede="Fundada en 2011, integrada por un grupo de abogados con trayectoria académica y profesional reconocida en México y en el extranjero." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+      <div data-reveal class="space-y-6 text-lg text-(--c-muted)">
+        <p>CYCA brinda servicios legales integrales de asesoría, consultoría, defensa y planeación a sus clientes. Se distingue por un trato directo y especializado, con base en los siguientes principios.</p>
+        <p>Por la complejidad de nuestro sistema jurídico, cualquier operación que realicen los clientes tiene impacto en diversas áreas del derecho.</p>
+      </div>
+      <ul data-stagger data-gap="80" class="grid content-start gap-x-8 gap-y-8 sm:grid-cols-2">
+        {principles.map((p) => <li class="border-t-2 border-(--c-brand) pt-5 text-[clamp(1.4rem,2.2vw,1.9rem)] font-medium leading-tight tracking-[-0.02em] [font-family:var(--f-display)]">{p}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class="mb-4 text-[clamp(2.2rem,4.8vw,4rem)] font-medium leading-[1] tracking-[-0.035em]">Socios</h2>
+      <ul class="divide-y divide-(--c-line)">
+        {partners.map((p) => (
+          <li id={p.key} class="grid scroll-mt-28 gap-6 py-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
+            <div data-reveal>
+              <h3 class="text-[clamp(1.8rem,3.4vw,2.8rem)] font-medium leading-[1.05] tracking-[-0.03em]">{p.name}</h3>
+              <p class="mt-3 text-(--c-muted)">{p.role}</p>
+            </div>
+            <p data-reveal data-delay="100" class="max-w-[58ch] text-lg leading-relaxed">{p.bio}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Closing title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" external />
+</SiteLayout>

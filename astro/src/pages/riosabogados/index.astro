@@ -1,0 +1,91 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Pic from "@/kit/Pic.astro";
+import RiosHero from "@/sites/riosabogados/RiosHero.astro";
+import AreasSwitch from "@/sites/riosabogados/AreasSwitch.astro";
+import { site } from "@/sites/riosabogados/site";
+import { areas, team, images, principles } from "@/sites/riosabogados/data";
+
+const base = "/riosabogados";
+const rows = areas.map((a) => ({ ...a, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const founder = team[0];
+const lawyers = team.slice(1, 5);
+const h2 = "text-[clamp(2.1rem,4.6vw,4rem)] font-semibold leading-[1.02] tracking-[-0.04em]";
+---
+
+<SiteLayout site={site} title="R1OS Abogados | Propiedad intelectual, derecho corporativo e informático en CDMX" nav={{ variant: "pill", tone: "dark", logoHeight: 44 }} footer={{ variant: "dark", blurb: "Abogados de confianza y con experiencia desde 1999." }}>
+  <RiosHero lines={["Abogados de confianza", "y con experiencia", "desde 1999"]} lede="Boutique legal especializada en propiedad intelectual, derecho corporativo, derecho informático y litigio." image={images.hero}>
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </RiosHero>
+
+  <Section>
+    <div class="wrap"><Statement text="Un servicio legal personalizado e integral a personas físicas y morales de cualquier naturaleza." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12 sm:mb-16", h2]}>Servicios</h2>
+      <AreasSwitch areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={images.servidores} alt="Pasillo de un centro de datos con luz roja" position="50% 60%" height="clamp(27rem,50vw,38rem)">
+    <div class="pb-2">
+      <p data-reveal class="max-w-[30ch] text-lg text-white/85 sm:text-xl">Los principios que nos rigen son</p>
+      <ul data-stagger data-gap="120" class="mt-3 grid grid-cols-2 gap-x-8 gap-y-1 text-[clamp(1.85rem,6.4vw,5.6rem)] font-semibold leading-[1.02] tracking-[-0.04em] sm:grid-cols-[auto_auto] sm:justify-start sm:gap-x-16">
+        {principles.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+  </ImageBand>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12 sm:mb-16", h2]}>El equipo</h2>
+      <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <figure data-reveal class="m-0">
+          <div class="img-zoom aspect-[9/13] overflow-hidden rounded-[2rem] bg-(--c-brand)"><Pic src={founder.photo} alt={`Retrato ilustrado de ${founder.name}`} position="50% 0%" class="size-full object-cover" /></div>
+          <figcaption class="mt-6">
+            <p class="text-2xl font-semibold tracking-[-0.02em]">{founder.name}</p>
+            <p class="mt-1 text-(--c-muted)">{founder.role}</p>
+            <p class="mt-4 max-w-[46ch] text-[17px] text-(--c-muted)">Fundó el Despacho en el año de 1999 con el objeto de brindar una alternativa fresca y diferente en materia de prestación de servicios legales.</p>
+          </figcaption>
+        </figure>
+        <ul data-stagger data-gap="90" class="grid grid-cols-2 content-start gap-x-5 gap-y-10">
+          {lawyers.map((p) => (
+            <li>
+              <div class="img-zoom aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-(--c-brand)"><Pic src={p.photo} alt={`Retrato ilustrado de ${p.name}`} position="50% 0%" class="size-full object-cover" /></div>
+              <p class="mt-4 text-lg font-semibold tracking-[-0.01em]">{p.name}</p>
+              <p class="mt-1 text-[15px] text-(--c-muted)">{p.role}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div data-reveal class="mt-12"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.75rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

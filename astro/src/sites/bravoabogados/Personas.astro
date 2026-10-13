@@ -1,0 +1,19 @@
+---
+// Retratos del equipo con nombre y, si el despacho lo publica, estudios o especialidad.
+import Pic from "@/kit/Pic.astro";
+import type { ImageMetadata } from "astro";
+interface Persona { name: string; role?: string; bio?: string; photo: ImageMetadata }
+interface Props { people: Persona[]; detail?: boolean; class?: string }
+const { people, detail = false, class: cls = "" } = Astro.props;
+---
+
+<ul data-stagger data-gap="80" class:list={["grid gap-x-6 gap-y-10", detail ? "sm:grid-cols-2 lg:grid-cols-3 gap-y-14" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-6", cls]}>
+  {people.map((p) => (
+    <li>
+      <div class="img-zoom aspect-[2/3] overflow-hidden rounded-(--c-radius) bg-(--c-surface)"><Pic src={p.photo} alt={p.name} class="size-full object-cover" position="50% 20%" /></div>
+      <h3 class:list={["mt-4 font-medium leading-snug tracking-[-0.01em]", detail ? "text-2xl" : "text-lg"]}>{p.name}</h3>
+      {p.role && <p class="mt-1 text-[15px] text-(--c-muted)">{p.role}</p>}
+      {detail && p.bio && <p class="mt-3 max-w-[40ch] text-[15px] leading-relaxed text-(--c-muted)">{p.bio}</p>}
+    </li>
+  ))}
+</ul>

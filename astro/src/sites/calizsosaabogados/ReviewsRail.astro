@@ -1,0 +1,47 @@
+---
+// Reseñas de Google en una tira que se desliza (scroll-snap nativo). Cita literal, autor tal como aparece.
+import Icon from "@/kit/Icon.astro";
+interface Props { rating: number; count: number; quotes: { text: string; author: string; when?: string }[] }
+const { rating, count, quotes } = Astro.props;
+---
+
+<div data-rail>
+  <div class="flex items-end justify-between gap-6">
+    <p class="flex flex-wrap items-baseline gap-x-4">
+      <span data-count={rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(3.6rem,8vw,6.5rem)] font-medium leading-none tracking-[-0.03em] tabular-nums">{rating.toFixed(1)}</span>
+      <span class="text-lg text-(--c-muted)">en Google, {count} opiniones</span>
+    </p>
+    <div class="hidden gap-2 md:flex">
+      <button type="button" data-rail-prev aria-label="Reseñas anteriores" class="press grid size-12 place-items-center rounded-full border border-(--c-line) hover:border-(--c-ink)"><Icon name="arrow-left" weight="bold" class="size-5" /></button>
+      <button type="button" data-rail-next aria-label="Más reseñas" class="press grid size-12 place-items-center rounded-full border border-(--c-line) hover:border-(--c-ink)"><Icon name="arrow-right" weight="bold" class="size-5" /></button>
+    </div>
+  </div>
+  <ul data-rail-track tabindex="0" aria-label="Reseñas de Google" class="rail mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4">
+    {
+      quotes.map((q) => (
+        <li class="flex w-[84%] shrink-0 snap-start flex-col justify-between gap-8 rounded-(--c-radius-card) bg-(--c-bg) p-7 sm:w-[46%] lg:w-[31.5%]">
+          <blockquote class="text-[17px] leading-relaxed">“{q.text}”</blockquote>
+          <p class="text-sm text-(--c-muted)">{q.author}{q.when ? `, ${q.when}` : ""}</p>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .rail { scrollbar-width: thin; scrollbar-color: color-mix(in oklab, var(--c-ink) 25%, transparent) transparent; scroll-padding-inline: 0; }
+</style>
+
+<script>
+  const init = () => {
+    document.querySelectorAll<HTMLElement>("[data-rail]").forEach((root) => {
+      const track = root.querySelector<HTMLElement>("[data-rail-track]");
+      if (!track || root.dataset.ready) return;
+      root.dataset.ready = "1";
+      const step = () => (track.firstElementChild as HTMLElement | null)?.getBoundingClientRect().width ?? 320;
+      root.querySelector("[data-rail-prev]")?.addEventListener("click", () => track.scrollBy({ left: -(step() + 20), behavior: "smooth" }));
+      root.querySelector("[data-rail-next]")?.addEventListener("click", () => track.scrollBy({ left: step() + 20, behavior: "smooth" }));
+    });
+  };
+  document.addEventListener("astro:page-load", init);
+</script>

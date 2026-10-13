@@ -1,0 +1,36 @@
+---
+// Héroe propio: el búho original ocupa el campo y el lema real de la firma va abajo, con la línea dorada de su lockup.
+import Pic from "@/kit/Pic.astro";
+import owl from "./assets/owl.png";
+interface Props { title: string[]; lede?: string }
+const { title, lede } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <div data-hero-media style="--d:150ms" class="owl absolute -right-[9%] top-[6svh] w-[118vw] max-w-none p-[6%] sm:-right-[9%] sm:top-[4svh] sm:w-[62vw] sm:max-w-[64rem] sm:p-[9%]">
+      <div data-parallax="36">
+        <Pic src={owl} alt="" priority fill={false} class="h-auto w-full" sizes="(min-width: 640px) 52vw, 114vw" />
+      </div>
+    </div>
+  </div>
+  <div class="wrap flex min-h-[100svh] flex-col justify-end pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="text-[clamp(3.4rem,9vw,8.6rem)] leading-[0.94] tracking-[-0.02em]">
+      {title.map((l) => <span class="block">{l}</span>)}
+    </h1>
+    <span class="hero-rule mt-8 block h-px w-full max-w-[min(100%,46rem)] bg-(--c-brand)" aria-hidden="true"></span>
+    <div class="mt-8 flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+      {lede && <p data-hero style="--i:2" class="max-w-[34ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:3" class="flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .owl > div { mask-image: linear-gradient(to bottom, #000 56%, transparent 96%); -webkit-mask-image: linear-gradient(to bottom, #000 56%, transparent 96%); }
+  .hero-rule { transform-origin: left center; animation: rule-draw 1.5s var(--ease-out) 650ms both; }
+  @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) { .hero-rule { animation: none; } }
+</style>

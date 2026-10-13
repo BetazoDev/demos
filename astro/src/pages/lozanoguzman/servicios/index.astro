@@ -1,0 +1,21 @@
+---
+import Layout from "@/sites/lozanoguzman/Layout.astro";
+import PageHero from "@/sites/lozanoguzman/PageHero.astro";
+import Mosaico from "@/sites/lozanoguzman/Mosaico.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/lozanoguzman/site";
+import { areas } from "@/sites/lozanoguzman/areas";
+
+const base = "/lozanoguzman";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const tiles = areas.map((a) => ({ key: a.key, short: a.short, text: a.summary, icon: a.icon, href: `${base}/servicios/${a.key}` }));
+---
+
+<Layout site={site} title="Servicios | Lozano Guzmán Abogados, penal, familiar, laboral, civil y más en CDMX y Ecatepec" description="Servicios jurídicos especializados en materia civil, penal, mercantil, familiar, laboral, fiscal, inmobiliaria, amparo, administrativa y trámites notariales." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Servicios jurídicos especializados en las áreas civil, penal, mercantil, familiar, laboral, fiscal y bienes raíces." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><Mosaico items={tiles} /></div>
+  </Section>
+  <CtaBand title="La defensa como derecho humano, al alcance de todos" href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</Layout>

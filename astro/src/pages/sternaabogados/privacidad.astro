@@ -1,0 +1,29 @@
+---
+import "@/sites/sternaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/sternaabogados/site";
+
+const base = "/sternaabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Política de privacidad | Sterna Abogados"
+  description="Política de privacidad de Sterna Abogados: responsable del tratamiento, finalidad y derechos de las personas usuarias."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Política de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Política de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Responsable: Ainhoa Manero Benavente («STERNA ABOGADOS»).</p>
+        <p>Tratamiento para prestar los servicios y enviar información; sin cesiones a terceros. Derechos de acceso, rectificación, supresión, oposición, portabilidad, limitación y olvido. No se hacen perfilados. Contacto: info@sternaabogados.com.</p>
+        <p>Redactada conforme a la normativa española. El texto completo está publicado en <a href="https://www.abogadoextranjeriamadrid.net/politica-de-privacidad/" target="_blank" rel="noopener">abogadoextranjeriamadrid.net/politica-de-privacidad</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

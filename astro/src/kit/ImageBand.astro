@@ -1,0 +1,15 @@
+---
+// Banda de foto a sangre con parallax suave y un texto opcional encima (frase real del despacho).
+import type { Img } from "./types";
+import Pic from "./Pic.astro";
+interface Props { image: Img; alt?: string; position?: string; height?: string; class?: string }
+const { image, alt = "", position, height = "clamp(18rem,52vw,34rem)", class: cls = "" } = Astro.props;
+---
+
+<div class:list={["relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)", cls]} style={`height:${height}`}>
+  <div class="absolute inset-0 -z-10" data-parallax="60">
+    <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+  </div>
+  <div class="absolute inset-0 -z-10 bg-[color-mix(in_oklab,var(--c-dark)_40%,transparent)]"></div>
+  <div class="wrap flex h-full items-end pb-10"><slot /></div>
+</div>

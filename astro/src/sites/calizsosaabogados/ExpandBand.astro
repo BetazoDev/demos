@@ -1,0 +1,52 @@
+---
+// Banda de foto que se amplía al entrar: parte de un recuadro más estrecho y llega a ancho completo con el scroll (solo transform).
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { image: Img; alt?: string; position?: string }
+const { image, alt = "", position } = Astro.props;
+---
+
+<div data-expand class="expand relative overflow-hidden" style="--p:0">
+  <div class="expand-frame absolute inset-0">
+    <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+  </div>
+</div>
+
+<style>
+  .expand { height: clamp(15rem, 40vw, 34rem); }
+  .expand-frame {
+    transform: scale(calc(0.8 + 0.2 * var(--p)));
+    transform-origin: 50% 50%;
+    will-change: transform;
+    border-radius: var(--c-radius-img, 12px);
+    overflow: hidden;
+  }
+  @media (prefers-reduced-motion: reduce) { .expand-frame { transform: none; } }
+</style>
+
+<script>
+  let off: (() => void) | null = null;
+  const init = () => {
+    off?.();
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-expand]"));
+    if (!els.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = innerHeight;
+      for (const el of els) {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) continue;
+        const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.75)));
+        el.style.setProperty("--p", p.toFixed(3));
+      }
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
+    update();
+    off = () => { removeEventListener("scroll", onScroll); removeEventListener("resize", onScroll); if (raf) cancelAnimationFrame(raf); off = null; };
+  };
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => off?.());
+</script>

@@ -1,0 +1,4 @@
+[
+  { "name": "Cinzel", "cssVariable": "--f-garciaasociadoslaw-display", "weights": [400, 500, 600], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Work Sans", "cssVariable": "--f-garciaasociadoslaw-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

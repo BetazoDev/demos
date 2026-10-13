@@ -1,0 +1,35 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import ContactBlock from "@/sites/ordonezabogados/ContactBlock.astro";
+import Composer from "@/sites/ordonezabogados/Composer.astro";
+import { site } from "@/sites/ordonezabogados/site";
+import { servicios } from "@/sites/ordonezabogados/data";
+import "@/sites/ordonezabogados/theme.css";
+
+const base = "/ordonezabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Ordoñez Abogados, Chiapas 34, Roma Norte, CDMX, y Pachuca"
+  description="Chiapas 34, Roma Norte, Ciudad de México, y Pedro L. Rodríguez 112, Pachuca. WhatsApp 55 1952 4432. Lunes a viernes de 9:00 a 20:00."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 44 }}
+  footer={{ variant: "light" }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero tone="dark" title="Contacto" lede="Escríbenos por WhatsApp o visítanos en Ciudad de México y en Pachuca." />
+  <Section size="sm" class="pt-14 sm:pt-20">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-10"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={servicios.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

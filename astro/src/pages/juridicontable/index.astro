@@ -1,0 +1,112 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/sites/juridicontable/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/juridicontable/Nav.astro";
+import Footer from "@/sites/juridicontable/Footer.astro";
+import Hero from "@/sites/juridicontable/Hero.astro";
+import { site } from "@/sites/juridicontable/site";
+import { servicios, materias } from "@/sites/juridicontable/data";
+import hero from "@/sites/juridicontable/assets/hero-escritorio.jpg";
+import fachada from "@/sites/juridicontable/assets/fachada.jpg";
+
+const base = "/juridicontable";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const rows = servicios.map((s) => ({ key: s.key, title: s.title, text: s.text, href: `${base}/servicios#${s.key}` }));
+// Tonos reales de la cabecera del sitio original, de #783348 a #341620.
+const shades = ["#783348", "#6A2D40", "#582838", "#471F2D", "#341620"];
+---
+
+<SiteLayout
+  site={site}
+  title="Abogados y contadores en CDMX: defensa fiscal y contabilidad"
+  description="Firma de abogados y contadores en Santa María la Ribera, Ciudad de México: asesoría fiscal, patrocinio, litigio fiscal y administrativo, amparo y contabilidad."
+>
+  <Nav slot="nav" site={site} variant="pill" tone="dark" />
+  <Hero
+    title="Asesoría jurídica, fiscal, contable y litigio a nivel de excelencia"
+    lede="Abogados y contadores que defienden los derechos de sus clientes ante las autoridades administrativas y los tribunales."
+    image={hero}
+    imageAlt="Escritorio de caoba con libros contables, lámpara de latón, pluma, calculadora antigua y balanza"
+    position="50% 38%"
+  >
+    <Fragment slot="actions">
+      <Button href={wa} variant="solid" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement class="font-(family-name:--f-display) font-normal" text="Proporcionar el servicio jurídico y contable oportunamente, evitando el perjuicio en el patrimonio de nuestros clientes." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.015em]">Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={fachada} alt="Fachada de ladrillo y piedra con balcones de hierro forjado en una colonia de la Ciudad de México" position="50% 45%" />
+
+  <section id="materias" class="bg-(--c-bg) pt-24 sm:pt-32">
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.015em]">Materias</h2>
+      <ol class="mt-12 pb-16 sm:pb-24">
+        {materias.map((m, i) => (
+          <li class="stack-card" style={`--i:${i};--shade:${shades[i]}`}>
+            <a href={`${base}/servicios#${m.key}`} class="stack-link group">
+              <div class="flex items-start justify-between gap-6">
+                <h3 class="max-w-[16ch] text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.05] tracking-[-0.015em]">{m.title}</h3>
+                <span class="grid size-12 shrink-0 place-items-center rounded-full border border-current/30"><Icon name={m.icon} class="size-6" /></span>
+              </div>
+              <div class="flex items-end justify-between gap-8">
+                <p class="max-w-[46ch] text-base leading-relaxed opacity-85 sm:text-lg">{m.lead}</p>
+                <span class="arr hidden size-11 shrink-0 place-items-center rounded-full bg-(--c-accent) text-(--c-on-accent) sm:grid"><Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.1rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.015em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={[...servicios.map((s) => s.title), ...materias.map((m) => m.title)]} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Servicios de asesoría jurídica, fiscal, contable y litigio a nivel de excelencia." />
+</SiteLayout>
+
+<style>
+  .stack-card { position: relative; margin-bottom: 1rem; }
+  .stack-link {
+    display: flex; flex-direction: column; justify-content: space-between; gap: 3rem;
+    min-height: 17rem; padding: 1.75rem; background: var(--shade); color: var(--c-on-dark);
+  }
+  @media (min-width: 640px) { .stack-link { min-height: 21rem; padding: 2.5rem; } }
+  @media (min-width: 1024px) {
+    .stack-card { position: sticky; top: calc(5.75rem + var(--i) * 1.25rem); margin-bottom: 6vh; }
+    .stack-link { box-shadow: 0 -18px 30px -18px rgb(0 0 0 / 0.45); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .stack-link .arr { transition: transform 300ms var(--ease-out); }
+    .stack-link:hover .arr { transform: translate(2px, -2px); }
+  }
+</style>

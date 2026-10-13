@@ -1,0 +1,71 @@
+---
+import "@/sites/calizsosaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import Logo from "@/kit/Logo.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/calizsosaabogados/Nav.astro";
+import Footer from "@/sites/calizsosaabogados/Footer.astro";
+import { site, waLink } from "@/sites/calizsosaabogados/site";
+import { mision, vision, valores } from "@/sites/calizsosaabogados/data";
+import biblioteca from "@/sites/calizsosaabogados/assets/biblioteca.jpg";
+
+const base = "/calizsosaabogados";
+const h2 = "text-[clamp(1.5rem,2.6vw,2.1rem)] font-medium leading-tight tracking-[-0.015em]";
+---
+
+<SiteLayout
+  site={site}
+  title="Nosotros | Caliz & Sosa Abogados"
+  description="Despacho jurídico con más de quince años de experiencia en derecho inmobiliario y de familia. Misión, visión y valores: servicio a cliente, trabajo en equipo y profesionalismo."
+  breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="light" />
+  <PageHero title="Nosotros" lede="Despacho jurídico con más de quince años de experiencia, especializado en temas inmobiliarios y de derecho de familia." />
+
+  <Section size="sm" class="pt-6">
+    <div class="wrap">
+      <div data-reveal="clip" class="aspect-[21/9] overflow-hidden rounded-(--c-radius-img)">
+        <Pic src={biblioteca} alt="Biblioteca iluminada vista a través de ventanales, en tonos azules" position="50% 55%" class="size-full object-cover" />
+      </div>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div class="lg:sticky lg:top-28 lg:self-start" data-reveal>
+        <div class="w-full max-w-[17rem] rounded-(--c-radius-card) bg-(--c-brand) p-6">
+          <Logo src={site.logo.onDark ?? site.logo.src} alt={site.name} height={200} eager={false} />
+        </div>
+      </div>
+      <div class="grid gap-14">
+        <div data-reveal>
+          <h2 class={h2}>Misión</h2>
+          <p class="mt-4 max-w-[48ch] font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.2rem)] leading-[1.18] tracking-[-0.01em]">{mision}</p>
+        </div>
+        <div data-reveal>
+          <h2 class={h2}>Visión</h2>
+          <p class="mt-4 max-w-[56ch] text-lg text-(--c-muted)">{vision}</p>
+        </div>
+        <div data-reveal>
+          <h2 class={h2}>Valores</h2>
+          <ul class="mt-6 grid gap-6 sm:grid-cols-3">
+            {valores.map((v) => (
+              <li class="rounded-(--c-radius-card) bg-(--c-surface) p-6">
+                <h3 class="text-xl font-medium">{v.title}</h3>
+                {v.text && <p class="mt-2 text-[15px] text-(--c-muted)">{v.text}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={waLink()} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones legales confiables en derecho inmobiliario y derecho de familia." />
+</SiteLayout>

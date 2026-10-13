@@ -1,0 +1,46 @@
+---
+import VxLayout from "@/sites/vinlexabogados/VxLayout.astro";
+import VxPageHero from "@/sites/vinlexabogados/VxPageHero.astro";
+import VxStatement from "@/sites/vinlexabogados/VxStatement.astro";
+import VxButton from "@/sites/vinlexabogados/VxButton.astro";
+import VxCta from "@/sites/vinlexabogados/VxCta.astro";
+import Section from "@/kit/Section.astro";
+import Split from "@/kit/Split.astro";
+import { site, WA } from "@/sites/vinlexabogados/site";
+import { text } from "@/sites/vinlexabogados/data";
+import fachada from "@/sites/vinlexabogados/assets/fachada.jpg";
+
+const base = "/vinlexabogados";
+const wa = `https://wa.me/${WA}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<VxLayout title="Nosotros | VINLEX Abogados, despacho en la colonia Obrera, CDMX" description="VINLEX Abogados es un despacho especializado en las áreas clave de defensa y asesoramiento legal a personas físicas y morales. Conozca su filosofía, misión y visión." breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}>
+  <VxPageHero title="Nosotros" lede={text.about} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><VxStatement text={text.philosophy} /></div>
+  </Section>
+  <Section tone="dark">
+    <div class="wrap grid gap-16 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <span class="rule mb-7"></span>
+        <h2 class="text-[clamp(2rem,3.8vw,3.2rem)] leading-[1.06]">Misión</h2>
+        <p class="mt-6 max-w-[42ch] text-xl leading-relaxed text-white/80">{text.mission}</p>
+      </div>
+      <div data-reveal data-delay="120">
+        <span class="rule mb-7"></span>
+        <h2 class="text-[clamp(2rem,3.8vw,3.2rem)] leading-[1.06]">Visión</h2>
+        <p class="mt-6 max-w-[42ch] text-xl leading-relaxed text-white/80">{text.vision}</p>
+      </div>
+    </div>
+  </Section>
+  <Section>
+    <div class="wrap">
+      <Split image={fachada} alt="Fachada de cristal de un edificio con retícula en diagonal" ratio="1/1" position="50% 50%">
+        <h2 class="text-[clamp(2.1rem,4.2vw,3.6rem)] leading-[1.06]">Nuestros clientes</h2>
+        <p class="mt-7 max-w-[44ch] text-xl leading-relaxed text-(--c-muted)">{text.clients}</p>
+        <div class="mt-9"><VxButton href={`${base}/contacto`}>Contacto</VxButton></div>
+      </Split>
+    </div>
+  </Section>
+  <VxCta title="Le ayudaremos con mucho gusto" href={wa} label="Escribir por WhatsApp" />
+</VxLayout>

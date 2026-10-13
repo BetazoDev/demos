@@ -1,0 +1,30 @@
+---
+import Layout from "@/sites/mongeasociados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/mongeasociados/site";
+import { areas } from "@/sites/mongeasociados/data";
+
+const base = "/mongeasociados";
+---
+
+<Layout
+  title="Contacto | Monge & Asociados"
+  description="Avenida México-Tenochtitlán 45, colonia Buenavista, Ciudad de México. WhatsApp 55 3790 5765. Asistencia ante el Ministerio Público las 24 horas."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la colonia Buenavista, Alcaldía Cuauhtémoc." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <p class="mb-8 text-[17px]"><span class="block text-sm text-(--c-muted)">Despacho Jurídico</span>Doctor en Derecho Julio César Monge</p>
+        <ContactBlock site={site} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,1.25rem) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

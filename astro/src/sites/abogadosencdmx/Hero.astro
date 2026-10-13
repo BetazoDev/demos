@@ -1,0 +1,33 @@
+---
+// Héroe de foto a sangre con el titular que entra palabra por palabra (transform, opacity y desenfoque ligero).
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+const words = title.split(" ");
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="70">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_94%,transparent)_0%,color-mix(in_oklab,var(--c-bg)_72%,transparent)_46%,color-mix(in_oklab,var(--c-bg)_30%,transparent)_100%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklab,var(--c-dark)_80%,transparent)_0%,transparent_65%)]"></div>
+  </div>
+  <div class="wrap pb-14 pt-40 sm:pb-20">
+    <h1 class="max-w-[16ch] text-[clamp(2.7rem,6.8vw,6.4rem)] leading-[1.04]" aria-label={title}>
+      {words.map((w, i) => <span class="hw" style={`--w:${i}`} aria-hidden="true">{w}{i < words.length - 1 ? " " : ""}</span>)}
+    </h1>
+    {lede && <p data-hero style="--i:5" class="mt-7 max-w-[46ch] text-lg opacity-90 sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:6" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hw { display: inline-block; white-space: pre; animation: hw-in 1s var(--ease-out) both; animation-delay: calc(140ms + var(--w) * 85ms); }
+  @keyframes hw-in { from { opacity: 0; translate: 0 0.35em; filter: blur(8px); } to { opacity: 1; translate: 0 0; filter: blur(0); } }
+  @media (prefers-reduced-motion: reduce) { .hw { animation: none; } }
+</style>

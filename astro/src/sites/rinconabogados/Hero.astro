@@ -1,0 +1,23 @@
+---
+// Héroe propio de Rincón Mayorga: foto enmarcada bajo la nav (el marco blanco deja ver el logo en azul marino) con el titular encima.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { image: Img; alt?: string; position?: string; lede: string }
+const { image, alt = "", position, lede } = Astro.props;
+---
+
+<section class="rm-hero">
+  <div class="rm-frame" data-hero-media style="--d:0ms">
+    <div class="rm-media" data-parallax="60"><Pic src={image} alt={alt} priority position={position} class="size-full object-cover" /></div>
+    <div class="rm-shade"></div>
+  </div>
+  <div class="rm-copy wrap" style="inset:4.75rem 0 0.75rem">
+    <h1 data-hero="blur">Experiencia con <span class="rm-em">precisión jurídica</span></h1>
+    <div class="rm-row">
+      <p data-hero style="--i:1" class="max-w-[40ch] text-lg opacity-90 sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="flex flex-wrap items-center gap-3 md:justify-end">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</section>

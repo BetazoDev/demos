@@ -1,0 +1,31 @@
+---
+// Héroe propio de Saldaña Medina: titular a la izquierda sobre negro, el monograma como placa a la derecha.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede?: string; plaque: Img; image: Img; imageAlt?: string }
+const { title, lede, plaque, image, imageAlt = "" } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="70">
+      <Pic src={image} alt={imageAlt} priority position="62% 50%" class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_oklab,var(--c-dark)_94%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_80%,transparent)_42%,color-mix(in_oklab,var(--c-dark)_38%,transparent)_100%)]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_top,var(--c-dark),transparent)]"></div>
+  </div>
+  <div class="wrap grid min-h-[100svh] items-center gap-14 pb-16 pt-36 lg:grid-cols-[1.3fr_0.7fr] lg:gap-20">
+    <div>
+      <h1 data-hero="blur" class="max-w-[17ch] text-[clamp(2.6rem,6vw,5.8rem)] font-light leading-[1] tracking-[-0.03em]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-7 max-w-[44ch] text-lg opacity-80 sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-10 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div class="plaque mx-auto w-[min(16rem,66vw)] lg:mx-0 lg:ml-auto lg:w-full lg:max-w-[24rem]">
+      <div data-hero-media style="--d:300ms" class="plaque-in">
+        <Pic src={plaque} alt="" priority class="aspect-[836/700] size-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

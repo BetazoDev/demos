@@ -1,0 +1,4 @@
+[
+  { "name": "Tenor Sans", "cssVariable": "--f-abogadoherver-display", "weights": [400], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Lato", "cssVariable": "--f-abogadoherver-body", "weights": [400, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

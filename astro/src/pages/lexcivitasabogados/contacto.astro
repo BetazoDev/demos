@@ -1,0 +1,33 @@
+---
+import "@/sites/lexcivitasabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Footer from "@/sites/lexcivitasabogados/Footer.astro";
+import { site } from "@/sites/lexcivitasabogados/site";
+import { areas } from "@/sites/lexcivitasabogados/data";
+
+const base = "/lexcivitasabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Lex Civitas Abogados"
+  description="Calle Sor Juana Inés de la Cruz 40B, colonia Santa María la Ribera, Ciudad de México. Citas al 55 4395 3564, lunes a jueves de 10:00 a 18:00 y viernes de 10:00 a 15:00 horas."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 50 }}
+  footer={false}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Teléfono para agendar cita: 55 4395 3564." tone="dark" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => `Materia ${a.title.toLowerCase()}`)} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Iustitia in lege est. En el derecho está la justicia." />
+</SiteLayout>

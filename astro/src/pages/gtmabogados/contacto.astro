@@ -1,0 +1,33 @@
+---
+import "@/sites/gtmabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Footer from "@/sites/gtmabogados/Footer.astro";
+import { site } from "@/sites/gtmabogados/site";
+import { services } from "@/sites/gtmabogados/data";
+
+const base = "/gtmabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | GTM SC Abogados, Colonia Roma Norte, Ciudad de México"
+  description="Calle Orizaba No. 154, oficina 301, Colonia Roma Norte, Ciudad de México. WhatsApp 55 5405 1414 y oficina 55 9049 6547."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  footer={false}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la Colonia Roma Norte, Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={services.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} />
+</SiteLayout>

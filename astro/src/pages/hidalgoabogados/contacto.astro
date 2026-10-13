@@ -1,0 +1,31 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Skin from "@/sites/hidalgoabogados/Skin.astro";
+import { site } from "@/sites/hidalgoabogados/site";
+import { areas } from "@/sites/hidalgoabogados/data";
+
+const base = "/hidalgoabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Hidalgo Abogados, Av. Insurgentes Sur 863, colonia Del Valle, CDMX"
+  description="Avenida Insurgentes Sur 863, oficina 717, colonia Del Valle, Ciudad de México. WhatsApp 55 2564 2646 y teléfonos 55 5005 6714 y 55 5005 6740."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Skin />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp, llámenos o visítenos en nuestra oficina." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,6px) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

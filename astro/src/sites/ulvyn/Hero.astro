@@ -1,0 +1,33 @@
+---
+// Héroe propio: titular centrado sobre una rejilla de plano técnico y, debajo, la composición propia del Director en un marco ancho.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "70% 35%" } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg)">
+  <div class="plano absolute inset-x-0 top-0 -z-10 h-[44rem]" aria-hidden="true"></div>
+  <div class="wrap pt-36 text-center sm:pt-44">
+    <h1 data-hero="blur" class="mx-auto max-w-[15ch] text-[clamp(2.7rem,6.8vw,6.4rem)] font-semibold leading-[1.02] tracking-[-0.045em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mx-auto mt-7 max-w-[46ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-10 flex flex-wrap justify-center gap-3"><slot name="actions" /></div>
+  </div>
+  <div class="wrap mt-14 pb-16 sm:mt-20 sm:pb-24">
+    <div data-hero-media style="--d:350ms" class="relative aspect-[4/3] overflow-hidden rounded-(--c-radius-img) bg-(--c-dark) sm:aspect-[16/8]">
+      <div class="absolute inset-0" data-parallax="30"><Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" sizes="(min-width: 1280px) 1216px, 100vw" /></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .plano {
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--c-brand) 9%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--c-brand) 9%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    background-position: center top;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 92%);
+  }
+</style>

@@ -1,0 +1,4 @@
+[
+  { "name": "Urbanist", "cssVariable": "--f-sanchezsoto-display", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Libre Franklin", "cssVariable": "--f-sanchezsoto-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

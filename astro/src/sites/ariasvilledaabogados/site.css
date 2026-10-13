@@ -1,0 +1,50 @@
+/* Arias & Villeda: ajustes de sitio, acotados a [data-site="ariasvilledaabogados"]. */
+[data-site="ariasvilledaabogados"] {
+  --c-radius-img: 0px;
+  --c-radius-card: 0px;
+  --c-radius-field: 0px;
+  --c-radius-nav: 0px;
+}
+/* Titulares ligeros (Josefin Sans) en todo el sitio */
+[data-site="ariasvilledaabogados"] h1,
+[data-site="ariasvilledaabogados"] h2 {
+  font-weight: 300;
+}
+[data-site="ariasvilledaabogados"] h3 {
+  font-weight: 400;
+}
+/* Texto secundario del kit con contraste AA */
+[data-site="ariasvilledaabogados"] .opacity-55,
+[data-site="ariasvilledaabogados"] .opacity-60,
+[data-site="ariasvilledaabogados"] .opacity-65 {
+  opacity: 0.78;
+}
+/* Índice lateral de las páginas de servicio: la sección visible se resalta */
+[data-site="ariasvilledaabogados"] .av-index a {
+  display: block;
+  border-left: 1px solid var(--c-line);
+  padding: 0.55rem 0 0.55rem 1.1rem;
+  color: var(--c-muted);
+  transition: color 200ms ease, border-color 200ms ease, padding-left 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+[data-site="ariasvilledaabogados"] .av-index a[aria-current="true"] {
+  color: var(--c-ink);
+  border-color: var(--c-brand);
+  padding-left: 1.5rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-site="ariasvilledaabogados"] .av-index a:hover { color: var(--c-ink); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-site="ariasvilledaabogados"] .av-index a { transition: none; }
+}
+/* Zonas de cobertura */
+[data-site="ariasvilledaabogados"] .av-zones > li + li {
+  border-top: 1px solid var(--c-line);
+}
+@media (min-width: 1024px) {
+  [data-site="ariasvilledaabogados"] .av-zones > li + li {
+    border-top: 0;
+    border-left: 1px solid var(--c-line);
+  }
+}

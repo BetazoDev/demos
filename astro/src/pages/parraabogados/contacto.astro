@@ -1,0 +1,26 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Nav from "@/sites/parraabogados/Nav.astro";
+import "@/sites/parraabogados/theme.css";
+import { site } from "@/sites/parraabogados/site";
+import { areas } from "@/sites/parraabogados/data";
+
+const base = "/parraabogados";
+---
+
+<SiteLayout site={site} title="Contacto | Parra & Abogados, Av. Tamaulipas, Condesa, Ciudad de México" description="Parra & Abogados atiende en Av. Tamaulipas 150-130, Col. Condesa, Ciudad de México. WhatsApp y teléfono 55 8460 1222. Lunes a viernes de 9:00 a 18:00, con reserva concertada." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]} footer={{ variant: "light", blurb: "Bufete jurídico integral" }}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o llámenos. Atendemos solo con reserva concertada." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

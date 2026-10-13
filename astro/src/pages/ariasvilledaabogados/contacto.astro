@@ -1,0 +1,30 @@
+---
+import "@/sites/ariasvilledaabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/ariasvilledaabogados/site";
+import { areas } from "@/sites/ariasvilledaabogados/data";
+
+const base = "/ariasvilledaabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Arias & Villeda Abogados, Tlaxcala 31 B, Roma Sur, Ciudad de México"
+  description="Tlaxcala No. 31 B, Colonia Roma Sur, Ciudad de México. Teléfonos 55 5264 8290 y 55 5584 1452, correo contacto@ariasvilledaabogados.com."
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la colonia Roma Sur." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

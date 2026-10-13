@@ -1,0 +1,24 @@
+---
+// Héroe propio de IC Abogados: la foto de grupo del despacho (fondo negro) a sangre, titular abajo a la izquierda sobre los trajes.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string }
+const { title, lede, image, imageAlt = "" } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="56">
+      <Pic src={image} alt={imageAlt} priority position="50% 18%" class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_top,var(--c-bg)_0%,color-mix(in_oklab,var(--c-bg)_88%,transparent)_26%,color-mix(in_oklab,var(--c-bg)_30%,transparent)_58%,transparent_80%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_oklab,var(--c-bg)_70%,transparent)_0%,transparent_55%)]"></div>
+  </div>
+  <div class="wrap pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="max-w-[15ch] text-[clamp(2.5rem,6.2vw,6rem)] font-semibold leading-[1.02] tracking-[-0.02em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-6 max-w-[46ch] text-lg opacity-85 sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

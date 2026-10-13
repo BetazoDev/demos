@@ -1,0 +1,91 @@
+---
+import Layout from "@/sites/hernanpizarro/Layout.astro";
+import Hero from "@/sites/hernanpizarro/Hero.astro";
+import ServiceList from "@/sites/hernanpizarro/ServiceList.astro";
+import Odometer from "@/sites/hernanpizarro/Odometer.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/hernanpizarro/site";
+import { areas, consulta, valores, photos } from "@/sites/hernanpizarro/data";
+
+const base = "/hernanpizarro";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout site={site} title="Abogados en la Roma Sur, Ciudad de México | Hernán Pizarro y Asociados" description="Bufete de abogados en la colonia Roma Sur, Ciudad de México. Más de 30 años de experiencia en asuntos civiles, familiares, mercantiles, laborales y corporativos.">
+  <Hero title="Trabajamos para ti" lede="Asesoría y patrocinio en asuntos civiles, familiares, mercantiles, laborales y corporativos." image={photos.titular} imageAlt="El titular del despacho de pie frente a su biblioteca" position="50% 28%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section class="lg:pt-56">
+    <div class="wrap"><Statement text="Somos un bufete de abogados con más de 30 años de experiencia otorgando servicio en diferentes ramas jurídicas." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.4fr] lg:gap-20">
+      <div data-reveal class="lg:sticky lg:top-32 lg:self-start">
+        <h2 class="text-[clamp(2.2rem,4.6vw,4rem)] leading-none tracking-[-0.03em]">Servicios</h2>
+        <p class="mt-6 max-w-[38ch] text-lg text-(--c-muted)">{consulta}</p>
+        <div class="mt-8"><Button href={`${base}/servicios`} variant="outline">Todos los servicios</Button></div>
+      </div>
+      <ServiceList areas={rows} />
+    </div>
+  </Section>
+
+  <Section tone="brand">
+    <div class="wrap grid items-center gap-14 lg:grid-cols-[1.25fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <Odometer prefix="+" value="30" label="años de experiencia" class="font-(family-name:--f-display) text-[clamp(8rem,23vw,20rem)] leading-none tracking-[-0.05em]" />
+        <p class="mt-2 text-xl opacity-85">años de experiencia</p>
+      </div>
+      <div>
+        <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight">Valores</h2>
+        <ul data-stagger data-gap="80" class="mt-6 grid gap-1 font-(family-name:--f-display) text-[clamp(1.9rem,3.6vw,3rem)] leading-[1.15] tracking-[-0.02em]">
+          {valores.map((v) => <li>{v}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid items-start gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+      <div class="grid grid-cols-2 gap-4 sm:gap-6">
+        <div data-reveal="clip" class="aspect-[4/5] overflow-hidden rounded-(--c-radius) bg-(--c-surface)">
+          <div class="size-full" data-parallax="26"><Pic src={photos.fachada} alt="Fachada del edificio de Manzanillo 123, colonia Roma Sur" /></div>
+        </div>
+        <div data-reveal="clip" data-delay="150" class="mt-10 aspect-[4/5] overflow-hidden rounded-(--c-radius) bg-(--c-surface) sm:mt-20">
+          <div class="size-full" data-parallax="26"><Pic src={photos.recepcion} alt="Entrada de cristal del despacho 505 con la leyenda Abogados" /></div>
+        </div>
+      </div>
+      <div data-reveal data-delay="100" class="lg:pt-10">
+        <h2 class="text-[clamp(2rem,3.8vw,3.2rem)] leading-[1.05] tracking-[-0.025em]">Visítenos</h2>
+        <address class="mt-6 text-lg not-italic text-(--c-muted)">Calle Manzanillo #123, Despachos 504 y 505, Colonia Roma Sur, Alcaldía Cuauhtémoc, C.P. 06760, Ciudad de México</address>
+        <p class="mt-4 text-lg text-(--c-muted)">{site.hours}</p>
+        <div class="mt-8"><Button href={site.mapsUrl!} variant="outline" external>Ver en el mapa</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.6rem)] leading-none tracking-[-0.03em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

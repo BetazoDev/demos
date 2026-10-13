@@ -1,0 +1,26 @@
+---
+import "@/sites/palominoasociados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import AreasTiles from "@/sites/palominoasociados/AreasTiles.astro";
+import { site, waLink } from "@/sites/palominoasociados/site";
+import { areas } from "@/sites/palominoasociados/data";
+
+const base = "/palominoasociados";
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios legales en la Ciudad de México | Palomino & Asociados"
+  description="Derecho penal, laboral, migratorio, civil, mercantil, familiar, amparo, pólizas jurídicas, pensiones ISSSTE, seguridad social y trámites notariales."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios legales" lede="Penal, laboral, migratorio, civil, mercantil, familiar y amparo, además de pólizas jurídicas, pensiones ISSSTE, seguridad social y trámites notariales." tone="brand" />
+  <Section size="sm" class="pt-16 sm:pt-24">
+    <div class="wrap"><AreasTiles areas={areas} base={base} /></div>
+  </Section>
+  <CtaBand title="Agendemos su cita" href={waLink()} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

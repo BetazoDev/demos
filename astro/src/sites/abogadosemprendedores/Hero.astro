@@ -1,0 +1,47 @@
+---
+// Héroe propio: titular a la izquierda y retrato a sangre a la derecha, cortado por la diagonal del isotipo con un filo azul.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { lede: string; image: Img; imageAlt?: string; position?: string }
+const { lede, image, imageAlt = "", position } = Astro.props;
+const poly = "polygon(22% 0, 100% 0, 100% 100%, 0 100%)";
+const polyM = "polygon(14% 0, 100% 0, 100% 100%, 0 100%)";
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap relative z-10 flex min-h-[100svh] flex-col justify-center pb-14 pt-32 lg:pb-12">
+    <div class="lg:max-w-[52%]">
+      <h1 data-hero="blur" class="text-[clamp(2.8rem,6.3vw,6rem)] font-semibold leading-[0.98] tracking-[-0.04em]">Sabemos que tu empresa es tu <span class="hl">sueño</span></h1>
+      <p data-hero style="--i:1" class="mt-7 max-w-[38ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+    <div class="relative mt-12 aspect-[4/3] w-full lg:hidden" aria-hidden="true">
+      <div class="absolute inset-0 bg-(--c-brand)" style={`clip-path:${polyM};transform:translateX(-0.9rem)`}></div>
+      <div class="absolute inset-0 overflow-hidden" style={`clip-path:${polyM}`}>
+        <div data-hero-media style="--d:300ms" class="size-full"><Pic src={image} alt="" position={position} class="size-full object-cover" /></div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute inset-y-0 right-0 hidden w-[45%] lg:block">
+    <div class="absolute inset-0 bg-(--c-brand)" style={`clip-path:${poly};transform:translateX(-1.4rem)`} aria-hidden="true"></div>
+    <div class="absolute inset-0 overflow-hidden" style={`clip-path:${poly}`}>
+      <div data-hero-media style="--d:250ms" class="size-full"><Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" /></div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .hl { position: relative; z-index: 0; white-space: nowrap; }
+  .hl::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: auto -0.04em 0.07em -0.04em;
+    height: 0.2em;
+    background: var(--c-brand);
+    transform-origin: left center;
+    animation: hl-in 0.9s var(--ease-out) 0.9s both;
+  }
+  @keyframes hl-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) { .hl::after { animation: none; } }
+</style>

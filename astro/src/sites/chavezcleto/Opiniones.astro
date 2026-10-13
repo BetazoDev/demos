@@ -1,0 +1,36 @@
+---
+// Reseñas reales de Google de Chávez Cleto: una cita grande a la izquierda y las otras dos a la derecha.
+interface Props {
+  rating: number;
+  count: number;
+  quotes: { text: string; author: string }[];
+  class?: string;
+}
+const { rating, count, quotes, class: cls = "" } = Astro.props;
+const [main, ...rest] = quotes;
+---
+
+<div class={cls}>
+  <p class="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+    <span data-count={rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(4rem,9vw,7.5rem)] font-medium leading-none tracking-[-0.03em] tabular-nums text-(--c-accent) [font-variant-numeric:lining-nums_tabular-nums]">{rating.toFixed(1)}</span>
+    <span class="text-lg text-(--c-muted)">en Google, {count} reseñas</span>
+  </p>
+  <div class="mt-12 grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+    <figure data-reveal>
+      <blockquote class="font-(family-name:--f-display) text-[clamp(1.5rem,2.5vw,2.2rem)] leading-[1.25] tracking-[-0.01em]">“{main.text}”</blockquote>
+      <figcaption class="mt-6 text-[15px] text-(--c-muted)">{main.author}</figcaption>
+    </figure>
+    <ul data-stagger data-gap="120" class="grid gap-10 lg:border-l lg:border-(--c-line) lg:pl-14">
+      {
+        rest.map((q) => (
+          <li>
+            <figure>
+              <blockquote class="text-lg leading-relaxed">“{q.text}”</blockquote>
+              <figcaption class="mt-4 text-[15px] text-(--c-muted)">{q.author}</figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

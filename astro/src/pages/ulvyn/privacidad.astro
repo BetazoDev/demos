@@ -1,0 +1,31 @@
+---
+import "@/sites/ulvyn/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/ulvyn/site";
+
+const base = "/ulvyn";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | ULVYN Abogados Digitales en IA"
+  description="Aviso de privacidad de ULVYN, conforme a la LFPDPPP, actualizado el 14 de abril de 2026."
+  nav={{ variant: "bar", tone: "light", logoHeight: 38 }}
+  footer={{ variant: "dark", blurb: "Human-AI Interaction Law" }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Aviso de privacidad actualizado el 14 de abril de 2026.</p>
+        <p>Responsable: Germán Martínez, con nombre comercial «ULVYN»; domicilio Ignacio L. Vallarta 1, 3er piso, Tabacalera, Cuauhtémoc, 06030 Ciudad de México; correo contacto@ulvyn.com.</p>
+        <p>Datos de identificación y contacto. Finalidades: respuesta al formulario y prestación de servicios; secundarias: mercadotecnia. Transferencias: Stripe, Google Analytics y Google Ads. Derechos ARCO por correo, con respuesta en 20 días hábiles.</p>
+        <p>El aviso completo está publicado en <a href="https://ulvyn.com/politicas-de-privacidad/" target="_blank" rel="noopener">ulvyn.com</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

@@ -11,6 +11,10 @@ npm run dev
 
 Abre http://localhost:3000. En desarrollo el directorio queda abierto.
 
+## Lista 2 (Astro)
+
+El directorio tiene dos listas: la lista 1 (homes en Next.js, más abajo) y la lista 2 (sitios completos en Astro, carpeta `astro/`, ver `astro/README.md`). Las páginas de Astro se generan con `cd astro && pnpm build` (copia el resultado a `public/_a` y `public/_l2`) y Next las sirve en `/<slug>` mediante `rewrites` (lista en `src/data/sites2.ts`).
+
 ## Privacidad
 
 - El directorio (`/`) y sus miniaturas son solo para el equipo. Sin sesión, `/` redirige a `/acceso`, un formulario de usuario y contraseña que deja una cookie firmada válida 30 días (`src/proxy.ts`, `src/lib/directory-auth.ts`). Configura `PORTFOLIO_USER` y `PORTFOLIO_PASSWORD` en el servidor; si faltan, en producción el directorio responde 404. Cambiar la contraseña cierra todas las sesiones.

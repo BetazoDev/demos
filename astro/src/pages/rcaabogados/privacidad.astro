@@ -1,0 +1,24 @@
+---
+import SiteLayout from "@/sites/rcaabogados/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/rcaabogados/site";
+import { privacidad } from "@/sites/rcaabogados/data";
+
+const base = "/rcaabogados";
+---
+
+<SiteLayout site={site} title="Aviso de privacidad | RCA Abogados" description="Aviso de privacidad de RCA abogados, SC." nav={{ variant: "bar", tone: "light", logoHeight: 52 }} breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>{privacidad.responsable}</p>
+        <p>{privacidad.datos}</p>
+        <p>{privacidad.arco}</p>
+        <p>{privacidad.autoridad}</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

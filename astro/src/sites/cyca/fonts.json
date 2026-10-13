@@ -1,0 +1,4 @@
+[
+  { "name": "Funnel Display", "cssVariable": "--f-cyca-display", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Golos Text", "cssVariable": "--f-cyca-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

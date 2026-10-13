@@ -1,0 +1,72 @@
+---
+import Layout from "@/sites/abogadosdravi/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/abogadosdravi/site";
+import { areas, poliza } from "@/sites/abogadosdravi/data";
+
+const base = "/abogadosdravi";
+const waQuote = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent("Hola, me gustaría una cotización de la Póliza Jurídica de Arrendamiento.")}`;
+const h2 = "text-[clamp(1.6rem,3vw,2.4rem)] font-normal leading-tight tracking-[-0.02em]";
+const schema = [{ "@context": "https://schema.org", "@type": "Service", name: poliza.title, description: poliza.lead, provider: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href }, areaServed: { "@type": "City", name: "Ciudad de México" } }];
+---
+
+<Layout
+  site={site}
+  title="Póliza Jurídica de Arrendamiento en CDMX | Abogados DRAVI"
+  description="Póliza jurídica de arrendamiento para arrendadores en la CDMX, modalidades Básica y Completa: investigación del arrendatario y aval, contrato personalizado y acompañamiento legal."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: poliza.title, href: `${base}/servicios/poliza-de-arrendamiento` }]}
+  schema={schema}
+>
+  <PageHero title={poliza.title} lede={poliza.lead} transitionName="area-poliza-de-arrendamiento" image={poliza.image} imageAlt={poliza.alt} />
+
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <p data-reveal class="text-[clamp(1.2rem,1.9vw,1.5rem)] leading-snug">{poliza.intro}</p>
+      <div data-reveal data-delay="100" class="grid gap-6 text-lg leading-relaxed text-(--c-muted)">
+        <p>{poliza.libera}</p>
+        <p>{poliza.modalidades}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <h2 data-reveal class={h2}>¿Qué incluye nuestra póliza jurídica?</h2>
+        <div data-reveal data-delay="100" class="mt-8 flex flex-wrap gap-3"><Button href={waQuote} external>Solicitar una cotización</Button></div>
+      </div>
+      <div class="dr-toggle" data-reveal data-delay="80">
+        <input type="radio" name="modalidad" id="m-basica" class="sr-only" checked />
+        <input type="radio" name="modalidad" id="m-completa" class="sr-only" />
+        <div class="dr-seg" role="group" aria-label="Modalidad de la póliza">
+          <span class="dr-thumb" aria-hidden="true"></span>
+          <label for="m-basica">Póliza Jurídica Básica</label>
+          <label for="m-completa">Póliza Jurídica Completa</label>
+        </div>
+        <ul class="mt-10 grid gap-5 text-lg">
+          {poliza.incluye.map((i) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{i}</span></li>)}
+          <li class="dr-extra flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{poliza.soloCompleta} <span class="dr-tag text-[15px] text-(--c-muted)">(Póliza Completa)</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class={h2}>A diferencia de otras opciones del mercado</h2>
+      <div data-reveal data-delay="100" class="grid gap-6">
+        <ul class="grid gap-4 text-lg">
+          {poliza.diferencias.map((d) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{d}</span></li>)}
+        </ul>
+        <p class="max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">{poliza.costos}</p>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Solicita una cotización" href={waQuote} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

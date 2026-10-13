@@ -1,0 +1,31 @@
+---
+// Envoltorio de SiteLayout: nav de barra, pie azul marino y un solo sistema de radios (4px).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number };
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string };
+}
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout site={site} nav={{ variant: "bar", tone: "light", logoHeight: 52, ...nav }} footer={{ variant: "dark", blurb: "Más de 50 años de experiencia en consultoría legal y litigio en todo el país y corresponsales internacionales.", ...footer }} {...rest}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="zepco"] {
+    --c-radius-nav: 4px;
+    --c-radius-img: 4px;
+    --c-radius-card: 4px;
+    --c-radius-field: 4px;
+  }
+  [data-site="zepco"] :is(h1, h2, h3) { font-weight: 400; letter-spacing: -0.012em; }
+  [data-site="zepco"] [data-statement] { font-family: var(--f-display); font-weight: 400; letter-spacing: -0.014em; }
+  [data-site="zepco"] footer a[aria-label] img { height: 54px !important; }
+  [data-site="zepco"] main :is(.opacity-60, .opacity-65, .opacity-70) { opacity: 0.82; }
+</style>

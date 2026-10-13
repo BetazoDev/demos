@@ -1,0 +1,19 @@
+---
+// Héroe propio de VINLEX: su lema en dos líneas a gran tamaño sobre fondo claro y planos translúcidos a 45 grados abajo a la derecha.
+import VxLayers from "./VxLayers.astro";
+interface Props { lines: string[]; lede: string }
+const { lines, lede } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <VxLayers class="-z-10 -right-[22%] -bottom-[6%] h-[34%] w-[100%] sm:-right-[8%] sm:h-[44%] sm:w-[70%] lg:right-0 lg:bottom-0 lg:h-[44%] lg:w-[48%]" />
+  <div class="wrap flex min-h-[100svh] flex-col justify-center pb-[22svh] pt-36 sm:pb-24 lg:pb-20">
+    <h1 data-hero="blur" class="text-[clamp(2.3rem,5.4vw,5.6rem)] leading-[1.05]">
+      {lines.map((l) => <span class="sm:block">{l} </span>)}
+    </h1>
+    <p data-hero style="--i:1" class="mt-8 max-w-[42ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

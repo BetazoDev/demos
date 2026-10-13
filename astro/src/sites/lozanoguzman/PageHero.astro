@@ -1,0 +1,33 @@
+---
+// Copia del kit con escala de título menor (los nombres reales de las materias son largos). Cabecera de páginas interiores. El título lleva transition:name para morfar desde la tarjeta que lo enlazó.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props {
+  title: string;
+  lede?: string;
+  /** Nombre de transición compartido con el enlace de origen, p. ej. "area-penal" */
+  transitionName?: string;
+  image?: Img;
+  imageAlt?: string;
+  tone?: "paper" | "surface" | "dark" | "brand";
+}
+const { title, lede, transitionName, image, imageAlt = "", tone = "paper" } = Astro.props;
+const tones = { paper: "bg-(--c-bg) text-(--c-ink)", surface: "bg-(--c-surface) text-(--c-ink)", dark: "bg-(--c-dark) text-(--c-on-dark)", brand: "bg-(--c-brand) text-(--c-on-brand)" };
+---
+
+<section class:list={["relative isolate overflow-hidden pt-36 sm:pt-44", image ? "pb-0" : "pb-14 sm:pb-20", tones[tone]]}>
+  <div class="wrap">
+    <h1 data-hero="blur" transition:name={transitionName} class="max-w-[22ch] text-[clamp(2.1rem,4.9vw,4.3rem)] font-bold leading-[1.08] tracking-[-0.02em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-6 max-w-[52ch] text-lg opacity-75 sm:text-xl">{lede}</p>}
+    <slot />
+  </div>
+  {
+    image && (
+      <div class="wrap mt-12 sm:mt-16">
+        <div data-hero-media style="--d:300ms" class="aspect-[21/9] overflow-hidden rounded-(--c-radius-img,1.25rem)">
+          <Pic src={image} alt={imageAlt} priority class="size-full object-cover" />
+        </div>
+      </div>
+    )
+  }
+</section>

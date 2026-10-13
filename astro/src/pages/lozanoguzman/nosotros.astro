@@ -1,0 +1,84 @@
+---
+import Layout from "@/sites/lozanoguzman/Layout.astro";
+import PageHero from "@/sites/lozanoguzman/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/lozanoguzman/site";
+import { mision, vision, municipios, valores, principios, team, frase } from "@/sites/lozanoguzman/data";
+
+const base = "/lozanoguzman";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.8rem,3.4vw,2.9rem)] font-bold leading-[1.08] tracking-[-0.015em]";
+---
+
+<Layout site={site} title="Quiénes somos | Lozano Guzmán Abogados, equipo de abogados egresados de la UNAM" description="Equipo de profesionales en derecho egresados de la UNAM con política de no discriminación económica y tarifa de éxito. Sedes en la Ciudad de México y Ecatepec." breadcrumbs={[{ name: "Quiénes somos", href: `${base}/nosotros` }]}>
+  <PageHero title="Quiénes somos" lede={frase} />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-8 ${h2}`}>Misión</h2>
+      <p data-reveal class="max-w-[44ch] font-(family-name:--f-display) text-[clamp(1.35rem,2.2vw,1.9rem)] leading-[1.4]">{mision[0]}</p>
+      <div class="mt-10 grid max-w-[64rem] gap-8 text-lg text-(--c-muted) md:grid-cols-2 md:gap-14">
+        {mision.slice(1).map((p, i) => <p data-reveal data-delay={i * 100}>{p}</p>)}
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="dark" size="sm">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-0">
+      {principios.map((p, i) => (
+        <div data-reveal data-delay={i * 120} class:list={["lg:py-6", i === 0 ? "lg:border-r lg:border-white/15 lg:pr-16" : "lg:pl-16"]}>
+          <Icon name={p.icon} class="size-10 text-[#FBB601]" />
+          <h2 class="mt-6 font-(family-name:--f-display) text-[clamp(1.7rem,2.8vw,2.4rem)] font-bold leading-[1.1]">{p.title}</h2>
+          <p class="mt-4 max-w-[44ch] text-lg opacity-80">{p.text}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-8 ${h2}`}>Visión</h2>
+      <p data-reveal class="max-w-[62ch] text-lg">{vision}</p>
+      <ul data-stagger data-gap="50" class="mt-8 flex flex-wrap gap-2.5">
+        {municipios.map((m) => <li class="border border-(--c-line) px-4 py-2 text-[15px]">{m}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Valores</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-16 gap-y-10 md:grid-cols-2">
+        {valores.map((v) => (
+          <li>
+            <h3 class="font-(family-name:--f-display) text-[1.35rem] font-bold leading-tight">{v.title}</h3>
+            <p class="mt-2 max-w-[48ch] text-(--c-muted)">{v.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`mb-14 ${h2}`}>Nuestro equipo</h2>
+      <ul class="grid gap-16">
+        {team.map((p) => (
+          <li class="grid gap-6 lg:grid-cols-[0.6fr_1.4fr] lg:gap-24">
+            <div data-reveal>
+              <h3 class="font-(family-name:--f-display) text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.12]">{p.name}</h3>
+              <p class="mt-2 text-(--c-accent)">{p.role}</p>
+            </div>
+            <div data-reveal data-delay="100" class="grid max-w-[62ch] gap-5 text-lg text-(--c-muted)">
+              {p.paragraphs.map((t) => <p>{t}</p>)}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="La defensa como derecho humano, al alcance de todos" href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</Layout>

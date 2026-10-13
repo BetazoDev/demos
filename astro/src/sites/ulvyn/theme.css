@@ -1,0 +1,8 @@
+/* Producto: sistema de 20px en botones, imágenes, tarjetas y nav; campos a 14px. --c-spark es el azul claro de su plantilla, solo para fondos oscuros. */
+html[data-site="ulvyn"] {
+  --c-spark: #2EA3F2;
+  --c-radius-nav: 20px;
+  --c-radius-img: 20px;
+  --c-radius-card: 20px;
+  --c-radius-field: 14px;
+}

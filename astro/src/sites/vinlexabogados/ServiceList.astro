@@ -1,0 +1,45 @@
+---
+// Índice de servicios: títulos grandes en su display, texto de cada área y un rombo con flecha. Sin líneas entre filas.
+// Los títulos llevan transition:name para morfar a la página de cada área. Corporativo no tiene página propia: su texto completo se muestra aquí.
+import type { Area } from "./data";
+interface Props { areas: (Area & { href: string })[] }
+const { areas } = Astro.props;
+---
+
+<ul data-stagger data-gap="70" class="grid gap-2 sm:gap-1">
+  {
+    areas.map((a) => {
+      const inner = (
+        <>
+          <div>
+            <h3 id={a.page ? undefined : a.key} transition:name={a.page ? `area-${a.key}` : undefined} class="vx-title text-[clamp(1.75rem,3vw,2.7rem)] leading-[1.1]">{a.title}</h3>
+            <p class="mt-2 max-w-[56ch] text-[16px] leading-relaxed text-(--c-muted) sm:text-[17px]">{a.lead}</p>
+          </div>
+          {a.page && (
+            <span class="vx-dia vx-row-dia grid size-9 shrink-0 place-items-center bg-(--c-ink)/10 sm:size-11">
+              <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          )}
+        </>
+      );
+      return (
+        <li>
+          {a.page ? (
+            <a href={a.href} data-area={a.title} class="vx-row group grid items-center py-4 grid-cols-[minmax(0,1fr)_auto] gap-4 sm:gap-10 sm:py-5">{inner}</a>
+          ) : (
+            <div class="grid items-center py-4 grid-cols-[minmax(0,1fr)_auto] gap-4 sm:gap-10 sm:py-5">{inner}</div>
+          )}
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style is:global>
+  .vx-row .vx-title { transition: transform 360ms var(--ease-out), color 240ms ease; }
+  .vx-row .vx-row-dia { transition: background-color 240ms ease, color 240ms ease, transform 360ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .vx-row:hover .vx-title { transform: translateX(8px); color: var(--vx-teal-ink); }
+    .vx-row:hover .vx-row-dia { background: var(--c-accent); color: var(--c-on-accent); transform: translateX(3px); }
+  }
+</style>

@@ -1,0 +1,19 @@
+---
+// Marca horizontal: el martillo sobre laureles original + el nombre en serif, con la línea dorada de su logo entre SANTIAGO y ABOGADOS.
+// El logo completo es casi cuadrado: aquí se compone para la barra de navegación. En el pie va el logo completo.
+import { Image } from "astro:assets";
+import mark from "./assets/mark.png";
+interface Props { height?: number; tone?: "light" | "dark"; class?: string }
+const { height = 40, tone = "light", class: cls = "" } = Astro.props;
+const w = Math.round(height * (mark.width / mark.height));
+---
+
+<span class:list={["inline-flex items-center gap-3", cls]}>
+  <Image src={mark} alt="" width={w * 2} height={height * 2} layout="fixed" class="shrink-0" style={`height:${height}px;width:auto`} />
+  <span class="grid leading-none" aria-hidden="true">
+    <span class:list={["font-(family-name:--f-display) text-[19px] font-medium uppercase tracking-[0.06em]", tone === "dark" ? "text-(--c-on-dark)" : "text-(--c-brand)"]}>Santiago</span>
+    <span class="my-[4px] block h-px w-full bg-[#B58B24]"></span>
+    <span class:list={["font-(family-name:--f-display) text-[10px] font-medium uppercase tracking-[0.3em]", tone === "dark" ? "text-(--c-on-dark)" : "text-(--c-brand)"]}>Abogados</span>
+  </span>
+  <span class="sr-only">Santiago Abogados</span>
+</span>

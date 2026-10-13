@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/solucionesjuridicas/Nav.astro";
+import { site } from "@/sites/solucionesjuridicas/site";
+import { areas, waLink } from "@/sites/solucionesjuridicas/data";
+
+const base = "/solucionesjuridicas";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<SiteLayout site={site} title="Servicios legales en Ciudad de México | Soluciones Jurídicas" description="Derecho familiar y divorcios, civil, mercantil y cobranza, penal, corporativo y empresas, fiscal y administrativo. Asesoría legal gratuita en la Roma Sur, Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} footer={{ variant: "dark", blurb: "Despacho de abogados en Ciudad de México. Asesoría legal gratuita." }}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" logoHeight={46} />
+  <PageHero title="Servicios" lede="Familiar, civil, mercantil, penal, corporativo y fiscal. También atendemos asuntos laborales y de amparo." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

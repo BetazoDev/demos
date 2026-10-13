@@ -1,0 +1,37 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Skin from "@/sites/guerrerogonzalezabogados/Skin.astro";
+import AreaSpy from "@/sites/guerrerogonzalezabogados/AreaSpy.astro";
+import { site } from "@/sites/guerrerogonzalezabogados/site";
+import { areas } from "@/sites/guerrerogonzalezabogados/data";
+
+const base = "/guerrerogonzalezabogados";
+const provider = { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href };
+const schema = areas.map((a) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: a.title,
+  description: a.text,
+  provider,
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Áreas de práctica | Guerrero González Abogados, derecho corporativo y mercantil en CDMX"
+  description="Bancario, contratación gubernamental, fusiones y adquisiciones, inmobiliario, inversión extranjera, litigio y arbitraje, práctica corporativa y concursos mercantiles."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 46 }}
+  breadcrumbs={[{ name: "Áreas de práctica", href: `${base}/areas-de-practica` }]}
+  schema={schema}
+>
+  <Skin />
+  <PageHero title="Áreas de práctica" lede="Ocho áreas de práctica de un despacho de servicios legales integrales." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreaSpy areas={areas} /></div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={`tel:${site.phones[0].tel}`} label="Llamar al 55 5564 5950" tone="brand" />
+</SiteLayout>

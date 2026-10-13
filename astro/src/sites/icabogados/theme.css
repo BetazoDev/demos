@@ -1,0 +1,29 @@
+/* Formas de 4px y detalles propios de IC Abogados. Todo bajo [data-site] para no filtrarse a otros sitios. */
+[data-site="icabogados"] {
+  --c-radius-nav: 4px;
+  --c-radius-img: 4px;
+  --c-radius-card: 4px;
+  --c-radius-field: 4px;
+}
+/* Domine es robusta: interletraje neutro en los titulares del kit */
+[data-site="icabogados"] :is(h1, h2, h3, [data-statement]) {
+  letter-spacing: -0.012em;
+}
+
+/* Retratos del equipo: velo burdeos sobre fondo negro que se levanta al entrar en pantalla */
+[data-site="icabogados"] .portrait { position: relative; overflow: hidden; background: #000; }
+[data-site="icabogados"] .portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(96 31 52 / 0.78), rgb(96 31 52 / 0.18) 60%, transparent);
+  mix-blend-mode: normal;
+  opacity: 1;
+  transition: opacity 900ms var(--ease-out) 250ms;
+  pointer-events: none;
+}
+[data-site="icabogados"] [data-reveal].is-in .portrait::after,
+[data-site="icabogados"] .is-in .portrait::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  [data-site="icabogados"] .portrait::after { opacity: 0; transition: none; }
+}

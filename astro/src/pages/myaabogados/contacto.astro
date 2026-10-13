@@ -1,0 +1,45 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Button from "@/kit/Button.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Tokens from "@/sites/myaabogados/Tokens.astro";
+import { site } from "@/sites/myaabogados/site";
+import { areas, photos } from "@/sites/myaabogados/data";
+
+const base = "/myaabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | M&A Abogados, Manzanillo 138, Roma Sur, Ciudad de México"
+  description="C. Manzanillo 138, Roma Sur, Cuauhtémoc, Ciudad de México, con cita previa. Teléfonos 55 5638 0604 y 55 7514 8946. Escriba por WhatsApp o al correo del despacho."
+  nav={{ variant: "bar", tone: "light", logoHeight: 48 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Tokens />
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o llámenos. Atendemos con cita previa en la Roma Sur, Ciudad de México." />
+
+  <Section size="sm" class="pt-6 sm:pt-10">
+    <div class="wrap grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
+      <div data-reveal class="lg:order-first">
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-8"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+        <div data-reveal="clip" class="mt-12 aspect-[5/3] max-w-[34rem] overflow-hidden rounded-(--c-radius-img)">
+          <Pic src={photos.oficina} alt="Fachada de la oficina de M&A Abogados en Manzanillo 138, colonia Roma Sur" position="50% 40%" class="size-full object-cover" />
+        </div>
+        <div class="mt-12 border-t border-(--c-line) pt-8">
+          <h2 class="text-[clamp(1.5rem,2.4vw,2rem)] leading-tight tracking-[-0.01em]">Bolsa de trabajo</h2>
+          <p class="mt-3 text-[17px] text-(--c-muted)">Envíe su currículum a <a href="mailto:reclutamiento@mya-abogados.com.mx" class="link-u break-all text-(--c-ink)">reclutamiento@mya-abogados.com.mx</a>.</p>
+        </div>
+      </div>
+      <div data-reveal data-delay="120" class="order-first self-start rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+</SiteLayout>

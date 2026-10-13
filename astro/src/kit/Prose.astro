@@ -1,0 +1,16 @@
+---
+// Texto largo (avisos de privacidad, artículos): medida cómoda y estilos de encabezados/listas.
+interface Props { class?: string }
+const { class: cls = "" } = Astro.props;
+---
+
+<div class:list={["prose-kit mx-auto max-w-[68ch] text-[17px] leading-[1.75]", cls]}><slot /></div>
+
+<style is:global>
+  .prose-kit h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.15; margin: 2.6em 0 0.7em; letter-spacing: -0.02em; }
+  .prose-kit h3 { font-size: 1.25rem; margin: 2em 0 0.5em; }
+  .prose-kit p { margin: 0 0 1.1em; opacity: 0.85; }
+  .prose-kit ul { list-style: disc; padding-left: 1.3em; margin: 0 0 1.1em; opacity: 0.85; }
+  .prose-kit li { margin: 0.3em 0; }
+  .prose-kit a { text-decoration: underline; text-underline-offset: 3px; }
+</style>

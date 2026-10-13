@@ -1,0 +1,39 @@
+---
+import SiteLayout from "@/sites/jimenezvaldezabogados/Page.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Icon from "@/kit/Icon.astro";
+import Rule from "@/sites/jimenezvaldezabogados/Rule.astro";
+import { site } from "@/sites/jimenezvaldezabogados/site";
+import { areas, comunicado } from "@/sites/jimenezvaldezabogados/data";
+
+const base = "/jimenezvaldezabogados";
+---
+
+<SiteLayout site={site} title="Contacto | Jiménez, Valdez & Abogados, Bahía de San Cristóbal 3, Verónica Anzures" description="Bahía de San Cristóbal 3, Col. Verónica Anzures, Miguel Hidalgo, Ciudad de México. Teléfono y WhatsApp 55 2884 2704. Lunes a viernes de 9:00 a 17:00, sábado de 10:00 a 15:00." nav={{ variant: "pill", tone: "light", logoHeight: 38 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en Verónica Anzures." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} />
+        <a href={site.social.instagram!} target="_blank" rel="noopener" class="mt-8 flex gap-4 text-[17px]"><Icon name="instagram-logo" class="mt-1 size-5 shrink-0 opacity-55" /><span class="link-u">Instagram @jv__abogados</span></a>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Section size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-normal leading-tight tracking-[-0.015em]">Comunicado oficial</h2>
+      <div data-reveal data-delay="100" class="max-w-[58ch]">
+        <p class="text-sm text-(--c-muted)">{comunicado.fecha}</p>
+        <p class="mt-4 text-xl leading-relaxed">{comunicado.texto}</p>
+        <p class="mt-5 text-lg leading-relaxed text-(--c-muted)">{comunicado.aviso}</p>
+      </div>
+    </div>
+    <div class="wrap mt-20"><Rule /></div>
+  </Section>
+</SiteLayout>

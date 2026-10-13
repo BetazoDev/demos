@@ -1,0 +1,24 @@
+---
+// Héroe propio: foto generada de ambiente (ventanal con cortinas y cielo) a sangre, titular oscuro sobre la zona clara.
+// Variante de kit/Hero.astro (layout "photo") con velo claro en lugar de oscuro.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "62% 50%" } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden bg-[#E9F0F6] text-(--c-ink)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="60">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(247,250,252,0.9)_0%,rgba(247,250,252,0.55)_55%,rgba(247,250,252,0.1)_100%)] lg:bg-[linear-gradient(95deg,rgba(247,250,252,0.82)_0%,rgba(247,250,252,0.55)_38%,rgba(247,250,252,0)_64%)]"></div>
+  </div>
+  <div class="wrap pb-16 pt-36 sm:pb-20 sm:pt-40">
+    <h1 data-hero="blur" class="max-w-[12ch] text-[clamp(2.9rem,7.4vw,7.2rem)] font-medium leading-[0.98] tracking-[-0.045em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-7 max-w-[34ch] text-lg sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

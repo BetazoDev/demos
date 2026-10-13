@@ -1,0 +1,8 @@
+/* Sistema de 12px: nav flotante, imágenes, tarjetas y campos comparten el mismo radio. El foco usa el azul de marca (el arena no contrasta sobre el fondo claro). */
+html[data-site="calizsosaabogados"] {
+  --c-radius-nav: 14px;
+  --c-radius-img: 12px;
+  --c-radius-card: 12px;
+  --c-radius-field: 10px;
+}
+html[data-site="calizsosaabogados"] :focus-visible { outline-color: var(--c-brand); }

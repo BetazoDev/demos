@@ -1,0 +1,4 @@
+[
+  { "name": "Gloock", "cssVariable": "--f-asesorestrategia-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Barlow", "cssVariable": "--f-asesorestrategia-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

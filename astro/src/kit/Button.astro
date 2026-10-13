@@ -1,0 +1,39 @@
+---
+// Botón pastilla con flecha en círculo (canon Framer). Un solo sistema de forma por sitio: radio de --c-radius.
+interface Props {
+  href: string;
+  variant?: "solid" | "outline" | "light" | "ghost";
+  size?: "md" | "lg";
+  arrow?: boolean;
+  external?: boolean;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { href, variant = "solid", size = "md", arrow = true, external = false, class: cls = "", ...rest } = Astro.props;
+const base = "press nudge group inline-flex items-center justify-center gap-3 whitespace-nowrap font-medium tracking-[-0.005em] rounded-(--c-radius,999px)";
+const sizes = { md: "h-12 pl-6 pr-1.5 text-[15px]", lg: "h-14 pl-7 pr-2 text-base" };
+const variants = {
+  solid: "bg-(--c-brand) text-(--c-on-brand) hover:brightness-110",
+  light: "bg-(--c-on-dark) text-(--c-dark) hover:brightness-95",
+  outline: "border border-current/30 hover:border-current/70",
+  ghost: "hover:bg-current/8",
+};
+const circ = {
+  solid: "bg-(--c-on-brand) text-(--c-brand)",
+  light: "bg-(--c-dark) text-(--c-on-dark)",
+  outline: "border border-current/35",
+  ghost: "border border-current/35",
+};
+const rel = external ? "noopener" : undefined;
+---
+
+<a href={href} target={external ? "_blank" : undefined} rel={rel} class:list={[base, sizes[size], variants[variant], !arrow && "pr-6", cls]} {...rest}>
+  <span><slot /></span>
+  {
+    arrow && (
+      <span class:list={["arr grid shrink-0 place-items-center rounded-full", size === "lg" ? "size-10" : "size-9", circ[variant]]}>
+        <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </span>
+    )
+  }
+</a>

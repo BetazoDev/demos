@@ -1,0 +1,30 @@
+---
+// Índice de servicios en dos columnas: título grande y resumen real de cada área. El título morfa a la página del área.
+interface Item { key: string; title: string; text?: string | null; href: string }
+interface Props { items: Item[]; extra?: string; class?: string }
+const { items, extra, class: cls = "" } = Astro.props;
+---
+
+<ul data-stagger data-gap="55" class:list={["grid gap-x-16 gap-y-2 lg:grid-cols-2", cls]}>
+  {
+    items.map((a) => (
+      <li>
+        <a href={a.href} data-area={a.title} class="indice-row group relative grid grid-cols-[1fr_auto] items-start gap-x-6 gap-y-3 py-6 sm:py-7">
+          <h3 transition:name={`area-${a.key}`} class="indice-title w-fit text-[clamp(1.6rem,2.6vw,2.3rem)] leading-[1.1]">{a.title}</h3>
+          <span class="arr grid size-10 place-items-center rounded-full border border-current/25 transition-[background-color,color,border-color] duration-300 group-hover:border-transparent group-hover:bg-(--c-accent) group-hover:text-(--c-on-accent)" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 12 12 4M5.5 4H12v6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </span>
+          {a.text && <p class="col-span-2 max-w-[52ch] text-[15px] leading-relaxed text-(--c-muted) sm:text-base">{a.text}</p>}
+        </a>
+      </li>
+    ))
+  }
+  {extra && <li class="py-6 sm:py-7"><p class="max-w-[40ch] text-[15px] leading-relaxed text-(--c-muted) sm:text-base">{extra}</p></li>}
+</ul>
+
+<style>
+  .indice-title { position: relative; }
+  .indice-title::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: var(--c-accent); transform: scaleX(0); transform-origin: left; transition: transform 420ms var(--ease-out); }
+  @media (hover: hover) { .indice-row:hover .indice-title::after { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) { .indice-title::after { transition: none; } }
+</style>

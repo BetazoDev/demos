@@ -1,0 +1,13 @@
+---
+// Banda de foto a sangre con parallax suave y sin velo (la imagen es luminosa y debe seguirlo siendo).
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { image: Img; alt?: string; position?: string; height?: string }
+const { image, alt = "", position, height = "clamp(16rem,38vw,30rem)" } = Astro.props;
+---
+
+<div class="relative isolate overflow-hidden bg-(--c-surface)" style={`height:${height}`}>
+  <div class="absolute inset-0 -z-10" data-parallax="60">
+    <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+  </div>
+</div>

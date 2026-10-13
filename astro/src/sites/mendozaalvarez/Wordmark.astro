@@ -1,0 +1,11 @@
+---
+// El "logo" del despacho es solo texto en su sitio ("Mendoza Álvarez" azul y "Ábogados" negro, con un acento erróneo).
+// Aquí se compone el nombre con Archivo (grotesca firme, cercana a la Helvetica del original) y "Abogados" sin el acento.
+interface Props { size?: "md" | "lg"; class?: string }
+const { size = "md", class: cls = "" } = Astro.props;
+---
+
+<span class:list={["inline-flex flex-col leading-none", cls]}>
+  <span class:list={["font-(family-name:--f-display) font-extrabold tracking-[-0.035em]", size === "lg" ? "text-[1.9rem]" : "text-[1.3rem]"]}>Mendoza Álvarez</span>
+  <span class:list={["font-semibold uppercase text-(--c-accent)", size === "lg" ? "mt-1.5 text-[0.8rem] tracking-[0.46em]" : "mt-1 text-[0.6rem] tracking-[0.46em]"]}>Abogados</span>
+</span>

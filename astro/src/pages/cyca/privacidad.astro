@@ -1,0 +1,30 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import Skin from "@/sites/cyca/Skin.astro";
+import { site } from "@/sites/cyca/site";
+
+const base = "/cyca";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | CYCA Abogados"
+  description="Aviso de privacidad de CYCA Castillo y Castillo Abogados, S.C."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <Skin />
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>CYCA Castillo y Castillo Abogados, S.C., con domicilio en Calle Obrero Mundial, número 903, interior 101, colonia Álamos, delegación Benito Juárez, código postal 03400, México, D.F., es responsable de recabar sus datos personales.</p>
+        <p>Los derechos ARCO pueden ejercerse en contacto@cyca.mx.</p>
+        <p>Última actualización: 28 de mayo de 2013.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

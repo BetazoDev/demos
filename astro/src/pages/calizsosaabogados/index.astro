@@ -1,0 +1,113 @@
+---
+import "@/sites/calizsosaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Hero from "@/sites/calizsosaabogados/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Stats from "@/kit/Stats.astro";
+import Composer from "@/kit/Composer.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Nav from "@/sites/calizsosaabogados/Nav.astro";
+import Footer from "@/sites/calizsosaabogados/Footer.astro";
+import ExpandBand from "@/sites/calizsosaabogados/ExpandBand.astro";
+import ReviewsRail from "@/sites/calizsosaabogados/ReviewsRail.astro";
+import { site, waLink } from "@/sites/calizsosaabogados/site";
+import { areas, situaciones, reviews } from "@/sites/calizsosaabogados/data";
+import portada from "@/sites/calizsosaabogados/assets/hero-panoramica.jpg";
+import edificio from "@/sites/calizsosaabogados/assets/edificio.jpg";
+
+const base = "/calizsosaabogados";
+const wa = waLink();
+const [inmo, fam, corr] = areas;
+const h2 = "text-[clamp(2.1rem,4.6vw,4rem)] font-medium leading-[1.04] tracking-[-0.025em]";
+---
+
+<SiteLayout site={site} title="Caliz & Sosa Abogados | Derecho inmobiliario y de familia en CDMX" nav={false} footer={false}>
+  <Nav slot="nav" site={site} variant="pill" tone="light" />
+  <Hero title="Soluciones legales confiables" lede="Derecho inmobiliario y derecho de familia en la Ciudad de México, con más de quince años de experiencia." image={portada} imageAlt="Casa de madera en miniatura, llaves, planos y una pluma sobre un escritorio junto a una pared azul" position="68% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-14 lg:grid-cols-[1.4fr_0.6fr] lg:items-end lg:gap-20">
+      <div>
+        <h2 class="sr-only">Despacho jurídico en la colonia Cuauhtémoc</h2>
+        <Statement text="El cliente y su patrimonio son nuestra prioridad." class="max-w-[20ch]" />
+      </div>
+      <Stats stats={[{ value: "+15", label: "años de experiencia" }, { value: "4.7", label: "en Google, 35 opiniones" }]} />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class={`${h2} max-w-[16ch]`}>¿Se reconoce en alguna de estas situaciones?</h2>
+      <ul data-stagger data-gap="110" class="mt-14 divide-y divide-(--c-line) border-y border-(--c-line)">
+        {situaciones.map((s) => (
+          <li class="grid gap-4 py-8 md:grid-cols-[1.3fr_1fr] md:gap-16 md:py-10">
+            <p class="max-w-[34ch] font-(family-name:--f-display) text-[clamp(1.35rem,2.4vw,2rem)] leading-[1.2] tracking-[-0.01em]">{s.q}</p>
+            <p class="flex items-start gap-3 text-lg text-(--c-muted) md:pt-1.5"><Icon name="arrow-elbow-down-right" class="mt-1 size-5 shrink-0 text-(--c-ink)" />{s.a}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section size="sm" class="!pt-0" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`${h2} mb-12`}>Servicios</h2>
+      <div data-stagger data-gap="100" class="grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
+        <a href={`${base}/servicios#${inmo.key}`} class="group row-span-2 flex flex-col justify-between gap-12 rounded-(--c-radius-card) bg-(--c-brand) p-8 text-(--c-on-brand) sm:p-12 lg:col-span-2">
+          <div>
+            <h3 class="max-w-[14ch] text-[clamp(2rem,4vw,3.4rem)] font-medium leading-[1.04] tracking-[-0.02em]">{inmo.title}</h3>
+            <p class="mt-5 max-w-[40ch] text-lg text-white/75">{inmo.lead}</p>
+          </div>
+          <ul class="grid gap-x-10 gap-y-4 text-[17px] sm:grid-cols-2">
+            {inmo.items.map((i) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" /><span>{i}</span></li>)}
+          </ul>
+        </a>
+        <a href={`${base}/servicios#${fam.key}`} class="group flex flex-col justify-between gap-10 rounded-(--c-radius-card) bg-(--c-accent) p-8 text-(--c-on-accent) sm:p-10">
+          <h3 class="text-[clamp(1.8rem,3vw,2.5rem)] font-medium leading-[1.06] tracking-[-0.02em]">{fam.title}</h3>
+          <ul class="grid gap-2 text-[17px]">
+            {fam.items.map((i) => <li class="flex gap-3"><Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0" /><span>{i}</span></li>)}
+          </ul>
+        </a>
+        <a href={`${base}/servicios#${corr.key}`} class="group flex flex-col justify-between gap-10 rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-8 sm:p-10">
+          <h3 class="text-[clamp(1.5rem,2.4vw,2rem)] font-medium leading-[1.1] tracking-[-0.015em]">{corr.title}</h3>
+          <p class="text-(--c-muted)">{corr.lead}</p>
+        </a>
+      </div>
+      <div data-reveal class="mt-8"><Button href={`${base}/servicios`} variant="outline">Ver todos los servicios</Button></div>
+    </div>
+  </Section>
+
+  <ExpandBand image={edificio} alt="Edificio de departamentos de la Ciudad de México con balcones y plantas al atardecer" position="50% 55%" />
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 class="sr-only">Opiniones de clientes en Google</h2>
+      <ReviewsRail rating={4.7} count={35} quotes={reviews} />
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`${h2} max-w-[14ch]`}>Asesoría jurídica gratuita</h2>
+        <p class="mt-6 max-w-[38ch] text-lg text-(--c-muted)">Solicite una asesoría gratuita a través de nuestros medios de contacto.</p>
+        <ContactBlock site={site} showCta={false} class="mt-12" />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones legales confiables en derecho inmobiliario y derecho de familia." />
+</SiteLayout>

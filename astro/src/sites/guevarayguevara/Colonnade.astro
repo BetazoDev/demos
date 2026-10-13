@@ -1,0 +1,78 @@
+---
+// Firma de movimiento del sitio: una sola foto cortada en tres columnas (eco de las tres columnas del templo del
+// monograma). Suben escalonadas al cargar y, al hacer scroll, se hunden a distinto ritmo hacia el zócalo.
+import { getImage } from "astro:assets";
+import type { Img } from "@/kit/types";
+interface Props { image: Img; alt: string; position?: string; compact?: boolean; class?: string }
+const { image, alt, position = "44% 50%", compact = false, class: cls = "" } = Astro.props;
+const opt = await getImage({ src: image as any, width: 1800, format: "jpg", quality: 78 });
+// Alturas relativas (escalera descendente, como el faldón del frontón) y velocidad de hundimiento por columna
+const cols = [
+  { k: 1, v: 0 },
+  { k: 0.87, v: 0.08 },
+  { k: 0.74, v: 0.16 },
+];
+---
+
+<div class:list={["colonnade", compact && "is-compact", cls]} data-colonnade role="img" aria-label={alt}>
+  {
+    cols.map((c, i) => (
+      <div class="col" data-col data-v={c.v} data-hero-media style={`--i:${i};--k:${c.k};--d:${220 + i * 150}ms`}>
+        <img src={opt.src} alt="" width={opt.attributes.width} height={opt.attributes.height} loading="eager" fetchpriority="high" decoding="async" style={`object-position:${position}`} />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .colonnade {
+    --g: clamp(8px, 1.1vw, 16px);
+    --H: min(26rem, 54svh);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--g);
+    align-items: end;
+    height: var(--H);
+  }
+  @media (min-width: 1024px) {
+    .colonnade { --H: clamp(24rem, 76svh, 46rem); }
+  }
+  .colonnade.is-compact { --H: min(11rem, 28svh); }
+  @media (min-width: 1024px) {
+    .colonnade.is-compact { --H: clamp(15rem, 40svh, 22rem); }
+  }
+  .col {
+    position: relative;
+    overflow: hidden;
+    height: calc(var(--H) * var(--k));
+    background: var(--c-surface);
+  }
+  .col img {
+    position: absolute;
+    bottom: 0;
+    left: calc(var(--i) * (100% + var(--g)) * -1);
+    width: calc(300% + 2 * var(--g));
+    max-width: none;
+    height: var(--H);
+    object-fit: cover;
+  }
+</style>
+
+<script>
+  const init = () => {
+    const root = document.querySelector<HTMLElement>("[data-colonnade]");
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cols = Array.from(root.querySelectorAll<HTMLElement>("[data-col]"));
+    let raf = 0;
+    const paint = () => {
+      raf = 0;
+      const y = Math.min(Math.max(window.scrollY, 0), 900);
+      cols.forEach((c) => (c.style.transform = `translate3d(0, ${(y * parseFloat(c.dataset.v || "0")).toFixed(1)}px, 0)`));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(paint); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    paint();
+    document.addEventListener("astro:before-swap", () => window.removeEventListener("scroll", onScroll), { once: true });
+  };
+  document.addEventListener("astro:page-load", init);
+</script>

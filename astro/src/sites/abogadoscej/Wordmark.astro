@@ -1,0 +1,16 @@
+---
+// Marca compuesta: el búho original (transparente) + el nombre en serif de versalitas, con la línea dorada del lockup.
+import { Image } from "astro:assets";
+import owl from "./assets/owl.png";
+interface Props { height?: number; class?: string }
+const { height = 38, class: cls = "" } = Astro.props;
+---
+
+<span class:list={["inline-flex items-center gap-3.5", cls]}>
+  <Image src={owl} alt="" width={Math.round(height * 1.4 * 2)} height={Math.round(height * 2)} layout="fixed" class="w-auto shrink-0" style={`height:${height}px;width:auto`} />
+  <span class="grid font-(family-name:--f-display) text-[12.5px] uppercase leading-[1.15] tracking-[0.17em] sm:text-[13px]">
+    <span>Consultores &amp;</span>
+    <span class="whitespace-nowrap">Estrategas Jurídicos</span>
+    <span class="mt-1.5 block h-px w-full bg-(--c-brand)" aria-hidden="true"></span>
+  </span>
+</span>

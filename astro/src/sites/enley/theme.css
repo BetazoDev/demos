@@ -1,0 +1,12 @@
+/* Formas de 14px y detalles propios de Enley. Todo bajo [data-site] para no filtrarse a otros sitios. */
+[data-site="enley"] {
+  --c-radius-nav: 16px;
+  --c-radius-img: 14px;
+  --c-radius-card: 14px;
+  --c-radius-field: 10px;
+}
+/* Host Grotesk viene apretada: el interletraje del kit se afloja un poco */
+[data-site="enley"] :is(h1, h2, h3, [data-statement]) {
+  letter-spacing: -0.028em;
+}
+[data-site="enley"] h1 { letter-spacing: -0.04em; }

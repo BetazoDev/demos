@@ -1,0 +1,89 @@
+---
+import SiteLayout from "@/sites/horusabogados/Page.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Accordion from "@/kit/Accordion.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/horusabogados/Hero.astro";
+import Composer from "@/sites/horusabogados/Composer.astro";
+import { site } from "@/sites/horusabogados/site";
+import { lema, descripcion, frase, materias, temas, consultas, cifra, recomendaciones } from "@/sites/horusabogados/data";
+import escritorio from "@/sites/horusabogados/assets/escritorio-luz-manana.jpg";
+import mesa from "@/sites/horusabogados/assets/mesa-familia-luz-tarde.jpg";
+
+const base = "/horusabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="HORUS Abogados | La ley con aspecto humano, abogados civil, familiar, mercantil y penal en CDMX" nav={{ variant: "pill", tone: "light", logoHeight: 46 }} footer={{ variant: "dark", blurb: lema }}>
+  <Hero lede="Despacho legal especializado en las materias civil, familiar, mercantil y penal." image={escritorio} imageAlt="Escritorio de madera con un cuaderno abierto, una pluma y una planta, bajo la luz de una ventana" position="50% 55%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href="#materias" variant="outline" size="lg">Ver materias</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text={frase} /></div>
+  </Section>
+
+  <Section tone="surface" id="materias">
+    <div class="wrap grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div>
+        <h2 data-reveal class="text-[clamp(2rem,4.2vw,3.6rem)] font-medium leading-[1.04] tracking-[-0.02em]">Materias</h2>
+        <ul data-stagger data-gap="90" class="mt-10 grid gap-1">
+          {materias.map((m) => <li class="font-(family-name:--f-display) text-[clamp(2.4rem,5.4vw,4.6rem)] font-normal italic leading-[1.08] tracking-[-0.02em] text-(--c-brand)">{m}</li>)}
+        </ul>
+      </div>
+      <div data-reveal data-delay="100" class="lg:pt-3">
+        <h3 class="mb-6 text-lg font-semibold">Temas</h3>
+        <Accordion items={temas} />
+      </div>
+    </div>
+  </Section>
+
+  <ImageBand image={mesa} alt="Mesa de madera puesta para una comida familiar, con sillas vacías y luz cálida de tarde" position="50% 60%" />
+
+  <Section tone="brand">
+    <div class="wrap">
+      <div data-reveal class="flex flex-wrap items-end gap-x-10 gap-y-4">
+        <span data-count={cifra.value} class="font-(family-name:--f-display) text-[clamp(7rem,22vw,17rem)] font-medium leading-[0.82] tracking-[-0.04em] tabular-nums text-(--c-accent)">{cifra.value}</span>
+        <span class="max-w-[14ch] pb-3 text-[clamp(1.6rem,3.2vw,2.8rem)] font-medium leading-[1.1] tracking-[-0.02em]">{cifra.label}</span>
+      </div>
+      <p data-reveal class="mt-10 max-w-[56ch] text-[15px] text-white/70">{cifra.nota}</p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(1.8rem,3.6vw,3rem)] font-medium leading-[1.05] tracking-[-0.02em]">Recomendaciones en Facebook</h2>
+      <ul data-stagger data-gap="100" class="grid gap-6 md:grid-cols-2">
+        {recomendaciones.map((r) => (
+          <li class="flex flex-col justify-between gap-10 rounded-(--c-radius-card) bg-(--c-surface) p-8 sm:p-10">
+            <blockquote class="text-[clamp(1.3rem,2.2vw,1.75rem)] leading-snug tracking-[-0.01em]">“{r.text}”</blockquote>
+            <p class="text-[15px] text-(--c-muted)">{r.author}, {r.when}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.2vw,3.6rem)] font-medium leading-[1.04] tracking-[-0.02em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+        <a href={site.social.facebook!} target="_blank" rel="noopener" class="mt-8 flex gap-4 text-[17px]"><Icon name="facebook-logo" class="mt-1 size-5 shrink-0 opacity-55" /><span class="link-u">Facebook HORUS.Abogados</span></a>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={consultas} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Estamos para servirte" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

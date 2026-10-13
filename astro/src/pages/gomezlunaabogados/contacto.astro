@@ -1,0 +1,23 @@
+---
+import Layout from "@/sites/gomezlunaabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/gomezlunaabogados/site";
+import { areas, texto } from "@/sites/gomezlunaabogados/data";
+
+const base = "/gomezlunaabogados";
+---
+
+<Layout title="Contacto | Gómez Luna Abogados SC, Leibnitz 231, Anzures, CDMX" description="Leibnitz 231, colonia Anzures, Miguel Hidalgo, Ciudad de México. Teléfonos 55 5395 0252 y 55 2211 2040. Gómez Luna Abogados SC." breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede={texto.importante} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,24px) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

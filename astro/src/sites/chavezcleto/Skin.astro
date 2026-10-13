@@ -1,0 +1,30 @@
+---
+// Piel de Chávez Cleto: esquinas de 6px en todo (nav, imágenes, campos), flecha de los botones en cuadro suave,
+// titulares en Cormorant Garamond como el sitio del despacho.
+---
+
+<style is:global>
+  [data-site="chavezcleto"] {
+    --c-radius-nav: 8px;
+    --c-radius-img: 6px;
+    --c-radius-card: 6px;
+    --c-radius-field: 6px;
+  }
+  [data-site="chavezcleto"] :is(.arr, .nav-link, [data-nav-toggle], .acc-plus) {
+    border-radius: 4px;
+  }
+  [data-site="chavezcleto"] :is(h1, h2, h3) {
+    font-weight: 500;
+  }
+  [data-site="chavezcleto"] .cc-area-link {
+    transition: color 220ms ease;
+  }
+  [data-site="chavezcleto"] .cc-area-link .cc-t {
+    transition: transform 500ms var(--ease-out), color 250ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    [data-site="chavezcleto"] .cc-area-link:hover .cc-t { transform: translateX(10px); color: var(--c-ink); }
+    [data-site="chavezcleto"] .cc-area-link:hover .cc-ar { background: var(--c-accent); color: var(--c-on-accent); border-color: transparent; }
+  }
+  [data-site="chavezcleto"] [id] { scroll-margin-top: 7rem; }
+</style>

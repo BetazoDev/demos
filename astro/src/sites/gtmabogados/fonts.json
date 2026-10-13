@@ -1,0 +1,4 @@
+[
+  { "name": "Familjen Grotesk", "cssVariable": "--f-gtmabogados-display", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Work Sans", "cssVariable": "--f-gtmabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

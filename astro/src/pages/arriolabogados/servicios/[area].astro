@@ -1,0 +1,62 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/arriolabogados/theme.css";
+import { site } from "@/sites/arriolabogados/site";
+import { areas } from "@/sites/arriolabogados/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/arriolabogados";
+const others = areas.filter((a) => a.key !== area.key);
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const seo: Record<string, { title: string; description: string }> = {
+  "propiedad-intelectual": { title: "Propiedad intelectual y registro de marcas en Polanco, CDMX | Arriola Abogados", description: "Registro de marcas, patentes, derechos de autor, demandas de nulidad y secretos industriales en Polanco, Ciudad de México. Departamento de regulación sanitaria." },
+  corporativo: { title: "Abogados corporativos en Polanco, CDMX | Arriola Abogados", description: "Constitución de empresa, acuerdos de accionistas, buen gobierno corporativo, contratos comerciales en inglés y español, fusiones y adquisiciones en Ciudad de México." },
+  "civil-mercantil": { title: "Abogados civiles y mercantiles en Polanco, CDMX | Arriola Abogados", description: "Redacción y evaluación de instrumentos jurídicos, situación legal de propiedades, títulos de propiedad, pólizas y contratos de compra-venta en Ciudad de México." },
+  fiscal: { title: "Defensa fiscal ante SAT, IMSS e INFONAVIT en CDMX | Arriola Abogados", description: "Asesoría y defensa fiscal ante IMSS, SAT, INFONAVIT y Finanzas, amparos y blindaje de operaciones en Polanco, Ciudad de México." },
+  startups: { title: "Abogados para startups y emprendedores en CDMX | Arriola Abogados", description: "Contratos, protección de datos personales, desarrollo tecnológico, propiedad intelectual, I+D+i y rondas de financiación para startups en Ciudad de México." },
+};
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: area.title,
+  description: area.lead,
+  provider: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}];
+---
+
+<SiteLayout site={site} title={seo[area.key].title} description={seo[area.key].description} nav={{ variant: "pill", tone: "light" }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]} schema={schema}>
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} image={area.image} imageAlt={area.imageAlt} />
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.7rem,3vw,2.6rem)] font-medium leading-tight tracking-[-0.025em]">{area.itemsTitle}</h2>
+      <div>
+        <ul data-stagger data-gap="45" class="grid gap-x-10 gap-y-5">
+          {area.items.map((i) => (
+            <li class="flex gap-4 text-lg leading-snug">
+              <span class="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-(--c-brand) text-(--c-on-brand)"><Icon name="check" weight="bold" class="size-3.5" /></span>
+              <span>{i}</span>
+            </li>
+          ))}
+        </ul>
+        {area.extra && <p data-reveal class="mt-12 max-w-[56ch] text-lg text-(--c-muted)">{area.extra}</p>}
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight tracking-[-0.02em]">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-full border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[15px] hover:border-(--c-ink)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

@@ -1,0 +1,93 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Pic from "@/kit/Pic.astro";
+import Footer from "@/sites/revsaabogados/Footer.astro";
+import Cifras from "@/sites/revsaabogados/Cifras.astro";
+import Skin from "@/sites/revsaabogados/Skin.astro";
+import { site } from "@/sites/revsaabogados/site";
+import { team, quienes, mision, vision, valores, porque, stats } from "@/sites/revsaabogados/data";
+
+const base = "/revsaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | REVSA Abogados, red de profesionistas en la Roma Sur, CDMX"
+  description="REVSA Abogados: una red de profesionistas con litigantes especialistas en cada materia. Conoce su misión, visión, valores y a sus socios fundadores."
+  nav={{ variant: "pill", tone: "light", logoHeight: 60 }}
+  footer={false}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <Skin />
+  <PageHero title="La firma" lede="Abogados con experiencia litigante en cada materia." />
+
+  <Section size="sm" class="pt-6">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight tracking-[-0.02em]">¿Quiénes somos?</h2>
+      <p data-reveal data-delay="80" class="max-w-[48ch] font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.4rem)] leading-[1.2] tracking-[-0.025em]">{quienes}</p>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-12 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight tracking-[-0.02em] text-(--c-accent)">Misión</h2>
+        <p class="mt-5 max-w-[52ch] text-lg leading-relaxed">{mision}</p>
+      </div>
+      <div data-reveal data-delay="120">
+        <h2 class="text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight tracking-[-0.02em] text-(--c-accent)">Visión</h2>
+        <p class="mt-5 max-w-[52ch] text-lg leading-relaxed">{vision}</p>
+      </div>
+    </div>
+    <div class="wrap mt-14">
+      <h3 data-reveal class="text-lg font-semibold">Nuestros valores</h3>
+      <ul data-stagger data-gap="50" class="mt-5 flex flex-wrap gap-3">
+        {valores.map((v) => <li class="rounded-full border border-(--c-ink)/25 px-5 py-2.5 text-[16px]">{v}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(1.8rem,3.4vw,3rem)] leading-tight tracking-[-0.03em]">¿Por qué elegirnos?</h2>
+      <ul data-stagger data-gap="100" class="grid gap-10 md:grid-cols-3 md:gap-12">
+        {porque.map((p) => (
+          <li class="border-t border-(--c-ink)/30 pt-6">
+            <h3 class="text-[clamp(1.3rem,2vw,1.7rem)] leading-tight tracking-[-0.015em]">{p.h}</h3>
+            <p class="mt-4 text-lg text-(--c-muted)">{p.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="dark">
+    <div class="wrap"><Cifras stats={stats} /></div>
+  </Section>
+
+  <Section id="equipo">
+    <div class="wrap">
+      <h2 data-reveal class="mb-4 text-[clamp(2.2rem,5vw,4.4rem)] leading-[1] tracking-[-0.035em]">Nuestro equipo</h2>
+      <ul class="mt-16 grid gap-20">
+        {
+          team.map((p, i) => (
+            <li class:list={["grid items-start gap-8 md:gap-16", i % 2 === 0 ? "md:grid-cols-[0.62fr_1.38fr]" : "md:grid-cols-[1.38fr_0.62fr]"]}>
+              <div data-reveal="clip" class:list={["aspect-[3/4] overflow-hidden rounded-(--c-radius-img,1.75rem) bg-(--c-surface)", i % 2 === 1 && "md:order-2"]}><Pic src={p.photo} alt={p.name} class="size-full object-cover" position="50% 30%" /></div>
+              <div data-reveal class="md:py-6">
+                <h3 class="text-[clamp(1.6rem,2.8vw,2.4rem)] leading-tight tracking-[-0.025em]">{p.name}</h3>
+                <p class="mt-2 font-medium text-(--c-accent)">{p.role}</p>
+                {p.bio && <p class="mt-6 max-w-[58ch] text-lg leading-relaxed text-(--c-muted)">{p.bio}</p>}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="¡Contáctanos ahora!" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones jurídicas al alcance de tu mano" />
+</SiteLayout>

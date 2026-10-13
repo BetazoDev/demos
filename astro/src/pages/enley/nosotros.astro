@@ -1,0 +1,64 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Stats from "@/sites/enley/Stats.astro";
+import "@/sites/enley/theme.css";
+import { site } from "@/sites/enley/site";
+import { home } from "@/sites/enley/data";
+
+const base = "/enley";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(1.8rem,3.4vw,2.8rem)] font-semibold leading-[1.05]";
+---
+
+<SiteLayout site={site} title="Nosotros | Enley, servicios legales y contables en línea" description="Enley es una empresa de servicios legales y contables en línea creada en España, con oficina en Polanco, Ciudad de México. Abogados y contadores expertos, y precios publicados." nav={{ variant: "pill", tone: "dark" }} breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}>
+  <PageHero title="¿Qué es Enley?" lede="Servicios legales y contables en línea, con un equipo de abogados y contadores expertos en distintas áreas del derecho." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-8 lg:grid-cols-2 lg:gap-24">
+      {home.que.map((p, i) => <p data-reveal data-delay={i * 100} class="max-w-[46ch] text-xl leading-relaxed text-(--c-muted)">{p}</p>)}
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap"><Stats stats={home.stats} /></div>
+  </Section>
+
+  <Section>
+    <div class="wrap"><Statement text={home.statement} /></div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-14", h2]}>{home.whyTitle}</h2>
+      <dl data-stagger data-gap="90" class="grid gap-x-16 gap-y-12 sm:grid-cols-2">
+        {home.why.map((w) => (
+          <div class="border-t border-(--c-line) pt-7">
+            <dt class="font-(family-name:--f-display) text-[clamp(1.5rem,2.4vw,2rem)] font-medium leading-tight tracking-[-0.02em]">{w.title}</dt>
+            <dd class="mt-3 max-w-[40ch] text-lg text-(--c-muted)">{w.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12", h2]}>Dónde estamos</h2>
+      <ul data-stagger data-gap="80" class="grid gap-x-16 gap-y-10 sm:grid-cols-2">
+        {site.addresses.map((a, i) => (
+          <li class="border-t border-(--c-line) pt-6">
+            <h3 class="text-[clamp(1.4rem,2.2vw,1.8rem)] font-medium tracking-[-0.02em]">{a.label}{i === 0 ? ", oficina de México" : ""}</h3>
+            <p class="mt-3 max-w-[36ch] text-lg text-(--c-muted)">{a.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Te ayudamos a resolver cualquier duda" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

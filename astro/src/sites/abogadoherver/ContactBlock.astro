@@ -1,0 +1,72 @@
+---
+// Datos de contacto reales: sedes, teléfonos, WhatsApp, correo, horario y mapa.
+import type { SiteConfig } from "@/kit/types";
+import Icon from "@/kit/Icon.astro";
+import Button from "@/kit/Button.astro";
+interface Props { site: SiteConfig; class?: string; showCta?: boolean; ctaLabel?: string }
+const { site, class: cls = "", showCta = true, ctaLabel = "Escribir por WhatsApp" } = Astro.props;
+const en = site.lang === "en";
+const wa = site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}` : null;
+const waTel = site.whatsapp.number ? `+${site.whatsapp.number}` : null;
+const otherPhones = site.phones.filter((p) => p.tel !== waTel);
+const waPhone = site.phones.find((p) => p.tel === waTel);
+const row = "flex gap-4";
+const ico = "mt-1 size-5 shrink-0 opacity-55";
+---
+
+<div class:list={["grid gap-8 text-[17px]", cls]}>
+  {
+    site.addresses.map((a) => (
+      <div class={row}>
+        <Icon name="map-pin" class={ico} />
+        <div>
+          {a.label && <p class="text-sm font-medium opacity-60">{a.label}</p>}
+          <p>{a.text}</p>
+        </div>
+      </div>
+    ))
+  }
+  {
+    otherPhones.length > 0 && (
+      <div class={row}>
+        <Icon name="phone" class={ico} />
+        <ul class="grid gap-1">
+          {otherPhones.map((p) => (
+            <li>
+              <a href={`tel:${p.tel}`} class="link-u">{p.display}</a>
+              {p.label && <span class="ml-2 text-sm opacity-55">{p.label}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  {
+    wa && (
+      <div class={row}>
+        <Icon name="whatsapp-logo" class={ico} />
+        <p>
+          <a href={wa} target="_blank" rel="noopener" class="link-u">WhatsApp {site.whatsapp.display}</a>
+          {waPhone && <><span class="mx-2 opacity-40">·</span><a href={`tel:${waPhone.tel}`} class="link-u">Llamar</a></>}
+        </p>
+      </div>
+    )
+  }
+  {
+    site.emails.length > 0 && (
+      <div class={row}>
+        <Icon name="envelope-simple" class={ico} />
+        <ul class="grid gap-1">{site.emails.map((m) => <li><a href={`mailto:${m}`} class="link-u break-all">{m}</a></li>)}</ul>
+      </div>
+    )
+  }
+  {site.hours && <div class={row}><Icon name="clock" class={ico} /><p>{site.hours}</p></div>}
+  {
+    showCta && (
+      <div class="flex flex-wrap gap-3 pt-2">
+        {wa && <Button href={wa} external>{ctaLabel}</Button>}
+        {site.mapsUrl && <Button href={site.mapsUrl} variant="outline" external>{en ? "View on map" : "Ver en el mapa"}</Button>}
+      </div>
+    )
+  }
+</div>

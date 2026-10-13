@@ -1,0 +1,30 @@
+---
+import "@/sites/marianoserraldeabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/marianoserraldeabogados/site";
+import { serviceNames } from "@/sites/marianoserraldeabogados/data";
+
+const base = "/marianoserraldeabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Mariano Serralde & Asociados, Torre Polanco"
+  description="Torre Polanco, Calz. Gral. Mariano Escobedo 476, piso 12, oficina 1200-B, Ciudad de México. WhatsApp 56 4131 3017. Lunes a jueves de 9:00 a 18:00 y viernes de 8:00 a 18:00."
+  nav={{ variant: "pill", tone: "light", logoHeight: 46 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Si necesita acompañamiento legal, puede comunicarse con nosotros por WhatsApp." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={serviceNames} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

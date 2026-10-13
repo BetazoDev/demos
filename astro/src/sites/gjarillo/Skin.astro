@@ -1,0 +1,75 @@
+---
+// Piel de Gerardo Jarillo: radio de 12px en todo el sitio y selector de áreas con pestañas.
+---
+
+<style is:global>
+  [data-site="gjarillo"] {
+    --c-radius-img: 12px;
+    --c-radius-card: 12px;
+    --c-radius-field: 12px;
+  }
+  /* Panel de pestañas: entra con un ligero ascenso cada vez que se muestra */
+  @keyframes gj-panel-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  [data-site="gjarillo"] [data-panel]:not([hidden]) {
+    animation: gj-panel-in 320ms var(--ease-out) both;
+  }
+  [data-site="gjarillo"] [data-tab] .gj-arr {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+  }
+  [data-site="gjarillo"] [data-tab][aria-selected="true"] .gj-arr {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-site="gjarillo"] [data-panel]:not([hidden]) { animation: none; }
+    [data-site="gjarillo"] [data-tab] .gj-arr { transition: none; }
+  }
+</style>
+
+<script>
+  let cleanup: (() => void) | null = null;
+  function init() {
+    cleanup?.();
+    cleanup = null;
+    const roots = Array.from(document.querySelectorAll<HTMLElement>("[data-tabs]"));
+    if (!roots.length) return;
+    const offs: Array<() => void> = [];
+    roots.forEach((root) => {
+      const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-tab]"));
+      const panels = Array.from(root.querySelectorAll<HTMLElement>("[data-panel]"));
+      const select = (i: number, focus = false) => {
+        tabs.forEach((t, j) => {
+          t.setAttribute("aria-selected", String(i === j));
+          t.tabIndex = i === j ? 0 : -1;
+        });
+        panels.forEach((p, j) => (p.hidden = i !== j));
+        if (focus) tabs[i].focus();
+      };
+      tabs.forEach((t, i) => {
+        const click = () => select(i);
+        const key = (e: KeyboardEvent) => {
+          const k = e.key;
+          if (k === "ArrowDown" || k === "ArrowRight") { e.preventDefault(); select((i + 1) % tabs.length, true); }
+          else if (k === "ArrowUp" || k === "ArrowLeft") { e.preventDefault(); select((i - 1 + tabs.length) % tabs.length, true); }
+          else if (k === "Home") { e.preventDefault(); select(0, true); }
+          else if (k === "End") { e.preventDefault(); select(tabs.length - 1, true); }
+        };
+        t.addEventListener("click", click);
+        t.addEventListener("keydown", key);
+        offs.push(() => { t.removeEventListener("click", click); t.removeEventListener("keydown", key); });
+      });
+      select(0);
+    });
+    cleanup = () => offs.forEach((f) => f());
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanup?.();
+    cleanup = null;
+  });
+</script>

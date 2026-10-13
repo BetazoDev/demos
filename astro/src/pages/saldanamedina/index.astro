@@ -1,0 +1,70 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/sites/saldanamedina/Areas.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/sites/saldanamedina/Cta.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/saldanamedina/Hero.astro";
+import "@/sites/saldanamedina/theme.css";
+import { site } from "@/sites/saldanamedina/site";
+import { areas, photos } from "@/sites/saldanamedina/data";
+
+const base = "/saldanamedina";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-light leading-[1.04] tracking-[-0.03em]";
+---
+
+<SiteLayout site={site} title="Saldaña Medina & Abogados | Despacho jurídico en Ciudad de México" nav={{ variant: "pill", tone: "dark", logoHeight: 42 }} footer={{ variant: "dark" }}>
+  <Hero title="Representación especializada en asuntos jurídicos" lede="Con base en Ciudad de México: juicios penales, civiles, mercantiles, familiares y administrativos." plaque={site.logo.src} image={photos.columnata} imageAlt="Columnata de piedra de un edificio público al anochecer, en blanco y negro">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Nuestra prioridad es hacer justicia y que sienta que sus derechos están siendo protegidos." class="font-light font-(family-name:--f-display)" /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12", h2]}>Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={photos.libro} alt="Libro cerrado con pluma fuente sobre un escritorio oscuro, en blanco y negro" position="50% 60%" />
+
+  <Section tone="surface">
+    <div class="wrap grid gap-12 md:grid-cols-2 md:gap-0">
+      <div data-reveal class="md:border-r md:border-(--c-line) md:pr-16">
+        <Icon name="clock" weight="light" class="size-9 text-(--c-accent)" />
+        <p class="mt-8 max-w-[14ch] font-(family-name:--f-display) text-[clamp(2rem,3.8vw,3.4rem)] font-light leading-[1.05] tracking-[-0.025em]">Disponibilidad las 24 horas</p>
+      </div>
+      <div data-reveal data-delay="120" class="md:pl-16">
+        <Icon name="calendar-check" weight="light" class="size-9 text-(--c-accent)" />
+        <p class="mt-8 max-w-[14ch] font-(family-name:--f-display) text-[clamp(2rem,3.8vw,3.4rem)] font-light leading-[1.05] tracking-[-0.025em]">Solo con cita previa</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" external />
+</SiteLayout>

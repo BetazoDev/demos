@@ -1,0 +1,38 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Skin from "@/sites/garciaescamillaabogados/Skin.astro";
+import AreaAccordion from "@/sites/garciaescamillaabogados/AreaAccordion.astro";
+import { site } from "@/sites/garciaescamillaabogados/site";
+import { areas } from "@/sites/garciaescamillaabogados/data";
+
+const base = "/garciaescamillaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const provider = { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href };
+const schema = areas.map((a) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: a.title,
+  description: a.lead ?? a.short,
+  provider,
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios | García & Escamilla Abogados, derecho civil, mercantil, familiar, laboral y amparo"
+  description="Derecho civil, mercantil, familiar, laboral, juicio de amparo y diligencias ante el Ministerio Público. Consulta y asesoría jurídica presencial o remota."
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={schema}
+>
+  <Skin />
+  <PageHero title="Servicios" lede="Derecho civil, mercantil, familiar, laboral y amparo, además de diligencias ante el Ministerio Público." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreaAccordion areas={areas} /></div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

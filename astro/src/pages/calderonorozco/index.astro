@@ -1,0 +1,64 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Hero from "@/kit/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Team from "@/kit/Team.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/calderonorozco/site";
+import { areas, team, photos } from "@/sites/calderonorozco/data";
+import hero from "@/sites/calderonorozco/assets/hero-sala.jpg";
+
+const base = "/calderonorozco";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout site={site} title="Calderón · Orozco Abogados | Derecho penal y juicio oral en CDMX y Pachuca" nav={{ variant: "pill", tone: "dark" }} footer={{ variant: "dark", blurb: "En nuestra Firma Legal encontrarás una defensa honesta y eficaz." }}>
+  <Hero layout="photo" title="Una defensa honesta y eficaz" lede="Firma de abogados especializados en derecho penal, con sedes en Ciudad de México y Pachuca." image={hero} position="50% 40%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Dieciocho años de práctica profesional y litigio en toda la república." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02] tracking-[-0.03em]">Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={photos.balanza} alt="Balanza, reloj de arena y mazo sobre un libro abierto" position="50% 55%" />
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02] tracking-[-0.03em]">Fundadores y abogados</h2>
+      <Team people={team.map((p) => ({ name: p.name, role: p.role, photo: p.photo }))} />
+      <div data-reveal class="mt-10"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02] tracking-[-0.03em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

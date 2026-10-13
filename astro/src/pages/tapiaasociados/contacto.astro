@@ -1,0 +1,30 @@
+---
+import Layout from "@/sites/tapiaasociados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/tapiaasociados/site";
+import { areas } from "@/sites/tapiaasociados/data";
+
+const base = "/tapiaasociados";
+---
+
+<Layout
+  title="Contacto | Abogados Tapia & Asociados"
+  description="Calle Gabino Barreda 138, colonia San Rafael, Ciudad de México. WhatsApp 56 4815 9681. Lunes a viernes de 9:00 a 17:00 h y sábados de 9:00 a 15:00 h."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Nos encanta recibir a nuestros clientes. Agende su cita para brindarle la adecuada asesoría jurídica." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} />
+        <p class="mt-8 text-[15px] text-(--c-muted)">Aceptamos tarjetas de crédito y débito.</p>
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

@@ -1,0 +1,20 @@
+---
+import Layout from "@/sites/garciaasociadoslaw/Layout.astro";
+import AreaAccordion from "@/sites/garciaasociadoslaw/AreaAccordion.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/garciaasociadoslaw/site";
+import { areas } from "@/sites/garciaasociadoslaw/data";
+
+const base = "/garciaasociadoslaw";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout site={site} title="Servicios jurídicos: laboral, mercantil, civil, familiar y penal | García & Asociados" description="Representación legal estratégica en derecho laboral, mercantil, civil, familiar, penal y notarial para personas físicas, empresas y organizaciones en Ciudad de México y Quintana Roo." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Brindamos representación legal estratégica a personas físicas, empresas y organizaciones." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreaAccordion areas={areas} /></div>
+  </Section>
+  <CtaBand title="Soluciones legales para su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

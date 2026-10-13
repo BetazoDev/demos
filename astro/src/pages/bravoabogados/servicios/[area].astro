@@ -1,0 +1,43 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Accordion from "@/kit/Accordion.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/bravoabogados/Nav.astro";
+import Footer from "@/sites/bravoabogados/Footer.astro";
+import { site } from "@/sites/bravoabogados/site";
+import { areas, photos } from "@/sites/bravoabogados/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/bravoabogados";
+const others = areas.filter((a) => a.key !== area.key);
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const h2 = "text-[clamp(1.6rem,3vw,2.4rem)] font-normal leading-tight tracking-[-0.02em]";
+const image = area.key === "arbitraje" ? photos.torres : undefined;
+const schema = [{ "@context": "https://schema.org", "@type": "Service", name: area.title, description: area.seo, provider: { "@id": `https://demos.diabolicalservices.tech/${site.slug}#organizacion` }, areaServed: { "@type": "Country", name: "México" } }];
+---
+
+<SiteLayout site={site} bodyClass="[--c-radius-img:0px] [--c-radius-card:0px] [--c-radius-field:0px]" title={`${area.title} | Bravo Abogados, Ciudad de México`} description={area.seo} schema={schema} nav={false} footer={false} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}>
+  <Nav slot="nav" site={site} variant="bar" tone="light" />
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} image={image} imageAlt="Torres de transmisión eléctrica entre colinas con niebla" />
+  <Section size="sm" class="pt-8 sm:pt-14">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <h2 data-reveal class={h2}>{area.casesTitle}</h2>
+      <div data-reveal data-delay="100"><Accordion items={area.cases.map((c) => ({ q: c.title, a: c.text }))} /></div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-8 ${h2}`}>Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-(--c-radius) border border-(--c-line) px-5 py-2.5 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su asunto" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Bufete Bravo Abogados. Soporte funcional, S.C." />
+</SiteLayout>

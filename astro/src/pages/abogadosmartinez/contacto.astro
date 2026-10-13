@@ -1,0 +1,40 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/sites/abogadosmartinez/ContactBlock.astro";
+import Button from "@/kit/Button.astro";
+import Composer from "@/sites/abogadosmartinez/Composer.astro";
+import Footer from "@/sites/abogadosmartinez/Footer.astro";
+import { site } from "@/sites/abogadosmartinez/site";
+import { servicios } from "@/sites/abogadosmartinez/data";
+import fachada from "@/sites/abogadosmartinez/assets/fachada.jpg";
+import "@/sites/abogadosmartinez/theme.css";
+
+const base = "/abogadosmartinez";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Abogados Martínez, Av. Juárez 20, Centro Histórico, CDMX"
+  description="Av. Juárez 20, int. 37, Centro Histórico, Ciudad de México. Teléfonos 55 4258 0104 y 55 5450 2194. Se recomienda concertar cita."
+  nav={{ variant: "pill", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+  footer={false}
+>
+  <PageHero title="Contacto" lede="Escríbenos por WhatsApp, llámanos o visítanos en Av. Juárez 20." />
+  <Section size="sm" class="pt-14 sm:pt-20">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-10"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={servicios.map((s) => s.title)} />
+      </div>
+    </div>
+  </Section>
+  <ImageBand image={fachada} alt="Fachada de piedra con balcones de hierro forjado y ventanas iluminadas, al caer la tarde en el centro de la ciudad" position="50% 40%" class="mt-8 sm:mt-14" />
+  <Footer slot="footer" site={site} variant="dark" blurb="Somos un despacho diseñado para ayudar a proteger y salvaguardar tus intereses frente a otros." />
+</SiteLayout>

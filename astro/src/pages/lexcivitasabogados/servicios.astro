@@ -1,0 +1,47 @@
+---
+import "@/sites/lexcivitasabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Footer from "@/sites/lexcivitasabogados/Footer.astro";
+import { site, waLink } from "@/sites/lexcivitasabogados/site";
+import { areas, servicesLede, filosofia } from "@/sites/lexcivitasabogados/data";
+
+const base = "/lexcivitasabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios jurídicos en Ciudad de México | Lex Civitas Abogados"
+  description="Asesoría y asistencia jurídica en materia administrativa, agraria, civil, familiar, fiscal, laboral, mercantil y penal."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 50 }}
+  footer={false}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios" lede={servicesLede} tone="dark" />
+
+  <Section size="sm" class="pt-6">
+    <div class="wrap">
+      <ul data-stagger data-gap="60" class="grid sm:grid-cols-2 sm:gap-x-16">
+        {areas.map((a) => (
+          <li id={a.key} class="scroll-mt-28 py-7 sm:py-9">
+            <h2 class="font-(family-name:--f-display) text-[clamp(2.4rem,4.6vw,4.2rem)] leading-none tracking-[-0.03em]">{a.title}</h2>
+            {a.text && <p class="mt-5 max-w-[40ch] text-lg text-(--c-muted)">{a.text}</p>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 class="sr-only">Nuestra filosofía</h2>
+      <Statement text={filosofia} class="max-w-[24ch] sm:max-w-[28ch]" />
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={waLink()} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Iustitia in lege est. En el derecho está la justicia." />
+</SiteLayout>

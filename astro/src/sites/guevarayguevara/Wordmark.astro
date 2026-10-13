@@ -1,0 +1,23 @@
+---
+// Monograma del despacho (imagen tal cual) + nombre recompuesto en serif de versales espaciadas,
+// porque el wordmark original solo existe a ~16 px de capital (ver brand.json → logo.notes).
+import Logo from "@/kit/Logo.astro";
+import type { Img } from "@/kit/types";
+interface Props {
+  mark: Img;
+  /** Altura del monograma en px */
+  height?: number;
+  alt?: string;
+  eager?: boolean;
+  class?: string;
+}
+const { mark, height = 30, alt = "", eager = true, class: cls = "" } = Astro.props;
+---
+
+<span class:list={["flex items-center gap-3.5", cls]}>
+  <Logo src={mark} alt={alt} height={height} eager={eager} />
+  <span class="grid gap-[5px] leading-none font-(family-name:--f-display)">
+    <span class="whitespace-nowrap text-[12.5px] font-normal uppercase tracking-[0.27em] sm:text-[13.5px]">Guevara &amp; Guevara</span>
+    <span class="whitespace-nowrap text-[11px] tracking-[0.4em] opacity-70">abogados</span>
+  </span>
+</span>

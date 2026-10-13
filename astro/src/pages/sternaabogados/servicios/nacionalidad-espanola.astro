@@ -1,0 +1,153 @@
+---
+import "@/sites/sternaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import Accordion from "@/kit/Accordion.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/sternaabogados/site";
+import { guide, routes } from "@/sites/sternaabogados/data";
+
+const base = "/sternaabogados";
+const org = new URL(`/${site.slug}#organizacion`, Astro.site).href;
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre nacionalidad española.`)}`;
+const h2 = "text-[clamp(1.7rem,3.2vw,2.6rem)] font-medium leading-tight";
+const schema = [
+  { "@context": "https://schema.org", "@type": "Service", name: "Nacionalidad española", description: guide.lead, provider: { "@id": org }, areaServed: { "@type": "Country", name: "México" } },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: [{ "@type": "Question", name: guide.faq.q, acceptedAnswer: { "@type": "Answer", text: guide.faq.a } }] },
+];
+---
+
+<SiteLayout
+  site={site}
+  title="Nacionalidad española siendo mexicano | Sterna Abogados"
+  description="Beneficios, requisitos, pasos y documentos para obtener la nacionalidad española siendo mexicano: 2 años de residencia legal y continua, exámenes CCSE y DELE."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: "Nacionalidad española", href: `${base}/servicios/nacionalidad-espanola` }]}
+  schema={schema}
+>
+  <PageHero title="Nacionalidad española" lede={guide.lead} transitionName="area-nacionalidad-espanola" />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class={`max-w-[16ch] ${h2}`}>{guide.benefitsTitle}</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        {guide.benefits.map((b) => (
+          <li class="flex gap-4">
+            <span class="mt-1 grid size-7 shrink-0 place-items-center rounded-full bg-(--c-brand) text-(--c-on-brand)"><Icon name="check" weight="bold" class="size-4" /></span>
+            <div>
+              <h3 class="text-lg font-medium leading-snug">{b.t}</h3>
+              <p class="mt-1.5 text-(--c-muted)">{b.d}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div data-reveal>
+        <h2 class={`max-w-[18ch] ${h2}`}>{guide.requirementsTitle}</h2>
+        <p class="mt-5 max-w-[40ch] text-lg text-(--c-muted)">{guide.requirementsIntro}</p>
+      </div>
+      <ul data-stagger data-gap="70" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {guide.requirements.map((r) => (
+          <li class="grid gap-2 py-6 sm:grid-cols-[0.8fr_1.2fr] sm:gap-8">
+            <h3 class="text-lg font-medium leading-snug">{r.t}</h3>
+            <p class="text-(--c-muted)">{r.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class={`lg:sticky lg:top-28 lg:self-start ${h2}`}>{guide.stepsTitle}</h2>
+      <ol data-stagger data-gap="70" class="relative grid gap-10 border-l border-(--c-line) pl-8 sm:pl-10">
+        {guide.steps.map((s) => (
+          <li class="relative">
+            <span aria-hidden="true" class="absolute -left-[2.5rem] top-1.5 size-3.5 rounded-full bg-(--c-brand) sm:-left-[3.05rem]"></span>
+            <h3 class="text-xl font-medium leading-snug">{s.t}</h3>
+            <p class="mt-2 max-w-[56ch] text-(--c-muted)">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+      <div>
+        <h2 data-reveal class={`mb-8 ${h2}`}>{guide.docsTitle}</h2>
+        <ul data-stagger data-gap="50" class="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+          {guide.docs.map((d) => (
+            <li>
+              <h3 class="text-lg font-medium leading-snug">{d.t}</h3>
+              <p class="mt-1 text-(--c-muted)">{d.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 data-reveal class={`mb-8 ${h2}`}>Exámenes obligatorios</h2>
+        <ul data-stagger data-gap="70" class="grid gap-6">
+          {guide.exams.map((e) => (
+            <li>
+              <h3 class="text-lg font-medium leading-snug">{e.t}</h3>
+              <p class="mt-1 text-(--c-muted)">{e.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-10 max-w-[22ch] ${h2}`}>Vías para obtener la nacionalidad española</h2>
+      <Accordion items={routes.map((r) => ({ q: r.t, a: r.d }))} />
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <h2 data-reveal class={`mb-8 ${h2}`}>{guide.mistakesTitle}</h2>
+        <ul data-stagger data-gap="60" class="grid gap-6">
+          {guide.mistakes.map((m) => (
+            <li>
+              <h3 class="text-lg font-medium leading-snug">{m.t}</h3>
+              <p class="mt-1 text-(--c-muted)">{m.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 data-reveal class={`mb-8 max-w-[22ch] ${h2}`}>{guide.lawyerTitle}</h2>
+        <ul data-stagger data-gap="60" class="grid gap-4">
+          {guide.lawyer.map((l) => (
+            <li class="flex gap-4 text-lg">
+              <span class="mt-1 grid size-6 shrink-0 place-items-center rounded-full bg-(--c-brand) text-(--c-on-brand)"><Icon name="check" weight="bold" class="size-3.5" /></span>
+              {l}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class={h2}>Pregunta frecuente</h2>
+      <div data-reveal data-delay="100">
+        <h3 class="text-[clamp(1.2rem,2vw,1.6rem)] font-medium leading-snug">{guide.faq.q}</h3>
+        <p class="mt-4 max-w-[62ch] text-lg text-(--c-muted)">{guide.faq.a}</p>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="¿Quieres vivir en España?" text="Te ayudamos a gestionar tu visado desde México." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

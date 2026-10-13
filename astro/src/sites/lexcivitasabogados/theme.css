@@ -1,0 +1,7 @@
+/* Sistema de 6px, monocromo: la nav flotante, los campos y las imágenes comparten el mismo radio. */
+html[data-site="lexcivitasabogados"] {
+  --c-radius-nav: 8px;
+  --c-radius-img: 6px;
+  --c-radius-card: 6px;
+  --c-radius-field: 6px;
+}

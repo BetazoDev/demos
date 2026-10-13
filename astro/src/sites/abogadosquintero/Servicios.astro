@@ -1,0 +1,47 @@
+---
+// Servicios en acordeón nativo (<details>) con apertura animada del kit. El título morfa desde la lista de la home (area-<key>).
+// Si la URL trae #clave, esa fila se abre al cargar.
+interface Item { key: string; title: string; text: string[]; items?: string[] }
+interface Props { items: Item[]; class?: string }
+const { items, class: cls = "" } = Astro.props;
+---
+
+<div data-servicios class:list={["divide-y divide-current/15 border-y border-current/15", cls]}>
+  {
+    items.map((a) => (
+      <details id={a.key} class="acc group scroll-mt-28">
+        <summary class="flex items-center justify-between gap-6 py-7 text-left sm:py-9">
+          <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1]">{a.title}</h2>
+          <span class="acc-plus grid size-10 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+          </span>
+        </summary>
+        <div class="acc-body">
+          <div class="grid gap-4 pb-9 text-[17px] leading-relaxed text-(--c-muted) lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
+            <div class="grid max-w-[56ch] gap-4">
+              {a.text.map((t) => <p>{t}</p>)}
+            </div>
+            {a.items && (
+              <ul class="grid content-start gap-3">
+                {a.items.map((i) => <li class="flex gap-3"><span aria-hidden="true" class="mt-[0.7em] h-px w-4 shrink-0 bg-(--c-accent)"></span><span>{i}</span></li>)}
+              </ul>
+            )}
+          </div>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<script>
+  function openFromHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const d = document.querySelector<HTMLDetailsElement>(`[data-servicios] details[id="${CSS.escape(id)}"]`);
+    if (d) {
+      d.open = true;
+      requestAnimationFrame(() => d.scrollIntoView({ block: "start" }));
+    }
+  }
+  document.addEventListener("astro:page-load", openFromHash);
+</script>

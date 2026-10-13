@@ -1,0 +1,47 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Accordion from "@/kit/Accordion.astro";
+import Composer from "@/sites/revsaabogados/Composer.astro";
+import Footer from "@/sites/revsaabogados/Footer.astro";
+import Skin from "@/sites/revsaabogados/Skin.astro";
+import { site } from "@/sites/revsaabogados/site";
+import { areas, faq } from "@/sites/revsaabogados/data";
+
+const base = "/revsaabogados";
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+}];
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | REVSA Abogados, C. Taxco 16, Roma Sur, CDMX"
+  description="REVSA Abogados en C. Taxco 16, colonia Roma Sur, Ciudad de México. WhatsApp 55 1174 4847, oficina 55 5574 9426 y preguntas frecuentes."
+  nav={{ variant: "pill", tone: "light", logoHeight: 60 }}
+  footer={false}
+  schema={schema}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <Skin />
+  <PageHero title="Contacto" lede="Escríbenos por WhatsApp o visítanos en la colonia Roma Sur, Ciudad de México." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div id="consulta" data-reveal data-delay="120" class="rounded-(--c-radius-card,1.5rem) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Section size="sm" tone="surface">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.8rem,3.4vw,3rem)] leading-tight tracking-[-0.03em]">Preguntas frecuentes</h2>
+      <div data-reveal data-delay="80"><Accordion items={faq} /></div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones jurídicas al alcance de tu mano" />
+</SiteLayout>

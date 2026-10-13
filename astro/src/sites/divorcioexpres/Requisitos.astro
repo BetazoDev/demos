@@ -1,0 +1,74 @@
+---
+// Firma de movimiento: una línea vertical se dibuja con el scroll y cada requisito se marca al ser alcanzado.
+// Solo transform y opacity. Sin movimiento si se pide reducir movimiento (todo queda marcado).
+import Icon from "@/kit/Icon.astro";
+interface Props { items: { title: string; text?: string }[]; size?: "lg" | "md" }
+const { items, size = "lg" } = Astro.props;
+---
+
+<div data-steps class="steps relative">
+  <div class="steps-rail absolute bottom-3 left-[15px] top-3 w-px bg-current/20" aria-hidden="true"></div>
+  <div data-steps-line class="steps-line absolute bottom-3 left-[15px] top-3 w-px bg-current" aria-hidden="true"></div>
+  <ol class="relative grid gap-10 sm:gap-12">
+    {
+      items.map((it) => (
+        <li data-step class="step relative grid grid-cols-[2rem_1fr] items-start gap-5 sm:gap-8">
+          <span class="step-dot relative mt-1 grid size-8 place-items-center rounded-full border border-current/35 bg-(--c-step-bg,transparent)" aria-hidden="true">
+            <span class="step-fill absolute inset-0 rounded-full bg-current"></span>
+            <Icon name="check" weight="bold" class="step-check relative size-4" />
+          </span>
+          <div class="step-body">
+            <h3 class:list={[size === "lg" ? "text-[clamp(1.5rem,3vw,2.5rem)]" : "text-[clamp(1.35rem,2.4vw,1.9rem)]", "leading-[1.12]"]}>{it.title}</h3>
+            {it.text && <p class="mt-3 max-w-[56ch] text-lg leading-relaxed opacity-80">{it.text}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .steps-line { transform: scaleY(var(--p, 0)); transform-origin: top; }
+  .step-fill { opacity: 0; scale: 0.7; transition: opacity 320ms var(--ease-out), scale 320ms var(--ease-out); }
+  :global(.step-check) { opacity: 0; color: var(--c-step-ink, var(--c-bg)); transition: opacity 320ms var(--ease-out); }
+  .step.is-on .step-fill { opacity: 1; scale: 1; }
+  .step.is-on :global(.step-check) { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .steps-line { transform: none; }
+    .step-fill, :global(.step-check) { opacity: 1; scale: 1; transition: none; }
+  }
+</style>
+
+<script>
+  let off: Array<() => void> = [];
+  function init() {
+    document.querySelectorAll<HTMLElement>("[data-steps]").forEach((root) => {
+      const steps = Array.from(root.querySelectorAll<HTMLElement>("[data-step]"));
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        steps.forEach((s) => s.classList.add("is-on"));
+        root.style.setProperty("--p", "1");
+        return;
+      }
+      let raf = 0;
+      const run = () => {
+        raf = 0;
+        const vh = window.innerHeight;
+        const r = root.getBoundingClientRect();
+        const tip = vh * 0.72;
+        const p = Math.min(1, Math.max(0, (tip - r.top) / r.height));
+        root.style.setProperty("--p", p.toFixed(4));
+        steps.forEach((s) => {
+          const d = s.querySelector<HTMLElement>(".step-dot")!.getBoundingClientRect();
+          s.classList.toggle("is-on", d.top + d.height / 2 < tip);
+        });
+      };
+      const on = () => { if (!raf) raf = requestAnimationFrame(run); };
+      window.addEventListener("scroll", on, { passive: true });
+      window.addEventListener("resize", on);
+      run();
+      off.push(() => { window.removeEventListener("scroll", on); window.removeEventListener("resize", on); if (raf) cancelAnimationFrame(raf); });
+    });
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => { off.forEach((f) => f()); off = []; });
+</script>

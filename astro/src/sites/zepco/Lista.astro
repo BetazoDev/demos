@@ -1,0 +1,17 @@
+---
+// Servicios como filas editoriales (sin enlaces): el título morfa desde la lista de la home (area-<key>) y cada fila admite ancla.
+interface Item { key: string; title: string; text: string }
+interface Props { items: Item[]; class?: string }
+const { items, class: cls = "" } = Astro.props;
+---
+
+<ul data-stagger data-gap="80" class:list={["divide-y divide-current/15 border-y border-current/15", cls]}>
+  {
+    items.map((a) => (
+      <li id={a.key} class="scroll-mt-28 grid gap-4 py-9 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:py-12">
+        <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.6rem,3.1vw,2.7rem)] leading-[1.1]">{a.title}</h2>
+        <p class="max-w-[48ch] text-[17px] leading-relaxed text-(--c-muted) md:pt-2 md:text-lg">{a.text}</p>
+      </li>
+    ))
+  }
+</ul>

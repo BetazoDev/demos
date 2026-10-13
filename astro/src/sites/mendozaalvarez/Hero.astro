@@ -1,0 +1,29 @@
+---
+// Héroe propio de Mendoza Álvarez: como su logo es solo texto, el nombre ES el titular, compuesto enorme en Archivo.
+// Debajo, el lema, una línea de presentación y un panorama de arcos del Centro Histórico (imagen de ambiente) con barrido.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { lema: string; lede: string; image: Img; imageAlt?: string }
+const { lema, lede, image, imageAlt = "" } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap flex min-h-[100svh] flex-col justify-end gap-9 pb-10 pt-32 sm:gap-12 sm:pb-14">
+    <h1 data-hero="blur" class="font-(family-name:--f-display) text-[clamp(3.4rem,9.3vw,10rem)] font-extrabold leading-[0.88] tracking-[-0.055em]">
+      <span class="block sm:inline">Mendoza</span> <span class="block sm:inline">Álvarez</span>
+      <span class="mt-4 block text-[clamp(0.95rem,1.9vw,1.7rem)] font-semibold uppercase leading-none tracking-[0.5em] text-(--c-accent)">Abogados</span>
+    </h1>
+    <div class="grid gap-9 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-14">
+      <div>
+        <p data-hero style="--i:1" class="font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.3rem)] font-semibold leading-[1.1] tracking-[-0.025em]">{lema}</p>
+        <p data-hero style="--i:2" class="mt-4 max-w-[40ch] text-lg text-(--c-muted)">{lede}</p>
+        <div data-hero style="--i:3" class="mt-8 flex flex-wrap items-center gap-3">
+          <slot name="actions" />
+        </div>
+      </div>
+      <div data-hero-media style="--d:300ms" class="aspect-[16/8] overflow-hidden">
+        <div class="size-full" data-parallax="40"><Pic src={image} alt={imageAlt} priority position="50% 55%" class="size-full object-cover" /></div>
+      </div>
+    </div>
+  </div>
+</section>

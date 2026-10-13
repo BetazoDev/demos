@@ -1,0 +1,38 @@
+---
+// Redactor de consulta de REVSA (copia del kit con tuteo, como escribe el despacho): arma un mensaje y abre
+// el WhatsApp del despacho. No envía datos a ningún servidor.
+import type { SiteConfig } from "@/kit/types";
+import Icon from "@/kit/Icon.astro";
+interface Props {
+  site: SiteConfig;
+  areas: string[];
+  label?: string;
+  class?: string;
+}
+const { site, areas, label = "Escribir por WhatsApp", class: cls = "" } = Astro.props;
+const wa = site.whatsapp.number;
+const field = "mt-2 w-full rounded-(--c-radius-field,1.1rem) border border-current/20 bg-transparent px-4 py-3.5 text-base placeholder:text-current/45 focus:border-current focus:outline-none";
+---
+
+<form data-wa={wa ?? undefined} data-intro={site.whatsapp.intro} data-badge-avoid class:list={["grid gap-5", cls]} onsubmit={wa ? undefined : "event.preventDefault()"}>
+  <div>
+    <label for={`area-${site.slug}`} class="text-sm font-medium">Área de consulta</label>
+    <select id={`area-${site.slug}`} name="area" class:list={[field, "bg-(--c-bg) text-(--c-ink)"]}>
+      <option value="">Elige un área</option>
+      {areas.map((a) => <option value={a}>{a}</option>)}
+    </select>
+  </div>
+  <div>
+    <label for={`msg-${site.slug}`} class="text-sm font-medium">Cuéntanos tu caso</label>
+    <textarea id={`msg-${site.slug}`} name="mensaje" rows="4" placeholder="Unas líneas sobre tu situación" class:list={[field, "resize-none"]}></textarea>
+  </div>
+  <div>
+    <label for={`name-${site.slug}`} class="text-sm font-medium">Tu nombre</label>
+    <input id={`name-${site.slug}`} name="nombre" type="text" autocomplete="name" class={field} />
+  </div>
+  <button type="submit" class="press nudge inline-flex h-14 items-center justify-center gap-3 rounded-(--c-radius,999px) bg-(--c-brand) px-7 text-base font-medium text-(--c-on-brand) hover:brightness-110">
+    <Icon name="whatsapp-logo" weight="fill" class="size-5" />
+    {label}
+  </button>
+  <p class="text-sm opacity-60">Se abre WhatsApp con tu mensaje listo. Desde esta página no se envía nada.</p>
+</form>

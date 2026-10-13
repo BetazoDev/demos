@@ -1,0 +1,24 @@
+---
+import Layout from "@/sites/abogadosencdmx/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+
+const base = "/abogadosencdmx";
+---
+
+<Layout
+  title="Aviso de privacidad | Abogados en CDMX"
+  description="Aviso de privacidad de Abogados en CDMX conforme a la LFPDPPP."
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Responsable: Abogados en CDMX, Guanajuato 224, Col. Roma Norte, Alcaldía Cuauhtémoc, C.P. 06700, CDMX; conforme a la LFPDPPP.</p>
+        <p>Última actualización: febrero de 2026.</p>
+      </Prose>
+    </div>
+  </Section>
+</Layout>

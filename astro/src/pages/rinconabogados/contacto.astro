@@ -1,0 +1,42 @@
+---
+import Layout from "@/sites/rinconabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Accordion from "@/kit/Accordion.astro";
+import { site } from "@/sites/rinconabogados/site";
+import { areas, faq } from "@/sites/rinconabogados/data";
+
+const base = "/rinconabogados";
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+}];
+---
+
+<Layout
+  site={site}
+  title="Contacto | Rincón Mayorga Abogados, Ciudad de México y Guadalajara"
+  description="Oficinas en Lafragua 13, Col. Tabacalera, Ciudad de México, y Paseo Royal Country 4650, Zapopan, Jalisco. Consulta inicial sin costo, reunión de 30 minutos."
+  nav={{ variant: "bar", tone: "light", logoHeight: 38 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+  schema={schema}
+>
+  <PageHero title="Contacto" lede="Consulta inicial sin costo, reunión de 30 minutos. Escríbanos o visítenos en cualquiera de nuestras oficinas." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] font-light leading-tight tracking-[-0.02em]">Preguntas frecuentes</h2>
+      <div data-reveal data-delay="100"><Accordion items={faq} /></div>
+    </div>
+  </Section>
+</Layout>

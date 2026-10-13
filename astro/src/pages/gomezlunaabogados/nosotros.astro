@@ -1,0 +1,49 @@
+---
+import Layout from "@/sites/gomezlunaabogados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/gomezlunaabogados/site";
+import { photos, texto } from "@/sites/gomezlunaabogados/data";
+
+const base = "/gomezlunaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const h2 = "text-[clamp(1.9rem,3.8vw,3.2rem)] leading-[1.06]";
+---
+
+<Layout title="La firma | Gómez Luna Abogados SC, fundada en 2017" description="Gómez Luna Abogados Sociedad Civil fue fundada en 2017 por dos hermanos que comparten la misma profesión y pasión por el derecho. Misión y visión de la firma." breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}>
+  <PageHero title="La firma" lede="Gómez Luna Abogados Sociedad Civil, fundada en 2017." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
+      <p data-reveal data-count="2017" class="text-[clamp(4.5rem,11vw,9rem)] leading-[0.9] tracking-[-0.03em] text-(--c-accent) tabular-nums" style="font-family:var(--f-display)">2017</p>
+      <div data-reveal data-delay="80" class="grid max-w-[60ch] gap-6 text-lg leading-relaxed text-(--c-muted)">
+        {texto.acerca.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-14 md:grid-cols-2 md:gap-20">
+      <div data-reveal>
+        <h2 class={h2}>Misión</h2>
+        <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-(--c-muted)">{texto.mision}</p>
+      </div>
+      <div data-reveal data-delay="100">
+        <h2 class={h2}>Visión</h2>
+        <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-(--c-muted)">{texto.vision}</p>
+      </div>
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)" style="height:clamp(22rem,44vw,31rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={photos.balanza} alt="Balanza de bronce sobre un fondo azul oscuro" position="50% 40%" class="size-full object-cover" /></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_88%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_45%,transparent)_60%,color-mix(in_oklab,var(--c-dark)_25%,transparent)_100%)]"></div>
+    <div class="wrap flex h-full items-end pb-10 sm:pb-14">
+      <p data-reveal class="max-w-[24ch] text-[clamp(1.8rem,3.9vw,3.4rem)] leading-[1.1]" style="font-family:var(--f-display)">{texto.especializacion}</p>
+    </div>
+  </div>
+
+  <CtaBand title="Cuéntenos su caso" text={texto.importante} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

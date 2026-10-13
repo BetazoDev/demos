@@ -1,0 +1,28 @@
+---
+// Héroe propio de un despacho unipersonal: titular a la izquierda y una foto cuadrada enmarcada como su logo
+// (bloque coral con doble marco rosa). Todo recto (0px). Variante de kit/Hero.astro (layout "split").
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 40%" } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-16 pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20 lg:pb-14 lg:pt-28">
+    <div>
+      <h1 data-hero="blur" class="max-w-[16ch] text-[clamp(2.4rem,4.8vw,4.8rem)] font-bold leading-[0.98] tracking-[-0.04em]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-7 max-w-[34ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div data-hero-media style="--d:200ms" class="relative mx-auto aspect-square w-full max-w-[min(34rem,100%)] bg-(--c-brand) p-3.5 sm:p-5 lg:ml-auto lg:mr-0">
+      <div class="relative size-full overflow-hidden outline outline-[3px] -outline-offset-[3px] outline-[#FFABB7]">
+        <div class="absolute inset-0" data-parallax="30">
+          <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+        </div>
+        <span class="pointer-events-none absolute inset-0 outline outline-[3px] -outline-offset-[3px] outline-[#FFABB7]"></span>
+      </div>
+    </div>
+  </div>
+</section>

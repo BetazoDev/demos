@@ -1,0 +1,31 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import Skin from "@/sites/guerrerogonzalezabogados/Skin.astro";
+import { site } from "@/sites/guerrerogonzalezabogados/site";
+
+const base = "/guerrerogonzalezabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | Guerrero González Abogados"
+  description="Aviso de privacidad de Guerrero González Abogados, S.C."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 46 }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <Skin />
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Aviso de privacidad de Guerrero González Abogados, S.C. (LFPDPPP).</p>
+        <p>Se recaban datos de identificación, contacto, domicilio y teléfono para la prestación de servicios jurídicos y representación.</p>
+        <p>Los derechos ARCO se ejercen por escrito en Av. Yucatán 56 o al 55 5564 5950.</p>
+        <p>Última actualización: 21 de julio de 2016.</p>
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

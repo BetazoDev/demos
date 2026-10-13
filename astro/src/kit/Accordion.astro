@@ -1,0 +1,21 @@
+---
+// Preguntas o listas desplegables con <details> nativo y apertura animada. Solo con contenido real del despacho.
+interface Props { items: { q: string; a: string }[]; class?: string }
+const { items, class: cls = "" } = Astro.props;
+---
+
+<div class:list={["divide-y divide-current/15 border-y border-current/15", cls]}>
+  {
+    items.map((it) => (
+      <details class="acc group">
+        <summary class="flex items-center justify-between gap-6 py-6 text-left text-[clamp(1.1rem,2vw,1.4rem)] font-medium tracking-[-0.01em]">
+          {it.q}
+          <span class="acc-plus grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+          </span>
+        </summary>
+        <div class="acc-body"><div><p class="max-w-[62ch] pb-7 text-[17px] opacity-75">{it.a}</p></div></div>
+      </details>
+    ))
+  }
+</div>

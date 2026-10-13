@@ -1,0 +1,21 @@
+---
+import Layout from "@/sites/abogadosemprendedores/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/abogadosemprendedores/site";
+import { areas } from "@/sites/abogadosemprendedores/data";
+
+const base = "/abogadosemprendedores";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout site={site} title="Servicios para emprendedores: empresa, marca y contratos | Abogados para Emprendedores MX" description="Constitución de empresa, registro de marca ante el IMPI, documentos que exige la ley, contratos de operación y póliza empresarial para emprendedores en la Ciudad de México." breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede="Constitución de empresa, protección de tu idea, documentos que exige la ley, operación de tu empresa y póliza empresarial." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="Cuéntanos tu proyecto" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

@@ -1,0 +1,14 @@
+---
+// Envuelve el layout del kit: todo recto (0px), nav de barra con el logo del despacho (versión para fondo oscuro).
+import SiteLayout from "@/kit/SiteLayout.astro";
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout {...rest} nav={nav ?? { variant: "bar", tone: "light", logoHeight: 60 }} footer={footer ?? { variant: "dark", blurb: "Soluciones legales. Resultados reales." }}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="garciaasociadoslaw"] { --c-radius-img: 0px; --c-radius-card: 0px; --c-radius-field: 0px; }
+  html[data-site="garciaasociadoslaw"] h1, html[data-site="garciaasociadoslaw"] h2, html[data-site="garciaasociadoslaw"] h3 { font-weight: 500; letter-spacing: 0.01em; }
+</style>

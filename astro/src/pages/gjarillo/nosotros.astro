@@ -1,0 +1,43 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Split from "@/kit/Split.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Skin from "@/sites/gjarillo/Skin.astro";
+import { site } from "@/sites/gjarillo/site";
+import { about, objective, corresponsales } from "@/sites/gjarillo/data";
+import carpeta from "@/sites/gjarillo/assets/carpeta-lentes.jpg";
+
+const base = "/gjarillo";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | Gerardo Jarillo y Abogados, bufete en la colonia Roma Sur, CDMX"
+  description="Bufete de abogados con residencia en la Ciudad de México y oficinas corresponsales en el Estado de México y León, Guanajuato. Tranquilidad y certeza jurídica."
+  nav={{ variant: "bar", tone: "light", logoHeight: 50 }}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <Skin />
+  <PageHero title="La firma" lede="Un bufete de abogados con alto nivel profesional y humano." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Split image={carpeta} alt="" ratio="4/5" position="50% 60%">
+        <p class="max-w-[46ch] text-xl leading-snug">{about}</p>
+        <h2 class="mt-12 text-[clamp(1.8rem,3.4vw,2.8rem)] leading-[1.05] tracking-[-0.02em]">Nuestro objetivo</h2>
+        <p class="mt-5 max-w-[46ch] text-lg text-(--c-muted)">{objective}</p>
+      </Split>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.02em]">Oficinas corresponsales</h2>
+      <ul data-stagger data-gap="90" class="mt-6 flex flex-wrap gap-x-14 gap-y-3 text-[clamp(2rem,5vw,4.4rem)] leading-[1.05] tracking-[-0.03em] [font-family:var(--f-display)]">
+        {corresponsales.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

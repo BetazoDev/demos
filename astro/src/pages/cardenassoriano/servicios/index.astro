@@ -1,0 +1,64 @@
+---
+import "@/sites/cardenassoriano/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/cardenassoriano/site";
+import { areas, otherLitigation, mediation, training } from "@/sites/cardenassoriano/data";
+
+const base = "/cardenassoriano";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const chip = "rounded-full border border-(--c-line) px-5 py-2.5 text-[15px]";
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios jurídicos | Cárdenas Soriano Abogados"
+  description="Veintidós especialidades en litigio, mediación certificada y formación jurídica: constitucional, administrativo, civil, mercantil, familiar y asesoría legislativa en Polanco, CDMX."
+  nav={{ variant: "pill", tone: "light" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Una ruta jurídica para cada controversia." lede="Veintidós especialidades en litigio, mediación certificada y formación jurídica." />
+
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em]">Litigio y consultoría</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em]">También en litigio y consultoría</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-10 gap-y-9 sm:grid-cols-2">
+        {otherLitigation.map((o) => (
+          <li>
+            <h3 class="text-xl font-medium tracking-[-0.01em]">{o.t}</h3>
+            <p class="mt-2 text-(--c-muted)">{o.d}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap grid gap-16">
+      {[mediation, training].map((g) => (
+        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div data-reveal>
+            <h2 class="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.025em]">{g.title}</h2>
+            <p class="mt-4 max-w-[36ch] text-lg text-(--c-muted)">{g.text}</p>
+          </div>
+          <ul data-stagger data-gap="45" class="flex flex-wrap content-start gap-3">
+            {g.items.map((i) => <li class={chip}>{i}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <CtaBand title="Empecemos por una llamada." href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</SiteLayout>

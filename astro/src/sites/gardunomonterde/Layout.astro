@@ -1,0 +1,29 @@
+---
+// Envoltorio de SiteLayout con los valores propios de este sitio y ajustes tipográficos de la serif display.
+import SiteLayout from "@/kit/SiteLayout.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number };
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string } | false;
+}
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout site={site} nav={{ variant: "pill", tone: "light", logoHeight: 42, ...nav }} footer={footer === false ? false : { variant: "dark", ...footer }} {...rest}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  [data-site="gardunomonterde"] :is(h1, h2, h3) { letter-spacing: -0.012em; font-weight: 500; }
+  [data-site="gardunomonterde"] [data-statement] { letter-spacing: -0.015em; }
+  /* El vidrio de la nav pasa sobre el bloque marino: más opaco para que el logo azul no pierda contraste */
+  [data-site="gardunomonterde"] [data-nav][data-variant="pill"][data-tone="light"] .nav-inner { background: color-mix(in oklab, var(--c-bg) 94%, transparent); }
+  /* Texto pequeño del kit con opacity-60: se sube para llegar a contraste AA */
+  [data-site="gardunomonterde"] main :is(.opacity-60, .opacity-65) { opacity: 0.78; }
+  /* Correos largos: sin partir palabras en pantallas angostas */
+  [data-site="gardunomonterde"] main a.break-all { word-break: normal; overflow-wrap: anywhere; font-size: clamp(0.85rem, 3.7vw, 1.0625rem); }
+</style>

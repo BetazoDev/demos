@@ -1,0 +1,35 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/icabogados/theme.css";
+import { site } from "@/sites/icabogados/site";
+import { article } from "@/sites/icabogados/article";
+
+const base = "/icabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const fmt = new Intl.DateTimeFormat("es-MX", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+---
+
+<SiteLayout site={site} title="Artículos | IC Abogados, cuándo y cómo consultar con un abogado" description="Artículos de Horacio Cuevas, de IC Abogados, sobre cuándo, por qué, dónde y cómo consultar con un abogado en México." nav={{ variant: "bar", tone: "dark", logoHeight: 52 }} breadcrumbs={[{ name: "Artículos", href: `${base}/articulos` }]} footer={{ variant: "dark" }}>
+  <PageHero title="Artículos" lede="Escritos por Horacio Cuevas." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <ul class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        <li>
+          <a href={`${base}/articulos/${article.key}`} class="group grid gap-3 py-9 md:grid-cols-[11rem_1fr_auto] md:items-start md:gap-10">
+            <time datetime={article.date} class="text-[15px] text-(--c-muted) md:pt-2">{fmt.format(new Date(article.date))}</time>
+            <div>
+              <h2 class="text-[clamp(1.6rem,2.8vw,2.4rem)] font-medium leading-[1.1]">{article.title}</h2>
+              <p class="mt-3 max-w-[56ch] text-lg text-(--c-muted)">{article.lede}</p>
+            </div>
+            <Icon name="arrow-up-right" weight="bold" class="hidden size-6 opacity-50 transition-[opacity,translate] duration-300 ease-(--ease-out) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 md:mt-2 md:block" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

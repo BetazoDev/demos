@@ -1,0 +1,99 @@
+---
+import Layout from "@/sites/abogadosdravi/Layout.astro";
+import Hero from "@/sites/abogadosdravi/Hero.astro";
+import AreaCards from "@/sites/abogadosdravi/AreaCards.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/abogadosdravi/site";
+import { areas, poliza, firma, resenas, photos } from "@/sites/abogadosdravi/data";
+
+const base = "/abogadosdravi";
+const cards = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.2vw,3.6rem)] font-normal leading-[1.06] tracking-[-0.03em]";
+const g = site.google!;
+---
+
+<Layout
+  site={site}
+  title="Abogados DRAVI | Despacho de abogados en la CDMX y Estado de México"
+  description="Abogados en la CDMX y Estado de México: derecho civil, familiar, laboral, administrativo y fiscal, mercantil, amparos y póliza jurídica de arrendamiento. Atención previa cita en Paseo de la Reforma."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  footer={{ variant: "dark" }}
+>
+  <Hero title="La ley es tu aliada, y nosotros somos el instrumento" lede="Soluciones jurídicas profesionales y personalizadas en la CDMX y el Estado de México." image={photos.heroOficina} imageAlt="Despacho con escritorio de madera, balanza de latón, lámpara encendida, una planta y una pared azul marino" position="55% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text="Trabajamos con madurez, honestidad y absoluta confidencialidad." class="!max-w-[22ch] !font-normal" /></div>
+  </Section>
+
+  <Section size="sm" class="!pt-0" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-10", h2]}>Servicios</h2>
+      <AreaCards areas={cards} />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/3] overflow-hidden rounded-(--c-radius-img) bg-(--c-bg)"><Pic src={poliza.image} alt={poliza.alt} class="size-full object-cover" /></div>
+      <div data-reveal data-delay="100">
+        <h2 class={h2}>{poliza.title}</h2>
+        <p class="mt-6 max-w-[48ch] text-lg leading-relaxed text-(--c-muted)">{poliza.libera}</p>
+        <p class="mt-4 max-w-[48ch] text-lg leading-relaxed text-(--c-muted)">No cobramos deducibles. No hay cargos extra dentro de la Ciudad de México.</p>
+        <div class="mt-9"><Button href={`${base}/servicios/poliza-de-arrendamiento`}>Conocer la póliza</Button></div>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div>
+        <p class="flex items-baseline gap-4"><span data-count={g.rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(4rem,9vw,7rem)] font-light leading-none tracking-[-0.04em] tabular-nums">{g.rating.toFixed(1)}</span></p>
+        <p class="mt-3 text-lg text-(--c-muted)">en Google, {g.reviews} reseñas</p>
+      </div>
+      <ul data-stagger data-gap="100" class="grid gap-10">
+        {resenas.map((r) => (
+          <li>
+            <blockquote class="text-[clamp(1.35rem,2.4vw,2rem)] leading-snug tracking-[-0.015em]">“{r.text}”</blockquote>
+            <p class="mt-3 text-[15px] text-(--c-muted)">{r.author}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class:list={["lg:sticky lg:top-28 lg:self-start", h2]}>Nuestra propuesta de valor</h2>
+      <div data-reveal data-delay="100" class="grid gap-6 text-lg leading-relaxed text-(--c-muted)">
+        <p class="text-[clamp(1.2rem,1.9vw,1.5rem)] leading-snug text-(--c-ink)">{firma.valor[2]}</p>
+        <p>{firma.valor[1]}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[1.5rem] border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...areas.map((a) => a.title), poliza.title]} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de tu caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

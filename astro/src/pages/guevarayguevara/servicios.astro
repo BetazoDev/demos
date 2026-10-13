@@ -1,0 +1,111 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import GNav from "@/sites/guevarayguevara/GNav.astro";
+import GFooter from "@/sites/guevarayguevara/GFooter.astro";
+import GButton from "@/sites/guevarayguevara/GButton.astro";
+import GPageHero from "@/sites/guevarayguevara/GPageHero.astro";
+import GCta from "@/sites/guevarayguevara/GCta.astro";
+import { site } from "@/sites/guevarayguevara/site";
+import { areas, photos } from "@/sites/guevarayguevara/data";
+
+const base = "/guevarayguevara";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const provider = { "@id": new URL(`${base}#organizacion`, Astro.site).href };
+const schema = areas.map((a) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: a.title,
+  description: [a.lead, a.detail].filter(Boolean).join(" "),
+  provider,
+  areaServed: { "@type": "Country", name: "México" },
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios | Guevara & Guevara Abogados, derecho bancario, mercantil y cobranza en CDMX"
+  description="Derecho bancario y empresarial, litigio civil y mercantil, cobranza judicial y extrajudicial, y litigio familiar, laboral, penal, administrativo y amparo. Bufete en la Narvarte, Ciudad de México."
+  nav={false}
+  footer={false}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={schema}
+>
+  <GNav slot="nav" site={site} />
+
+  <GPageHero title="Servicios" lede="Amplia y reconocida experiencia en derecho bancario, empresarial, civil, mercantil, penal, administrativo, laboral y amparo, para prestar servicios jurídicos integrales y de vanguardia." image={photos.fachada} imageAlt="Columnas y cornisa de una fachada neoclásica de piedra" position="70% 50%" />
+
+  <Section size="sm" class="pt-10 sm:pt-14">
+    <div class="wrap">
+      <div data-areas class="divide-y divide-(--c-line) border-y border-(--c-line)">
+        {
+          areas.map((a, i) => (
+            <details id={a.key} class="acc group scroll-mt-28" open={i === 0}>
+              <summary class="flex items-center justify-between gap-6 py-7 sm:py-9">
+                <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.6rem,3.4vw,2.9rem)] leading-[1.05] tracking-[-0.025em]">{a.title}</h2>
+                <span class="gplus grid size-12 shrink-0 place-items-center border border-current/25" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" fill="none" /></svg>
+                </span>
+              </summary>
+              <div class="acc-body">
+                <div>
+                  <div class="grid gap-8 pb-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+                    <div>
+                      <p class="max-w-[44ch] text-lg leading-relaxed">{a.lead}</p>
+                      {a.detail && <p class="mt-4 max-w-[44ch] text-lg leading-relaxed text-(--c-muted)">{a.detail}</p>}
+                      <div class="mt-8"><GButton href={`https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${a.title.toLowerCase()}.`)}`} external>Escribir por WhatsApp</GButton></div>
+                    </div>
+                    {a.items && (
+                      <ul class="grid content-start gap-x-10 gap-y-4 sm:grid-cols-2">
+                        {a.items.map((it) => (
+                          <li class="flex gap-3 text-[17px] leading-snug">
+                            <Icon name="check" weight="bold" class="mt-1 size-4 shrink-0 text-(--c-accent)" />
+                            <span>{it}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <p data-reveal class="max-w-[34ch] font-(family-name:--f-display) text-[clamp(1.6rem,3.2vw,2.8rem)] leading-[1.2] tracking-[-0.02em]">La práctica y los conocimientos que hemos obtenido con nuestros clientes nacionales y extranjeros nos permiten comprender la importancia que para ellos representa saberse plenamente asesorados y protegidos frente a las diversas contingencias que pudieran presentarse.</p>
+    </div>
+  </Section>
+
+  <GCta title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" />
+
+  <GFooter slot="footer" site={site} />
+</SiteLayout>
+
+<style is:global>
+  details.acc .gplus { transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease; }
+  details.acc .gplus svg { transition: rotate 260ms cubic-bezier(0.23, 1, 0.32, 1); }
+  details.acc[open] .gplus { background: var(--c-brand); color: var(--c-on-brand); border-color: var(--c-brand); }
+  details.acc[open] .gplus svg { rotate: 45deg; }
+  @media (hover: hover) { details.acc > summary:hover .gplus { border-color: currentColor; } details.acc[open] > summary:hover .gplus { border-color: var(--c-brand); } }
+</style>
+
+<script>
+  // Los enlaces #area de la página de inicio abren el área correspondiente.
+  const openFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      requestAnimationFrame(() => el.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+  };
+  document.addEventListener("astro:page-load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+</script>

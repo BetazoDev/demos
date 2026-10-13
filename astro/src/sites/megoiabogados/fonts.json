@@ -1,0 +1,4 @@
+[
+  { "name": "Unbounded", "cssVariable": "--f-megoiabogados-display", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Onest", "cssVariable": "--f-megoiabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

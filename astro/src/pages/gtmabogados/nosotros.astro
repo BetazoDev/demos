@@ -1,0 +1,75 @@
+---
+import "@/sites/gtmabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Figures from "@/sites/gtmabogados/Figures.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Footer from "@/sites/gtmabogados/Footer.astro";
+import { site } from "@/sites/gtmabogados/site";
+import { team, clients, legal } from "@/sites/gtmabogados/data";
+import escritorio from "@/sites/gtmabogados/assets/escritorio.jpg";
+
+const base = "/gtmabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const addr = site.addresses[0].text;
+const h2 = "text-[clamp(1.9rem,3.6vw,3rem)] font-medium leading-[1.05] tracking-[-0.03em]";
+---
+
+<SiteLayout
+  site={site}
+  title="La firma | GTM SC Abogados, despacho laboral y administrativo en la Ciudad de México"
+  description="Grupo de Trabajo Multidisciplinario, S. C., despacho de consultoría constituido en la Ciudad de México en 2001. Conozca a su fundador y a su equipo de abogados."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  footer={false}
+  breadcrumbs={[{ name: "La firma", href: `${base}/nosotros` }]}
+>
+  <PageHero title="La firma" lede="Despacho de consultoría legalmente constituido en la Ciudad de México en el año 2001." image={escritorio} imageAlt="Escritorio de nogal con lámpara de latón, carpetas de piel y una pluma fuente" />
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.55fr_1.45fr] lg:gap-16">
+      <h2 data-reveal class="text-2xl font-medium tracking-[-0.02em]">Quiénes somos</h2>
+      <p data-reveal data-delay="80" class="max-w-[62ch] text-lg leading-relaxed text-(--c-muted)">
+        {legal.razon}, es un despacho de consultoría legalmente constituido en la Ciudad de México, en el año {legal.constituida}, conforme a las Leyes mexicanas, con Registro Federal de Contribuyentes {legal.rfc}, cuyo domicilio fiscal es el ubicado en {addr}.
+      </p>
+    </div>
+    <div class="wrap mt-20 lg:mt-28">
+      <Figures />
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-14 ${h2}`}>Fundador y equipo multidisciplinario</h2>
+      <ul class="grid">
+        {
+          team.map((p) => (
+            <li data-reveal class="grid gap-4 border-t border-(--c-line) py-10 first:border-t-0 first:pt-0 md:grid-cols-[0.55fr_1.45fr] md:gap-16">
+              <div>
+                <h3 class="text-[clamp(1.5rem,2.4vw,2rem)] font-medium leading-tight tracking-[-0.02em]">{p.name}</h3>
+                <p class="mt-2 text-[15px] font-medium text-(--c-accent)">{p.role}</p>
+              </div>
+              <div>
+                <p class="max-w-[58ch] text-lg leading-relaxed text-(--c-muted)">{p.bio}</p>
+                <p class="mt-4 text-[15px] tabular-nums text-(--c-muted)">Cédula profesional {p.cedula}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid gap-8 lg:grid-cols-[0.55fr_1.45fr] lg:gap-16">
+      <h2 data-reveal class="text-2xl font-medium tracking-[-0.02em]">Nuestros clientes</h2>
+      <div>
+        <p data-reveal class="mb-8 max-w-[56ch] text-lg text-(--c-muted)">A lo largo de estos años hemos logrado ganarnos la confianza con base en los resultados que hemos obtenido para entidades y empresas.</p>
+        <ul data-stagger data-gap="60" class="grid gap-x-12 gap-y-6 text-lg leading-snug sm:grid-cols-2">
+          {clients.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} />
+</SiteLayout>

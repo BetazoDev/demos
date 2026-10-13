@@ -1,0 +1,31 @@
+---
+// Envoltorio de SiteLayout: nav de cápsula de vidrio, pie oscuro y un solo sistema de radios (24px).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number };
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string };
+}
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout site={site} nav={{ variant: "pill", tone: "dark", logoHeight: 52, ...nav }} footer={{ variant: "dark", blurb: "Te brindamos soluciones legales confiables y efectivas.", ...footer }} {...rest}>
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="gomezlunaabogados"] {
+    --c-radius-nav: 24px;
+    --c-radius-img: 24px;
+    --c-radius-card: 24px;
+    --c-radius-field: 14px;
+  }
+  [data-site="gomezlunaabogados"] :is(h1, h2, h3) { font-weight: 400; letter-spacing: -0.015em; }
+  [data-site="gomezlunaabogados"] [data-statement] { font-family: var(--f-display); font-weight: 400; letter-spacing: -0.015em; }
+  [data-site="gomezlunaabogados"] main :is(.opacity-60, .opacity-65, .opacity-70) { opacity: 0.82; }
+  [data-site="gomezlunaabogados"] footer a[aria-label] img { height: 64px !important; }
+</style>

@@ -1,0 +1,24 @@
+---
+// Opiniones de clientes de REVSA (las publicadas en su sitio y dos reseñas de Google con texto): una cita
+// destacada en bloque oscuro y cuatro más en superficie clara. Sin calificación.
+import type { Opinion } from "./data";
+interface Props { featured: Opinion; others: Opinion[]; class?: string }
+const { featured, others, class: cls = "" } = Astro.props;
+---
+
+<div class:list={["grid gap-5 lg:grid-cols-3", cls]}>
+  <figure data-reveal class="flex flex-col justify-between gap-12 rounded-(--c-radius-card,1.5rem) bg-(--c-dark) p-8 text-(--c-on-dark) sm:p-10 lg:row-span-2">
+    <blockquote class="font-(family-name:--f-display) text-[clamp(1.7rem,2.6vw,2.4rem)] leading-[1.18] tracking-[-0.02em]">“{featured.text}”</blockquote>
+    <figcaption class="text-[15px] text-(--c-on-dark)/70">{featured.author}</figcaption>
+  </figure>
+  <ul class="contents">
+    {
+      others.map((o, i) => (
+        <li data-reveal data-delay={(i + 1) * 90} class="flex flex-col justify-between gap-8 rounded-(--c-radius-card,1.5rem) bg-(--c-surface) p-7 sm:p-8">
+          <blockquote class="text-[17px] leading-relaxed">“{o.text}”</blockquote>
+          <p class="text-[15px] text-(--c-muted)">{o.author}{o.src === "google" ? ", reseña en Google" : ""}</p>
+        </li>
+      ))
+    }
+  </ul>
+</div>

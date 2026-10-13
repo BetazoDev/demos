@@ -1,0 +1,4 @@
+[
+  { "name": "Prata", "cssVariable": "--f-abogadosencdmx-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Albert Sans", "cssVariable": "--f-abogadosencdmx-body", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

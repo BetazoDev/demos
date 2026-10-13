@@ -1,0 +1,56 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Skin from "@/sites/lexonabogados/Skin.astro";
+import Blocks from "@/sites/lexonabogados/Blocks.astro";
+import { site } from "@/sites/lexonabogados/site";
+import { areas } from "@/sites/lexonabogados/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/lexonabogados";
+const related = areas.filter((a) => a.group === area.group && a.key !== area.key).slice(0, 5);
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: area.title,
+  description: area.lead,
+  provider: { "@id": `https://demos.diabolicalservices.tech/${site.slug}#organizacion` },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}];
+---
+
+<SiteLayout
+  site={site}
+  title={`${area.title} | Lexon Abogados, Ciudad de México`}
+  description={area.meta}
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  footer={{ variant: "light", blurb: "Abogados para la nueva realidad jurídica" }}
+  schema={schema}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}
+>
+  <Skin />
+  <PageHero title={area.title} lede={area.lead} transitionName={`area-${area.key}`} />
+  <Section size="sm" class="pt-6">
+    <div class="wrap"><Blocks blocks={area.blocks} /></div>
+  </Section>
+  {
+    related.length > 0 && (
+      <Section tone="surface" size="sm">
+        <div class="wrap">
+          <h2 data-reveal class="mb-8 text-[clamp(1.5rem,2.6vw,2.2rem)] leading-tight tracking-[-0.02em]">Otros servicios</h2>
+          <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+            {related.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex border border-(--c-line) bg-(--c-bg) px-5 py-3 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">{o.title}</a></li>)}
+            <li><a href={`${base}/servicios`} class="press inline-flex border border-(--c-ink)/30 px-5 py-3 text-[15px] hover:border-(--c-ink)">Ver todos los servicios</a></li>
+          </ul>
+        </div>
+      </Section>
+    )
+  }
+  <CtaBand title={area.group === "sanitario" ? "Contamos con planes de protección jurídica para su clínica o consultorio." : "Asesoría personalizada a través de WhatsApp, teléfono y correo electrónico."} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

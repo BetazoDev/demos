@@ -1,0 +1,23 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/litemabogados/site";
+import { areas } from "@/sites/litemabogados/data";
+
+const base = "/litemabogados";
+---
+
+<SiteLayout site={site} bodyClass="[--c-radius-img:12px] [--c-radius-card:12px] [--c-radius-field:12px]" title="Contacto | Lítem Abogados, Av. Homero 530, Polanco" description="Av. Homero 530, Polanco, Ciudad de México. Oficina 56 7122 5107, WhatsApp 56 1111 9017. Lunes a viernes de 9:00 a 19:00." nav={{ variant: "bar", tone: "light", logoHeight: 48 }} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}>
+  <PageHero title="Contacto" lede="Si necesita un servicio de emergencia, llame a la oficina o escriba al móvil." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

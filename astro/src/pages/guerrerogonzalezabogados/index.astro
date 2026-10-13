@@ -1,0 +1,85 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Split from "@/kit/Split.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/guerrerogonzalezabogados/Hero.astro";
+import Skin from "@/sites/guerrerogonzalezabogados/Skin.astro";
+import { site } from "@/sites/guerrerogonzalezabogados/site";
+import { areas, values, commitment } from "@/sites/guerrerogonzalezabogados/data";
+import hero from "@/sites/guerrerogonzalezabogados/assets/hero-torre.jpg";
+import pasillo from "@/sites/guerrerogonzalezabogados/assets/pasillo.jpg";
+import fachada from "@/sites/guerrerogonzalezabogados/assets/fachada.jpg";
+
+const base = "/guerrerogonzalezabogados";
+const tel = `tel:${site.phones[0].tel}`;
+---
+
+<SiteLayout
+  site={site}
+  title="Guerrero González Abogados | Abogados corporativos y mercantiles en la Roma Norte, CDMX"
+  nav={{ variant: "pill", tone: "dark", logoHeight: 46 }}
+  footer={{ variant: "dark", blurb: "Despacho de servicios legales integrales." }}
+>
+  <Skin />
+  <Hero title={values.join(", ")} lede="Despacho de servicios legales integrales en la Roma Norte, Ciudad de México." image={hero} imageAlt="" position="50% 35%">
+    <Fragment slot="actions">
+      <Button href={tel} variant="solid" size="lg">Llamar al 55 5564 5950</Button>
+      <Button href={`${base}/areas-de-practica`} variant="outline" size="lg">Ver áreas de práctica</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <p data-statement class="max-w-[22ch] text-[clamp(2.4rem,6vw,5.6rem)] font-semibold uppercase leading-[0.98] [font-family:var(--f-display)] sm:max-w-[26ch]">Hemos establecido sólidas relaciones con diversas firmas legales a lo largo del mundo.</p>
+      <p data-reveal class="mt-10 max-w-[52ch] text-lg text-(--c-muted)">Con ellas hemos realizado un gran número de transacciones internacionales, y contamos con una amplia red de despachos en todo el país.</p>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="areas">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.98]">Áreas de práctica</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-16 gap-y-5 sm:grid-cols-2">
+        {
+          areas.map((a) => (
+            <li>
+              <a href={`${base}/areas-de-practica#${a.key}`} class="group flex items-start justify-between gap-6 py-2">
+                <h3 class="max-w-[22ch] text-[clamp(1.7rem,3vw,2.7rem)] font-medium leading-[1.02] text-(--c-muted) transition-[color,transform] duration-300 ease-(--ease-out) group-hover:translate-x-1.5 group-hover:text-(--c-ink)">{a.title}</h3>
+                <Icon name="arrow-up-right" weight="bold" class="mt-2 size-6 shrink-0 text-(--c-accent)" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <ImageBand image={pasillo} alt="" position="50% 55%" height="clamp(18rem,44vw,31rem)" />
+
+  <Section>
+    <div class="wrap">
+      <Split image={fachada} alt="Fachada con balcones y reja de hierro en la colonia Roma Norte" ratio="4/5" position="30% 50%">
+        <h2 class="text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.98]">Nuestro compromiso</h2>
+        <p class="mt-8 max-w-[44ch] text-xl leading-snug">{commitment.lead}</p>
+        <p class="mt-5 max-w-[44ch] text-lg text-(--c-muted)">{commitment.rest}</p>
+        <div class="mt-9"><Button href={`${base}/despacho`} variant="outline">Conocer el despacho</Button></div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="brand" id="contacto" data-badge-avoid>
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(2.4rem,5vw,4.4rem)] font-semibold leading-[0.98]">Contacto</h2>
+      <a data-reveal data-delay="80" href={tel} class="link-u mt-6 block text-[clamp(3.6rem,12vw,11rem)] font-semibold leading-[0.9] tracking-tight [font-family:var(--f-display)]">55 5564 5950</a>
+      <div data-reveal data-delay="140" class="mt-12 grid gap-8 text-lg sm:grid-cols-2 lg:max-w-4xl">
+        <p class="flex gap-4"><Icon name="map-pin" class="mt-1 size-5 shrink-0" /><span>{site.addresses[0].text}</span></p>
+        <p class="flex gap-4"><Icon name="clock" class="mt-1 size-5 shrink-0" /><span>{site.hours}</span></p>
+      </div>
+      <div data-reveal data-delay="200" class="mt-10 flex flex-wrap gap-3">
+        <Button href={site.mapsUrl!} variant="light" external>Ver en el mapa</Button>
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

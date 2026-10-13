@@ -1,0 +1,80 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Split from "@/kit/Split.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/gjarillo/Hero.astro";
+import Skin from "@/sites/gjarillo/Skin.astro";
+import AreaTabs from "@/sites/gjarillo/AreaTabs.astro";
+import { site } from "@/sites/gjarillo/site";
+import { areas, objective, corresponsales } from "@/sites/gjarillo/data";
+import balanza from "@/sites/gjarillo/assets/balanza.jpg";
+import carpeta from "@/sites/gjarillo/assets/carpeta-lentes.jpg";
+
+const base = "/gjarillo";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="Gerardo Jarillo y Abogados | Abogados laboralistas, civiles y familiares en la Roma Sur, CDMX"
+  nav={{ variant: "bar", tone: "light", logoHeight: 50 }}
+  footer={{ variant: "dark", blurb: "Alto nivel profesional y humano." }}
+>
+  <Skin />
+  <Hero before="Alto nivel" after="profesional y humano" lede="Bufete de abogados con residencia en la Ciudad de México, para personas físicas y jurídicas." chip={balanza} strip={balanza} stripPosition="50% 58%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="brand">
+    <div class="wrap"><Statement text="Asesoría, capacitación y representación legal en los diferentes ámbitos del derecho." /></div>
+  </Section>
+
+  <Section id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.02] tracking-[-0.03em]">Servicios</h2>
+      <div data-reveal data-delay="80"><AreaTabs areas={areas} /></div>
+      <div data-reveal class="mt-10"><Button href={`${base}/servicios`} variant="outline">Ver servicios</Button></div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <Split image={carpeta} alt="" ratio="4/5" position="50% 60%">
+        <h2 class="text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.02] tracking-[-0.03em]">Nuestro objetivo</h2>
+        <p class="mt-8 max-w-[46ch] text-xl leading-snug">{objective}</p>
+        <div class="mt-9"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.4rem)] leading-tight tracking-[-0.02em]">Oficinas corresponsales</h2>
+      <ul data-stagger data-gap="90" class="mt-6 flex flex-wrap gap-x-14 gap-y-3 text-[clamp(2rem,5vw,4.4rem)] leading-[1.05] tracking-[-0.03em] [font-family:var(--f-display)]">
+        {corresponsales.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.02] tracking-[-0.03em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,12px) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

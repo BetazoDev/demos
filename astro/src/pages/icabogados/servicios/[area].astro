@@ -1,0 +1,49 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import "@/sites/icabogados/theme.css";
+import { site } from "@/sites/icabogados/site";
+import { areas } from "@/sites/icabogados/areas";
+
+export function getStaticPaths() {
+  return areas.filter((a) => a.key).map((a) => ({ params: { area: a.key! }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/icabogados";
+const withPage = areas.filter((a) => a.key);
+const others = withPage.filter((a) => a.key !== area.key);
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`)}`;
+const [lead, ...rest] = area.paragraphs;
+const schema = [{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: area.title,
+  description: area.seoDescription,
+  provider: { "@id": new URL(`/${site.slug}#organizacion`, Astro.site).href },
+  areaServed: [{ "@type": "City", name: "Ciudad de México" }, { "@type": "City", name: "Querétaro" }],
+}];
+---
+
+<SiteLayout site={site} title={area.seoTitle!} description={area.seoDescription} nav={{ variant: "bar", tone: "dark", logoHeight: 52 }} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]} schema={schema} footer={{ variant: "dark" }}>
+  <PageHero title={area.title} lede={lead} transitionName={`area-${area.key}`} />
+  {rest.length > 0 && (
+    <Section size="sm" class="pt-4">
+      <div class="wrap">
+        <div data-reveal class="grid max-w-[64ch] gap-6 text-xl leading-relaxed text-(--c-muted)">
+          {rest.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </Section>
+  )}
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-semibold leading-tight">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-(--c-radius) border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[15px] hover:border-(--c-accent)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

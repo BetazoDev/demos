@@ -1,0 +1,39 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Accordion from "@/kit/Accordion.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Footer from "@/sites/huertaabogados/Footer.astro";
+import { site } from "@/sites/huertaabogados/site";
+import { materias, servicios } from "@/sites/huertaabogados/data";
+
+const base = "/huertaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "text-[clamp(1.8rem,3.4vw,2.8rem)] leading-[1.08] tracking-[-0.02em]";
+---
+
+<SiteLayout site={site} title="Servicios | Huerta Abogados, derecho civil, familiar, laboral, mercantil y penal" description="Derecho civil, familiar, laboral, mercantil y penal, divorcio incausado, pensión alimenticia y arrendamiento inmobiliario en la Ciudad de México y el Estado de México." nav={{ variant: "bar", tone: "dark", logoHeight: 66 }} footer={false} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]} bodyClass="[--c-radius-img:6px] [--c-radius-card:6px] [--c-radius-field:6px]">
+  <PageHero title="Servicios" lede="Asesoría y representación jurídica integral en la Ciudad de México y el Estado de México." />
+  <Section size="sm" class="pt-8 sm:pt-12">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
+      <h2 data-reveal class={h2}>Materias</h2>
+      <ul data-stagger data-gap="70" class="grid gap-x-12 gap-y-9 sm:grid-cols-2">
+        {materias.map((m) => (
+          <li>
+            <span class="mb-4 block h-0.5 w-10 bg-(--c-brand)"></span>
+            <p class="font-(family-name:--f-display) text-[clamp(1.6rem,2.8vw,2.4rem)] leading-[1.1] tracking-[-0.02em]">{m}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
+      <h2 data-reveal class={h2}>Servicios específicos</h2>
+      <div data-reveal data-delay="100"><Accordion items={servicios.map((s) => ({ q: s.title, a: s.text }))} /></div>
+    </div>
+  </Section>
+  <CtaBand title="Agende su cita" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" />
+</SiteLayout>

@@ -1,0 +1,4 @@
+[
+  { "name": "Manrope", "cssVariable": "--f-lexonabogados-display", "weights": [500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Source Sans 3", "cssVariable": "--f-lexonabogados-body", "weights": [400, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

@@ -1,0 +1,25 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Footer from "@/sites/huertaabogados/Footer.astro";
+import { site } from "@/sites/huertaabogados/site";
+import { materias, abogado } from "@/sites/huertaabogados/data";
+
+const base = "/huertaabogados";
+---
+
+<SiteLayout site={site} title="Contacto | Huerta Abogados, Santa María la Ribera, CDMX" description="Huerta Abogados, calle Dr. Enrique González Martínez 13, Santa María la Ribera, Ciudad de México. WhatsApp 55 2900 4110 y correo yhuerta259@hotmail.com." nav={{ variant: "bar", tone: "dark", logoHeight: 66 }} footer={false} breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]} bodyClass="[--c-radius-img:6px] [--c-radius-card:6px] [--c-radius-field:6px]">
+  <PageHero title="Contacto" lede={`${abogado.name}, ${abogado.role.toLowerCase()}. Escríbanos por WhatsApp o por correo.`} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={[...materias, "Arrendamiento inmobiliario"]} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" />
+</SiteLayout>

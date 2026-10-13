@@ -1,0 +1,33 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import Nav from "@/sites/abogadoscej/Nav.astro";
+import Footer from "@/sites/abogadoscej/Footer.astro";
+import { site } from "@/sites/abogadoscej/site";
+
+const base = "/abogadoscej";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | Consultores & Estrategas Jurídicos"
+  description="Aviso de confidencialidad y aviso de privacidad de Consultores & Estrategas Jurídicos (CEJ), conforme a la LFPDPPP."
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} />
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        <p>Aviso de confidencialidad y aviso de privacidad conforme a la LFPDPPP, emitido por Consultores &amp; Estrategas Jurídicos (CEJ). Los derechos ARCO se ejercen por correo o teléfono.</p>
+        <p>Teléfonos: 55 6136 8648 y 55 8342 8098.</p>
+        <p>El texto completo del aviso está publicado en <a href="https://www.abogadoscej.com/p%C3%A1gina-en-blanco-2" target="_blank" rel="noopener">abogadoscej.com</a>.</p>
+      </Prose>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Dura lex, sed lex. Cumplimiento que protege. Estrategia que impulsa." />
+</SiteLayout>

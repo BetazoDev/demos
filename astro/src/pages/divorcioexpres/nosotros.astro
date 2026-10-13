@@ -1,0 +1,49 @@
+---
+import Layout from "@/sites/divorcioexpres/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import { site } from "@/sites/divorcioexpres/site";
+import mesa from "@/sites/divorcioexpres/assets/mesa-carpeta.jpg";
+
+const base = "/divorcioexpres";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const logra = [
+  "El pago de una pensión alimenticia, la guarda y custodia de sus hijos, y la entrega o reparto de los bienes que constituyan la sociedad conyugal, como casas, vehículos, cuentas bancarias, negocios o cualquier otro patrimonio.",
+  "Que pueda quedarse con la vivienda y los muebles que actualmente ocupa.",
+  "En matrimonios celebrados por separación de bienes, el pago de la compensación económica que le corresponde, que puede ser hasta de la mitad del patrimonio de su contraparte.",
+  "En otros casos, evitar el pago o el pago excesivo por concepto de alimentos, así como obtener la guarda y custodia, un régimen de visitas que se adecúe a sus necesidades y a las de los menores, y permisos para salidas al extranjero, entre otros.",
+];
+---
+
+<Layout
+  title="Quiénes somos | Divorcio Exprés, Abogados de lo Familiar"
+  description="Asesoría y representación jurídica de calidad en procesos judiciales de carácter familiar, en la Ciudad de México. Oficina a un costado de los Juzgados Familiares."
+  breadcrumbs={[{ name: "Quiénes somos", href: `${base}/nosotros` }]}
+>
+  <PageHero title="Quiénes somos" lede="Brindamos asesoría y representación jurídica de calidad a nuestros clientes, en un proceso judicial de carácter familiar." image={mesa} imageAlt="Mesa junto a una ventana con una carpeta cerrada, una pluma y un vaso de agua" />
+  <Section>
+    <div class="wrap"><Statement text="Estamos comprometidos a hacer una labor exhaustiva y profesional, con el único propósito de lograr resultados satisfactorios para nuestros clientes." /></div>
+  </Section>
+  <Section tone="surface">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <h2 data-reveal class="text-[clamp(1.8rem,3.4vw,2.8rem)] leading-[1.1] lg:sticky lg:top-28">Trabajaremos para lograr</h2>
+      <div>
+        <ul data-stagger data-gap="70" class="grid gap-6">
+          {
+            logra.map((t) => (
+              <li class="flex gap-4 text-lg leading-relaxed">
+                <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-accent)" />
+                <span>{t}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p data-reveal class="mt-12 max-w-[56ch] text-lg leading-relaxed text-(--c-muted)">Si ya tomó la decisión y tiene dudas de cómo iniciar el proceso, póngase en contacto con nosotros: recibirá una atención personalizada y de calidad. Le orientaremos para obtener una sentencia en los mejores términos y de acuerdo a sus necesidades.</p>
+      </div>
+    </div>
+  </Section>
+  <CtaBand title="Decídase de una vez a cambiar su vida" href={wa} label="Escribir por WhatsApp" tone="dark" external />
+</Layout>

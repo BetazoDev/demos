@@ -1,0 +1,19 @@
+---
+// Banda de foto a sangre que se amplía desde el centro al hacer scroll (firma de movimiento de GTM).
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { image: Img; alt?: string; position?: string }
+const { image, alt = "", position } = Astro.props;
+---
+
+<div class="gtm-grow bg-(--c-bg)" data-grow>
+  <div class="gtm-grow-frame relative isolate h-[clamp(20rem,64svh,42rem)] w-full overflow-hidden bg-(--c-dark)" data-grow-frame>
+    <div class="absolute inset-0 -z-10" data-parallax="40">
+      <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+    </div>
+  </div>
+</div>
+
+<script>
+  import "./grow";
+</script>

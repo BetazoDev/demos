@@ -1,0 +1,42 @@
+---
+// Pie de GTM (copia del kit): logo completo que se funde con la superficie y los datos legales que el despacho publica.
+import type { SiteConfig } from "@/kit/types";
+import Logo from "@/kit/Logo.astro";
+import Icon from "@/kit/Icon.astro";
+import fullLogo from "./assets/logo.png";
+import { legal } from "./data";
+
+interface Props { site: SiteConfig }
+const { site } = Astro.props;
+const base = `/${site.slug}`;
+const wa = site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}` : null;
+---
+
+<footer class="relative bg-(--c-surface) text-(--c-ink)">
+  <div class="wrap section-y-sm grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr]">
+    <div>
+      <a href={base} aria-label={`${site.name}, inicio`}><Logo src={fullLogo} alt={site.logo.alt ?? site.name} height={92} eager={false} class="gtm-multiply" /></a>
+      <p class="mt-6 max-w-sm text-[15px] text-(--c-muted)">{legal.razon} · RFC {legal.rfc}</p>
+    </div>
+    <nav aria-label="Sitio">
+      <ul class="grid gap-2.5 text-[15px]">
+        {site.nav.links.map((l) => <li><a href={l.href} class="link-u">{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <address class="grid gap-3 text-[15px] not-italic">
+      {site.addresses.map((a) => <p class="flex gap-3"><Icon name="map-pin" class="mt-1 size-[18px] shrink-0 text-(--c-accent)" /><span>{a.text}</span></p>)}
+      {site.phones.map((p) => <a href={`tel:${p.tel}`} class="flex gap-3 hover:text-(--c-accent)"><Icon name="phone" class="mt-1 size-[18px] shrink-0 text-(--c-accent)" /><span>{p.display}</span></a>)}
+      {wa && <a href={wa} target="_blank" rel="noopener" class="flex gap-3 hover:text-(--c-accent)"><Icon name="whatsapp-logo" class="mt-1 size-[18px] shrink-0 text-(--c-accent)" /><span>WhatsApp {site.whatsapp.display ?? ""}</span></a>}
+      {site.emails.map((m) => <a href={`mailto:${m}`} class="flex gap-3 break-all hover:text-(--c-accent)"><Icon name="envelope-simple" class="mt-1 size-[18px] shrink-0 text-(--c-accent)" /><span>{m}</span></a>)}
+    </address>
+  </div>
+  <div class="border-t border-(--c-line)">
+    <div class="wrap flex flex-col gap-2 py-5 text-sm text-(--c-muted) sm:flex-row sm:items-center sm:justify-between">
+      <p>© 2026 {site.name}</p>
+      <p class="whitespace-nowrap">
+        Desarrollado por
+        <a href="https://hemeron.com" target="_blank" rel="noopener" class="underline decoration-current/40 underline-offset-[3px] transition-opacity hover:opacity-70">hemeron.com</a>
+      </p>
+    </div>
+  </div>
+</footer>

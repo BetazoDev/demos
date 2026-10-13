@@ -1,0 +1,37 @@
+---
+import Layout from "@/sites/abogadosdravi/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import AreaCards from "@/sites/abogadosdravi/AreaCards.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import { site } from "@/sites/abogadosdravi/site";
+import { areas, poliza } from "@/sites/abogadosdravi/data";
+
+const base = "/abogadosdravi";
+const cards = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout
+  site={site}
+  title="Servicios | Abogados civiles, familiares, laborales y mercantiles en CDMX | Abogados DRAVI"
+  description="Derecho civil, familiar, laboral, administrativo y fiscal, mercantil, amparos, otros servicios jurídicos y póliza jurídica de arrendamiento en la CDMX y Estado de México."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios" lede="Ofrecemos una amplia gama de servicios legales diseñados para asesorar, gestionar y representar a nuestros clientes." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-4">
+      <AreaCards areas={cards} />
+      <a href={`${base}/servicios/poliza-de-arrendamiento`} class="dr-card group !bg-(--c-brand) !text-(--c-on-brand)" data-area={poliza.title}>
+        <h3 transition:name="area-poliza-de-arrendamiento" class="max-w-[22ch] text-[clamp(1.6rem,2.8vw,2.3rem)] font-normal leading-[1.1] tracking-[-0.02em]">{poliza.title}</h3>
+        <div class="flex items-end justify-between gap-6">
+          <p class="max-w-[52ch] text-[15px] opacity-85 sm:text-base">{poliza.lead}</p>
+          <span class="arr grid size-12 shrink-0 place-items-center border border-current/35"><Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+        </div>
+      </a>
+    </div>
+  </Section>
+  <CtaBand title="Cuéntanos tu caso" href={wa} label="Escribir por WhatsApp" tone="surface" external />
+</Layout>

@@ -1,0 +1,42 @@
+/* DRAVI: esquinas amplias de 20px en botones, imágenes y bloques. Todo va bajo [data-site]. */
+[data-site="abogadosdravi"] {
+  --c-radius: 20px;
+  --c-radius-img: 1.5rem;
+  --c-radius-card: 1.5rem;
+  --c-radius-field: 14px;
+  --c-radius-nav: 26px;
+}
+[data-site="abogadosdravi"] .arr,
+[data-site="abogadosdravi"] .acc-plus,
+[data-site="abogadosdravi"] .nav-link,
+[data-site="abogadosdravi"] [data-nav-toggle] { border-radius: 14px; }
+[data-site="abogadosdravi"] footer ul a[aria-label] { border-radius: 14px; }
+
+/* Héroe: texto a la izquierda, foto generada a sangre con la esquina izquierda en curva amplia */
+.dr-hero { position: relative; background: var(--c-bg); overflow: hidden; }
+.dr-grid { display: grid; min-height: 100svh; }
+@media (min-width: 1024px) { .dr-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); } }
+.dr-copy { display: flex; flex-direction: column; justify-content: center; padding: 9rem 1.25rem 2.5rem; }
+@media (min-width: 768px) { .dr-copy { padding-inline: 2.5rem; } }
+@media (min-width: 1024px) { .dr-copy { padding: 8rem 3rem 5rem max(2.5rem, calc((100vw - 76rem) / 2)); } }
+.dr-photo { position: relative; overflow: hidden; margin: 0 1.25rem 1.25rem; border-radius: 2rem; min-height: 24rem; background: var(--c-surface); }
+@media (min-width: 768px) { .dr-photo { margin-inline: 2.5rem; } }
+@media (min-width: 1024px) { .dr-photo { margin: 0; border-radius: 12rem 0 0 12rem; min-height: 100%; } }
+
+/* Tarjetas de materias: bloque lleno, el título viaja a su página; solo con puntero fino sube el fondo */
+.dr-card { display: flex; flex-direction: column; justify-content: space-between; gap: 2.5rem; min-height: 15rem; padding: 1.75rem; border-radius: 1.5rem; background: var(--c-surface); transition: background-color 250ms ease, transform 220ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .dr-card:hover { background: color-mix(in oklab, var(--c-surface) 82%, var(--c-ink)); } .dr-card:hover .arr { background: var(--c-accent); color: var(--c-on-accent); border-color: transparent; } }
+
+/* Póliza: selector Básica / Completa (sin JavaScript). Solo cambian opacity y transform. */
+.dr-toggle .dr-seg { position: relative; display: grid; max-width: 100%; grid-template-columns: 1fr 1fr; padding: 0.3rem; border-radius: 999px; background: var(--c-surface); border: 1px solid var(--c-line); }
+.dr-toggle .dr-seg label { position: relative; z-index: 1; cursor: pointer; padding: 0.7rem 1rem; text-align: center; font-weight: 600; font-size: 0.95rem; line-height: 1.2; border-radius: 999px; color: var(--c-muted); transition: color 200ms ease; }
+@media (min-width: 640px) { .dr-toggle .dr-seg { display: inline-grid; } .dr-toggle .dr-seg label { padding: 0.7rem 1.4rem; white-space: nowrap; } }
+.dr-toggle .dr-seg .dr-thumb { position: absolute; z-index: 0; top: 0.3rem; bottom: 0.3rem; left: 0.3rem; width: calc(50% - 0.3rem); border-radius: 999px; background: var(--c-brand); transition: transform 280ms var(--ease-out); }
+.dr-toggle:has(#m-basica:checked) label[for="m-basica"], .dr-toggle:has(#m-completa:checked) label[for="m-completa"] { color: var(--c-on-brand); }
+.dr-toggle:has(#m-completa:checked) .dr-thumb { transform: translateX(100%); }
+.dr-toggle:has(input:focus-visible) .dr-seg { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+.dr-toggle .dr-extra { opacity: 0.32; transform: translateX(10px); transition: opacity 260ms ease, transform 300ms var(--ease-out); }
+.dr-toggle:has(#m-completa:checked) .dr-extra { opacity: 1; transform: none; }
+.dr-toggle .dr-extra .dr-tag { transition: opacity 200ms ease; }
+.dr-toggle:has(#m-completa:checked) .dr-extra .dr-tag { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .dr-toggle .dr-thumb, .dr-toggle .dr-extra { transition: none; } }

@@ -1,0 +1,26 @@
+---
+// Personas con nombre y cargo publicados por el despacho. Con foto solo si es suya (sitio o perfil verificado).
+import type { Img } from "./types";
+import Pic from "./Pic.astro";
+interface Person { name: string; role?: string | null; bio?: string | null; photo?: Img | null }
+interface Props { people: Person[]; class?: string }
+const { people, class: cls = "" } = Astro.props;
+const withPhoto = people.some((p) => p.photo);
+---
+
+<ul data-stagger data-gap="80" class:list={["grid gap-x-6 gap-y-10", withPhoto ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3", cls]}>
+  {
+    people.map((p) => (
+      <li>
+        {p.photo && (
+          <div class="img-zoom aspect-[4/5] overflow-hidden rounded-(--c-radius-img,1.25rem) bg-current/5">
+            <Pic src={p.photo} alt={p.name} class="size-full object-cover" />
+          </div>
+        )}
+        <h3 class:list={["font-medium tracking-[-0.01em]", withPhoto ? "mt-4 text-xl" : "text-2xl"]}>{p.name}</h3>
+        {p.role && <p class="mt-1 text-[15px] opacity-65">{p.role}</p>}
+        {p.bio && !withPhoto && <p class="mt-3 max-w-[44ch] text-[15px] opacity-75">{p.bio}</p>}
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,35 @@
+---
+import "@/sites/calizsosaabogados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Nav from "@/sites/calizsosaabogados/Nav.astro";
+import Footer from "@/sites/calizsosaabogados/Footer.astro";
+import { site } from "@/sites/calizsosaabogados/site";
+import { areas } from "@/sites/calizsosaabogados/data";
+
+const base = "/calizsosaabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Caliz & Sosa Abogados"
+  description="Río Rhin 64, Despacho 204, colonia Cuauhtémoc, Ciudad de México. Lunes a viernes de 10 am a 6 pm. WhatsApp 56 4604 0415 y teléfono 55 5535 6991."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} variant="pill" tone="light" />
+  <PageHero title="Contacto" lede="Solicite una asesoría gratuita por WhatsApp, por teléfono o en nuestra oficina." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones legales confiables en derecho inmobiliario y derecho de familia." />
+</SiteLayout>

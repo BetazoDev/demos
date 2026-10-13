@@ -1,0 +1,84 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Footer from "@/sites/abogadosmartinez/Footer.astro";
+import { site } from "@/sites/abogadosmartinez/site";
+import { servicios } from "@/sites/abogadosmartinez/data";
+import llaves from "@/sites/abogadosmartinez/assets/llaves.jpg";
+import "@/sites/abogadosmartinez/theme.css";
+
+const base = "/abogadosmartinez";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const orgId = new URL(`${base}#organizacion`, Astro.site).href;
+const schema = servicios.map((s) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: s.title,
+  description: s.text,
+  provider: { "@id": orgId },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios de derecho familiar: divorcio, pensión, custodia y sucesiones | Abogados Martínez"
+  description="Divorcio administrativo, judicial y exprés, pensión alimenticia, guarda y custodia, patria potestad, paternidad, juicios sucesorios, interdicción, concubinato y más, en la Ciudad de México."
+  nav={{ variant: "pill", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={schema}
+  footer={false}
+>
+  <PageHero title="Servicios" lede="Solución de controversias en el seno de la familia, para resguardo y protección de los más desprotegidos." image={llaves} imageAlt="Una llave de latón y una casa recortada en papel azul junto a una libreta de piel sobre un escritorio de madera" />
+
+  <Section size="sm" class="pt-14 sm:pt-20">
+    <div class="wrap">
+      <div class="divide-y divide-current/15 border-y border-current/15">
+        {servicios.map((s, i) => (
+          <details id={s.key} class="acc group scroll-mt-28" open={i === 0}>
+            <summary class="flex items-center justify-between gap-6 py-6 text-left font-(family-name:--f-display) text-[clamp(1.4rem,2.6vw,2.2rem)] leading-tight">
+              {s.title}
+              <span class="acc-plus grid size-9 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+              </span>
+            </summary>
+            <div class="acc-body">
+              <div>
+                <div class="pb-9">
+                  <p class="max-w-[60ch] text-lg leading-relaxed text-(--c-muted)">{s.text}</p>
+                  {s.items && (
+                    <dl class="mt-6 grid max-w-[60ch] gap-5">
+                      {s.items.map((it) => (
+                        <div>
+                          <dt class="font-(family-name:--f-display) text-xl">{it.name}</dt>
+                          <dd class="mt-1 text-(--c-muted)">{it.text}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+                </div>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntanos tu caso" href={wa} label="Escribir por WhatsApp" tone="surface" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Somos un despacho diseñado para ayudar a proteger y salvaguardar tus intereses frente a otros." />
+</SiteLayout>
+
+<script>
+  // Un enlace con #servicio abre su acordeón.
+  function openFromHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const el = id ? document.getElementById(id) : null;
+    if (el instanceof HTMLDetailsElement) el.open = true;
+  }
+  document.addEventListener("astro:page-load", openFromHash);
+  window.addEventListener("hashchange", openFromHash);
+  openFromHash();
+</script>

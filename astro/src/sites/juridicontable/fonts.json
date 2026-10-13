@@ -1,0 +1,4 @@
+[
+  { "name": "Vidaloka", "cssVariable": "--f-juridicontable-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Jost", "cssVariable": "--f-juridicontable-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

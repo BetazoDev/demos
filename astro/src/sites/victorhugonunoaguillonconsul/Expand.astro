@@ -1,0 +1,56 @@
+---
+// Firma de movimiento: la banda de mármol crece de un bloque más estrecho a todo el ancho del contenido al llegar a ella (solo transform).
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { image: Img; alt?: string; position?: string }
+const { image, alt = "", position } = Astro.props;
+---
+
+<div data-expand-host class="wrap">
+  <div data-expand class="expand relative isolate overflow-hidden rounded-(--c-radius) bg-(--c-dark) text-(--c-on-dark)">
+    <div class="absolute inset-0 -z-10">
+      <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+      <div class="absolute inset-0 bg-[color-mix(in_oklab,var(--c-dark)_30%,transparent)]"></div>
+    </div>
+    <div class="relative flex min-h-[clamp(20rem,44vw,32rem)] items-end p-7 sm:p-12"><slot /></div>
+  </div>
+</div>
+
+<style is:global>
+  .expand { transform: scale(var(--x, 1)); transform-origin: center; will-change: transform; }
+</style>
+
+<script>
+  let off: (() => void) | null = null;
+  const init = () => {
+    off?.();
+    off = null;
+    const host = document.querySelector<HTMLElement>("[data-expand-host]");
+    const el = host?.querySelector<HTMLElement>("[data-expand]");
+    if (!host || !el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = host.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.45 + r.height * 0.6)));
+      el.style.setProperty("--x", (0.84 + 0.16 * p).toFixed(4));
+    };
+    const h = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", h, { passive: true });
+    window.addEventListener("resize", h);
+    update();
+    off = () => {
+      window.removeEventListener("scroll", h);
+      window.removeEventListener("resize", h);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  };
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    off?.();
+    off = null;
+  });
+</script>

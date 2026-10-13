@@ -1,0 +1,79 @@
+---
+import Layout from "@/sites/mendozaalvarez/Layout.astro";
+import Hero from "@/sites/mendozaalvarez/Hero.astro";
+import Tira from "@/sites/mendozaalvarez/Tira.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Filas from "@/sites/mendozaalvarez/Filas.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/mendozaalvarez/site";
+import { areas, photos, valores, texto } from "@/sites/mendozaalvarez/data";
+
+const base = "/mendozaalvarez";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: null, href: `${base}/servicios#${a.key}` }));
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-extrabold leading-[1] tracking-[-0.04em]";
+---
+
+<Layout site={site} title="Mendoza Álvarez Abogados | Asesoría legal en el Centro de la Ciudad de México">
+  <Hero lema={texto.lema} lede="Despacho legal en la Ciudad de México que brinda servicios y logra resultados que superan expectativas." image={photos.arcadas} imageAlt="Arcadas de cantera iluminadas con farolas al atardecer en el Centro Histórico de la Ciudad de México">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap grid items-end gap-12 lg:grid-cols-[1.45fr_0.55fr] lg:gap-16">
+      <div>
+        <Statement class="font-(family-name:--f-display) font-bold tracking-[-0.04em]" text="Asesoría de alta calidad mediante servicios que otorgan seguridad jurídica y un valor agregado a nuestros clientes." />
+        <p data-reveal class="mt-10 max-w-[52ch] text-lg text-(--c-muted)">{texto.especializado}</p>
+      </div>
+      <div data-reveal data-delay="100" class="lg:text-right">
+        <span data-count="+38" class="block font-(family-name:--f-display) text-[clamp(5.5rem,13vw,10.5rem)] font-extrabold leading-[0.9] tracking-[-0.06em] text-(--c-accent)">+38</span>
+        <span class="mt-3 block text-lg text-(--c-muted)">años de compromiso brindando asesoría</span>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-5 ${h2}`}>Servicios</h2>
+      <p data-reveal class="mb-12 max-w-[52ch] text-lg text-(--c-muted)">{texto.serviciosLede}</p>
+      <Filas areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={photos.contratos} alt="Documentos y una pluma fuente sobre una carpeta de piel azul marino bajo la luz de una lámpara" position="60% 70%" />
+
+  <Section>
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-6 ${h2}`}>Misión</h2>
+        <p class="max-w-[48ch] text-lg text-(--c-muted)">{texto.mision}</p>
+      </div>
+      <div data-reveal data-delay="100">
+        <h2 class={`mb-6 ${h2}`}>Visión</h2>
+        <p class="max-w-[48ch] text-lg text-(--c-muted)">{texto.vision}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Tira items={valores} />
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-5 ${h2}`}>Contáctanos</h2>
+        <p class="mb-10 max-w-[40ch] text-lg text-(--c-muted)">{texto.contactoLede}</p>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

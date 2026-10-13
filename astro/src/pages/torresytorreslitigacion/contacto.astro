@@ -1,0 +1,38 @@
+---
+import Layout from "@/sites/torresytorreslitigacion/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/torresytorreslitigacion/site";
+import { areas } from "@/sites/torresytorreslitigacion/data";
+
+const base = "/torresytorreslitigacion";
+---
+
+<Layout
+  site={site}
+  title="Contacto | Abogados penalistas en Verónica Anzures, CDMX | Grupo Roberto Torres & Torres"
+  description="Atención presencial con cita en Bahía de San Cristóbal 3, oficina 315, Verónica Anzures, Miguel Hidalgo, Ciudad de México. WhatsApp 55 2949 8057."
+  nav={{ variant: "bar", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="La atención presencial se realiza con cita para revisar el asunto con privacidad y preparación." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-md border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <h2 data-reveal class="text-[clamp(1.6rem,3vw,2.5rem)] leading-tight tracking-[-0.02em]">Atención personal en Miguel Hidalgo</h2>
+      <div data-reveal data-delay="100" class="grid gap-5 text-lg leading-relaxed text-(--c-muted)">
+        <p>La oficina se encuentra en la colonia Verónica Anzures. La atención presencial se realiza con cita para revisar el asunto con privacidad y preparación.</p>
+        <p>Desde esta ubicación se atienden asuntos de defensa penal, investigación, proceso penal, amparo, penal financiero y prevención corporativa en Ciudad de México.</p>
+      </div>
+    </div>
+  </Section>
+</Layout>

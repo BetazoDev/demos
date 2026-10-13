@@ -1,0 +1,78 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/fidemabogados/Hero.astro";
+import { site } from "@/sites/fidemabogados/site";
+import { tipos, definicion, indemnizacion, gastos, photos, waLink } from "@/sites/fidemabogados/data";
+
+const base = "/fidemabogados";
+const wa = waLink(site.whatsapp.intro + ".");
+---
+
+<SiteLayout site={site} title="Fidem Abogados | Derecho de daños y daño moral en la Roma Norte, CDMX" description="Despacho especializado en Derecho de Daños y daño moral en la Roma Norte, Ciudad de México. Abogamos por una justa indemnización; podemos hacernos cargo de los gastos necesarios del juicio." nav={{ variant: "pill", tone: "dark", logoHeight: 40 }} footer={{ variant: "dark" }}>
+  <Hero title="Abogamos por una justa indemnización" lede="Despacho especializado en Derecho de Daños. Defendemos a nuestros clientes frente a empresas de transportes, instituciones de gobierno y particulares." image={photos.hero} imageAlt="Cuenco de cerámica oscura reparado con vetas doradas de kintsugi sobre una superficie de pizarra">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
+      <Statement text="No deje que una limitación económica le impida ejercer su derecho a ser indemnizado de forma justa e integral." class="!max-w-[26ch] !text-[clamp(1.9rem,3.8vw,3.4rem)]" />
+      <div data-reveal data-delay="120" class="self-end">
+        <h2 class="text-[clamp(1.4rem,2.2vw,1.9rem)] font-medium leading-tight tracking-[-0.02em]">Gastos del juicio</h2>
+        <p class="mt-4 max-w-[46ch] text-lg text-(--c-muted)">{gastos}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal="clip" class="aspect-[4/3] overflow-hidden rounded-(--c-radius-img,0.75rem)"><Pic src={photos.lluvia} alt="Gotas de lluvia sobre una ventana con la ciudad desenfocada al atardecer" position="50% 50%" class="size-full object-cover" /></div>
+      <div data-reveal data-delay="100">
+        <h2 class="text-[clamp(2rem,4vw,3.4rem)] font-medium leading-[1.05] tracking-[-0.025em]">¿Qué es el daño moral?</h2>
+        <p class="mt-7 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">{definicion}</p>
+        <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">{indemnizacion}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 max-w-[18ch] text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.025em]">Tipos de daño que atendemos</h2>
+      <ul data-stagger data-gap="50" class="grid gap-x-16 gap-y-1 lg:grid-cols-2">
+        {tipos.map((t) => (
+          <li>
+            <a href={`${base}/servicios#${t.key}`} class="group flex items-center justify-between gap-6 py-4 text-[clamp(1.15rem,1.7vw,1.4rem)] leading-snug">
+              <span class="link-u">{t.title}</span>
+              <Icon name="arrow-up-right" weight="bold" class="size-5 shrink-0 opacity-40 transition-[opacity,transform] duration-300 group-hover:translate-x-0.5 group-hover:opacity-100" />
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal class="mt-12"><Button href={`${base}/servicios`} variant="outline">Ver todos los tipos de daño</Button></div>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] font-medium leading-[1.02] tracking-[-0.025em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-[0.75rem] border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={tipos.map((t) => t.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Agende su cita" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

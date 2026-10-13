@@ -1,0 +1,19 @@
+---
+// Logotipo recompuesto: el medallón vectorizado del logo y el nombre en Marcellus (el logo original está en baja resolución
+// y trae «desde 1963», que no se usa como dato). Dos variantes: oscuro sobre claro y claro sobre oscuro.
+import { Image } from "astro:assets";
+import mark from "./assets/mark.svg";
+import markLight from "./assets/mark-light.svg";
+interface Props { light?: boolean; height?: number; class?: string }
+const { light = false, height = 40, class: cls = "" } = Astro.props;
+const m = light ? markLight : mark;
+---
+
+<span class:list={["inline-flex items-center gap-3", cls]} style={`color:${light ? "var(--c-on-dark)" : "var(--c-ink)"}`}>
+  <img src={m.src} alt="" width={Math.round(height * (m.width / m.height))} height={height} style={`height:${height}px;width:auto;max-width:none`} />
+  <span class="grid leading-[1.02] tracking-[0.07em]" style={`font-family:var(--f-display);font-size:${Math.round(height * 0.37)}px`}>
+    <span>ABOGADOS</span>
+    <span>QUINTERO</span>
+  </span>
+  <span class="sr-only">Abogados Quintero</span>
+</span>

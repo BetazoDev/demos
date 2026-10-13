@@ -1,0 +1,109 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Nav from "@/sites/abogadoscej/Nav.astro";
+import Footer from "@/sites/abogadoscej/Footer.astro";
+import { site, waLink } from "@/sites/abogadoscej/site";
+import { areas, serviceSchema } from "@/sites/abogadoscej/data";
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { area: a.key }, props: { area: a } }));
+}
+const { area } = Astro.props;
+const base = "/abogadoscej";
+const others = areas.filter((a) => a.key !== area.key);
+const wa = waLink(`${site.whatsapp.intro} sobre ${area.title.toLowerCase()}.`);
+const h2 = "text-[clamp(1.7rem,3vw,2.5rem)] leading-tight tracking-[-0.01em]";
+---
+
+<SiteLayout
+  site={site}
+  title={`${area.title} | Consultores & Estrategas Jurídicos`}
+  description={area.summary}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: area.title, href: `${base}/servicios/${area.key}` }]}
+  schema={[serviceSchema(area, Astro.site)]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} />
+  <PageHero title={area.title} lede={area.lede} transitionName={`area-${area.key}`} image={area.photo} imageAlt={area.alt} />
+
+  <Section size="sm" class="pt-14 sm:pt-20">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <h2 data-reveal class={h2}>{area.itemsTitle}</h2>
+      <div>
+        <ul data-stagger data-gap="45" class="grid gap-x-12 gap-y-5 sm:grid-cols-2">
+          {area.items.map((i) => (
+            <li class="flex gap-3 text-lg">
+              <Icon name="check" weight="bold" class="mt-2 size-4 shrink-0 text-(--c-accent)" />
+              <span>{i}</span>
+            </li>
+          ))}
+        </ul>
+        {area.note && !area.plans && <p data-reveal class="mt-10 max-w-[52ch] text-lg text-(--c-muted)">{area.note}</p>}
+      </div>
+    </div>
+  </Section>
+
+  {
+    area.plans && (
+      <Section tone="surface" size="sm">
+        <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div data-reveal>
+            <h2 class={h2}>Planes jurídicos mensuales para empresas</h2>
+            {area.note && <p class="mt-5 max-w-[34ch] text-(--c-muted)">{area.note}</p>}
+          </div>
+          <ul data-stagger data-gap="90" class="divide-y divide-(--c-line) border-y border-(--c-line)">
+            {area.plans.map((p) => (
+              <li class="flex items-baseline justify-between gap-6 py-6">
+                <span class="text-[clamp(1.15rem,2vw,1.5rem)]">{p.name}</span>
+                <span class="text-right font-(family-name:--f-display) text-[clamp(1.7rem,3vw,2.6rem)] leading-none tracking-[-0.02em] text-(--c-accent)">{p.price}<span class="ml-2 block font-(family-name:--f-body) text-sm tracking-normal text-(--c-muted) sm:inline">MXN + IVA al mes</span></span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    )
+  }
+
+  {
+    area.more && (
+      <Section tone="surface" size="sm">
+        <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <h2 data-reveal class={h2}>{area.more.title}</h2>
+          <ul data-stagger data-gap="40" class="flex flex-wrap gap-3">
+            {area.more.items.map((i) => <li class="rounded-(--c-radius) border border-(--c-line) px-4 py-2.5 text-[15px]">{i}</li>)}
+          </ul>
+        </div>
+      </Section>
+    )
+  }
+
+  {
+    area.quote && (
+      <Section size="sm">
+        <div class="wrap">
+          <figure data-reveal class="max-w-[34ch]">
+            <blockquote class="font-(family-name:--f-display) text-[clamp(1.8rem,3.8vw,3.2rem)] leading-[1.12] tracking-[-0.01em]">“{area.quote.text}”</blockquote>
+            <figcaption class="mt-6 text-(--c-accent)">{area.quote.by}</figcaption>
+          </figure>
+        </div>
+      </Section>
+    )
+  }
+
+  <Section tone={area.more || area.plans ? "paper" : "surface"} size="sm">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-8 ${h2}`}>Otros servicios</h2>
+      <ul data-stagger data-gap="40" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-(--c-radius) border border-(--c-line) px-5 py-2.5 text-[15px] hover:border-(--c-accent) hover:text-(--c-accent)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Dura lex, sed lex. Cumplimiento que protege. Estrategia que impulsa." />
+</SiteLayout>

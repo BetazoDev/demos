@@ -1,0 +1,4 @@
+[
+  { "name": "Prata", "cssVariable": "--f-abogadoscej-display", "weights": [400], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Mulish", "cssVariable": "--f-abogadoscej-body", "weights": [300, 400, 500, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

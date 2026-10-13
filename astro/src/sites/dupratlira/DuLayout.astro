@@ -1,0 +1,34 @@
+---
+// Envoltorio de las páginas de Duprat Lira: nav rectilínea propia (DuNav) y variables de forma (todo recto, 0px).
+import SiteLayout from "@/kit/SiteLayout.astro";
+import DuNav from "./DuNav.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+}
+const { title, description, breadcrumbs, schema } = Astro.props;
+---
+
+<SiteLayout site={site} title={title} description={description} breadcrumbs={breadcrumbs} schema={schema} nav={false} footer={{ variant: "dark", blurb: "Despacho de abogados, especialistas en cada rama del derecho en la Ciudad de México." }}>
+  <DuNav slot="nav" site={site} variant="pill" tone="dark" logoHeight={40} />
+  <slot />
+</SiteLayout>
+
+<style is:global>
+  html[data-site="dupratlira"] {
+    --c-radius-nav: 0px;
+    --c-radius-img: 0px;
+    --c-radius-card: 0px;
+    --c-radius-field: 0px;
+    --du-gold: #b18d42;
+    --du-gold-hi: #e0c375;
+    --du-gold-ink: #7a5c1e;
+  }
+  html[data-site="dupratlira"] h1,
+  html[data-site="dupratlira"] h2,
+  html[data-site="dupratlira"] h3 { font-weight: 500; letter-spacing: -0.012em; }
+  html[data-site="dupratlira"] .rule { display: block; width: 3.5rem; height: 1px; background: var(--du-gold); }
+</style>

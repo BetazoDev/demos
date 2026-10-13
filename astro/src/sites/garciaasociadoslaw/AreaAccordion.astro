@@ -1,0 +1,26 @@
+---
+// Áreas como filas con acordeón nativo (<details>). El título lleva transition:name para morfar desde la home.
+interface Area { key: string; title: string; text?: string }
+interface Props { areas: Area[] }
+const { areas } = Astro.props;
+---
+
+<div class="divide-y divide-current/15 border-y border-current/15">
+  {areas.map((a) => (
+    a.text ? (
+      <details id={a.key} class="acc group scroll-mt-28">
+        <summary class="flex items-center justify-between gap-6 py-7 text-left">
+          <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.7rem,3.4vw,2.9rem)] leading-[1.1]">{a.title}</h2>
+          <span class="acc-plus grid size-10 shrink-0 place-items-center rounded-full border border-current/25" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" fill="none" /></svg>
+          </span>
+        </summary>
+        <div class="acc-body"><div><p class="max-w-[60ch] pb-8 text-lg leading-relaxed text-(--c-muted)">{a.text}</p></div></div>
+      </details>
+    ) : (
+      <div id={a.key} class="flex items-center justify-between gap-6 py-7 scroll-mt-28">
+        <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.7rem,3.4vw,2.9rem)] leading-[1.1]">{a.title}</h2>
+      </div>
+    )
+  ))}
+</div>

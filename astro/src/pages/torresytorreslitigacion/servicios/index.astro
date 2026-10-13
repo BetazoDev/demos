@@ -1,0 +1,32 @@
+---
+import Layout from "@/sites/torresytorreslitigacion/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/torresytorreslitigacion/site";
+import { areas, lineas } from "@/sites/torresytorreslitigacion/data";
+
+const base = "/torresytorreslitigacion";
+const rows = (g: string) => areas.filter((a) => a.group === g).map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<Layout
+  site={site}
+  title="Servicios | Defensa penal, amparo y compliance en CDMX | Grupo Roberto Torres & Torres"
+  description="Defensa penal, carpetas de investigación, proceso penal y juicios orales, amparo penal, penal financiero, compliance penal y Programa Centinela en Ciudad de México."
+  nav={{ variant: "bar", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <PageHero title="Servicios" lede="El despacho separa la atención penal urgente de la consultoría corporativa para responder con claridad a necesidades distintas." />
+  {lineas.map((l) => (
+    <Section size="sm" class="pt-4">
+      <div class="wrap">
+        <h2 data-reveal class="mb-8 text-[clamp(1.7rem,3vw,2.6rem)] leading-tight tracking-[-0.02em]">{l.title}</h2>
+        <AreasIndex areas={rows(l.key)} />
+      </div>
+    </Section>
+  ))}
+  <CtaBand title="Cuéntanos tu caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

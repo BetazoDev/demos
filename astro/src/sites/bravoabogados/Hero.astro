@@ -1,0 +1,23 @@
+---
+// Héroe propio: foto de su oficina a sangre con velo azul marino desde la izquierda y titular largo en serif ligera.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 50%" } = Astro.props;
+---
+
+<section class="relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-dark) text-(--c-on-dark)">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="size-full" data-parallax="60">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,color-mix(in_oklab,var(--c-dark)_94%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_82%,transparent)_42%,color-mix(in_oklab,var(--c-dark)_28%,transparent)_100%)] max-lg:bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_96%,transparent)_30%,color-mix(in_oklab,var(--c-dark)_60%,transparent)_100%)]"></div>
+  </div>
+  <div class="wrap pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="max-w-[19ch] text-[clamp(2.5rem,5.6vw,5.4rem)] font-light leading-[1.02] tracking-[-0.03em]">{title}</h1>
+    {lede && <p data-hero style="--i:1" class="mt-7 max-w-[44ch] text-lg opacity-90 sm:text-xl">{lede}</p>}
+    <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>

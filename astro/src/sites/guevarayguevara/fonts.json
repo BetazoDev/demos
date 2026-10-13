@@ -1,0 +1,4 @@
+[
+  { "name": "Old Standard TT", "cssVariable": "--f-guevarayguevara-display", "weights": [400, 700], "styles": ["normal", "italic"], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Source Sans 3", "cssVariable": "--f-guevarayguevara-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

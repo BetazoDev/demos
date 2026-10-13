@@ -1,0 +1,19 @@
+---
+// Cierre de página de CYCA: frase, un solo botón y los rombos de la marca girando al fondo.
+import Button from "@/kit/Button.astro";
+import mark from "./assets/mark.png";
+interface Props { title: string; href: string; label: string; external?: boolean }
+const { title, href, label, external = false } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-brand) text-(--c-on-brand) section-y">
+  <div aria-hidden="true" class="cy-mark pointer-events-none absolute right-[4%] top-1/2 -z-10 aspect-[520/378] w-[min(40rem,80vw)] -translate-y-1/2 text-white/[0.07]" data-spin style={`--m:url(${mark.src})`}></div>
+  <div class="wrap grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+    <div data-reveal>
+      <h2 class="max-w-[16ch] text-[clamp(2.4rem,5.6vw,5rem)] font-medium leading-[1] tracking-[-0.04em]">{title}</h2>
+    </div>
+    <div data-reveal data-delay="120">
+      <Button href={href} variant="light" size="lg" external={external}>{label}</Button>
+    </div>
+  </div>
+</section>

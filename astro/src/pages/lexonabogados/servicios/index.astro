@@ -1,0 +1,69 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import Skin from "@/sites/lexonabogados/Skin.astro";
+import { site } from "@/sites/lexonabogados/site";
+import { areas, groups } from "@/sites/lexonabogados/data";
+
+const base = "/lexonabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const sanitario = areas.filter((a) => a.group === "sanitario");
+const otros = groups.filter((g) => g.key !== "sanitario").map((g) => ({ g, a: areas.find((x) => x.group === g.key)! }));
+---
+
+<SiteLayout
+  site={site}
+  title="Servicios | Lexon Abogados, derecho sanitario y defensa penal del médico en CDMX"
+  description="Servicios de Lexon Abogados en Ciudad de México: defensa médico legal, COFEPRIS, avisos de funcionamiento y publicidad, contratos, registro de marca, cobro de cirugías, penal, familiar y civil."
+  nav={{ variant: "pill", tone: "light", logoHeight: 44 }}
+  footer={{ variant: "light", blurb: "Abogados para la nueva realidad jurídica" }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+>
+  <Skin />
+  <PageHero title="Servicios" lede={groups[0].lead} transitionName="servicios-title" />
+
+  <Section size="sm" class="pt-6">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(1.6rem,3vw,2.5rem)] leading-tight">{groups[0].title}</h2>
+      <ul data-stagger data-gap="50" class="grid gap-x-12 md:grid-cols-2">
+        {
+          sanitario.map((a) => (
+            <li class="border-t border-(--c-line)">
+              <a href={`${base}/servicios/${a.key}`} class="lx-row group grid grid-cols-[auto_1fr_auto] items-start gap-5 py-7">
+                <Icon name={a.icon} class="mt-1 size-7 text-(--lx-bronze)" />
+                <div class="min-w-0">
+                  <h3 transition:name={`area-${a.key}`} class="lx-rt text-[clamp(1.2rem,1.8vw,1.5rem)] font-medium leading-[1.2] tracking-[-0.02em]">{a.title}</h3>
+                  <p class="mt-2 max-w-[48ch] text-[16px] leading-relaxed text-(--c-muted)">{a.short}</p>
+                </div>
+                <span class="lx-rb mt-1 grid size-10 shrink-0 place-items-center border border-(--c-ink)/25"><Icon name="arrow-up-right" weight="bold" class="size-4" /></span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(1.6rem,3vw,2.5rem)] leading-tight">Juicios penales, familiares y civiles</h2>
+      <ul data-stagger data-gap="70" class="grid divide-y divide-(--c-line) border-y border-(--c-line)">
+        {
+          otros.map(({ g, a }) => (
+            <li>
+              <a href={`${base}/servicios/${a.key}`} class="lx-row group grid items-center gap-4 py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)_auto] md:gap-10">
+                <h3 transition:name={`area-${a.key}`} class="lx-rt text-[clamp(1.6rem,3vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.03em]">{a.title}</h3>
+                <p class="max-w-[52ch] text-[16px] leading-relaxed text-(--c-muted)">{a.short}</p>
+                <span class="lx-rb hidden size-12 place-items-center border border-(--c-ink)/25 md:grid"><Icon name="arrow-up-right" weight="bold" class="size-5" /></span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Contamos con planes de protección jurídica para su clínica o consultorio." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

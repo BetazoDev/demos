@@ -1,0 +1,18 @@
+---
+// Cabecera de páginas interiores de Duprat Lira: mármol azul marino con filete dorado, o papel. El título morfa desde la fila que lo enlazó.
+import Pic from "@/kit/Pic.astro";
+import marble from "./assets/marmol.jpg";
+interface Props { title: string; lede?: string; transitionName?: string; tone?: "marble" | "paper" }
+const { title, lede, transitionName, tone = "marble" } = Astro.props;
+const dark = tone === "marble";
+---
+
+<section class:list={["relative isolate overflow-hidden pb-14 pt-36 sm:pb-20 sm:pt-44", dark ? "bg-(--c-dark) text-(--c-on-dark)" : "bg-(--c-bg) text-(--c-ink)"]}>
+  {dark && <div aria-hidden="true" class="absolute inset-0 -z-10"><Pic src={marble} alt="" priority class="size-full object-cover" /><div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(14_28_44/0.78),rgb(14_28_44/0.2)_80%)]"></div></div>}
+  <div class="wrap">
+    <span data-hero class:list={["rule mb-8", dark && "!bg-(--du-gold-hi)"]}></span>
+    <h1 data-hero="blur" style="--i:1" transition:name={transitionName} class="max-w-[20ch] text-[clamp(2.4rem,5.2vw,4.8rem)] leading-[1.06]">{title}</h1>
+    {lede && <p data-hero style="--i:2" class:list={["mt-6 max-w-[56ch] text-lg sm:text-xl", dark ? "text-white/80" : "text-(--c-muted)"]}>{lede}</p>}
+    <slot />
+  </div>
+</section>

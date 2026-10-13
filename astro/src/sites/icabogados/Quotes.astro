@@ -1,0 +1,20 @@
+---
+// Calificación de Google y las reseñas con texto que hay publicadas (hay solo dos visibles).
+interface Props { rating: number; count: number; quotes: { text: string; author: string; when?: string; lang?: string }[] }
+const { rating, count, quotes } = Astro.props;
+---
+
+<div>
+  <p class="flex items-baseline gap-4">
+    <span data-count={rating.toFixed(1)} class="font-(family-name:--f-display) text-[clamp(3.5rem,8vw,6.5rem)] font-semibold leading-none tabular-nums">{rating.toFixed(1)}</span>
+    <span class="text-lg opacity-75">en Google, {count} reseñas</span>
+  </p>
+  <ul data-stagger data-gap="100" class="mt-10 grid gap-5 md:grid-cols-2">
+    {quotes.map((q) => (
+      <li class="flex flex-col justify-between gap-8 rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-7 sm:p-9">
+        <blockquote lang={q.lang} class="text-lg leading-snug sm:text-xl">“{q.text}”</blockquote>
+        <p class="text-[15px] opacity-65">{q.author}{q.when ? `, ${q.when}` : ""}</p>
+      </li>
+    ))}
+  </ul>
+</div>

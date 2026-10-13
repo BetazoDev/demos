@@ -1,0 +1,24 @@
+---
+// Héroe propio: titular a la izquierda y panel de foto a sangre que se disuelve en el azul de la página.
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+const mask = "linear-gradient(to right, transparent 0%, #000 38%)";
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap relative z-10 flex min-h-[100svh] flex-col justify-center pb-12 pt-36 lg:pb-16">
+    <div class="lg:max-w-[64%]">
+      <h1 data-hero="blur" class="text-[clamp(2.2rem,3.9vw,4rem)] leading-[1.08]">{title}</h1>
+      <p data-hero style="--i:1" class="mt-7 max-w-[44ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3"><slot name="actions" /></div>
+    </div>
+    <div class="relative mt-12 aspect-[4/5] w-full max-w-[26rem] overflow-hidden lg:hidden" aria-hidden="true">
+      <div data-hero-media style="--d:300ms" class="size-full"><Pic src={image} alt="" position={position} class="size-full object-cover" /></div>
+    </div>
+  </div>
+  <div class="absolute inset-y-0 right-0 hidden w-[50%] lg:block" style={`-webkit-mask-image:${mask};mask-image:${mask}`}>
+    <div data-hero-media style="--d:250ms" class="size-full"><Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" /></div>
+  </div>
+</section>

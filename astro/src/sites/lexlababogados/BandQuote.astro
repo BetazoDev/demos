@@ -1,0 +1,15 @@
+---
+// Banda de foto a sangre con parallax y una frase real encima, sobre degradado para asegurar la lectura.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { image: Img; alt?: string; position?: string; height?: string }
+const { image, alt = "", position, height = "clamp(24rem,60vw,40rem)" } = Astro.props;
+---
+
+<div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)" style={`height:${height}`}>
+  <div class="absolute inset-0 -z-10" data-parallax="60">
+    <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+  </div>
+  <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_88%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_45%,transparent)_45%,transparent_100%)]"></div>
+  <div class="wrap flex h-full items-end pb-10 sm:pb-14"><slot /></div>
+</div>

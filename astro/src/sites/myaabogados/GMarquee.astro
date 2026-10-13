@@ -1,0 +1,23 @@
+---
+// Tira de nombres (una sola por página). Los nombres también van en una lista solo para lectores de pantalla.
+interface Props { items: string[]; speed?: number; class?: string }
+const { items, speed = 70, class: cls = "" } = Astro.props;
+---
+
+<div class:list={["overflow-hidden", cls]}>
+  <ul class="sr-only">{items.map((it) => <li>{it}</li>)}</ul>
+  <div class="marquee" style={`--marquee-s:${speed}s`} aria-hidden="true">
+    {
+      [0, 1].map(() => (
+        <ul class="flex shrink-0 items-center">
+          {items.map((it) => (
+            <li class="flex items-center whitespace-nowrap font-(family-name:--f-display) text-[clamp(1.5rem,2.6vw,2.3rem)] leading-none tracking-[-0.005em]">
+              <span class="px-9">{it}</span>
+              <span class="h-[1.1em] w-px bg-current/25"></span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>

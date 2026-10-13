@@ -1,0 +1,4 @@
+[
+  { "name": "Geologica", "cssVariable": "--f-sternaabogados-display", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] },
+  { "name": "Funnel Sans", "cssVariable": "--f-sternaabogados-body", "weights": [400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

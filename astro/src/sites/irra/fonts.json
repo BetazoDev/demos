@@ -1,0 +1,4 @@
+[
+  { "name": "Schibsted Grotesk", "cssVariable": "--f-irra-display", "weights": [500, 600, 700, 800], "fallbacks": ["Arial", "sans-serif"] },
+  { "name": "Libre Franklin", "cssVariable": "--f-irra-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

@@ -1,0 +1,66 @@
+---
+import "@/sites/ulvyn/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Pic from "@/kit/Pic.astro";
+import Icon from "@/kit/Icon.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site, waLink } from "@/sites/ulvyn/site";
+import { director, mision, valores } from "@/sites/ulvyn/data";
+import german from "@/sites/ulvyn/assets/german.jpg";
+import angel from "@/sites/ulvyn/assets/angel.jpg";
+
+const base = "/ulvyn";
+const h2 = "text-[clamp(1.6rem,2.8vw,2.3rem)] font-semibold leading-tight tracking-[-0.035em]";
+---
+
+<SiteLayout
+  site={site}
+  title="Nosotros | ULVYN Abogados Digitales en IA"
+  description="Despacho de abogados en inteligencia artificial y tecnologías disruptivas con sede en Ciudad de México y cobertura en toda la República. Dirige Germán Martínez Saldaña."
+  nav={{ variant: "bar", tone: "light", logoHeight: 38 }}
+  footer={{ variant: "dark", blurb: "Human-AI Interaction Law" }}
+  breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}
+>
+  <PageHero title="Nosotros" lede="Despacho de abogados en inteligencia artificial y tecnologías disruptivas, con sede en Ciudad de México y cobertura en toda la República." />
+
+  <Section size="sm" class="pt-8">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal="clip" class="mx-auto aspect-square w-full max-w-[28rem] overflow-hidden rounded-(--c-radius-img) lg:mx-0">
+        <Pic src={german} alt="Retrato de Germán Martínez Saldaña, director de ULVYN" position="50% 20%" class="size-full object-cover" />
+      </div>
+      <div data-reveal data-delay="100">
+        <h2 class="text-[clamp(2rem,4vw,3.4rem)] font-semibold leading-[1.04] tracking-[-0.04em]">{director.name}</h2>
+        <p class="mt-3 text-lg text-(--c-muted)">{director.role}</p>
+        <p class="mt-8 max-w-[52ch] text-xl leading-relaxed">{director.bio}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <h2 data-reveal class={h2}>Misión</h2>
+      <p data-reveal data-delay="80" class="max-w-[36ch] text-[clamp(1.4rem,2.6vw,2.2rem)] font-medium leading-[1.2] tracking-[-0.03em]">{mision}</p>
+    </div>
+  </Section>
+
+  <div class="relative isolate h-[clamp(14rem,36vw,30rem)] overflow-hidden bg-(--c-dark)">
+    <div class="absolute inset-0 -z-10" data-parallax="50"><Pic src={angel} alt="Ilustración del Ángel de la Independencia de noche, con drones, un mazo y una balanza luminosa" position="50% 55%" class="size-full object-cover" /></div>
+  </div>
+
+  <Section>
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <h2 data-reveal class={h2}>Valores</h2>
+      <ul data-stagger data-gap="60" class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+        {valores.map((v) => (
+          <li class="flex gap-4 rounded-(--c-radius-card) border border-(--c-line) bg-(--c-bg) p-6 text-lg font-medium">
+            <Icon name="check-circle" class="mt-0.5 size-6 shrink-0 text-(--c-brand)" />{v}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Agende la consultoría" href={waLink()} label="Escribir por WhatsApp" tone="dark" external />
+</SiteLayout>

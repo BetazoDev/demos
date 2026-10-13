@@ -1,0 +1,73 @@
+---
+import Layout from "@/sites/gomezlunaabogados/Layout.astro";
+import Hero from "@/sites/gomezlunaabogados/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/sites/gomezlunaabogados/Indice.astro";
+import Pic from "@/kit/Pic.astro";
+import Split from "@/kit/Split.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/gomezlunaabogados/site";
+import { areas, photos, texto } from "@/sites/gomezlunaabogados/data";
+
+const base = "/gomezlunaabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: null, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.04]";
+---
+
+<Layout title="Gómez Luna Abogados SC | Abogados en Anzures, Ciudad de México">
+  <Hero title="¡La nueva cara del mundo jurídico!" lede={texto.lede} image={photos.estatua} imageAlt="Estatua de la justicia con balanza sobre un fondo azul oscuro" position="72% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text={texto.estatico} class="max-w-[30ch] sm:max-w-[36ch]" /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 ${h2}`}>Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark) text-(--c-on-dark)" style="height:clamp(22rem,44vw,32rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={photos.libros} alt="Libros jurídicos y una balanza dorada" position="50% 50%" class="size-full object-cover" /></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-dark)_88%,transparent)_0%,color-mix(in_oklab,var(--c-dark)_45%,transparent)_60%,color-mix(in_oklab,var(--c-dark)_25%,transparent)_100%)]"></div>
+    <div class="wrap flex h-full items-end pb-10 sm:pb-14">
+      <p data-reveal class="max-w-[22ch] text-[clamp(1.9rem,4.2vw,3.7rem)] leading-[1.08]" style="font-family:var(--f-display)">{texto.importante}</p>
+    </div>
+  </div>
+
+  <Section>
+    <div class="wrap">
+      <Split image={photos.mazo} alt="Mazo de juez, libro abierto y balanza sobre un escritorio de madera" ratio="4/3" position="55% 55%">
+        <p data-count="2017" class="text-[clamp(4.5rem,11vw,9rem)] leading-[0.9] tracking-[-0.03em] text-(--c-accent) tabular-nums" style="font-family:var(--f-display)">2017</p>
+        <p class="mt-3 text-lg text-(--c-muted)">año de fundación de la firma</p>
+        <p class="mt-9 max-w-[48ch] text-lg leading-relaxed">{texto.acerca[0]}</p>
+        <div class="mt-9"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,24px) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" text={texto.construimos} href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

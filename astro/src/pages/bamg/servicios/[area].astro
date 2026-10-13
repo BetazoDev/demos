@@ -1,0 +1,62 @@
+---
+import "@/sites/bamg/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Urgent from "@/sites/bamg/Urgent.astro";
+import { site } from "@/sites/bamg/site";
+import { groups } from "@/sites/bamg/data";
+
+export function getStaticPaths() {
+  return groups.map((g) => ({ params: { area: g.key }, props: { group: g } }));
+}
+const { group } = Astro.props;
+const base = "/bamg";
+const others = groups.filter((g) => g.key !== group.key);
+const org = new URL(`/${site.slug}#organizacion`, Astro.site).href;
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${group.title.toLowerCase()}.`)}`;
+const showUrgent = ["visas-mexicanas", "litigio-migratorio"].includes(group.key);
+const schema = [{ "@context": "https://schema.org", "@type": "Service", name: group.title, description: group.lede, provider: { "@id": org }, areaServed: { "@type": "City", name: "Ciudad de México" } }];
+---
+
+<SiteLayout
+  site={site}
+  title={`${group.title} | Abogados migratorios en Ciudad de México | BAM-G`}
+  description={group.lede}
+  nav={{ variant: "pill", tone: "light", logoHeight: 40 }}
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }, { name: group.title, href: `${base}/servicios/${group.key}` }]}
+  schema={schema}
+>
+  <PageHero title={group.title} lede={group.lede} transitionName={`area-${group.key}`} />
+
+  {
+    group.blocks.map((b) => (
+      <Section size="sm" class="pt-4">
+        <div class="wrap">
+          {b.title && <h2 data-reveal class="mb-10 max-w-[24ch] text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight">{b.title}</h2>}
+          <ul data-stagger data-gap="60" class="grid gap-x-14 gap-y-10 md:grid-cols-2">
+            {b.items.map((i) => (
+              <li class="border-l-2 border-(--c-brand) pl-6">
+                <h3 class="text-[clamp(1.25rem,2vw,1.6rem)] font-medium leading-snug">{i.t}</h3>
+                {i.d && <p class="mt-3 max-w-[56ch] text-(--c-muted)">{i.d}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    ))
+  }
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <h2 data-reveal class="mb-8 text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight">Otros servicios</h2>
+      <ul data-stagger data-gap="45" class="flex flex-wrap gap-3">
+        {others.map((o) => <li><a href={`${base}/servicios/${o.key}`} class="press inline-flex rounded-[6px] border border-(--c-line) bg-(--c-bg) px-5 py-2.5 text-[15px] hover:border-(--c-brand)">{o.title}</a></li>)}
+      </ul>
+    </div>
+  </Section>
+
+  {showUrgent && <Urgent />}
+  <CtaBand title="Todas tus opciones migratorias" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

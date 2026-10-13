@@ -1,0 +1,112 @@
+---
+import "@/sites/megoiabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Pic from "@/kit/Pic.astro";
+import Hero from "@/sites/megoiabogados/Hero.astro";
+import Composer from "@/sites/megoiabogados/Composer.astro";
+import Footer from "@/sites/megoiabogados/Footer.astro";
+import { site } from "@/sites/megoiabogados/site";
+import { areas, pillars } from "@/sites/megoiabogados/data";
+import oficina from "@/sites/megoiabogados/assets/oficina.jpg";
+import puerta from "@/sites/megoiabogados/assets/puerta.jpg";
+
+const base = "/megoiabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}.`;
+const h2 = "font-(family-name:--f-display) text-[clamp(1.7rem,3.2vw,2.8rem)] font-medium leading-[1.1] tracking-[-0.035em]";
+---
+
+<SiteLayout site={site} title="Megoi Abogados Asociados | Asesoría y representación jurídica en la Ciudad de México" nav={{ variant: "pill", tone: "light", logoHeight: 52 }} footer={false}>
+  <Hero title="Profesionalismo a tu alcance." lede="Firma que brinda servicios de asesoría y representación jurídica en la Ciudad de México." image={oficina} imageAlt="Escritorio de oficina con una pila de documentos y una carpeta azul junto a una ventana con persianas azules" position="45% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} variant="light" size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap">
+      <p data-statement class="max-w-[19ch] font-(family-name:--f-display) text-[clamp(1.9rem,4.3vw,3.9rem)] font-medium leading-[1.12] tracking-[-0.04em]">Ponemos la justicia al alcance de todos.</p>
+      <p data-reveal class="mt-10 max-w-[56ch] text-lg leading-relaxed text-(--c-muted) sm:text-xl">Firma de abogados comprometidos con la sociedad, que basa su trabajo en principios éticos: honradez, respeto, profesionalismo y confianza.</p>
+    </div>
+  </Section>
+
+  <Section id="servicios" class="!pt-0">
+    <div class="wrap">
+      <h2 data-reveal class={`mb-12 lg:mb-16 ${h2}`}>Áreas de experiencia</h2>
+      <ol data-stack class="mgo-stack">
+        {
+          areas.map((a, i) => (
+            <li style={`--i:${i}`}>
+              <a href={`${base}/contacto?area=${encodeURIComponent(a.title)}`} aria-label={`Consultar sobre ${a.title.toLowerCase()}`} class="mgo-card group flex min-h-[20rem] flex-col rounded-(--c-radius) bg-(--c-brand) px-6 pb-7 pt-4 text-(--c-on-brand) sm:px-9 lg:min-h-[22rem] lg:px-12 lg:pb-10">
+                <div class="flex h-[3.5rem] items-center justify-between gap-4 lg:h-[3.5rem]">
+                  <h3 class="mgo-body text-[clamp(1.2rem,1.9vw,1.6rem)] font-medium leading-tight tracking-[-0.01em]">{a.title}</h3>
+                  <span class="mgo-go grid size-9 shrink-0 place-items-center rounded-full border border-white/35">
+                    <Icon name="arrow-up-right" weight="bold" class="size-4" />
+                  </span>
+                </div>
+                <div class="mt-6 grid flex-1 gap-8 lg:mt-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
+                  <p class="max-w-[40ch] text-xl leading-relaxed text-white/90 lg:text-2xl lg:leading-snug">{a.text}</p>
+                  <Icon name={a.icon} weight="light" class="size-20 self-end text-(--c-accent) lg:ml-auto lg:size-28" />
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+      <div data-reveal class="mt-4"><Button href={`${base}/servicios`} variant="outline">Ver servicios</Button></div>
+    </div>
+  </Section>
+
+  <div class="relative isolate flex h-[clamp(22rem,56vw,36rem)] items-end overflow-hidden bg-(--c-dark) text-white">
+    <div class="absolute inset-0 -z-10" data-parallax="60"><Pic src={puerta} alt="Puerta de madera entreabierta en un pasillo de piedra con paredes azules" position="55% 50%" class="size-full object-cover" /></div>
+    <div class="mgo-veil absolute inset-0 -z-10"></div>
+    <div class="wrap pb-10 sm:pb-14">
+      <p data-reveal class="font-(family-name:--f-display) text-[clamp(1.6rem,3.8vw,3.4rem)] font-medium leading-[1.1] tracking-[-0.035em]">Nemo inauditus condemnetur</p>
+    </div>
+  </div>
+
+  <Section>
+    <div class="wrap grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+      <div>
+        <h2 data-reveal class={h2}>Nuestra experiencia nos respalda</h2>
+        <p class="mt-12 font-(family-name:--f-display) text-[clamp(4rem,9vw,8rem)] font-medium leading-[0.9] tracking-[-0.05em]"><span data-count="+10">+10</span></p>
+        <p class="mt-4 max-w-[24ch] text-base text-(--c-muted)">años de experiencia en diversas áreas del derecho</p>
+      </div>
+      <ul data-stagger data-gap="100" class="grid gap-10 lg:pt-3">
+        {
+          pillars.map((p) => (
+            <li class="flex gap-5">
+              <span class="grid size-12 shrink-0 place-items-center rounded-(--c-radius) bg-(--c-accent) text-(--c-on-accent)"><Icon name={p.icon} weight="bold" class="size-6" /></span>
+              <div>
+                <h3 class="mgo-body text-[clamp(1.25rem,1.9vw,1.55rem)] font-medium leading-snug tracking-[-0.01em]">{p.title}</h3>
+                <p class="mt-2 max-w-[48ch] text-lg text-(--c-muted)">{p.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class={`mb-10 ${h2}`}>Agenda tu cita</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <Footer slot="footer" site={site} variant="dark" blurb="Profesionalismo a tu alcance." />
+
+  <script>
+    import "@/sites/megoiabogados/stack";
+  </script>
+</SiteLayout>

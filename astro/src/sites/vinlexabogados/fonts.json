@@ -1,0 +1,4 @@
+[
+  { "name": "Tenor Sans", "cssVariable": "--f-vinlexabogados-display", "weights": [400], "fallbacks": ["Optima", "system-ui", "sans-serif"] },
+  { "name": "Nunito Sans", "cssVariable": "--f-vinlexabogados-body", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]

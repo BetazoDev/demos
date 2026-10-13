@@ -1,0 +1,4 @@
+[
+  { "name": "Archivo", "cssVariable": "--f-eduardocastilloabogados-display", "weights": [400, 500, 600, 700], "fallbacks": ["system-ui"] },
+  { "name": "Libre Franklin", "cssVariable": "--f-eduardocastilloabogados-body", "weights": [300, 400, 500, 600], "fallbacks": ["system-ui", "sans-serif"] }
+]

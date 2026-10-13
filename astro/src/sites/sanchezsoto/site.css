@@ -1,0 +1,24 @@
+/* Sánchez Soto: sistema de pastilla (999px) con imágenes de radio amplio. Todo va bajo [data-site]. */
+[data-site="sanchezsoto"] {
+  --c-radius: 999px;
+  --c-radius-img: 2rem;
+  --c-radius-card: 2rem;
+  --c-radius-field: 1.1rem;
+  --c-radius-nav: 999px;
+}
+
+/* Titulares: cada palabra sube desde una máscara, con retraso escalonado (firma de movimiento del sitio) */
+.ss-w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.ss-w > span { display: inline-block; transform: translateY(112%); animation: ss-rise 1.05s var(--ease-out) forwards; animation-delay: calc(140ms + var(--i, 0) * 85ms); }
+@keyframes ss-rise { to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .ss-w > span { animation: none; transform: none; } }
+
+/* Héroe: campo marino de marca; el retrato se funde con el fondo (lighten) y el texto va a la izquierda */
+.ss-hero { position: relative; isolation: isolate; overflow: hidden; background: var(--c-surface); color: var(--c-on-dark); }
+.ss-hero .ss-photo { position: absolute; inset: 0; z-index: -1; background: var(--c-surface); }
+.ss-hero .ss-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 72% 30%; mix-blend-mode: lighten; }
+.ss-hero .ss-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--c-surface) 0%, transparent 38%), linear-gradient(to right, var(--c-surface) 0%, transparent 46%); }
+@media (max-width: 767px) { .ss-hero .ss-photo img { object-position: 78% 20%; } .ss-hero .ss-photo::after { background: linear-gradient(to top, var(--c-surface) 8%, color-mix(in oklab, var(--c-surface) 40%, transparent) 55%, transparent 80%); } }
+
+/* Texto de ficha: dos columnas con filas sin líneas, la lista se separa con espacio */
+.ss-item { display: grid; gap: 0.9rem; grid-template-columns: 2.25rem 1fr; align-items: start; }

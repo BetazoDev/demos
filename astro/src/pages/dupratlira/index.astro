@@ -1,0 +1,85 @@
+---
+import DuLayout from "@/sites/dupratlira/DuLayout.astro";
+import DuHero from "@/sites/dupratlira/DuHero.astro";
+import DuButton from "@/sites/dupratlira/DuButton.astro";
+import DuContact from "@/sites/dupratlira/DuContact.astro";
+import DuReviews from "@/sites/dupratlira/DuReviews.astro";
+import DuCta from "@/sites/dupratlira/DuCta.astro";
+import AreasAccordion from "@/sites/dupratlira/AreasAccordion.astro";
+import Section from "@/kit/Section.astro";
+import DuStatement from "@/sites/dupratlira/DuStatement.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Split from "@/kit/Split.astro";
+import Composer from "@/kit/Composer.astro";
+import { site, WA } from "@/sites/dupratlira/site";
+import { areas, team, quotes } from "@/sites/dupratlira/data";
+import marble from "@/sites/dupratlira/assets/marmol.jpg";
+import columnata from "@/sites/dupratlira/assets/columnata.jpg";
+import libros from "@/sites/dupratlira/assets/libros.jpg";
+
+const base = "/dupratlira";
+const rows = areas.map((a) => ({ ...a, href: `${base}/servicios/${a.key}` }));
+const wa = `https://wa.me/${WA}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2.1rem,4.4vw,3.8rem)] leading-[1.06]";
+---
+
+<DuLayout title="Duprat Lira Abogados | Abogados laboralistas, fiscalistas y civiles en CDMX" description="Despacho de abogados en Ciudad de México con más de 20 años de experiencia en derecho laboral, familiar, civil, fiscal y mercantil. Primera consulta sin costo.">
+  <DuHero title="Amplia experiencia protegiendo sus derechos" lede="Más que sus abogados, somos sus aliados estratégicos. Aportamos claridad y soluciones directas." marble={marble} left={team[0].photo} leftAlt={`Retrato de ${team[0].name}`} right={team[1].photo} rightAlt={`Retrato de ${team[1].name}`}>
+    <Fragment slot="actions">
+      <DuButton href={wa} size="lg" external>Escribir por WhatsApp</DuButton>
+      <DuButton href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</DuButton>
+    </Fragment>
+  </DuHero>
+
+  <Section>
+    <div class="wrap"><DuStatement text="Su tranquilidad legal no es un proceso, es nuestra prioridad absoluta." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12 max-w-[20ch] sm:mb-16", h2]}>Soluciones jurídicas para empresas y particulares</h2>
+      <AreasAccordion areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={columnata} alt="Salón con columnas de travertino y luz dorada" position="50% 45%" height="clamp(26rem,48vw,36rem)">
+    <div data-reveal class="max-w-[28rem] bg-(--c-dark) p-8 text-(--c-on-dark) sm:p-10">
+      <p class="flex items-baseline gap-3">
+        <span data-count="+20" class="text-[clamp(3.4rem,7vw,5.6rem)] leading-none tabular-nums text-(--du-gold-hi)" style="font-family: var(--f-display)">+20</span>
+        <span class="text-lg">años de experiencia legal en México</span>
+      </p>
+      <p class="mt-5 text-[15px] leading-relaxed text-white/75">Representación jurídica sólida y estratégica en todas las instancias legales del país.</p>
+    </div>
+  </ImageBand>
+
+  <Section>
+    <div class="wrap">
+      <Split image={libros} alt="Libros encuadernados en piel azul y burdeos con filetes dorados" ratio="5/4" position="50% 50%">
+        <h2 class={h2}>Nuestra firma</h2>
+        <p class="mt-7 max-w-[46ch] text-lg text-(--c-muted)">Brindamos servicios de asesoría, consultoría y defensa jurídica, a través de estrategias integrales, con atención personalizada, especializada, profesional y de excelencia.</p>
+        <p class="mt-4 max-w-[46ch] text-lg text-(--c-muted)">Nuestros abogados se caracterizan por su amplia experiencia, eficacia y honestidad.</p>
+        <div class="mt-9"><DuButton href={`${base}/nosotros`} variant="outline">Conocer a los abogados</DuButton></div>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <DuReviews rating={site.google!.rating} count={site.google!.reviews} quotes={quotes} />
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <DuContact site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <DuCta title="Primera consulta sin costo" href={wa} label="Escribir por WhatsApp" />
+</DuLayout>

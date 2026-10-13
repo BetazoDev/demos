@@ -1,0 +1,90 @@
+import type { Area } from "./types";
+
+// Texto condensado de las páginas de servicio de lexonabogados.mx (derecho médico y sanitario).
+export const areasA: Area[] = [
+  {
+    key: "defensa-medico-legal",
+    group: "sanitario",
+    title: "Defensa médico legal",
+    icon: "stethoscope",
+    short: "Defensa de médicos, clínicas y profesionales de la salud frente a denuncias, quejas y demandas por presunta mala praxis o negligencia.",
+    lead: "Defensa de médicos, clínicas y profesionales de la salud frente a denuncias, quejas y demandas por presunta mala praxis, negligencia o conflictos legales derivados del ejercicio clínico.",
+    meta: "Defensa médico legal en Ciudad de México: denuncias, quejas ante COFEPRIS, CONAMED y PROFECO, demandas por presunta mala praxis y negociación para médicos y clínicas.",
+    blocks: [
+      { t: "list", title: "A quién atendemos", intro: "Tanto en el ámbito público como privado, nuestra representación está enfocada en proteger su integridad profesional, patrimonio y libertad.", items: ["Médicos residentes, pasantes, generales y especialistas", "Consultorios y clínicas privadas", "Hospitales, centros quirúrgicos y laboratorios", "Profesionales de enfermería, odontología, psicología y otras áreas de la salud"] },
+      { t: "list", title: "Asesoría preventiva especializada", intro: "Orientación legal desde el inicio de su práctica para comprender sus derechos, obligaciones y riesgos jurídicos.", items: ["Redacción de consentimientos informados y contratos médicos", "Revisión de formatos, expediente clínico y documentación clínica", "Implementación de mecanismos preventivos ante quejas y reclamaciones"] },
+      { t: "list", title: "Representación", intro: "Le representamos con firmeza y conocimiento técnico en:", items: ["Denuncias ante Ministerios Públicos", "Demandas civiles o denuncias penales por supuesta mala praxis", "Quejas administrativas ante COFEPRIS, CONAMED, PROFECO, entre otros"] },
+      { t: "text", title: "Defensa ante procesos legales", p: ["Nuestra defensa se sustenta en evidencia clínica, peritajes, análisis de la lex artis médica y estrategias jurídicas bien estructuradas."] },
+      { t: "list", title: "Negociación y solución alternativa de conflictos", intro: "El objetivo: proteger su imagen profesional, evitar sanciones desproporcionadas y reducir el impacto emocional y económico del conflicto. Buscamos resolver conflictos de forma eficiente y menos desgastante mediante:", items: ["Mediación con pacientes y familiares", "Negociación directa con abogados o aseguradoras", "Soluciones extrajudiciales que eviten escalar procesos"] },
+      { t: "list", title: "Acompañamiento integral", intro: "Desde el momento en que recibe una notificación, le acompañamos legalmente en cada etapa:", items: ["Preparación de respuesta inicial", "Comparecencias, audiencias y peritajes", "Estrategia jurídica personalizada hasta la resolución definitiva"] },
+    ],
+  },
+  {
+    key: "multas-cofepris",
+    group: "sanitario",
+    title: "Defensa ante multas y medidas de seguridad de COFEPRIS",
+    icon: "warning",
+    short: "Defensa ante multas, amonestaciones, clausura temporal o definitiva y arresto derivados de visitas de fomento o verificación.",
+    lead: "Despacho especializado en la defensa ante multas y medidas de seguridad de COFEPRIS.",
+    meta: "Defensa ante multas y medidas de seguridad de COFEPRIS en Ciudad de México: multas, amonestaciones, clausura temporal o definitiva y arresto para clínicas y consultorios.",
+    blocks: [
+      { t: "list", title: "Sanciones que puede imponer la COFEPRIS", intro: "La COFEPRIS puede sancionar a los consultorios que no cumplan con la normatividad vigente, por ejemplo con:", items: ["Multas", "Amonestaciones", "Clausura temporal o definitiva", "Arresto"] },
+      { t: "text", title: "Después de una visita", p: ["Derivado de visitas de fomento o de verificación, la COFEPRIS suele dejar en poder de la clínica o del médico verificado un documento donde indica las acciones que debe realizar para evitar la imposición de medidas de seguridad, o la notificación formal de dichas medidas.", "Si fue visitado por COFEPRIS, contáctenos hoy mismo para una consulta y obtenga la seguridad legal que merece en su práctica médica."] },
+    ],
+  },
+  {
+    key: "visitas-cofepris",
+    group: "sanitario",
+    title: "Atención a visitas de COFEPRIS",
+    icon: "clipboard-text",
+    short: "Acompañamiento en visitas de fomento y verificación en clínica o consultorio.",
+    lead: "Acompañamiento antes, durante y después de las visitas de fomento y verificación de COFEPRIS en su clínica o consultorio.",
+    meta: "Atención a visitas de COFEPRIS en clínica o consultorio en Ciudad de México: qué hacer ante una visita de verificación y cómo evitar multas y clausuras.",
+    blocks: [
+      { t: "text", title: "Qué es una visita de COFEPRIS", p: ["La COFEPRIS ejerce la vigilancia sanitaria mediante visitas de fomento y verificación a cargo de personal expresamente autorizado. Su objetivo es obtener información y conocer las condiciones sanitarias del establecimiento, clínica, consultorio o persona que ofrece servicios médicos.", "El personal autorizado identificará anomalías o deficiencias, en su caso tomará muestras y podrá aplicar medidas de seguridad, entre ellas la suspensión de trabajos o el aseguramiento y destrucción de objetos, productos o sustancias."] },
+      { t: "list", title: "Qué hacer si recibe una visita", intro: "De acuerdo con el artículo 400 de la Ley General de Salud, los responsables sanitarios están obligados a permitir el acceso al personal de COFEPRIS y a dar facilidades e informes para que la visita se lleve a cabo.", items: ["Asegúrese de que el personal de verificación porte una identificación oficial de la dependencia.", "El visitador debe mostrar la orden escrita, con firma autógrafa y expedida por la autoridad sanitaria competente.", "La orden debe contener la dirección de la clínica o consultorio, el objeto de la visita y su fundamento legal.", "Al concluir, los verificadores deben asentar las observaciones detectadas en el acta de verificación."] },
+      { t: "text", title: "Cómo le ayudamos", p: ["En Lexon Abogados contamos con especialistas que pueden orientarle y acompañarle antes, durante y después de la visita, para evitar la imposición de medidas de seguridad, aprobarla de manera satisfactoria y evitar multas y clausuras."] },
+    ],
+  },
+  {
+    key: "aviso-funcionamiento",
+    group: "sanitario",
+    title: "Aviso de funcionamiento a COFEPRIS",
+    icon: "hospital",
+    short: "Gestión del aviso de funcionamiento para clínicas y consultorios médicos (responsable sanitario).",
+    lead: "Gestionamos el aviso de funcionamiento a COFEPRIS para clínicas y consultorios médicos.",
+    meta: "Aviso de funcionamiento a COFEPRIS para clínicas y consultorios médicos en Ciudad de México: trámite, responsable sanitario y beneficios de cumplir.",
+    blocks: [
+      { t: "text", title: "El trámite de aviso de funcionamiento", p: ["El aviso de funcionamiento para clínicas y consultorios médicos es un trámite que debe realizarse ante la Comisión Federal para la Protección contra Riesgos Sanitarios, por el cual se designa a un responsable sanitario para la operación de establecimientos de atención médica y la atención de pacientes ambulatorios."] },
+      { t: "benefits", title: "Por qué dar aviso de funcionamiento a COFEPRIS", items: [{ h: "Evita multas por incumplimiento de las disposiciones sanitarias" }, { h: "Informa a la autoridad sanitaria sobre la existencia del establecimiento" }, { h: "Evita clausuras y permite operar el establecimiento con tranquilidad" }, { h: "Ayuda a prevenir riesgos a la salud de los usuarios" }, { h: "Acredita el cumplimiento sanitario del consultorio o la clínica" }, { h: "Genera percepción de seguridad para pacientes, usuarios y colaboradores" }] },
+    ],
+  },
+  {
+    key: "aviso-publicidad",
+    group: "sanitario",
+    title: "Aviso de publicidad para médicos",
+    icon: "megaphone",
+    short: "Gestión del aviso de publicidad ante COFEPRIS; evita multas por hasta $984,900 pesos.",
+    lead: "Gestionamos el aviso de publicidad para médicos, clínicas y marcas del sector salud ante COFEPRIS.",
+    meta: "Aviso de publicidad para médicos ante COFEPRIS en Ciudad de México: trámite, documentos necesarios y cómo evitar multas de hasta $984,900 pesos.",
+    blocks: [
+      { t: "text", title: "Por qué importa", p: ["La publicidad es una herramienta poderosa para que su clínica o su marca como médico privado alcance a más pacientes, ya sea en redes sociales, en su sitio web o en cualquier otro medio."] },
+      { t: "benefits", title: "Beneficios de tener un aviso de publicidad", items: [{ h: "Evita multas de COFEPRIS por hasta $984,900 pesos" }, { h: "Evita la suspensión temporal o definitiva de las actividades de su clínica o consultorio" }, { h: "Puede hacer publicidad con más contenido que solo el precio de sus servicios" }, { h: "Brinda seguridad a sus pacientes al saber que le preocupa cumplir con la Ley" }] },
+      { t: "text", title: "Quién puede solicitarlo", p: ["El aviso de publicidad se gestiona ante la COFEPRIS y puede ser solicitado por una persona física o moral que brinde servicios de salud, un procedimiento de embellecimiento o bien un producto, como un suplemento alimenticio u otro relacionado con el giro de la empresa.", "La COFEPRIS es la dependencia responsable de regular y supervisar la publicidad relacionada con productos y servicios de salud, ya sea en redes sociales, sitios web o cualquier otro medio. Su objetivo principal es proteger a la población de posibles peligros para la salud y evitar la publicidad engañosa."] },
+      { t: "list", title: "Documentos necesarios", items: ["Formato de publicidad con todos los datos requeridos, en original (lo suministramos al contratar el servicio)", "Comprobante del pago de derechos, en términos de la Ley Federal de Derechos, en original y 2 copias", "El proyecto de publicidad en dos tantos originales, preferentemente a color", "La documentación en original que sustente las afirmaciones hechas en la publicidad", "Copia de la licencia sanitaria o aviso de funcionamiento, según sea el caso"] },
+    ],
+  },
+  {
+    key: "licencia-sanitaria",
+    group: "sanitario",
+    title: "Licencia de funcionamiento sanitaria",
+    icon: "certificate",
+    short: "Trámite de licencia sanitaria ante COFEPRIS.",
+    lead: "Trámite de la licencia de funcionamiento sanitaria ante COFEPRIS.",
+    meta: "Licencia de funcionamiento sanitaria ante COFEPRIS en Ciudad de México: qué es, quiénes están obligados a tramitarla y cómo gestionarla con abogados especialistas.",
+    blocks: [
+      { t: "text", title: "Qué es la licencia sanitaria", p: ["La Licencia de Funcionamiento Sanitaria es la autorización que emite la COFEPRIS para que una persona pública o privada pueda fabricar, importar, exportar, transportar, distribuir, manipular, almacenar, envasar, expender y dispensar productos controlados, o realizar una actividad relacionada con la salud de las personas que, por la protección que amerita, requiera autorización para funcionar.", "Al tramitar una licencia sanitaria, los particulares informan primero a la autoridad sanitaria de su existencia y de las actividades y productos que proporcionan y venden."] },
+      { t: "list", title: "Quiénes están obligados a tramitarla", items: ["Establecimientos destinados al proceso de medicamentos", "Establecimientos que fabriquen o vendan insumos para la salud: fabricación, almacenamiento, distribución y venta de medicamentos y productos biológicos para uso humano", "Fabricación de plaguicidas y nutrientes vegetales, control de plagas urbanas, y fabricación o importación de productos del tabaco"] },
+    ],
+  },
+];

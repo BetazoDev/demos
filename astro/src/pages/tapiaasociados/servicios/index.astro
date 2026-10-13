@@ -1,0 +1,49 @@
+---
+import Layout from "@/sites/tapiaasociados/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import { site } from "@/sites/tapiaasociados/site";
+import { areas, photos } from "@/sites/tapiaasociados/data";
+
+const base = "/tapiaasociados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+const waArea = (t: string) => `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(`${site.whatsapp.intro} sobre ${t.toLowerCase()}.`)}`;
+const service = areas.map((a) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: a.title,
+  description: a.lead,
+  provider: { "@id": new URL(`${base}#organizacion`, Astro.site!).href },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<Layout
+  title="Servicios de derecho civil y familiar en CDMX | Abogados Tapia & Asociados"
+  description="Divorcio, guarda y custodia, pensión alimenticia, juicio sucesorio, violencia familiar y adopción. Abogados especialistas en materia civil y familiar en la colonia San Rafael, Ciudad de México."
+  breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}
+  schema={service}
+>
+  <PageHero title="Nuestras especialidades" lede="Abogados especialistas en materia civil y familiar." image={photos.escritorio} imageAlt="Escritorio de madera junto a una ventana con postigos, con un cuaderno de cuero, una pluma y un vaso de agua" />
+  <Section>
+    <div class="wrap">
+      <ul data-stagger data-gap="70" class="grid gap-x-16 gap-y-16 md:grid-cols-2">
+        {
+          areas.map((a) => (
+            <li id={a.key} class="scroll-mt-28">
+              <h2 transition:name={`area-${a.key}`} class="text-[clamp(1.9rem,3.4vw,2.8rem)] leading-[1.08]">{a.title}</h2>
+              <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-(--c-muted)">{a.text}</p>
+              <a href={waArea(a.title)} target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 font-medium" aria-label={`Escribir por WhatsApp sobre ${a.title.toLowerCase()}`}>
+                <Icon name="whatsapp-logo" weight="fill" class="size-5" />
+                <span class="link-u">Escribir por WhatsApp</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+  <CtaBand title="Solicite su asesoría jurídica" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

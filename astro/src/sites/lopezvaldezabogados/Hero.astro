@@ -1,0 +1,37 @@
+---
+// Héroe propio: titular a la izquierda y retrato a sangre a la derecha. Un filete vertical en café (como la línea del logo)
+// separa ambos y se dibuja al cargar. El retrato sale de la oscuridad con un degradado hacia el fondo.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 20%" } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="grid min-h-[100svh] lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)]">
+    <div class="hero-copy flex flex-col justify-center gap-8 pb-12 pt-36 lg:pb-20 lg:pt-32">
+      <h1 data-hero="blur" class="max-w-[16ch] text-[clamp(2.6rem,4.7vw,5rem)] leading-[1]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="max-w-[34ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    <div class="relative min-h-[26rem] lg:min-h-0">
+      <div data-hero-media style="--d:150ms" class="absolute inset-0">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--c-bg)_0%,color-mix(in_oklab,var(--c-bg)_55%,transparent)_14%,transparent_38%)] max-lg:bg-[linear-gradient(to_bottom,var(--c-bg)_0%,transparent_30%)]"></div>
+        <div class="absolute inset-x-0 bottom-0 h-1/4 bg-[linear-gradient(to_top,var(--c-bg),transparent)]"></div>
+      </div>
+      <span aria-hidden="true" class="hero-rule absolute inset-y-0 left-0 top-[5.25rem] hidden w-px bg-[#856746] lg:block"></span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-copy { padding-left: max(1.25rem, calc((100vw - 76rem) / 2)); padding-right: 2rem; }
+  @media (min-width: 768px) { .hero-copy { padding-left: max(2.5rem, calc((100vw - 76rem) / 2)); } }
+  @media (max-width: 1023px) { .hero-copy { padding-right: 1.25rem; } }
+  .hero-rule { transform-origin: top; animation: rule-draw 1.4s var(--ease-in-out) 0.25s both; }
+  @keyframes rule-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @media (prefers-reduced-motion: reduce) { .hero-rule { animation: none; } }
+</style>

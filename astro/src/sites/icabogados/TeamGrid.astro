@@ -1,0 +1,20 @@
+---
+// Retratos de estudio sobre fondo negro, con su nombre, especialidad y bio publicadas.
+import Pic from "@/kit/Pic.astro";
+import type { Person } from "./data";
+interface Props { people: Person[]; bios?: boolean; class?: string }
+const { people, bios = true, class: cls = "" } = Astro.props;
+---
+
+<ul data-stagger data-gap="80" class:list={["grid gap-x-6 gap-y-14", bios ? "sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5", cls]}>
+  {people.map((p) => (
+    <li>
+      <div class:list={["portrait rounded-(--c-radius-img)", bios ? "aspect-[4/5] sm:aspect-[2/3]" : "aspect-[2/3]"]}>
+        <Pic src={p.photo} alt={p.name} position="50% 22%" class="size-full object-cover" />
+      </div>
+      <h3 class:list={["mt-5 font-medium leading-tight tracking-[-0.01em]", bios ? "text-2xl" : "text-lg"]}>{p.name}</h3>
+      {p.role && <p class="mt-1 text-[15px] text-(--c-accent)">{p.role}</p>}
+      {bios && <p class="mt-4 max-w-[46ch] text-[15px] leading-relaxed text-(--c-muted)">{p.bio}</p>}
+    </li>
+  ))}
+</ul>

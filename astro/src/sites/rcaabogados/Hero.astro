@@ -1,0 +1,33 @@
+---
+// Héroe de RCA: la foto en blanco y negro de su sitio, teñida del azul marino de su placa (luminosity sobre el color de marca),
+// con el titular abajo a la izquierda. Un filete lima se dibuja bajo el titular. El nav va en tone="dark" (texto claro).
+import Pic from "@/kit/Pic.astro";
+import type { Img } from "@/kit/types";
+interface Props { title: string; lede: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position } = Astro.props;
+---
+
+<section class="rca-hero relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden bg-(--c-brand) text-white">
+  <div class="absolute inset-0 -z-10" data-hero-media style="--d:0ms">
+    <div class="rca-photo size-full" data-parallax="60">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-[linear-gradient(95deg,color-mix(in_oklab,var(--c-brand)_96%,transparent)_0%,color-mix(in_oklab,var(--c-brand)_82%,transparent)_42%,color-mix(in_oklab,var(--c-brand)_20%,transparent)_100%)]"></div>
+    <div class="absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_top,color-mix(in_oklab,var(--c-brand)_70%,transparent),transparent)]"></div>
+  </div>
+  <div class="wrap pb-14 pt-40 sm:pb-20">
+    <h1 data-hero="blur" class="max-w-[19ch] text-[clamp(2.5rem,6.2vw,5.9rem)] font-semibold leading-[0.98] tracking-[-0.035em]">{title}</h1>
+    <div class="rca-rule mt-9 h-[3px] w-24 bg-(--c-accent)"></div>
+    <p data-hero style="--i:2" class="mt-7 max-w-[44ch] text-lg text-white/85 sm:text-xl">{lede}</p>
+    <div data-hero style="--i:3" class="mt-9 flex flex-wrap items-center gap-3">
+      <slot name="actions" />
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .rca-photo img { mix-blend-mode: luminosity; opacity: 0.85; }
+  @keyframes rca-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .rca-rule { transform-origin: left center; animation: rca-rule 0.9s var(--ease-out) 0.7s both; }
+  @media (prefers-reduced-motion: reduce) { .rca-rule { animation: none !important; } }
+</style>

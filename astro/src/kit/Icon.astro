@@ -1,0 +1,27 @@
+---
+// Íconos Phosphor (cualquiera por nombre) incrustados como SVG; sin JavaScript en el cliente.
+// <Icon name="scales" weight="regular" class="size-6" />   weights: thin | light | regular | bold | fill
+// Se leen del disco al renderizar (no pasan por el grafo de Vite: son ~7,500 archivos).
+import fs from "node:fs";
+import path from "node:path";
+interface Props {
+  name: string;
+  weight?: "thin" | "light" | "regular" | "bold" | "fill";
+  class?: string;
+  label?: string;
+}
+const { name, weight = "regular", class: cls = "size-5", label } = Astro.props;
+const cache: Map<string, string> = ((globalThis as any).__phosphor ??= new Map());
+const key = `${weight}/${name}`;
+let svg = cache.get(key);
+if (svg === undefined) {
+  const suffix = weight === "regular" ? "" : `-${weight}`;
+  const file = path.join(process.cwd(), "node_modules/@phosphor-icons/core/assets", weight, `${name}${suffix}.svg`);
+  svg = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : "";
+  if (!svg) console.warn(`[Icon] no existe "${name}" (${weight})`);
+  cache.set(key, svg);
+}
+const out = svg.replace("<svg", `<svg class="${cls}" ${label ? `role="img" aria-label="${label}"` : 'aria-hidden="true" focusable="false"'} fill="currentColor"`);
+---
+
+<Fragment set:html={out} />

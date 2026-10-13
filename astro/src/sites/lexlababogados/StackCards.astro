@@ -1,0 +1,82 @@
+---
+// Servicios como tarjetas que se apilan al hacer scroll (sticky). Texto real de cada servicio; los que tienen página propia enlazan a ella.
+import Icon from "@/kit/Icon.astro";
+interface Item { key: string; title: string; icon: string; text: string; href?: string }
+interface Props { items: Item[]; linkLabel?: string }
+const { items, linkLabel = "Ver servicio" } = Astro.props;
+---
+
+<ul data-stack class="grid gap-6 sm:gap-8">
+  {
+    items.map((s, i) => (
+      <li class="stack-card" style={`--k:${i}`}>
+        <div class="stack-inner">
+          {s.href ? (
+            <a href={s.href} data-area={s.title} class="group relative grid gap-6 rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:p-12">
+              <div>
+                <Icon name={s.icon} weight="bold" class="size-8 text-(--c-accent)" />
+                <h3 transition:name={`area-${s.key}`} class="mt-8 max-w-[14ch] text-[clamp(2rem,4vw,3.4rem)] font-bold leading-[1]">{s.title}</h3>
+              </div>
+              <div class="flex flex-col justify-between gap-8">
+                <p class="max-w-[52ch] text-lg text-(--c-muted)">{s.text}</p>
+                <span class="inline-flex items-center gap-3 font-medium text-(--c-ink)">
+                  {linkLabel}
+                  <span class="arr nudge grid size-10 place-items-center border border-current/30 transition-transform group-hover:translate-x-1"><Icon name="arrow-right" weight="bold" class="size-4" /></span>
+                </span>
+              </div>
+            </a>
+          ) : (
+            <div class="relative grid gap-6 rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-7 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:p-12">
+              <div>
+                <Icon name={s.icon} weight="bold" class="size-8 text-(--c-accent)" />
+                <h3 class="mt-8 max-w-[14ch] text-[clamp(2rem,4vw,3.4rem)] font-bold leading-[1]">{s.title}</h3>
+              </div>
+              <p class="max-w-[52ch] text-lg text-(--c-muted)">{s.text}</p>
+            </div>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  let cleanup: (() => void) | null = null;
+  const reduce = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function init() {
+    const list = document.querySelector<HTMLElement>("[data-stack]");
+    if (!list || reduce()) return;
+    const cards = Array.from(list.querySelectorAll<HTMLElement>(".stack-card"));
+    const inners = cards.map((c) => c.querySelector<HTMLElement>(".stack-inner")!);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const sticky = parseFloat(getComputedStyle(cards[0]).top) || 88;
+      cards.forEach((c, i) => {
+        const next = cards[i + 1];
+        if (!next) return inners[i].style.removeProperty("transform");
+        const h = c.getBoundingClientRect().height;
+        // Cuánto ha avanzado la siguiente tarjeta sobre esta (0 a 1).
+        const d = (next.getBoundingClientRect().top - (sticky + 18)) / h;
+        const p = Math.min(1, Math.max(0, 1 - d));
+        inners[i].style.transform = p > 0 ? `scale(${(1 - p * 0.05).toFixed(4)})` : "";
+      });
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    update();
+    cleanup = () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", () => {
+    cleanup?.();
+    cleanup = null;
+  });
+</script>

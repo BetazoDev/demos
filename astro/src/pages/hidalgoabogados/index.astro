@@ -1,0 +1,92 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Stats from "@/kit/Stats.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Icon from "@/kit/Icon.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/hidalgoabogados/Hero.astro";
+import Skin from "@/sites/hidalgoabogados/Skin.astro";
+import { site } from "@/sites/hidalgoabogados/site";
+import { areas, stats, statement, method, lawyer, precedents } from "@/sites/hidalgoabogados/data";
+import puerta from "@/sites/hidalgoabogados/assets/puerta.jpg";
+import columnas from "@/sites/hidalgoabogados/assets/columnas.jpg";
+
+const base = "/hidalgoabogados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.text, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="Hidalgo Abogados | Abogados penalistas y litigio contencioso en la Ciudad de México"
+  nav={{ variant: "pill", tone: "light" }}
+  footer={{ variant: "dark", blurb: "El trato personalizado y su tranquilidad." }}
+>
+  <Skin />
+  <Hero title="Consultoría, construcción de acuerdos y litigio contencioso" lede="Litigio contencioso especializado (solución de conflictos) y especialistas en materia penal." image={puerta} imageAlt="">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="brand">
+    <div class="wrap">
+      <Stats stats={stats} class="[&_[data-count]]:text-(--c-accent) sm:!grid-cols-2 [&_[data-count]]:text-[clamp(4.5rem,13vw,11rem)]" />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <Statement text={statement} />
+      <p data-reveal class="mt-12 max-w-[46ch] text-lg text-(--c-muted)">{method}</p>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.02] tracking-[-0.02em]">Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={columnas} alt="" position="50% 45%" height="clamp(18rem,40vw,34rem)" />
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1.04] tracking-[-0.02em]">{lawyer.name}</h2>
+        <p class="mt-5 max-w-[44ch] text-lg text-(--c-muted)">{lawyer.role}</p>
+        <div class="mt-9"><Button href={`${base}/nosotros`} variant="outline">Conocer a la firma</Button></div>
+      </div>
+      <ul data-stagger data-gap="70" class="grid content-start gap-3 text-[17px]">
+        {lawyer.education.slice(1, 6).map((e) => (
+          <li class="flex gap-3">
+            <Icon name="check" weight="bold" class="mt-1.5 size-4 shrink-0 text-(--c-brand)" />
+            <span>{e}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.02] tracking-[-0.02em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,6px) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

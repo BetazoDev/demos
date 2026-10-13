@@ -1,0 +1,32 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Footer from "@/sites/revsaabogados/Footer.astro";
+import Skin from "@/sites/revsaabogados/Skin.astro";
+import { site } from "@/sites/revsaabogados/site";
+import { areas } from "@/sites/revsaabogados/data";
+
+const base = "/revsaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.short, href: `${base}/servicios/${a.key}` }));
+---
+
+<SiteLayout
+  site={site}
+  title="Áreas jurídicas | REVSA Abogados, Roma Sur, CDMX"
+  description="Áreas jurídicas de REVSA Abogados en la Roma Sur, CDMX: familiar, penal, civil y mercantil, laboral, contenciosa administrativa y representación de PYMES."
+  nav={{ variant: "pill", tone: "light", logoHeight: 60 }}
+  footer={false}
+  breadcrumbs={[{ name: "Áreas jurídicas", href: `${base}/servicios` }]}
+>
+  <Skin />
+  <PageHero title="Áreas jurídicas" lede="Abogados con experiencia litigante en cada materia: familiar, penal, civil y mercantil, laboral, contenciosa administrativa y representación de PYMES." transitionName="servicios-title" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><AreasIndex areas={rows} /></div>
+  </Section>
+  <CtaBand title="¡Quiero una asesoría!" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+  <Footer slot="footer" site={site} variant="dark" blurb="Soluciones jurídicas al alcance de tu mano" />
+</SiteLayout>

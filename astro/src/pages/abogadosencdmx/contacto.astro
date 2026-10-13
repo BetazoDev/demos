@@ -1,0 +1,27 @@
+---
+import Layout from "@/sites/abogadosencdmx/Layout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import { site } from "@/sites/abogadosencdmx/site";
+import { areas } from "@/sites/abogadosencdmx/data";
+
+const base = "/abogadosencdmx";
+---
+
+<Layout
+  title="Contacto | Abogados en CDMX"
+  description="Guanajuato 224, colonia Roma Norte, Ciudad de México. WhatsApp 55 6465 5501 y correo contacto@abogadosencdmx.com. Lunes a viernes de 9:00 a 18:00 h."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+>
+  <PageHero title="Contacto" lede="Escríbanos por WhatsApp o visítenos en la colonia Roma Norte, Alcaldía Cuauhtémoc." />
+  <Section size="sm" class="pt-4">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal><ContactBlock site={site} /></div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</Layout>

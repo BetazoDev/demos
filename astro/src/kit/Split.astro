@@ -1,0 +1,14 @@
+---
+// Texto + imagen en dos columnas. La imagen se revela con barrido. No usar más de dos seguidas en una página.
+import type { Img } from "./types";
+import Pic from "./Pic.astro";
+interface Props { image: Img; alt?: string; reverse?: boolean; position?: string; ratio?: string; class?: string }
+const { image, alt = "", reverse = false, position, ratio = "4/5", class: cls = "" } = Astro.props;
+---
+
+<div class:list={["grid items-center gap-10 md:gap-16 lg:grid-cols-2", cls]}>
+  <div data-reveal="clip" class:list={["overflow-hidden rounded-(--c-radius-img,1.25rem)", reverse && "lg:order-2"]} style={`aspect-ratio:${ratio}`}>
+    <Pic src={image} alt={alt} position={position} class="size-full object-cover" />
+  </div>
+  <div data-reveal data-delay="100"><slot /></div>
+</div>

@@ -1,0 +1,7 @@
+---
+// Logo solo texto de Moreno & Fuertes: el despacho no tiene archivo de logo. Se compone con Playfair en versales, como su encabezado.
+interface Props { class?: string }
+const { class: cls = "" } = Astro.props;
+---
+
+<span class:list={["mf-wordmark whitespace-nowrap", cls]}>MORENO <em>&amp;</em> FUERTES</span>

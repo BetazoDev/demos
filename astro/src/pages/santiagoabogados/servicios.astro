@@ -1,0 +1,29 @@
+---
+import Layout from "@/sites/santiagoabogados/Layout.astro";
+import Materias from "@/sites/santiagoabogados/Materias.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/santiagoabogados/site";
+import { materias, texto } from "@/sites/santiagoabogados/data";
+
+const base = "/santiagoabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const schema = materias.map((m) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: m.title,
+  description: m.text,
+  provider: { "@id": new URL(`${base}#organizacion`, Astro.site).href },
+  areaServed: { "@type": "City", name: "Ciudad de México" },
+}));
+---
+
+<Layout site={site} title="Servicios | Santiago Abogados, derecho civil, familiar, mercantil, laboral y penal en la Roma Norte" description="Asesoría jurídica integral: derecho civil, familiar, mercantil, administrativo, laboral, fiscal y penal, amparo y trámites en la Ciudad de México." schema={schema} breadcrumbs={[{ name: "Servicios", href: `${base}/servicios` }]}>
+  <PageHero title="Servicios" lede={texto.descripcion} />
+  <Section size="sm" class="pt-4">
+    <div class="wrap"><Materias items={materias} /></div>
+  </Section>
+  <CtaBand title="Asesoría jurídica integral" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>
+

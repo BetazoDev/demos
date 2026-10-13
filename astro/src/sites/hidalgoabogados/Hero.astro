@@ -1,0 +1,23 @@
+---
+// Héroe de Hidalgo Abogados: la foto va a la izquierda (puerta azul marino entreabierta) y el titular a la derecha.
+// En móvil el texto va primero. Nav con tone="light".
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 50%" } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap grid min-h-[100svh] items-center gap-12 pb-16 pt-36 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:pb-12 lg:pt-32">
+    <div data-hero-media style="--d:150ms" class="relative order-2 mx-auto aspect-[4/5] max-h-[78svh] w-full max-w-[30rem] overflow-hidden rounded-(--c-radius-img,6px) lg:order-1 lg:mx-0">
+      <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+    </div>
+    <div class="order-1 lg:order-2">
+      <h1 data-hero="blur" class="max-w-[16ch] text-[clamp(2.7rem,5.6vw,5.6rem)] leading-[1.02] tracking-[-0.02em]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-6 max-w-[42ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</section>

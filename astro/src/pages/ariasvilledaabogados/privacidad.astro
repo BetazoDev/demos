@@ -1,0 +1,28 @@
+---
+import "@/sites/ariasvilledaabogados/site.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Prose from "@/kit/Prose.astro";
+import { site } from "@/sites/ariasvilledaabogados/site";
+import { privacidad } from "@/sites/ariasvilledaabogados/privacy";
+
+const base = "/ariasvilledaabogados";
+---
+
+<SiteLayout
+  site={site}
+  title="Aviso de privacidad | Arias & Villeda Abogados"
+  description="Aviso de privacidad de Arias Sánchez & Villeda Chávez, S.C."
+  nav={{ variant: "bar", tone: "light", logoHeight: 56 }}
+  breadcrumbs={[{ name: "Aviso de privacidad", href: `${base}/privacidad` }]}
+>
+  <PageHero title="Aviso de privacidad" />
+  <Section size="sm" class="pt-4">
+    <div class="wrap">
+      <Prose>
+        {privacidad.map((p) => <p>{p}</p>)}
+      </Prose>
+    </div>
+  </Section>
+</SiteLayout>

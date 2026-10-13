@@ -1,0 +1,67 @@
+---
+import Layout from "@/sites/mongeasociados/Layout.astro";
+import Hero from "@/kit/Hero.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Marquee from "@/kit/Marquee.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import Reviews from "@/kit/Reviews.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/mongeasociados/site";
+import { areas, reviews, photos } from "@/sites/mongeasociados/data";
+
+const base = "/mongeasociados";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro + ".")}`;
+---
+
+<Layout title="Abogados en materia penal, familiar y civil en CDMX | Monge & Asociados" footer={{ blurb: "Despacho jurídico en Buenavista, Ciudad de México." }}>
+  <Hero layout="type" tone="dark" title="Especialistas en materia penal" lede="Contamos con asistencia legal ante agente del Ministerio Público las 24 horas.">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="brand" size="none" class="overflow-hidden py-6 sm:py-8">
+    <Marquee items={areas.map((a) => a.title)} speed={60} />
+  </Section>
+
+  <Section>
+    <div class="wrap"><Statement text="¿Le acusan injustificadamente de algún delito? Somos especialistas en materia penal." /></div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02]">Servicios</h2>
+      <AreasIndex areas={rows} />
+    </div>
+  </Section>
+
+  <ImageBand image={photos.oficina} alt="Oficina oscura de noche con una lámpara de escritorio y las luces de la ciudad al fondo" position="50% 55%" />
+
+  <Section>
+    <div class="wrap">
+      <h2 class="sr-only">Reseñas de Google</h2>
+      <Reviews rating={5.0} count={24} quotes={reviews} />
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] leading-[1.02]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card,1.25rem) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su caso" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</Layout>

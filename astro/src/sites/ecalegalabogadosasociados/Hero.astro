@@ -1,0 +1,24 @@
+---
+// Héroe propio: campo dorado de la marca, lema enorme en serif de alto contraste y una foto vertical a la derecha.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image?: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 50%" } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-brand) text-(--c-on-brand)">
+  <div class="wrap grid min-h-[100svh] items-end gap-12 pb-14 pt-36 sm:pb-16 lg:grid-cols-[1.35fr_0.65fr] lg:gap-16">
+    <div class="pb-2">
+      <h1 data-hero="blur" class="max-w-[16ch] text-[clamp(2.7rem,6.6vw,6.6rem)] font-medium leading-[0.98] tracking-[-0.035em]">{title}</h1>
+      {lede && <p data-hero style="--i:1" class="mt-8 max-w-[40ch] text-lg sm:text-xl">{lede}</p>}
+      <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+        <slot name="actions" />
+      </div>
+    </div>
+    {image && (
+      <div data-hero-media style="--d:250ms" class="hidden aspect-[4/5] max-h-[72svh] w-full overflow-hidden rounded-[1.5rem] lg:ml-auto lg:block lg:max-w-[26rem]">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </div>
+    )}
+  </div>
+</section>

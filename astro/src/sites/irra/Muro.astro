@@ -1,0 +1,59 @@
+---
+// Las áreas de práctica como un muro de texto enlazable (sin tarjetas ni filetes). Al pasar el cursor o enfocar un área, las demás
+// se atenúan y debajo aparece su descripción real; sin cursor (táctil) el muro se lee y se navega igual.
+interface Item { key: string; title: string; text: string; href: string }
+interface Props { items: Item[]; idle: string; class?: string }
+const { items, idle, class: cls = "" } = Astro.props;
+---
+
+<div data-muro data-idle={idle} class={cls}>
+  <ul class="text-[clamp(1.9rem,4.5vw,4.3rem)] font-semibold leading-[1.14] tracking-[-0.035em]">
+    {
+      items.map((a, i) => (
+        <li class="block sm:inline" data-reveal style={`--delay:${i * 35}ms`}>
+          <a href={a.href} data-text={a.text} class="muro-a">
+            <span transition:name={`area-${a.key}`} class="inline-block">{a.title}</span>
+          </a>{i < items.length - 1 && <span aria-hidden="true" class="hidden pl-[0.3em] pr-[0.12em] font-light text-(--c-line) sm:inline">/</span>}{" "}
+        </li>
+      ))
+    }
+  </ul>
+  <p data-muro-caption aria-live="polite" class="mt-10 min-h-[5.2rem] max-w-[60ch] text-lg text-(--c-muted)">{idle}</p>
+</div>
+
+<style>
+  .muro-a { transition: opacity 220ms var(--ease-out), color 220ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    ul:has(.muro-a:hover) .muro-a:not(:hover), ul:has(.muro-a:focus-visible) .muro-a:not(:focus-visible) { opacity: 0.28; }
+    .muro-a:hover, .muro-a:focus-visible { color: var(--c-accent); }
+  }
+  .muro-a:focus-visible { color: var(--c-accent); }
+</style>
+
+<script>
+  const show = (a: Element | null, on: boolean) => {
+    const wrap = a?.closest<HTMLElement>("[data-muro]");
+    const cap = wrap?.querySelector<HTMLElement>("[data-muro-caption]");
+    if (!wrap || !cap) return;
+    cap.textContent = on && a instanceof HTMLElement ? (a.dataset.text ?? "") : (wrap.dataset.idle ?? "");
+  };
+  const target = (e: Event) => (e.target instanceof Element ? e.target.closest("a.muro-a") : null);
+  document.addEventListener("pointerover", (e) => {
+    if ((e as PointerEvent).pointerType === "touch") return;
+    const a = target(e);
+    if (a) show(a, true);
+  });
+  document.addEventListener("pointerout", (e) => {
+    const a = target(e);
+    const to = (e as PointerEvent).relatedTarget;
+    if (a && !(to instanceof Element && to.closest("a.muro-a"))) show(a, false);
+  });
+  document.addEventListener("focusin", (e) => {
+    const a = target(e);
+    if (a) show(a, true);
+  });
+  document.addEventListener("focusout", (e) => {
+    const a = target(e);
+    if (a) show(a, false);
+  });
+</script>

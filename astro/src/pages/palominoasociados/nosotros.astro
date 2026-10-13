@@ -1,0 +1,52 @@
+---
+import "@/sites/palominoasociados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import Stats from "@/kit/Stats.astro";
+import Split from "@/kit/Split.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Icon from "@/kit/Icon.astro";
+import { site, waLink } from "@/sites/palominoasociados/site";
+import { reviews } from "@/sites/palominoasociados/data";
+import escritura from "@/sites/palominoasociados/assets/escritura-libro.jpg";
+
+const base = "/palominoasociados";
+---
+
+<SiteLayout
+  site={site}
+  title="Nosotros | Palomino & Asociados"
+  description="Sociedad de abogados con más de 30 años de experiencia acumulada en distintas ramas del derecho, en la colonia San Rafael, Ciudad de México."
+  nav={{ variant: "pill", tone: "dark", logoHeight: 44 }}
+  breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}
+>
+  <PageHero title="Acerca de Palomino & Asociados" lede="Sociedad de abogados con más de 30 años de experiencia acumulada en distintas ramas del derecho." tone="brand" />
+
+  <Section size="sm" class="pt-16 sm:pt-24">
+    <div class="wrap">
+      <Split image={escritura} alt="Manos escribiendo sobre un documento junto a un libro de derecho abierto" ratio="4/5" position="50% 60%">
+        <p class="max-w-[28ch] font-(family-name:--f-display) text-[clamp(1.7rem,3.2vw,2.8rem)] font-medium leading-[1.12] tracking-[-0.02em]">La honestidad es el pilar principal de nuestro despacho jurídico, lo que nos ha abierto camino en el ramo generando confianza en nuestros clientes.</p>
+        <p class="mt-8 max-w-[46ch] text-lg text-(--c-muted)">Nuestro despacho está conformado por experimentados abogados con estudios de posgrado especializados en distintas ramas del derecho, comprometidos con brindar la mejor representación legal.</p>
+      </Split>
+    </div>
+  </Section>
+
+  <Section tone="surface" size="sm">
+    <div class="wrap">
+      <Stats stats={[{ value: "+30", label: "años de experiencia acumulada en distintas ramas del derecho" }, { value: "4.8", label: "calificación en Google" }, { value: "22", label: "reseñas en Google" }]} />
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+      <h2 data-reveal class="text-[clamp(1.6rem,2.8vw,2.3rem)] leading-tight tracking-[-0.02em]">Sede</h2>
+      <address data-reveal class="not-italic">
+        <p class="flex gap-3 text-xl"><Icon name="map-pin" class="mt-1.5 size-5 shrink-0 text-(--c-accent)" />{site.addresses[0].text}</p>
+        <div class="mt-8"><a href={site.mapsUrl ?? "#"} target="_blank" rel="noopener" class="link-u inline-flex! items-center gap-2 whitespace-nowrap font-medium text-(--c-accent)">Ver en el mapa <Icon name="arrow-up-right" weight="bold" class="size-4" /></a></div>
+      </address>
+    </div>
+  </Section>
+
+  <CtaBand title="Agendemos su cita" href={waLink()} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

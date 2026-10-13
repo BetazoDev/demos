@@ -1,0 +1,25 @@
+---
+// Héroe de REVSA: su lema en tipografía enorme sobre papel cálido y, debajo, una franja de foto con la entrada de
+// la foto del kit (barrido y zoom lento) junto al subtexto y los botones.
+import type { Img } from "@/kit/types";
+import Pic from "@/kit/Pic.astro";
+interface Props { title: string; lede?: string; image: Img; imageAlt?: string; position?: string }
+const { title, lede, image, imageAlt = "", position = "50% 60%" } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+  <div class="wrap pb-14 pt-32 sm:pt-36 lg:pb-16 lg:pt-40">
+    <h1 data-hero="blur" class="max-w-[20ch] text-[clamp(2.6rem,6.6vw,6.5rem)] leading-[0.98] tracking-[-0.04em] sm:max-w-none">{title.split("|").map((l) => <span class="sm:block">{l} </span>)}</h1>
+    <div class="mt-10 grid gap-9 lg:mt-12 lg:grid-cols-[0.44fr_0.56fr] lg:items-end lg:gap-14">
+      <div>
+        {lede && <p data-hero style="--i:1" class="max-w-[34ch] text-lg text-(--c-muted) sm:text-xl">{lede}</p>}
+        <div data-hero style="--i:2" class="mt-8 flex flex-wrap items-center gap-3">
+          <slot name="actions" />
+        </div>
+      </div>
+      <div data-hero-media style="--d:250ms" class="aspect-[16/10] overflow-hidden rounded-(--c-radius-img,1.75rem) lg:aspect-[2/1]">
+        <Pic src={image} alt={imageAlt} priority position={position} class="size-full object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

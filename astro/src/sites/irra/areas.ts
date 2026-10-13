@@ -1,0 +1,32 @@
+// Las 15 áreas de práctica de Irra Ibarra. Fuente: su brochure (irra.com.mx/general2/files/Brochure_IRRA_IBARRA.pdf, pp. 4-10).
+// El orden es el del brochure. No se inventan categorías: el sitio solo distingue "Áreas de práctica" y "Sectores".
+export type Area = { key: string; title: string; lead: string; itemsTitle?: string; items?: string[]; note?: string };
+
+export const areas: Area[] = [
+  { key: "administrativo", title: "Administrativo y regulatorio", lead: "Licitaciones públicas, esquemas de contratación pública, contratos de servicio a largo plazo o Proyectos de Prestación de Servicios (PPS), asuntos ante autoridades de la administración pública y decisiones internas de organismos públicos.",
+    itemsTitle: "Incluye", items: ["Licitaciones públicas", "Esquemas de contratación pública", "Contratos de servicio a largo plazo o Proyectos de Prestación de Servicios (PPS)", "Asuntos ante autoridades de la administración pública", "Decisiones internas de organismos públicos"] },
+  { key: "arbitraje", title: "Arbitraje y ADR", lead: "Arbitraje nacional o internacional, ad hoc o administrado, en sectores como comercio internacional, construcción e ingeniería, energía, telecomunicaciones, inversiones extranjeras, conflictos societarios, joint ventures y distribución.",
+    itemsTitle: "Instituciones arbitrales", items: ["CCI", "CAM", "CANACO", "CIAC", "CMAP", "CIADI", "AAA", "LCIA"] },
+  { key: "bancario", title: "Bancario y financiero", lead: "Asesoría en operaciones bancarias y bursátiles, instituciones financieras y organizaciones auxiliares de crédito, financiamiento de proyectos, préstamos y créditos, documentos cambiarios, productos estructurados y fideicomisos.",
+    itemsTitle: "Incluye", items: ["Operaciones bancarias y bursátiles", "Instituciones financieras y organizaciones auxiliares de crédito", "Financiamiento de proyectos", "Préstamos y créditos", "Documentos cambiarios", "Productos estructurados", "Fideicomisos"] },
+  { key: "civil", title: "Civil y contractual", lead: "Asesoría civil y diseño y redacción de esquemas contractuales, de simples contratos bilaterales a esquemas complejos con multiplicidad de partes y contratos." },
+  { key: "concursos", title: "Concursos mercantiles", lead: "Procedimientos de quiebra bajo la antigua Ley de Quiebras y Suspensión de Pagos y la Ley de Concursos Mercantiles, hasta la reestructuración de la empresa o su liquidación y pago a acreedores." },
+  { key: "constitucional", title: "Constitucional", lead: "Contencioso constitucional: amparo contra actos de autoridad y leyes, acciones de inconstitucionalidad y controversias constitucionales.",
+    itemsTitle: "Incluye", items: ["Amparo contra actos de autoridad y leyes", "Acciones de inconstitucionalidad", "Controversias constitucionales"], note: "Miembros acreditados por la Escuela Judicial del Instituto de la Judicatura Federal." },
+  { key: "corporativo", title: "Corporativo, mercantil y societario", lead: "Redacción estatutaria, constitución, registro y liquidación de sociedades, asambleas, pactos entre socios, reestructuración corporativa, alianzas estratégicas, coinversiones y contratación mercantil.",
+    itemsTitle: "Incluye", items: ["Redacción estatutaria", "Constitución, registro y liquidación de sociedades", "Asambleas", "Pactos entre socios", "Reestructuración corporativa", "Alianzas estratégicas y coinversiones", "Contratación mercantil"] },
+  { key: "franquicia", title: "Franquicia, agencia y distribución", lead: "Diseño, planeación e implementación de estructuras de franquicia, agencia y distribución, y solución de conflictos por exclusividad territorial, indemnizaciones por terminación e incumplimiento." },
+  { key: "inmobiliario", title: "Inmobiliario", lead: "Desarrollos inmobiliarios residenciales y turísticos, edificios de oficinas corporativas y complejos hoteleros, y controversias derivadas." },
+  { key: "comercio-exterior", title: "Comercio exterior e inversión extranjera", lead: "Comercio exterior, inversiones reguladas por tratados de libre comercio y APPRIs, y arbitrajes internacionales de inversión." },
+  { key: "maritimo", title: "Marítimo", lead: "Adquisición, concesión, explotación y operación de instalaciones portuarias, fletamento, compraventa de barcos, conocimientos de embarque, seguros marítimos, reclamos de carga y disputas de transporte marítimo y multimodal.",
+    itemsTitle: "Incluye", items: ["Instalaciones portuarias: adquisición, concesión, explotación y operación", "Fletamento", "Compraventa de barcos", "Conocimientos de embarque", "Seguros marítimos", "Reclamos de carga", "Disputas de transporte marítimo y multimodal"] },
+  { key: "litigio", title: "Litigio", lead: "Litigio ante tribunales estatales y federales: civil, mercantil, familiar, inmobiliario, administrativo y constitucional.",
+    itemsTitle: "Materias", items: ["Civil", "Mercantil", "Familiar", "Inmobiliario", "Administrativo", "Constitucional"] },
+  { key: "private-client", title: "Private client", lead: "Empresa familiar, pactos familiares, patrimonio familiar, reestructuraciones y buen gobierno, planificación sucesoria y disputas sucesorias (testamentarias o intestadas).",
+    itemsTitle: "Incluye", items: ["Empresa familiar", "Pactos familiares", "Patrimonio familiar", "Reestructuraciones y buen gobierno", "Planificación sucesoria", "Disputas sucesorias (testamentarias o intestadas)"] },
+  { key: "proteccion-de-datos", title: "Protección de datos", lead: "Esquemas y contratos para cumplir las obligaciones de protección de datos personales." },
+  { key: "seguros", title: "Seguros y fianzas", lead: "Asesoría a operadores y beneficiarios en ramos de vida, accidentes y enfermedades, responsabilidad civil y riesgos profesionales, marítimo y transportes, crédito, garantías financieras y riesgos catastróficos.",
+    itemsTitle: "Ramos", items: ["Vida", "Accidentes y enfermedades", "Responsabilidad civil y riesgos profesionales", "Marítimo y transportes", "Crédito", "Garantías financieras", "Riesgos catastróficos"] },
+];
+
+export const sectores = ["Aviación", "Banca", "Comercio internacional", "Consumo", "Construcción e infraestructura", "Deporte", "Energía", "Farmacéutico", "Informático y comercio electrónico", "Inmobiliario", "Salud y hospitalario", "Seguros y fianzas", "Servicios financieros y organizaciones auxiliares del crédito", "Telecomunicaciones", "Transporte y logística", "Turismo y ocio"];

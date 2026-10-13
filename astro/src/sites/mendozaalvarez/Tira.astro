@@ -1,0 +1,25 @@
+---
+// Tira de los valores del despacho en tipografía enorme (una sola marquesina por página). Los valores también van
+// como lista oculta visualmente para lectores de pantalla; la tira en sí es decorativa.
+interface Props { items: string[]; speed?: number }
+const { items, speed = 60 } = Astro.props;
+---
+
+<div class="relative overflow-hidden border-y border-(--c-line) py-8 sm:py-12">
+  <ul class="sr-only">{items.map((i) => <li>{i}</li>)}</ul>
+  <div class="overflow-hidden" aria-hidden="true">
+    <div class="marquee" style={`--marquee-s:${speed}s`}>
+      {[0, 1].map(() => (
+        <ul class="flex shrink-0 items-center">
+          {items.map((it, i) => (
+            <li class:list={["whitespace-nowrap px-6 font-(family-name:--f-display) text-[clamp(3rem,9vw,8rem)] font-extrabold leading-none tracking-[-0.05em] sm:px-10", i % 2 === 1 ? "tira-out" : ""]}>{it}</li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .tira-out { color: transparent; -webkit-text-stroke: 1.5px var(--c-ink); }
+</style>

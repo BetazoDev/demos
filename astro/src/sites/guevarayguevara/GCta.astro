@@ -1,0 +1,16 @@
+---
+// Cierre de página: una frase y un solo botón (misma etiqueta que el resto del sitio).
+import GButton from "./GButton.astro";
+interface Props { title: string; href: string; label: string; tone?: "brand" | "surface" }
+const { title, href, label, tone = "brand" } = Astro.props;
+const tones = { brand: "bg-(--c-brand) text-(--c-on-brand)", surface: "bg-(--c-surface) text-(--c-ink)" };
+---
+
+<section class:list={["section-y overflow-hidden", tones[tone]]}>
+  <div class="wrap grid items-end gap-10 lg:grid-cols-[1fr_auto]">
+    <h2 data-reveal class="max-w-[20ch] text-[clamp(2.2rem,5.2vw,4.6rem)] leading-[1.02] tracking-[-0.035em]">{title}</h2>
+    <div data-reveal data-delay="120">
+      <GButton href={href} variant={tone === "brand" ? "light" : "solid"} size="lg" external>{label}</GButton>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,110 @@
+---
+import "@/sites/palominoasociados/theme.css";
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Stats from "@/kit/Stats.astro";
+import Pic from "@/kit/Pic.astro";
+import Composer from "@/kit/Composer.astro";
+import Icon from "@/kit/Icon.astro";
+import Hero from "@/sites/palominoasociados/Hero.astro";
+import AreasAccordion from "@/sites/palominoasociados/AreasAccordion.astro";
+import { site, waLink } from "@/sites/palominoasociados/site";
+import { areas, process, reviews } from "@/sites/palominoasociados/data";
+import mesa from "@/sites/palominoasociados/assets/mesa-mazo-pluma.jpg";
+
+const base = "/palominoasociados";
+const wa = waLink();
+const polizas = areas.find((a) => a.key === "polizas")!;
+const [featured, ...restReviews] = reviews;
+---
+
+<SiteLayout site={site} title="Palomino & Asociados | Abogados en la colonia San Rafael, Ciudad de México" nav={{ variant: "pill", tone: "light", logoHeight: 44 }} footer={{ variant: "dark", blurb: "La honestidad es el pilar principal de nuestro despacho jurídico." }}>
+  <Hero title="Su salud jurídica es nuestra prioridad" lede="Sociedad de abogados con más de 30 años de experiencia acumulada en distintas ramas del derecho.">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver servicios</Button>
+    </Fragment>
+  </Hero>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <h2 class="sr-only">Acerca de Palomino &amp; Asociados</h2>
+      <Statement text="La honestidad es el pilar principal de nuestro despacho jurídico, lo que nos ha abierto camino en el ramo generando confianza en nuestros clientes." class="max-w-[30ch] sm:max-w-[34ch]" />
+      <div class="mt-16 max-w-[34rem]">
+        <Stats stats={[{ value: "+30", label: "años de experiencia acumulada" }, { value: "4.8", label: "en Google, 22 reseñas" }]} />
+      </div>
+    </div>
+  </Section>
+
+  <Section id="servicios">
+    <div class="wrap grid gap-12 lg:grid-cols-[0.55fr_1.45fr] lg:gap-20">
+      <div class="lg:sticky lg:top-28 lg:self-start" data-reveal>
+        <h2 class="text-[clamp(2.2rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.03em]">Servicios legales</h2>
+        <div class="mt-8"><Button href={`${base}/servicios`} variant="outline">Todos los servicios</Button></div>
+      </div>
+      <AreasAccordion areas={areas} base={base} open="penal" />
+    </div>
+  </Section>
+
+  <div class="relative isolate overflow-hidden bg-(--c-dark)" style="height:clamp(15rem,34vw,28rem)">
+    <div class="absolute inset-0 -z-10" data-parallax="50">
+      <Pic src={mesa} alt="Manos con una pluma fuente señalando un documento, con un mazo de juez y una balanza sobre el escritorio" position="50% 40%" class="size-full object-cover" />
+    </div>
+  </div>
+
+  <Section tone="brand">
+    <div class="wrap grid gap-12 lg:grid-cols-2 lg:items-end lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(2.4rem,5.4vw,5rem)] leading-[1.02] tracking-[-0.03em]">Pólizas jurídicas</h2>
+        <p class="mt-6 max-w-[38ch] text-lg text-white/80">{polizas.lede}</p>
+        <div class="mt-9"><Button href={`${base}/servicios/polizas`} variant="light">Ver pólizas jurídicas</Button></div>
+      </div>
+      <ul data-stagger data-gap="90" class="divide-y divide-white/20 border-y border-white/20">
+        {polizas.items.map((i) => <li class="py-6 text-[clamp(1.3rem,2.4vw,1.9rem)] tracking-[-0.01em]">{i}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface">
+    <div class="wrap">
+      <p data-reveal class="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+        <span class="font-(family-name:--f-display) text-[clamp(3.4rem,8vw,6.5rem)] font-medium leading-none tracking-[-0.04em] tabular-nums text-(--c-accent)">4.8</span>
+        <span class="text-lg text-(--c-muted)">en Google, 22 reseñas</span>
+      </p>
+      <figure data-reveal class="mt-12">
+        <blockquote class="max-w-[30ch] font-(family-name:--f-display) text-[clamp(1.6rem,3.4vw,3rem)] font-medium leading-[1.14] tracking-[-0.02em]">“{featured.text}”</blockquote>
+        <figcaption class="mt-6 text-(--c-muted)">{featured.author}, {featured.when}</figcaption>
+      </figure>
+      <ul data-stagger data-gap="90" class="mt-16 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+        {restReviews.map((r) => (
+          <li class="border-t-2 border-(--c-accent) pt-6">
+            <blockquote class="text-lg leading-snug">“{r.text}”</blockquote>
+            <p class="mt-4 text-sm text-(--c-muted)">{r.author}, {r.when}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(2.2rem,4.6vw,4rem)] leading-[1.02] tracking-[-0.03em]">Asesoría legal</h2>
+        <ol class="mt-10 grid gap-8">
+          {process.map((p, i) => (
+            <li class="flex gap-5">
+              <span class="grid size-11 shrink-0 place-items-center border border-(--c-accent) font-(family-name:--f-display) text-xl text-(--c-accent)">{i + 1}</span>
+              <p class="max-w-[40ch] pt-1.5 text-lg">{p}</p>
+            </li>
+          ))}
+        </ol>
+        <p class="mt-12 flex gap-3 text-(--c-muted)"><Icon name="map-pin" class="mt-1 size-5 shrink-0" />{site.addresses[0].text}</p>
+      </div>
+      <div data-reveal data-delay="120" class="border border-(--c-line) bg-(--c-surface) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+</SiteLayout>

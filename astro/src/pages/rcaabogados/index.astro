@@ -1,0 +1,82 @@
+---
+import SiteLayout from "@/sites/rcaabogados/Page.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import Stats from "@/kit/Stats.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import Hero from "@/sites/rcaabogados/Hero.astro";
+import AreaExplorer from "@/sites/rcaabogados/AreaExplorer.astro";
+import { site } from "@/sites/rcaabogados/site";
+import { areas, lema, frase, cifras, notaCifras, resenas } from "@/sites/rcaabogados/data";
+import hero from "@/sites/rcaabogados/assets/edificio-vidrio-bn.jpg";
+import panoramica from "@/sites/rcaabogados/assets/cdmx-panoramica.jpg";
+
+const base = "/rcaabogados";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const rows = areas.map((a) => ({ ...a, href: `${base}/servicios/${a.key}` }));
+const limeBtn = "!bg-(--c-accent) !text-(--c-on-accent) hover:!brightness-95";
+---
+
+<SiteLayout site={site} title="RCA Abogados | Firma legal en Polanco, Ciudad de México" nav={{ variant: "bar", tone: "dark", logoHeight: 52 }} footer={{ variant: "dark", blurb: lema.charAt(0).toUpperCase() + lema.slice(1) + "." }}>
+  <Hero title="Especialistas en resolver asuntos relevantes y complejos" lede="Firma de servicios profesionales en el ámbito legal y de negocios, con 12 áreas de especialidad." image={hero} imageAlt="Fachada de un rascacielos vista desde abajo, en blanco y negro" position="60% 50%">
+    <Fragment slot="actions">
+      <Button href={wa} size="lg" class={limeBtn} external>Escribir por WhatsApp</Button>
+      <Button href={`${base}/servicios`} variant="outline" size="lg">Ver áreas de práctica</Button>
+    </Fragment>
+  </Hero>
+
+  <Section>
+    <div class="wrap"><Statement text={frase} /></div>
+  </Section>
+
+  <Section tone="surface" id="areas">
+    <div class="wrap">
+      <h2 data-reveal class="mb-12 text-[clamp(2rem,4.2vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.03em] sm:mb-16">Áreas de práctica</h2>
+      <AreaExplorer areas={rows} preview={8} />
+    </div>
+  </Section>
+
+  <Section tone="brand">
+    <div class="wrap">
+      <Stats stats={cifras} class="[&_[data-count]]:text-(--c-accent)" />
+      <p data-reveal class="mt-12 max-w-[56ch] text-[15px] text-white/70">{notaCifras}</p>
+    </div>
+  </Section>
+
+  <ImageBand image={panoramica} alt="Vista aérea de Polanco y Chapultepec, en la Ciudad de México" position="50% 55%" />
+
+  <Section>
+    <div class="wrap">
+      <p class="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+        <span data-count="5.0" class="font-(family-name:--f-display) text-[clamp(3.5rem,8vw,6.5rem)] font-semibold leading-none tracking-[-0.04em] tabular-nums">5.0</span>
+        <span class="text-lg text-(--c-muted)">en Google, {site.google?.reviews} reseñas</span>
+      </p>
+      <ul data-stagger data-gap="100" class="mt-12 grid gap-6 md:grid-cols-2">
+        {resenas.map((r) => (
+          <li class="flex flex-col justify-between gap-8 rounded-(--c-radius-card) bg-(--c-surface) p-8 sm:p-10">
+            <blockquote class="text-[1.15rem] leading-relaxed">“{r.text}”</blockquote>
+            <p class="text-[15px] text-(--c-muted)">{r.author}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-2 lg:gap-24">
+      <div data-reveal>
+        <h2 class="mb-10 text-[clamp(2rem,4.2vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.03em]">Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+      </div>
+      <div data-reveal data-delay="120" class="rounded-(--c-radius-card) border border-(--c-line) bg-(--c-bg) p-6 sm:p-9">
+        <Composer site={site} areas={areas.map((a) => a.title)} />
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand title="Cuéntenos su asunto" href={wa} label="Escribir por WhatsApp" tone="brand" external />
+</SiteLayout>

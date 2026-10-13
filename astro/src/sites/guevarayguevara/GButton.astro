@@ -1,0 +1,43 @@
+---
+// Botón rectilíneo (sistema de radio 0px del sitio): etiqueta + celda cuadrada con flecha.
+interface Props {
+  href: string;
+  variant?: "solid" | "light" | "outline";
+  size?: "md" | "lg";
+  external?: boolean;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { href, variant = "solid", size = "md", external = false, class: cls = "", ...rest } = Astro.props;
+const sizes = { md: "h-12 text-[15px]", lg: "h-14 text-base" };
+const variants = {
+  solid: "bg-(--c-brand) text-(--c-on-brand) hover:brightness-110",
+  light: "bg-(--c-on-dark) text-(--c-dark) hover:brightness-95",
+  outline: "border border-current/35 hover:border-current",
+};
+const cells = {
+  solid: "bg-white/12",
+  light: "bg-(--c-dark) text-(--c-on-dark)",
+  outline: "border-l border-current/35",
+};
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener" : undefined}
+  class:list={["gbtn press group inline-flex items-stretch whitespace-nowrap font-medium tracking-[0.005em]", sizes[size], variants[variant], cls]}
+  {...rest}
+>
+  <span class="flex items-center pl-6 pr-5"><slot /></span>
+  <span class:list={["arr grid aspect-square h-full place-items-center", cells[variant]]}>
+    <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" /></svg>
+  </span>
+</a>
+
+<style>
+  .gbtn svg { transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1); }
+  @media (hover: hover) and (pointer: fine) {
+    .gbtn:hover svg { transform: translateX(3px); }
+  }
+</style>

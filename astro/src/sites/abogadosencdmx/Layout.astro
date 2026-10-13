@@ -1,0 +1,35 @@
+---
+// Envoltorio de SiteLayout: nav pill y pie con el logo compuesto, radios de un solo sistema (12px) y ajustes de la serif display.
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Nav from "./Nav.astro";
+import Footer from "./Footer.astro";
+import { site } from "./site";
+interface Props {
+  title: string;
+  description?: string;
+  breadcrumbs?: { name: string; href: string }[];
+  schema?: Record<string, unknown>[];
+  nav?: { variant?: "pill" | "bar"; tone?: "light" | "dark"; logoHeight?: number };
+  footer?: { variant?: "dark" | "light" | "brand"; blurb?: string };
+}
+const { nav, footer, ...rest } = Astro.props;
+---
+
+<SiteLayout site={site} nav={false} footer={false} {...rest}>
+  <Nav slot="nav" site={site} variant="pill" tone="light" logoHeight={40} {...nav} />
+  <slot />
+  <Footer slot="footer" site={site} variant="dark" {...footer} />
+</SiteLayout>
+
+<style is:global>
+  [data-site="abogadosencdmx"] {
+    --c-radius-nav: 16px;
+    --c-radius-img: 12px;
+    --c-radius-card: 12px;
+    --c-radius-field: 12px;
+  }
+  [data-site="abogadosencdmx"] :is(h1, h2, h3) { font-weight: 400; letter-spacing: -0.015em; }
+  [data-site="abogadosencdmx"] [data-statement] { font-weight: 400; letter-spacing: -0.02em; }
+  [data-site="abogadosencdmx"] main :is(.opacity-60, .opacity-65) { opacity: 0.8; }
+  [data-site="abogadosencdmx"] main a.break-all { word-break: normal; overflow-wrap: anywhere; font-size: clamp(0.85rem, 3.7vw, 1.0625rem); }
+</style>
