@@ -14,6 +14,8 @@ export type Contact = {
   waDisplay: string | null;
   waSource: string | null;
   phoneAlt: string | null;
+  /** Segundo intento: otros números publicados por la firma (alta = lo publican como WhatsApp). */
+  retry: { wa: string; display: string; level: "alta" | "media" | "baja"; source: string }[] | null;
   email: string | null;
   web: string | null;
   facebook: string | null;

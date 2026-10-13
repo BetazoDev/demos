@@ -75,8 +75,8 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
     try { await navigator.clipboard.writeText(text); setToast("Mensaje copiado"); } catch { setToast("No se pudo copiar"); }
   };
   const exportCsv = () => {
-    const rows = [["Despacho", "Grupo", "WhatsApp", "Correo", "Estado", "Demo", "Web actual"]].concat(
-      contacts.map((c) => [c.firma, GROUPS.find((g) => g.id === c.group)!.label, c.waDisplay ?? "", c.email ?? "", c.group === "fuera" ? "" : STATUSES.find((s) => s.id === statusOf(c.id))!.label, c.demo ?? "", c.web ?? ""]));
+    const rows = [["Despacho", "Grupo", "WhatsApp", "Correo", "Estado", "Demo", "Web actual", "Segundo intento"]].concat(
+      contacts.map((c) => [c.firma, GROUPS.find((g) => g.id === c.group)!.label, c.waDisplay ?? "", c.email ?? "", c.group === "fuera" ? "" : STATUSES.find((s) => s.id === statusOf(c.id))!.label, c.demo ?? "", c.web ?? "", (c.retry ?? []).map((r) => r.display).join(" / ")]));
     const csv = rows.map((r) => r.map((v) => `"${String(v).replaceAll('"', '""')}"`).join(",")).join("\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }));
@@ -220,7 +220,8 @@ type CardProps = {
 };
 
 function Card({ c, status, onStatus, text, edited, onEdit, onReset, onSent, onCopy }: CardProps) {
-  const dim = status === "sinwa" || status === "descartado";
+  // Con números para un segundo intento, «Sin WhatsApp» no se atenúa: aún hay a quién escribir.
+  const dim = (status === "sinwa" && !c.retry) || status === "descartado";
   const meta = [c.categoria, c.zona, c.rating ? `★ ${c.rating.toFixed(1)} (${c.reviews} reseñas)` : null].filter(Boolean).join(" · ");
   return (
     <article className={`rounded-2xl bg-white p-5 ring-1 ring-black/5 transition-opacity duration-300 md:p-6 ${dim ? "opacity-55" : ""}`}>
@@ -275,6 +276,25 @@ function Card({ c, status, onStatus, text, edited, onEdit, onReset, onSent, onCo
             {c.maps && <Fact label="Mapa"><a href={c.maps} target="_blank" rel="noopener" className="link-u">Google Maps</a></Fact>}
           </dl>
 
+          {c.retry && (
+            <div className="mt-4 rounded-xl bg-[#EEF4FF] px-3.5 py-3">
+              <p className="text-[13px] font-medium text-[#1E3A8A]">Segundo intento</p>
+              <ul className="mt-2 flex flex-col gap-2">
+                {c.retry.map((r) => (
+                  <li key={r.wa} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[13px]">
+                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${r.level === "alta" ? "bg-[#16A34A] text-white" : r.level === "media" ? "bg-[#1E3A8A] text-white" : "bg-black/[0.07] text-black/60"}`}>
+                      {r.level === "alta" ? "WhatsApp publicado" : r.level === "media" ? "Probable" : "Fijo"}
+                    </span>
+                    <a href={`tel:+${r.wa}`} className="link-u font-mono text-[13.5px] tabular-nums">{r.display}</a>
+                    <a href={`https://wa.me/${r.wa}?text=${encodeURIComponent(text(1))}`} target="_blank" rel="noopener" onClick={() => onSent(1)} className="link-u text-xs font-medium text-[#1E3A8A]">
+                      Probar en WhatsApp
+                    </a>
+                    <span className="text-xs text-black/50">{r.source}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {c.note && <p className="mt-4 rounded-xl bg-[#FFF4DC] px-3.5 py-2.5 text-[13px] leading-snug text-[#7A4A00]">{c.note}</p>}
           {c.group === "fuera" && c.reason && <p className="mt-4 max-w-[70ch] text-sm leading-relaxed text-black/60">{c.reason}</p>}
         </div>
@@ -285,7 +305,7 @@ function Card({ c, status, onStatus, text, edited, onEdit, onReset, onSent, onCo
           {([1, 2] as const).map((step) => {
             const value = text(step);
             const wa = c.wa ? `https://wa.me/${c.wa}?text=${encodeURIComponent(value)}` : null;
-            const mail = !c.wa && c.email ? `mailto:${c.email}?subject=${encodeURIComponent(`Sitio web de ${c.firma}`)}&body=${encodeURIComponent(value)}` : null;
+            const mail = (!c.wa || status === "sinwa") && c.email ? `mailto:${c.email}?subject=${encodeURIComponent(`Sitio web de ${c.firma}`)}&body=${encodeURIComponent(value)}` : null;
             return (
               <div key={step} className="flex min-w-0 flex-col gap-2.5">
                 <p className="flex items-baseline gap-2 text-[13px] font-medium">
