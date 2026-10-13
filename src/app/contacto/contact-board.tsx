@@ -36,7 +36,7 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
   const reduce = useReducedMotion();
   const [saved, setSaved] = useState<Saved>(DEFAULT);
   const [query, setQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<StatusId | "all">("all");
+  const [statusFilter, setStatusFilter] = useState<StatusId | "all" | "retry">("all");
   const [toast, setToast] = useState("");
   const loaded = useRef(false);
 
@@ -63,7 +63,9 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
   const visible = useMemo(() => {
     const q = normalize(query.trim());
     return inGroup.filter((c) => {
-      if (statusFilter !== "all" && statusOf(c.id) !== statusFilter) return false;
+      // «Segundo intento»: los que tienen otros números publicados para volver a probar.
+      if (statusFilter === "retry") { if (!c.retry) return false; }
+      else if (statusFilter !== "all" && statusOf(c.id) !== statusFilter) return false;
       return !q || normalize(`${c.firma} ${c.zona ?? ""} ${c.categoria} ${c.waDisplay ?? ""} ${c.phoneAlt ?? ""} ${c.web ?? ""}`).includes(q);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -125,12 +127,13 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
           <span className="sr-only">Filtrar por estado</span>
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as StatusId | "all")}
+            onChange={(e) => setStatusFilter(e.target.value as StatusId | "all" | "retry")}
             disabled={saved.tab === "fuera"}
             className="h-10 appearance-none rounded-full border border-black/15 bg-white pl-4 pr-9 text-sm text-black/70 hover:border-black/40 focus:border-black/50 focus:outline-none disabled:opacity-40"
           >
             <option value="all">Todos los estados</option>
             {STATUSES.map((s) => <option key={s.id} value={s.id}>{s.label}</option>)}
+            <option value="retry">Segundo intento ({inGroup.filter((c) => c.retry).length})</option>
           </select>
           <Chevron />
         </label>
