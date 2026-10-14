@@ -40,14 +40,49 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
   const [toast, setToast] = useState("");
   const loaded = useRef(false);
 
+  // Estados y textos editados viven en el servidor (/contacto/estado) para verse igual en cualquier navegador;
+  // localStorage queda como copia local y para el nombre y la pestaña.
+  const synced = useRef(false);
+  const pull = async (pushLocal: boolean) => {
+    try {
+      const r = await fetch("/contacto/estado", { cache: "no-store" });
+      if (!r.ok) return;
+      const server = (await r.json()) as { status: Record<string, StatusId>; edits: Record<string, string>; updatedAt: string | null };
+      setSaved((p) => {
+        // Primera vez en el servidor: se suben las marcas que ya había en este navegador.
+        const status = { ...p.status, ...server.status };
+        const edits = server.updatedAt ? server.edits : { ...p.edits, ...server.edits };
+        if (pushLocal) fetch("/contacto/estado", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status, edits }) }).catch(() => {});
+        return { ...p, status, edits };
+      });
+      synced.current = true;
+    } catch {}
+  };
   useEffect(() => {
     try { const raw = localStorage.getItem(KEY); if (raw) setSaved({ ...DEFAULT, ...JSON.parse(raw) }); } catch {}
     loaded.current = true;
+    pull(true);
+    const onShow = () => { if (document.visibilityState === "visible") pull(false); };
+    document.addEventListener("visibilitychange", onShow);
+    return () => document.removeEventListener("visibilitychange", onShow);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if (!loaded.current) return;
     try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch {}
   }, [saved]);
+  // Cada cambio de estado se guarda al momento; los textos editados, medio segundo después de dejar de escribir.
+  const send = (body: { status?: Record<string, StatusId>; edits?: Record<string, string> }) =>
+    fetch("/contacto/estado", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then((r) => { if (!r.ok) throw new Error(); })
+      .catch(() => setToast("No se pudo guardar en el servidor"));
+  const editsJson = JSON.stringify(saved.edits);
+  useEffect(() => {
+    if (!synced.current) return;
+    const t = setTimeout(() => send({ edits: JSON.parse(editsJson) }), 500);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editsJson]);
   useEffect(() => {
     if (!toast) return;
     const t = setTimeout(() => setToast(""), 1600);
@@ -55,7 +90,7 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
   }, [toast]);
 
   const statusOf = (id: string): StatusId => saved.status[id] ?? "pendiente";
-  const setStatus = (id: string, s: StatusId) => setSaved((p) => ({ ...p, status: { ...p.status, [id]: s } }));
+  const setStatus = (id: string, s: StatusId) => { setSaved((p) => ({ ...p, status: { ...p.status, [id]: s } })); send({ status: { [id]: s } }); };
   const render = (tpl: string | null, c: Contact) => (tpl ?? "").replaceAll("{nombre}", saved.sender.trim() || "[tu nombre]").replaceAll("{demo}", c.demo ?? "");
   const textFor = (c: Contact, step: 1 | 2) => saved.edits[`${c.id}:${step}`] ?? render(step === 1 ? c.m1 : c.m2, c);
 
@@ -92,6 +127,7 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
       if (id && st && st !== "pendiente") status[id] = st;
     }
     setSaved((prev) => ({ ...prev, status: { ...prev.status, ...status } }));
+    send({ status });
     setToast(`${Object.keys(status).length} estados restaurados`);
   };
   const exportCsv = () => {
