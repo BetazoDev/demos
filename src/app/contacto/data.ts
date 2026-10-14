@@ -9,9 +9,15 @@ let contacts: Contact[] | null = null;
 
 export function loadContacts(): Contact[] {
   if (contacts) return contacts;
-  const [salt, iv, tag, data] = PAYLOAD.split(".").map((part) => Buffer.from(part, "base64"));
-  const decipher = createDecipheriv("aes-256-gcm", scryptSync(process.env.PORTFOLIO_PASSWORD ?? "", salt, 32), iv);
-  decipher.setAuthTag(tag);
-  contacts = JSON.parse(gunzipSync(Buffer.concat([decipher.update(data), decipher.final()])).toString("utf8"));
-  return contacts!;
+  // Puede traer varias copias (una por contraseña, separadas por «|») para servidores con credenciales distintas.
+  for (const copy of PAYLOAD.split("|")) {
+    const [salt, iv, tag, data] = copy.split(".").map((part) => Buffer.from(part, "base64"));
+    try {
+      const decipher = createDecipheriv("aes-256-gcm", scryptSync(process.env.PORTFOLIO_PASSWORD ?? "", salt, 32), iv);
+      decipher.setAuthTag(tag);
+      contacts = JSON.parse(gunzipSync(Buffer.concat([decipher.update(data), decipher.final()])).toString("utf8"));
+      return contacts!;
+    } catch {}
+  }
+  throw new Error("No se pudieron descifrar los contactos con PORTFOLIO_PASSWORD");
 }
