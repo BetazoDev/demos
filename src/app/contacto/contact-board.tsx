@@ -76,6 +76,24 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
   const copy = async (text: string) => {
     try { await navigator.clipboard.writeText(text); setToast("Mensaje copiado"); } catch { setToast("No se pudo copiar"); }
   };
+  // Importar: restaura los estados desde un CSV exportado antes (p. ej. al cambiar de dominio, cuyo almacenamiento empieza vacío).
+  const importCsv = async (file: File) => {
+    const parse = (line: string) => [...line.matchAll(/"((?:[^"]|"")*)"|([^,]+)|(?<=,)(?=,|$)/g)].map((m) => (m[1] ?? m[2] ?? "").replaceAll('""', '"'));
+    const lines = (await file.text()).replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
+    const head = parse(lines[0]);
+    const iFirma = head.indexOf("Despacho"), iEstado = head.indexOf("Estado");
+    if (iFirma < 0 || iEstado < 0) { setToast("Ese archivo no es una exportación de Contactos"); return; }
+    const byName = new Map(contacts.map((c) => [c.firma, c.id]));
+    const byLabel = new Map(STATUSES.map((st) => [st.label as string, st.id as StatusId]));
+    const status: Record<string, StatusId> = {};
+    for (const line of lines.slice(1)) {
+      const row = parse(line);
+      const id = byName.get(row[iFirma]), st = byLabel.get(row[iEstado]);
+      if (id && st && st !== "pendiente") status[id] = st;
+    }
+    setSaved((prev) => ({ ...prev, status: { ...prev.status, ...status } }));
+    setToast(`${Object.keys(status).length} estados restaurados`);
+  };
   const exportCsv = () => {
     const rows = [["Despacho", "Grupo", "WhatsApp", "Correo", "Estado", "Demo", "Web actual", "Segundo intento"]].concat(
       contacts.map((c) => [c.firma, GROUPS.find((g) => g.id === c.group)!.label, c.waDisplay ?? "", c.email ?? "", c.group === "fuera" ? "" : STATUSES.find((s) => s.id === statusOf(c.id))!.label, c.demo ?? "", c.web ?? "", (c.retry ?? []).map((r) => r.display).join(" / ")]));
@@ -150,6 +168,11 @@ export function ContactBoard({ contacts }: { contacts: Contact[] }) {
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3 3-3M3 12.5h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           Exportar
         </button>
+        <label className="press inline-flex h-10 cursor-pointer items-center gap-2 rounded-full border border-black/15 bg-white px-4 text-sm text-black/70 hover:border-black/40">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 11V3m0 0L5 6m3-3 3 3M3 12.5h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          Importar
+          <input type="file" accept=".csv,text/csv" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; if (f) importCsv(f); e.target.value = ""; }} />
+        </label>
       </div>
 
       <p className="mt-6 max-w-[62ch] text-sm text-black/50">{group.desc}</p>
