@@ -1,0 +1,121 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import Statement from "@/kit/Statement.astro";
+import AreasIndex from "@/kit/AreasIndex.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Pic from "@/kit/Pic.astro";
+import { site } from "@/sites/juridicoruiz/site";
+import { areas, jafet, values, highlight, reviews } from "@/sites/juridicoruiz/data";
+import Nav from "@/sites/juridicoruiz/Nav.astro";
+import Footer from "@/sites/juridicoruiz/Footer.astro";
+import Stars from "@/sites/juridicoruiz/Stars.astro";
+import hero from "@/sites/juridicoruiz/assets/sala-juntas.jpg";
+
+const base = "/juridicoruiz";
+const rows = areas.map((a) => ({ key: a.key, title: a.title, text: a.lead, href: `${base}/servicios#${a.key}` }));
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+const h2 = "text-[clamp(2rem,4.4vw,3.8rem)] font-light leading-[1.04] tracking-[-0.03em]";
+const [r1, r2, r3, r4] = reviews;
+---
+
+<SiteLayout site={site} title="Jurídico Ruiz | Despacho de abogados en Guadalajara" nav={false} footer={false}>
+  <Nav slot="nav" site={site} tone="light" />
+
+  <section class="relative overflow-hidden bg-(--c-bg) text-(--c-ink)">
+    <div class="wrap grid min-h-[100svh] items-center gap-14 pb-20 pt-32 lg:grid-cols-[1.15fr_0.85fr] lg:gap-20 lg:pb-16">
+      <div>
+        <h1 data-hero="blur" class="max-w-[12ch] text-[clamp(2.9rem,6.6vw,6.3rem)] font-light leading-[0.98] tracking-[-0.035em]">Despacho de abogados en Guadalajara</h1>
+        <p data-hero style="--i:1" class="mt-7 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">Encabezado por Jafet Ruiz, con un equipo capacitado en distintas materias.</p>
+        <div data-hero style="--i:2" class="mt-9 flex flex-wrap items-center gap-3">
+          <Button href={wa} size="lg" external>Escribir por WhatsApp</Button>
+          <Button href={`${base}/servicios`} variant="outline" size="lg">Servicios</Button>
+        </div>
+      </div>
+      <div class="relative lg:ml-auto lg:w-full lg:max-w-[30rem]">
+        <div data-hero-media style="--d:200ms" class="aspect-[4/5] max-h-[74svh] w-full overflow-hidden rounded-(--c-radius-img,1.5rem)">
+          <Pic src={hero} alt="Sala de juntas con mesa de madera, carpetas de piel cerradas y un librero con tomos de derecho, a la luz de la mañana" priority position="38% 50%" class="size-full object-cover" />
+        </div>
+        <div data-hero style="--i:3" class="absolute -bottom-7 left-4 rounded-[1.25rem] bg-(--c-brand) px-6 py-5 text-(--c-on-brand) shadow-xl sm:-left-10">
+          <p class="flex items-baseline gap-3">
+            <span class="font-(family-name:--f-display) text-6xl font-light leading-none tracking-[-0.04em] tabular-nums">4.9</span>
+            <Stars class="text-(--c-accent)" />
+          </p>
+          <p class="mt-2 text-[15px] opacity-85">en Google, {site.google?.reviews} reseñas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Section>
+    <div class="wrap">
+      <Statement text={jafet.quote} class="font-(family-name:--f-display) !font-light" />
+      <p data-reveal class="mt-8 text-[15px] text-(--c-muted)">{jafet.quoteSource}</p>
+    </div>
+  </Section>
+
+  <Section tone="surface" id="servicios">
+    <div class="wrap">
+      <h2 data-reveal class:list={["mb-12", h2]}>Servicios</h2>
+      <AreasIndex areas={rows} />
+      <div data-reveal class="mt-10"><Button href={`${base}/servicios`} variant="outline">Ver servicios</Button></div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div class="lg:sticky lg:top-32 lg:self-start" data-reveal>
+        <h2 class={h2}>{jafet.name}</h2>
+        <p class="mt-4 text-lg text-(--c-muted)">{jafet.role}</p>
+        <div class="mt-8"><Button href={`${base}/nosotros`} variant="outline">Conocer al despacho</Button></div>
+      </div>
+      <div>
+        <div data-reveal class="grid max-w-[60ch] gap-5 text-lg">
+          {jafet.bio.map((p) => <p>{p}</p>)}
+        </div>
+        <p data-reveal class="mb-5 mt-16 text-lg font-medium">Valores</p>
+        <ul data-stagger data-gap="60" class="grid border-t border-(--c-line) sm:grid-cols-2 sm:gap-x-12">
+          {values.map((v) => <li class="border-b border-(--c-line) py-4 font-(family-name:--f-display) text-[clamp(1.35rem,2.2vw,1.75rem)] font-light leading-tight tracking-[-0.015em]">{v}</li>)}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="dark">
+    <div class="wrap">
+      <div class="grid items-end gap-8 lg:grid-cols-[auto_1fr] lg:gap-20">
+        <p data-reveal class="flex items-baseline gap-4">
+          <span data-count="4.9" class="font-(family-name:--f-display) text-[clamp(4.5rem,11vw,9rem)] font-light leading-none tracking-[-0.05em] tabular-nums">4.9</span>
+          <span class="text-lg opacity-75">en Google, {site.google?.reviews} reseñas</span>
+        </p>
+        <p data-reveal data-delay="100" class="max-w-[24ch] font-(family-name:--f-display) text-[clamp(1.8rem,3.6vw,3.2rem)] font-light leading-[1.1] tracking-[-0.025em]">{highlight}</p>
+      </div>
+      <div data-stagger data-gap="110" class="mt-16 grid gap-x-16 border-t border-current/20 lg:grid-cols-2">
+        {[r1, r2, r3, r4].map((r) => (
+          <figure class="flex flex-col justify-between gap-6 border-b border-current/20 py-9">
+            <blockquote class="max-w-[52ch] text-[17px] leading-relaxed opacity-90">“{r.text}”</blockquote>
+            <figcaption class="text-sm opacity-65">{r.author}, {r.when}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </Section>
+
+  <Section id="contacto">
+    <div class="wrap grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
+      <div data-reveal class="rounded-[1.5rem] bg-(--c-surface) p-6 sm:p-10">
+        <h2 class:list={["mb-8", h2]}>Cuéntenos su caso</h2>
+        <Composer site={site} areas={[...areas.map((a) => a.title), "Otro asunto"]} />
+      </div>
+      <div data-reveal data-delay="120">
+        <h2 class:list={["mb-10", h2]}>Contacto</h2>
+        <ContactBlock site={site} showCta={false} />
+        {site.mapsUrl && <div class="mt-8"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+      </div>
+    </div>
+  </Section>
+
+  <Footer slot="footer" site={site} />
+</SiteLayout>

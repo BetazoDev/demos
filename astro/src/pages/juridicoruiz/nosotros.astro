@@ -1,0 +1,67 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import PageHero from "@/kit/PageHero.astro";
+import Section from "@/kit/Section.astro";
+import ImageBand from "@/kit/ImageBand.astro";
+import CtaBand from "@/kit/CtaBand.astro";
+import { site } from "@/sites/juridicoruiz/site";
+import { jafet, values } from "@/sites/juridicoruiz/data";
+import Nav from "@/sites/juridicoruiz/Nav.astro";
+import Footer from "@/sites/juridicoruiz/Footer.astro";
+import hero from "@/sites/juridicoruiz/assets/sala-juntas.jpg";
+
+const base = "/juridicoruiz";
+const wa = `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.intro)}`;
+---
+
+<SiteLayout
+  site={site}
+  title="Nosotros | Jurídico Ruiz, abogados en Guadalajara"
+  description="Jurídico Ruiz es un despacho de abogados en Guadalajara encabezado por Jafet Ruiz, con certificaciones del Instituto de Justicia Alternativa."
+  breadcrumbs={[{ name: "Nosotros", href: `${base}/nosotros` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} tone="light" />
+
+  <PageHero title="Nosotros" lede="Despacho de abogados encabezado por Jafet Ruiz, con certificaciones del Instituto de Justicia Alternativa." />
+
+  <ImageBand image={hero} alt="" position="88% 40%" height="clamp(16rem,36vw,28rem)" />
+
+  <Section>
+    <div class="wrap grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
+      <div data-reveal>
+        <h2 class="text-[clamp(2rem,4.4vw,3.8rem)] font-light leading-[1.04] tracking-[-0.03em]">{jafet.name}</h2>
+        <p class="mt-4 text-lg text-(--c-muted)">{jafet.role}</p>
+      </div>
+      <div data-reveal data-delay="100" class="grid max-w-[60ch] gap-5 text-lg">
+        {jafet.bio.map((p) => <p>{p}</p>)}
+        <p>El despacho se ha especializado en justicia alternativa y cuenta con las certificaciones del Instituto de Justicia Alternativa, con soluciones en temas civiles, administrativos o penales.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="dark">
+    <div class="wrap">
+      <figure>
+        <blockquote data-statement class="max-w-[26ch] font-(family-name:--f-display) text-[clamp(1.9rem,4.4vw,4rem)] font-light leading-[1.12] tracking-[-0.03em]">{jafet.quote}</blockquote>
+        <figcaption data-reveal class="mt-8 text-[15px] opacity-70">
+          <a href={jafet.sourceUrl} target="_blank" rel="noopener" class="link-u">{jafet.quoteSource}</a>
+        </figcaption>
+      </figure>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="wrap">
+      <h2 data-reveal class="mb-10 text-[clamp(2rem,4.4vw,3.8rem)] font-light leading-[1.04] tracking-[-0.03em]">Valores</h2>
+      <ul data-stagger data-gap="60" class="grid border-t border-(--c-line) sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3">
+        {values.map((v) => <li class="border-b border-(--c-line) py-5 font-(family-name:--f-display) text-[clamp(1.35rem,2.2vw,1.75rem)] font-light leading-tight tracking-[-0.015em]">{v}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand title="Hablemos de su caso" text="Cuéntenos su situación por WhatsApp." href={wa} label="Escribir por WhatsApp" tone="brand" external />
+
+  <Footer slot="footer" site={site} />
+</SiteLayout>

@@ -1,0 +1,39 @@
+---
+// Variante del Footer del kit con la marca tipográfica en lugar de logo.
+import type { SiteConfig } from "@/kit/types";
+import Icon from "@/kit/Icon.astro";
+import Wordmark from "./Wordmark.astro";
+
+interface Props { site: SiteConfig }
+const { site } = Astro.props;
+const base = `/${site.slug}`;
+const wa = site.whatsapp.number ? `https://wa.me/${site.whatsapp.number}` : null;
+---
+
+<footer class="relative bg-(--c-dark) text-(--c-on-dark)">
+  <div class="wrap section-y-sm grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr]">
+    <div>
+      <a href={base} aria-label={site.name}><Wordmark size={32} /></a>
+      <p class="mt-5 max-w-sm text-[15px] opacity-70">Despacho de abogados en Guadalajara.</p>
+    </div>
+    <nav aria-label="Sitio">
+      <ul class="grid gap-2.5 text-[15px]">
+        {site.nav.links.map((l) => <li><a href={l.href} class="link-u opacity-80 hover:opacity-100">{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <address class="grid gap-3 text-[15px] not-italic opacity-90">
+      {site.addresses.map((a) => <p class="flex gap-3"><Icon name="map-pin" class="mt-1 size-[18px] shrink-0 opacity-60" /><span>{a.text}</span></p>)}
+      {site.phones.map((p) => <a href={`tel:${p.tel}`} class="flex gap-3 hover:opacity-70"><Icon name="phone" class="mt-1 size-[18px] shrink-0 opacity-60" /><span>{p.display}</span></a>)}
+      {wa && <a href={wa} target="_blank" rel="noopener" class="flex gap-3 hover:opacity-70"><Icon name="whatsapp-logo" class="mt-1 size-[18px] shrink-0 opacity-60" /><span>WhatsApp {site.whatsapp.display}</span></a>}
+    </address>
+  </div>
+  <div class="border-t border-current/15">
+    <div class="wrap flex flex-col gap-2 py-5 text-sm opacity-70 sm:flex-row sm:items-center sm:justify-between">
+      <p>© 2026 {site.name}</p>
+      <p class="whitespace-nowrap">
+        Desarrollado por
+        <a href="https://hemeron.com" target="_blank" rel="noopener" class="underline decoration-current/40 underline-offset-[3px] transition-opacity hover:opacity-70">hemeron.com</a>
+      </p>
+    </div>
+  </div>
+</footer>

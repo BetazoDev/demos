@@ -1,0 +1,59 @@
+---
+import SiteLayout from "@/kit/SiteLayout.astro";
+import Button from "@/kit/Button.astro";
+import Section from "@/kit/Section.astro";
+import ContactBlock from "@/kit/ContactBlock.astro";
+import Composer from "@/kit/Composer.astro";
+import Icon from "@/kit/Icon.astro";
+import { site } from "@/sites/juridicoruiz/site";
+import { areas, facts } from "@/sites/juridicoruiz/data";
+import Nav from "@/sites/juridicoruiz/Nav.astro";
+import Footer from "@/sites/juridicoruiz/Footer.astro";
+
+const base = "/juridicoruiz";
+---
+
+<SiteLayout
+  site={site}
+  title="Contacto | Jurídico Ruiz, abogados en Guadalajara"
+  description="Contacte a Jurídico Ruiz, despacho de abogados en Guadalajara: WhatsApp y teléfono 33 1447 4428, dirección en Miraflores y horario de lunes a viernes."
+  breadcrumbs={[{ name: "Contacto", href: `${base}/contacto` }]}
+  nav={false}
+  footer={false}
+>
+  <Nav slot="nav" site={site} tone="light" />
+
+  <Section class="!pb-10 !pt-32 sm:!pt-40">
+    <div class="wrap grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-24">
+      <div>
+        <h1 data-hero="blur" class="text-[clamp(2.6rem,6vw,5.2rem)] font-light leading-[1.02] tracking-[-0.03em]">Contacto</h1>
+        <p data-hero style="--i:1" class="mb-10 mt-6 max-w-[40ch] text-lg text-(--c-muted) sm:text-xl">Atención en nuestras instalaciones con cita, de lunes a viernes.</p>
+        <div data-hero style="--i:2">
+          <ContactBlock site={site} showCta={false} />
+          {site.mapsUrl && <div class="mt-8"><Button href={site.mapsUrl} variant="outline" external>Ver en el mapa</Button></div>}
+        </div>
+      </div>
+      <div data-hero style="--i:2" class="h-fit rounded-[1.5rem] bg-(--c-surface) p-6 sm:p-10">
+        <h2 class="mb-8 text-[clamp(1.6rem,2.6vw,2.2rem)] font-light leading-tight tracking-[-0.02em]">Cuéntenos su caso</h2>
+        <Composer site={site} areas={[...areas.map((a) => a.title), "Otro asunto"]} />
+      </div>
+    </div>
+  </Section>
+
+  <Section size="sm">
+    <div class="wrap">
+      <ul data-stagger data-gap="80" class="grid gap-x-12 border-t border-(--c-line) sm:grid-cols-2">
+        {
+          facts.map((f) => (
+            <li class="flex items-center gap-4 border-b border-(--c-line) py-5 text-lg">
+              <Icon name="check-circle" weight="regular" class="size-6 shrink-0 text-(--c-brand)" />
+              {f}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Footer slot="footer" site={site} />
+</SiteLayout>

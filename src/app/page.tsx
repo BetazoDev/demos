@@ -1,5 +1,6 @@
 import { SITES, type Site } from "@/data/sites";
 import { SITES2 } from "@/data/sites2";
+import { SITES3 } from "@/data/sites3";
 import { HeroIntro, HeroItem } from "@/components/motion";
 import type { Metadata } from "next";
 import { Directory, type Entry, type List } from "./directory";
@@ -31,9 +32,18 @@ const list2: Entry[] = SITES2.map((s) => ({
   kindLabel: s.kind === "despacho" ? null : KIND_LABEL2[s.kind],
   isDespacho: s.kind === "despacho",
 }));
+const list3: Entry[] = SITES3.map((s) => ({
+  slug: s.slug,
+  name: s.name,
+  domain: s.domain,
+  thumb: `/thumbs/p-${s.slug}.webp`,
+  kindLabel: s.category || null,
+  isDespacho: /abogad|despacho|jur[ií]dic|legal/i.test(s.category),
+}));
 const LISTS: List[] = [
   { id: "1", label: "Lista 1", stack: "Next.js", entries: list1 },
   ...(list2.length ? [{ id: "2", label: "Lista 2", stack: "Astro", entries: list2 }] : []),
+  ...(list3.length ? [{ id: "3", label: "Prospector", stack: "Astro", entries: list3 }] : []),
 ];
 
 export const metadata: Metadata = { title: "Directorio de rediseños" };

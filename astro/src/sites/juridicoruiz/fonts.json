@@ -1,0 +1,4 @@
+[
+  { "name": "Inria Serif", "cssVariable": "--f-juridicoruiz-display", "weights": [300, 400, 700], "fallbacks": ["Georgia", "serif"] },
+  { "name": "Atkinson Hyperlegible Next", "cssVariable": "--f-juridicoruiz-body", "weights": [400, 500, 700], "fallbacks": ["system-ui", "sans-serif"] }
+]
